@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "ngx-d3timeline": {
@@ -163,6 +163,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ngx-d3timeline"
+    }
+  },
+  "defaultProject": "ngx-d3timeline",
+  "cli": {
+    "analytics": "8ed8209e-4051-478e-a468-a88c564caca4"
+  }
 }
