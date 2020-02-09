@@ -24,17 +24,16 @@ steps:
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'test'
-
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      workingDir: './'
       customCommand: 'run build:lib'
 
   - task: Npm@1
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'run build -- --prod'
+      customCommand: 'test'
 
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'run build -- --prod'
