@@ -36,5 +36,5 @@ steps:
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'build -- --prod'
+      customCommand: 'run build -- --prod'
 
