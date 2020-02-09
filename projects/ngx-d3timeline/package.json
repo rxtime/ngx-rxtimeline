@@ -1,5 +1,5 @@
 {
-  "name": "@caci/ngx-d3timeline",
+  "name": "ngx-d3timeline",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^9.0.0",
