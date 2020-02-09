@@ -4,20 +4,21 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    npm test
-    ng build --prod
-  displayName: 'npm install, test and build'
+  - script: |
+      npm install -g @angular/cli
+      npm install
+      npm test
+      ng build @caci/ngx-d3timeline
+      ng build --prod
+    displayName: 'npm install, test and build'
