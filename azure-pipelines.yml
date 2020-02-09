@@ -15,10 +15,16 @@ steps:
       versionSpec: '10.x'
     displayName: 'Install Node.js'
 
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'test'
+
   - script: |
       npm install -g @angular/cli
       npm install
-      npm test
       ng build @caci/ngx-d3timeline
       ng build --prod
     displayName: 'npm install, test and build'
+
