@@ -1,7 +1,7 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
 - master
@@ -10,12 +10,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Npm@1
+- task: NodeTool@0
   inputs:
-    command: 'install'
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: './'
-    customCommand: 'test'
+- script: |
+    npm install -g @angular/cli
+    npm install
+    npm test
+    ng build --prod
+  displayName: 'npm install, test and build'
