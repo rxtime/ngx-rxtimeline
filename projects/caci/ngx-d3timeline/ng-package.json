@@ -3,5 +3,11 @@
   "dest": "../../../dist/caci/ngx-d3timeline",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "d3-array",
+    "d3-scale",
+    "d3-selection",
+    "d3-zoom"
+  ]
 }
