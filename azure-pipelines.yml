@@ -30,7 +30,7 @@ steps:
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'build:lib'
+      customCommand: 'run build:lib'
 
   - task: Npm@1
     inputs:
