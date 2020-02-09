@@ -123,6 +123,46 @@
           }
         }
       }
+    },
+    "@caci/ngx-d3timeline": {
+      "projectType": "library",
+      "root": "projects/caci/ngx-d3timeline",
+      "sourceRoot": "projects/caci/ngx-d3timeline/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/caci/ngx-d3timeline/tsconfig.lib.json",
+            "project": "projects/caci/ngx-d3timeline/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/caci/ngx-d3timeline/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/caci/ngx-d3timeline/src/test.ts",
+            "tsConfig": "projects/caci/ngx-d3timeline/tsconfig.spec.json",
+            "karmaConfig": "projects/caci/ngx-d3timeline/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/caci/ngx-d3timeline/tsconfig.lib.json",
+              "projects/caci/ngx-d3timeline/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ngx-d3timeline"
 }
