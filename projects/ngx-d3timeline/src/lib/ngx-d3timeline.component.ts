@@ -1,19 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-d3timeline',
+  selector: 'ngx-d3timeline',
   template: `
-    <p>
-      ngx-d3timeline works!
-    </p>
+    <svg></svg>
   `,
   styles: []
 })
 export class NgxD3timelineComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
