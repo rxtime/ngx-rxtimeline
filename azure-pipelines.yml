@@ -26,10 +26,15 @@ steps:
       workingDir: './'
       customCommand: 'test'
 
-  - script: |
-      npm install -g @angular/cli
-      npm install
-      ng build @caci/ngx-d3timeline
-      ng build --prod
-    displayName: 'npm install, test and build'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'build:lib'
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'build -- --prod'
 
