@@ -17,7 +17,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@caci/ngx-d3timeline": [
+        "dist/caci/ngx-d3timeline/caci-ngx-d3timeline",
+        "dist/caci/ngx-d3timeline"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
