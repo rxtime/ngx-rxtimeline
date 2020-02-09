@@ -24,13 +24,13 @@ steps:
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'test'
+      customCommand: 'run lint'
 
   - task: Npm@1
     inputs:
       command: 'custom'
       workingDir: './'
-      customCommand: 'run lint'
+      customCommand: 'test'
 
   - task: Npm@1
     inputs:
