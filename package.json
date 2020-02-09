@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build:lib": "ng build @caci/ngx-d3timeline",
     "build": "ng build",
     "test": "jest",
     "lint": "ng lint",
