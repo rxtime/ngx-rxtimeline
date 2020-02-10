@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { data } from './data';
+import { deliveryData } from './data';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,5 @@ import { data } from './data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data = data;
+  data = deliveryData;
 }
