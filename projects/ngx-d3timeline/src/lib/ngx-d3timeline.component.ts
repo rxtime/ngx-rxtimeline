@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TimelineEvent } from './timeline-event';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -7,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: []
 })
-export class NgxD3timelineComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class NgxD3timelineComponent {
+  @Input() data: TimelineEvent[];
 }
