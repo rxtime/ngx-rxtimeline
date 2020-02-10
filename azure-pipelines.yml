@@ -19,12 +19,24 @@ steps:
     inputs:
       command: 'install'
       workingDir: './'
+      
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'run lint'
 
   - task: Npm@1
     inputs:
       command: 'custom'
       workingDir: './'
       customCommand: 'run build:lib'
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: './'
+      customCommand: 'test'
 
   - task: Npm@1
     inputs:

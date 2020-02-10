@@ -8,9 +8,8 @@ describe('NgxD3timelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgxD3timelineComponent ]
-    })
-    .compileComponents();
+      declarations: [NgxD3timelineComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
