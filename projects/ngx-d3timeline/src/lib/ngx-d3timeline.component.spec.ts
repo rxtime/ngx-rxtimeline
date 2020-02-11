@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
+import { SeriesAxisComponent } from './axis/series-axis.component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
@@ -8,7 +9,7 @@ describe('NgxD3timelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NgxD3timelineComponent]
+      declarations: [NgxD3timelineComponent, SeriesAxisComponent]
     }).compileComponents();
   }));
 

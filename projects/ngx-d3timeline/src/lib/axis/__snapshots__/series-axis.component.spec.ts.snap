@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesAxisComponent should render correctly 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-series-axis=""
+>
+  <g
+    class="series-axis-group"
+  >
+    
+    <text
+      dy="-2"
+      transform="translate(116.66666666666667, 0)"
+    >
+       Series 1 
+    </text>
+    <text
+      dy="-2"
+      transform="translate(350, 0)"
+    >
+       Series 2 
+    </text>
+    <text
+      dy="-2"
+      transform="translate(583.3333333333334, 0)"
+    >
+       Series 3 
+    </text>
+    <line
+      class="series-axis-line"
+      x2="700"
+    />
+  </g>
+</div>
+`;

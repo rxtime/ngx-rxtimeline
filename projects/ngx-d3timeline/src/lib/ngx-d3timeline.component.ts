@@ -11,7 +11,12 @@ import { ScaleService } from './scale.service';
       [attr.height]="viewService.view.height"
       class="ngx-d3timeline"
     >
-      <g class="root-group" [attr.transform]="viewService.rootTransform"></g>
+      <g [attr.transform]="viewService.rootTransform">
+        <g
+          ngx-d3timeline-series-axis
+          [vm]="scaleService.seriesAxisVm$ | async"
+        ></g>
+      </g>
     </svg>
   `,
   styles: []
