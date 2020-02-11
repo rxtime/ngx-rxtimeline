@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { ViewService } from './view/view.service';
-import { ScaleService } from 'dist/ngx-d3timeline/lib/band-scale/scale.service';
+import { ScaleService } from './scale.service';
 
 @Component({
   selector: 'ngx-d3timeline',
