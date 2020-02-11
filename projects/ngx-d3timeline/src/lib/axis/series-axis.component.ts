@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SeriesAxisViewModel } from './serie-axis-view-model';
 
 @Component({
-  selector: 'g[ngx-d3timeline-series-axis]',
+  selector: '[ngx-d3timeline-series-axis]',
   template: `
     <svg:g class="series-axis-group">
       <text
