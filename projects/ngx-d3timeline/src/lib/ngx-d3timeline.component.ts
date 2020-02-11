@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { ViewService } from './view/view.service';
+import { ScaleService } from 'dist/ngx-d3timeline/lib/band-scale/scale.service';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -16,7 +17,12 @@ import { ViewService } from './view/view.service';
   styles: []
 })
 export class NgxD3timelineComponent {
-  @Input() data: TimelineEvent[];
+  @Input() set data(value: TimelineEvent[]) {
+    this.scaleService.setData(value);
+  }
 
-  constructor(public viewService: ViewService) {}
+  constructor(
+    public viewService: ViewService,
+    public scaleService: ScaleService
+  ) {}
 }
