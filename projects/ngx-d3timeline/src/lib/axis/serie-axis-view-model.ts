@@ -1,12 +1,12 @@
 import { ScaleBand, scaleBand } from 'd3-scale';
 import { TimelineEvent } from '../timeline-event';
-import { View } from '../view/view';
+import { TimelineView } from '../view/timeline-view';
 
 export class SeriesAxisViewModel {
   private readonly scaleBand: ScaleBand<string>;
 
-  constructor(data: TimelineEvent[], view: View) {
-    this.scaleBand = this.configureScaleBand(data, view);
+  constructor(data: TimelineEvent[], timelineView: TimelineView) {
+    this.scaleBand = this.configureScaleBand(data, timelineView);
   }
 
   get tickInfos(): { label: string; transform: string }[] {
@@ -24,10 +24,13 @@ export class SeriesAxisViewModel {
     return this.scaleBand.bandwidth();
   }
 
-  private configureScaleBand(data: TimelineEvent[], view: View) {
+  private configureScaleBand(
+    data: TimelineEvent[],
+    timelineView: TimelineView
+  ) {
     return scaleBand()
       .domain([...new Set(data.map(d => d.series))])
-      .range([0, view.width - view.margin]);
+      .range([timelineView.bounds.left, timelineView.bounds.right]);
   }
 
   private tickTransform(tick: string) {

@@ -7,8 +7,8 @@ import { ScaleService } from './scale.service';
   selector: 'ngx-d3timeline',
   template: `
     <svg
-      [attr.width]="viewService.view.width"
-      [attr.height]="viewService.view.height"
+      [attr.width]="viewService.timelineView.width"
+      [attr.height]="viewService.timelineView.height"
       class="ngx-d3timeline"
     >
       <g [attr.transform]="viewService.rootTransform">

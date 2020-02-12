@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { View } from './view';
+import { TimelineView } from './timeline-view';
 
 @Injectable({ providedIn: 'root' })
 export class ViewService {
-  view: View = {
-    width: 400,
-    height: 600,
-    margin: 50
-  };
+  timelineView: TimelineView = new TimelineView(400, 600, 50);
 
   get rootTransform() {
-    return `translate(${this.view.margin}, ${this.view.margin})`;
+    return `translate(${this.timelineView.margin}, ${this.timelineView.margin})`;
   }
 }

@@ -1,17 +1,13 @@
 import { SeriesAxisViewModel } from './serie-axis-view-model';
 import { timelineEventData } from '../timeline-event-data';
-import { View } from '../view/view';
+import { TimelineView } from '../view/timeline-view';
 
 describe('SeriesAxisViewModel', () => {
   let vm: SeriesAxisViewModel;
-  const view: View = {
-    height: 400,
-    width: 300,
-    margin: 50
-  };
+  const timelineView: TimelineView = new TimelineView(300, 400, 50);
 
   beforeEach(() => {
-    vm = new SeriesAxisViewModel(timelineEventData, view);
+    vm = new SeriesAxisViewModel(timelineEventData, timelineView);
   });
 
   it('should should return correct tickInfo', () => {
@@ -19,6 +15,6 @@ describe('SeriesAxisViewModel', () => {
   });
 
   it('should return correct rangeLimit', () => {
-    expect(vm.rangeLimit).toBe(view.width - view.margin);
+    expect(vm.rangeLimit).toBe(timelineView.bounds.right);
   });
 });

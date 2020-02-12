@@ -10,7 +10,7 @@ export class ScaleService {
   private dataSubject = new BehaviorSubject<TimelineEvent[]>(null);
 
   seriesAxisVm$ = this.dataSubject.pipe(
-    map(data => new SeriesAxisViewModel(data, this.viewService.view))
+    map(data => new SeriesAxisViewModel(data, this.viewService.timelineView))
   );
 
   constructor(private viewService: ViewService) {}
