@@ -1,10 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SeriesAxisComponent should render correctly 1`] = `
+exports[`SeriesAxisComponent should not render if view model is null 1`] = `
 <div
   id="root0"
   ngx-d3timeline-series-axis=""
 >
+  
+</div>
+`;
+
+exports[`SeriesAxisComponent should render correctly 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-series-axis=""
+>
+  
   <g
     class="series-axis-group"
   >

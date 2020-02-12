@@ -16,6 +16,15 @@ describe('SeriesAxisComponent', () => {
     fixture = TestBed.createComponent(SeriesAxisComponent);
   });
 
+  it('should not render if view model is null', () => {
+    const vm = null;
+    fixture.componentInstance.vm = vm;
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
+
   it('should render correctly', () => {
     const vm = new SeriesAxisViewModel(timelineEventData, timelineView);
     fixture.componentInstance.vm = vm;
