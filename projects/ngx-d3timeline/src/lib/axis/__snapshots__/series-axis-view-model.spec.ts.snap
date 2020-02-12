@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesAxisViewModel should return correct tickInfo 1`] = `
+Array [
+  Object {
+    "label": "Series 1",
+    "transform": "translate(41.666666666666664, 0)",
+  },
+  Object {
+    "label": "Series 2",
+    "transform": "translate(125, 0)",
+  },
+  Object {
+    "label": "Series 3",
+    "transform": "translate(208.33333333333331, 0)",
+  },
+]
+`;

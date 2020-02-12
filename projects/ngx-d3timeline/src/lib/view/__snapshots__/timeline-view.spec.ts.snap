@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineView should return correct bounds 1`] = `
+Object {
+  "bottom": 350,
+  "left": 0,
+  "right": 250,
+  "top": 0,
+}
+`;

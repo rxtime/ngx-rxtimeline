@@ -9,7 +9,6 @@
     ],
     "component-selector": [
       true,
-      "element",
       "ngx-d3timeline",
       "kebab-case"
     ]
