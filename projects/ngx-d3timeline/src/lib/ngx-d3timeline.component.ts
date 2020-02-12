@@ -13,8 +13,8 @@ import { AxisService } from './axis.service';
     >
       <g [attr.transform]="viewService.rootTransform">
         <g
-          ngx-d3timeline-series-axis
-          [vm]="axisService.seriesAxisVm$ | async"
+          ngx-d3timeline-resources-axis
+          [vm]="axisService.resourcesAxisVm$ | async"
         ></g>
       </g>
     </svg>

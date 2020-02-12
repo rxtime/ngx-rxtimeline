@@ -2,7 +2,7 @@ import { ScaleBand, scaleBand } from 'd3-scale';
 import { TimelineEvent } from '../timeline-event';
 import { TimelineView } from '../view/timeline-view';
 
-export class SeriesAxisViewModel {
+export class ResourcesAxisViewModel {
   private readonly scaleBand: ScaleBand<string>;
 
   constructor(data: TimelineEvent[], timelineView: TimelineView) {

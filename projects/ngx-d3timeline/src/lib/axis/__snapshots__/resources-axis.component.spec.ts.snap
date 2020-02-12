@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SeriesAxisComponent should not render if view model is null 1`] = `
+exports[`ResourcesAxisComponent should not render if view model is null 1`] = `
 <div
   id="root0"
-  ngx-d3timeline-series-axis=""
+  ngx-d3timeline-resources-axis=""
 >
   
 </div>
 `;
 
-exports[`SeriesAxisComponent should render correctly 1`] = `
+exports[`ResourcesAxisComponent should render correctly 1`] = `
 <div
   id="root1"
-  ngx-d3timeline-series-axis=""
+  ngx-d3timeline-resources-axis=""
 >
   
   <g
-    class="series-axis-group"
+    class="resources-axis-group"
   >
     
     <text
@@ -38,7 +38,7 @@ exports[`SeriesAxisComponent should render correctly 1`] = `
        Series 3 
     </text>
     <line
-      class="series-axis-line"
+      class="resources-axis-line"
       x2="700"
     />
   </g>
