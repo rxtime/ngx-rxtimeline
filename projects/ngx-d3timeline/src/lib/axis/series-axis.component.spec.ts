@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { SeriesAxisComponent } from './series-axis.component';
 import { SeriesAxisViewModel } from './serie-axis-view-model';
-import { timelineEventData } from '../timeline-event-data';
+import { mockData } from '../mock-data';
 import { TimelineView } from '../view/timeline-view';
 
 describe('SeriesAxisComponent', () => {
@@ -26,7 +26,7 @@ describe('SeriesAxisComponent', () => {
   });
 
   it('should render correctly', () => {
-    const vm = new SeriesAxisViewModel(timelineEventData, timelineView);
+    const vm = new SeriesAxisViewModel(mockData, timelineView);
     fixture.componentInstance.vm = vm;
 
     fixture.detectChanges();

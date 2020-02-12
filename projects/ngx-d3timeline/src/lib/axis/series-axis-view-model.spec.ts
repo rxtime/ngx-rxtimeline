@@ -1,5 +1,5 @@
 import { SeriesAxisViewModel } from './serie-axis-view-model';
-import { timelineEventData } from '../timeline-event-data';
+import { mockData } from '../mock-data';
 import { TimelineView } from '../view/timeline-view';
 
 describe('SeriesAxisViewModel', () => {
@@ -7,7 +7,7 @@ describe('SeriesAxisViewModel', () => {
   const timelineView: TimelineView = new TimelineView(300, 400, 50);
 
   beforeEach(() => {
-    vm = new SeriesAxisViewModel(timelineEventData, timelineView);
+    vm = new SeriesAxisViewModel(mockData, timelineView);
   });
 
   it('should return correct tickInfo', () => {

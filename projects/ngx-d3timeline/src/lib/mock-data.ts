@@ -1,6 +1,6 @@
 import { TimelineEvent } from './timeline-event';
 
-export const timelineEventData: TimelineEvent[] = [
+export const mockData: TimelineEvent[] = [
   {
     id: 1,
     start: new Date('2017-09-23T08:45:00'),
