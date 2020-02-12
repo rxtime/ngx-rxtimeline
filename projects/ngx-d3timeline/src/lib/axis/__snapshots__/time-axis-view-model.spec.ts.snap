@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeAxisViewModel should return correct tickInfo 1`] = `
+Array [
+  Object {
+    "label": "06 AM",
+    "transform": "translate(0,20.40132751521111)",
+  },
+  Object {
+    "label": "09 AM",
+    "transform": "translate(0,53.58920779300596)",
+  },
+  Object {
+    "label": "12 PM",
+    "transform": "translate(0,86.77708807080081)",
+  },
+  Object {
+    "label": "03 PM",
+    "transform": "translate(0,119.96496834859565)",
+  },
+  Object {
+    "label": "06 PM",
+    "transform": "translate(0,153.1528486263905)",
+  },
+  Object {
+    "label": "09 PM",
+    "transform": "translate(0,186.34072890418534)",
+  },
+  Object {
+    "label": "Sat 23",
+    "transform": "translate(0,219.52860918198022)",
+  },
+  Object {
+    "label": "03 AM",
+    "transform": "translate(0,252.71648945977506)",
+  },
+  Object {
+    "label": "06 AM",
+    "transform": "translate(0,285.9043697375699)",
+  },
+  Object {
+    "label": "09 AM",
+    "transform": "translate(0,319.09225001536475)",
+  },
+]
+`;
