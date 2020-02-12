@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeAxisComponent should not render if view model is null 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-time-axis=""
+>
+  
+</div>
+`;
+
+exports[`TimeAxisComponent should render correctly 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-time-axis=""
+>
+  
+  <g
+    class="time-axis-group"
+  >
+    
+    <g
+      transform="translate(0,20.40132751521111)"
+    >
+      <text
+        dx="-7"
+      >
+         06 AM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,53.58920779300596)"
+    >
+      <text
+        dx="-7"
+      >
+         09 AM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,86.77708807080081)"
+    >
+      <text
+        dx="-7"
+      >
+         12 PM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,119.96496834859565)"
+    >
+      <text
+        dx="-7"
+      >
+         03 PM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,153.1528486263905)"
+    >
+      <text
+        dx="-7"
+      >
+         06 PM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,186.34072890418534)"
+    >
+      <text
+        dx="-7"
+      >
+         09 PM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,219.52860918198022)"
+    >
+      <text
+        dx="-7"
+      >
+         Sat 23 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,252.71648945977506)"
+    >
+      <text
+        dx="-7"
+      >
+         03 AM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,285.9043697375699)"
+    >
+      <text
+        dx="-7"
+      >
+         06 AM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <g
+      transform="translate(0,319.09225001536475)"
+    >
+      <text
+        dx="-7"
+      >
+         09 AM 
+      </text>
+      <line
+        x2="-5"
+      />
+    </g>
+    <line
+      y2="350"
+    />
+  </g>
+</div>
+`;
