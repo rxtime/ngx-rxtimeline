@@ -20,10 +20,10 @@ import { ResourcesAxisViewModel } from './resources-axis-view-model';
   `,
   styles: [
     `
-      .series-axis-group {
+      .resources-axis-group {
         text-anchor: middle;
       }
-      .series-axis-line {
+      .resources-axis-line {
         stroke: #000;
       }
     `
