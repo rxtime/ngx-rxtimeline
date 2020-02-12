@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { SeriesAxisViewModel } from './serie-axis-view-model';
+import { ResourcesAxisViewModel } from './resources-axis-view-model';
 
 @Component({
-  selector: '[ngx-d3timeline-series-axis]',
+  selector: '[ngx-d3timeline-resources-axis]',
   template: `
-    <svg:g class="series-axis-group" *ngIf="vm">
+    <svg:g class="resources-axis-group" *ngIf="vm">
       <text
         *ngFor="let tickInfo of vm.tickInfos"
         [attr.transform]="tickInfo.transform"
@@ -12,7 +12,10 @@ import { SeriesAxisViewModel } from './serie-axis-view-model';
       >
         {{ tickInfo.label }}
       </text>
-      <svg:line class="series-axis-line" [attr.x2]="vm.rangeLimit"></svg:line>
+      <svg:line
+        class="resources-axis-line"
+        [attr.x2]="vm.rangeLimit"
+      ></svg:line>
     </svg:g>
   `,
   styles: [
@@ -26,6 +29,6 @@ import { SeriesAxisViewModel } from './serie-axis-view-model';
     `
   ]
 })
-export class SeriesAxisComponent {
-  @Input() vm: SeriesAxisViewModel;
+export class ResourcesAxisComponent {
+  @Input() vm: ResourcesAxisViewModel;
 }

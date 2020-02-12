@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SeriesAxisViewModel should return correct tickInfo 1`] = `
+exports[`ResourcesAxisViewModel should return correct tickInfo 1`] = `
 Array [
   Object {
     "label": "Series 1",
