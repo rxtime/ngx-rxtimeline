@@ -34,7 +34,10 @@ export class SeriesAxisViewModel {
   }
 
   private tickTransform(tick: string) {
-    return `translate(${this.scaleBand(tick) +
-      this.scaleBand.bandwidth() / 2}, 0)`;
+    return `translate(${this.getBandMidPoint(tick)}, 0)`;
+  }
+
+  private getBandMidPoint(tick: string) {
+    return this.scaleBand(tick) + this.scaleBand.bandwidth() / 2;
   }
 }
