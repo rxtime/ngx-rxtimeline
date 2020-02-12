@@ -6,7 +6,7 @@ import { SeriesAxisViewModel } from './axis/serie-axis-view-model';
 import { ViewService } from './view/view.service';
 
 @Injectable({ providedIn: 'root' })
-export class ScaleService {
+export class AxisService {
   private dataSubject = new BehaviorSubject<TimelineEvent[]>(null);
 
   seriesAxisVm$ = this.dataSubject.pipe(

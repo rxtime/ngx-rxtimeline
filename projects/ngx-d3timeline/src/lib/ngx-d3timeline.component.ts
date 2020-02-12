@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { ViewService } from './view/view.service';
-import { ScaleService } from './scale.service';
+import { AxisService } from './axis.service';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -14,7 +14,7 @@ import { ScaleService } from './scale.service';
       <g [attr.transform]="viewService.rootTransform">
         <g
           ngx-d3timeline-series-axis
-          [vm]="scaleService.seriesAxisVm$ | async"
+          [vm]="axisService.seriesAxisVm$ | async"
         ></g>
       </g>
     </svg>
@@ -23,11 +23,11 @@ import { ScaleService } from './scale.service';
 })
 export class NgxD3timelineComponent {
   @Input() set data(value: TimelineEvent[]) {
-    this.scaleService.setData(value);
+    this.axisService.setData(value);
   }
 
   constructor(
     public viewService: ViewService,
-    public scaleService: ScaleService
+    public axisService: AxisService
   ) {}
 }
