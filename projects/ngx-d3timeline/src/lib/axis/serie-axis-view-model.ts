@@ -9,10 +9,10 @@ export class SeriesAxisViewModel {
     this.bandscale = this.createBandscale(data, view);
   }
 
-  get tickInfo(): { tick: string; tickTransform: string }[] {
+  get tickInfos(): { label: string; transform: string }[] {
     return this.bandscale.domain().map(tick => ({
-      tick,
-      tickTransform: this.tickTransform(tick)
+      label: tick,
+      transform: this.tickTransform(tick)
     }));
   }
 

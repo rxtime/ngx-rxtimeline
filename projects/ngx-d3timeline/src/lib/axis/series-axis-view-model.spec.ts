@@ -15,7 +15,7 @@ describe('SeriesAxisViewModel', () => {
   });
 
   it('should should return correct tickInfo', () => {
-    expect(vm.tickInfo).toMatchSnapshot();
+    expect(vm.tickInfos).toMatchSnapshot();
   });
 
   it('should return correct rangeLimit', () => {

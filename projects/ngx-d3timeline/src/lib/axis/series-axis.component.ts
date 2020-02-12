@@ -6,11 +6,11 @@ import { SeriesAxisViewModel } from './serie-axis-view-model';
   template: `
     <svg:g class="series-axis-group">
       <text
-        *ngFor="let tickInfo of vm?.tickInfo"
-        [attr.transform]="tickInfo.tickTransform"
+        *ngFor="let tickInfo of vm?.tickInfos"
+        [attr.transform]="tickInfo.transform"
         dy="-2"
       >
-        {{ tickInfo.tick }}
+        {{ tickInfo.label }}
       </text>
       <svg:line class="series-axis-line" [attr.x2]="vm?.rangeLimit"></svg:line>
     </svg:g>
