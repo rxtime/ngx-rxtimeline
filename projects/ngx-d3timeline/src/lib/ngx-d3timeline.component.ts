@@ -7,8 +7,9 @@ import { AxisService } from './axis.service';
   selector: 'ngx-d3timeline',
   template: `
     <svg
-      [attr.width]="viewService.timelineView.width"
-      [attr.height]="viewService.timelineView.height"
+      *ngIf="viewService.view$ | async as view"
+      [attr.width]="view.width"
+      [attr.height]="view.height"
       class="ngx-d3timeline"
     >
       <g [attr.transform]="viewService.rootTransform">
@@ -25,6 +26,10 @@ import { AxisService } from './axis.service';
 export class NgxD3timelineComponent {
   @Input() set data(value: TimelineEvent[]) {
     this.axisService.setData(value);
+  }
+
+  @Input() set view([width, height]: [number, number]) {
+    this.viewService.setView([width, height]);
   }
 
   constructor(

@@ -1,1 +1,11 @@
-<ngx-d3timeline [data]="data"></ngx-d3timeline>
+<ngx-d3timeline [data]="data" [view]="[width, height]"></ngx-d3timeline>
+
+<div>
+  <label>Width</label>
+  <input [(ngModel)]="width" />
+</div>
+
+<div>
+  <label>Height</label>
+  <input [(ngModel)]="height" />
+</div>

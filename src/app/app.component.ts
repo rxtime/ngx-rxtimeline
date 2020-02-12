@@ -8,4 +8,7 @@ import { deliveryData } from './data';
 })
 export class AppComponent {
   data = deliveryData;
+
+  width = 400;
+  height = 600;
 }
