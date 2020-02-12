@@ -10,7 +10,7 @@ describe('SeriesAxisViewModel', () => {
     vm = new SeriesAxisViewModel(timelineEventData, timelineView);
   });
 
-  it('should should return correct tickInfo', () => {
+  it('should return correct tickInfo', () => {
     expect(vm.tickInfos).toMatchSnapshot();
   });
 
