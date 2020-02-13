@@ -3,6 +3,7 @@ import { TimeAxisComponent } from './time-axis.component';
 import { TimelineView } from '../view/timeline-view';
 import { TimeAxisViewModel } from './time-axis-view-model';
 import { mockData } from '../mock-data';
+import { Orientation } from '../orientation';
 
 describe('TimeAxisComponent', () => {
   let fixture: ComponentFixture<TimeAxisComponent>;
@@ -24,15 +25,33 @@ describe('TimeAxisComponent', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
-  it('should render correctly', () => {
-    fixture.componentInstance.vm = new TimeAxisViewModel(
-      mockData,
-      timelineView,
-      null
-    );
+  describe('when Vertical', () => {
+    it('should render correctly', () => {
+      fixture.componentInstance.vm = new TimeAxisViewModel(
+        mockData,
+        timelineView,
+        null,
+        Orientation.Vertical
+      );
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    expect(fixture.nativeElement).toMatchSnapshot();
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+  });
+
+  describe('when Horizontal', () => {
+    it('should render correctly', () => {
+      fixture.componentInstance.vm = new TimeAxisViewModel(
+        mockData,
+        timelineView,
+        null,
+        Orientation.Horizontal
+      );
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
   });
 });

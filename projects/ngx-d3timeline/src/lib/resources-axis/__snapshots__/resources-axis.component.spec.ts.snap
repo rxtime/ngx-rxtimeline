@@ -9,7 +9,43 @@ exports[`ResourcesAxisComponent should not render if view model is null 1`] = `
 </div>
 `;
 
-exports[`ResourcesAxisComponent should render correctly 1`] = `
+exports[`ResourcesAxisComponent when Horizontal should render correctly 1`] = `
+<div
+  id="root2"
+  ngx-d3timeline-resources-axis=""
+>
+  
+  <g
+    class="resources-axis-group"
+  >
+    
+    <text
+      dy="-2"
+      transform="translate(0, 83.33333333333333)"
+    >
+       Series 1 
+    </text>
+    <text
+      dy="-2"
+      transform="translate(0, 250)"
+    >
+       Series 2 
+    </text>
+    <text
+      dy="-2"
+      transform="translate(0, 416.66666666666663)"
+    >
+       Series 3 
+    </text>
+    <line
+      class="resources-axis-line"
+      x2="500"
+    />
+  </g>
+</div>
+`;
+
+exports[`ResourcesAxisComponent when Vertical should render correctly 1`] = `
 <div
   id="root1"
   ngx-d3timeline-resources-axis=""
