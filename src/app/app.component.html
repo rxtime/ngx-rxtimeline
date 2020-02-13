@@ -1,4 +1,8 @@
-<ngx-d3timeline [data]="data" [view]="[width, height]"></ngx-d3timeline>
+<ngx-d3timeline
+  [data]="data"
+  [view]="[width, height]"
+  [orientation]="orientation"
+></ngx-d3timeline>
 
 <div>
   <label>Width</label>
@@ -9,3 +13,6 @@
   <label>Height</label>
   <input [(ngModel)]="height" />
 </div>
+
+<button (click)="orientation = 'Vertical'">Vertical</button>
+<button (click)="orientation = 'Horizontal'">Horizontal</button>

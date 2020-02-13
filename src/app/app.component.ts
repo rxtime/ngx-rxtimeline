@@ -8,7 +8,8 @@ import { deliveryData } from './data';
 })
 export class AppComponent {
   data = deliveryData;
+  orientation = 'Vertical';
 
   width = 400;
-  height = 600;
+  height = 400;
 }
