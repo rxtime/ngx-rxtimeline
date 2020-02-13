@@ -11,6 +11,8 @@ import { AxisService } from './axis.service';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { EventService } from './event.service';
+import { Orientation } from './orientation';
+import { OptionsService } from './options.service';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -42,12 +44,17 @@ export class NgxD3timelineComponent implements AfterViewInit {
     this.viewService.setView([width, height]);
   }
 
+  @Input() set orientation(value: Orientation) {
+    this.optionsService.setOrientation(value);
+  }
+
   @ViewChild('svgEl') svgEl: ElementRef;
 
   constructor(
     public viewService: ViewService,
     public axisService: AxisService,
-    private eventService: EventService
+    private eventService: EventService,
+    private optionsService: OptionsService
   ) {}
 
   ngAfterViewInit(): void {
