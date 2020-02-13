@@ -1,6 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResourcesAxisViewModel should return correct tickInfo 1`] = `
+exports[`ResourcesAxisViewModel when Horizontal should return correct tickInfo 1`] = `
+Array [
+  Object {
+    "label": "Series 1",
+    "transform": "translate(0, 58.333333333333336)",
+  },
+  Object {
+    "label": "Series 2",
+    "transform": "translate(0, 175)",
+  },
+  Object {
+    "label": "Series 3",
+    "transform": "translate(0, 291.6666666666667)",
+  },
+]
+`;
+
+exports[`ResourcesAxisViewModel when Vertical should return correct tickInfo 1`] = `
 Array [
   Object {
     "label": "Series 1",
