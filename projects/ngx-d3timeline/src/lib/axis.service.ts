@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
 import { TimelineEvent } from './timeline-event';
-import { ResourcesAxisViewModel } from './axis/resources-axis-view-model';
+import { ResourcesAxisViewModel } from './resources-axis/resources-axis-view-model';
 import { ViewService } from './view/view.service';
-import { TimeAxisViewModel } from './axis/time-axis-view-model';
+import { TimeAxisViewModel } from './time-axis/time-axis-view-model';
 import { EventService } from './event.service';
 
 @Injectable({ providedIn: 'root' })
