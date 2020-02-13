@@ -7,7 +7,7 @@ describe('TimeAxisViewModel', () => {
   const timelineView: TimelineView = new TimelineView(300, 400, 50);
 
   beforeEach(() => {
-    vm = new TimeAxisViewModel(mockData, timelineView);
+    vm = new TimeAxisViewModel(mockData, timelineView, null);
   });
 
   it('should return correct tickInfo', () => {

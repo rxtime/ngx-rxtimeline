@@ -27,7 +27,8 @@ describe('TimeAxisComponent', () => {
   it('should render correctly', () => {
     fixture.componentInstance.vm = new TimeAxisViewModel(
       mockData,
-      timelineView
+      timelineView,
+      null
     );
 
     fixture.detectChanges();

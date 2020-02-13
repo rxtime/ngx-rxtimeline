@@ -1,12 +1,22 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { ViewService } from './view/view.service';
 import { AxisService } from './axis.service';
+import { zoom } from 'd3-zoom';
+import { select, event } from 'd3-selection';
+import { EventService } from './event.service';
 
 @Component({
   selector: 'ngx-d3timeline',
   template: `
     <svg
+      #svgEl
       *ngIf="viewService.view$ | async as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
@@ -23,7 +33,7 @@ import { AxisService } from './axis.service';
   `,
   styles: []
 })
-export class NgxD3timelineComponent {
+export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set data(value: TimelineEvent[]) {
     this.axisService.setData(value);
   }
@@ -32,8 +42,18 @@ export class NgxD3timelineComponent {
     this.viewService.setView([width, height]);
   }
 
+  @ViewChild('svgEl') svgEl: ElementRef;
+
   constructor(
     public viewService: ViewService,
-    public axisService: AxisService
+    public axisService: AxisService,
+    private eventService: EventService
   ) {}
+
+  ngAfterViewInit(): void {
+    if (this.svgEl) {
+      const onZoom = zoom().on('zoom', () => this.eventService.onEvent(event));
+      onZoom(select(this.svgEl.nativeElement));
+    }
+  }
 }
