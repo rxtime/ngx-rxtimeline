@@ -19,7 +19,6 @@ steps:
     inputs:
       command: 'install'
       workingDir: './'
-      
   - task: Npm@1
     inputs:
       command: 'custom'
@@ -31,12 +30,6 @@ steps:
       command: 'custom'
       workingDir: './'
       customCommand: 'run build:lib'
-
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      workingDir: './'
-      customCommand: 'test'
 
   - task: Npm@1
     inputs:
