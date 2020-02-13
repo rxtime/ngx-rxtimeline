@@ -1,11 +1,16 @@
 import { ScaleBand, scaleBand } from 'd3-scale';
 import { TimelineEvent } from '../timeline-event';
 import { TimelineView } from '../view/timeline-view';
+import { Orientation } from '../orientation';
 
 export class ResourcesAxisViewModel {
   private readonly scaleBand: ScaleBand<string>;
 
-  constructor(data: TimelineEvent[], timelineView: TimelineView) {
+  constructor(
+    data: TimelineEvent[],
+    timelineView: TimelineView,
+    private readonly orientation: Orientation
+  ) {
     this.scaleBand = this.configureScaleBand(data, timelineView);
   }
 
@@ -30,11 +35,19 @@ export class ResourcesAxisViewModel {
   ) {
     return scaleBand()
       .domain([...new Set(data.map(d => d.series))])
-      .range([timelineView.bounds.left, timelineView.bounds.right]);
+      .range(this.getRange(timelineView.bounds));
+  }
+
+  private getRange(bounds: any) {
+    return this.orientation === Orientation.Vertical
+      ? [bounds.left, bounds.right]
+      : [bounds.top, bounds.bottom];
   }
 
   private tickTransform(tick: string) {
-    return `translate(${this.getBandMidPoint(tick)}, 0)`;
+    return this.orientation === Orientation.Vertical
+      ? `translate(${this.getBandMidPoint(tick)}, 0)`
+      : `translate(0, ${this.getBandMidPoint(tick)})`;
   }
 
   private getBandMidPoint(tick: string) {

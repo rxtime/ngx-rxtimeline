@@ -3,6 +3,7 @@ import { ResourcesAxisComponent } from './resources-axis.component';
 import { ResourcesAxisViewModel } from './resources-axis-view-model';
 import { mockData } from '../mock-data';
 import { TimelineView } from '../view/timeline-view';
+import { Orientation } from '../orientation';
 
 describe('ResourcesAxisComponent', () => {
   let fixture: ComponentFixture<ResourcesAxisComponent>;
@@ -25,12 +26,33 @@ describe('ResourcesAxisComponent', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
-  it('should render correctly', () => {
-    const vm = new ResourcesAxisViewModel(mockData, timelineView);
-    fixture.componentInstance.vm = vm;
+  describe('when Vertical', () => {
+    it('should render correctly', () => {
+      const vm = new ResourcesAxisViewModel(
+        mockData,
+        timelineView,
+        Orientation.Vertical
+      );
+      fixture.componentInstance.vm = vm;
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    expect(fixture.nativeElement).toMatchSnapshot();
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+  });
+
+  describe('when Horizontal', () => {
+    it('should render correctly', () => {
+      const vm = new ResourcesAxisViewModel(
+        mockData,
+        timelineView,
+        Orientation.Horizontal
+      );
+      fixture.componentInstance.vm = vm;
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
   });
 });
