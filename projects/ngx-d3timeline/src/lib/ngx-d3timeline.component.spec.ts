@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
-import { ResourcesAxisComponent } from './axis/resources-axis.component';
-import { TimeAxisComponent } from './axis/time-axis.component';
+import { ResourcesAxisComponent } from './resources-axis/resources-axis.component';
+import { TimeAxisComponent } from './time-axis/time-axis.component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
