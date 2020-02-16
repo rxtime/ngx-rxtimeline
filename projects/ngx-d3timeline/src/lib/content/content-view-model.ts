@@ -16,25 +16,24 @@ export class ContentViewModel {
   }
 
   rectHeight(data: TimelineEvent) {
-    return this.orientation == Orientation.Vertical
+    return this.orientation === Orientation.Vertical
       ? this.rectTimeBreadth(data)
       : this.rectResourceBreadth;
   }
 
   rectWidth(data: TimelineEvent) {
-    return this.orientation == Orientation.Vertical
+    return this.orientation === Orientation.Vertical
       ? this.rectResourceBreadth
       : this.rectTimeBreadth(data);
   }
-
   private getEventX(data: TimelineEvent) {
-    return this.orientation == Orientation.Vertical
+    return this.orientation === Orientation.Vertical
       ? this.positionInResourceAxis(data)
       : this.positionInTimeAxis(data);
   }
 
   private getEventY(data: TimelineEvent) {
-    return this.orientation == Orientation.Vertical
+    return this.orientation === Orientation.Vertical
       ? this.positionInTimeAxis(data)
       : this.positionInResourceAxis(data);
   }
