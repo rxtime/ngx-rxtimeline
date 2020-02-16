@@ -38,7 +38,7 @@ export class ResourcesAxisViewModel {
       .range(this.getRange(timelineView.bounds));
   }
 
-  private getRange(bounds: any) {
+  private getRange(bounds: any): [number, number] {
     return this.orientation === Orientation.Vertical
       ? [bounds.left, bounds.right]
       : [bounds.top, bounds.bottom];
