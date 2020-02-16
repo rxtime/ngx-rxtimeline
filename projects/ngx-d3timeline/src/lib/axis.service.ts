@@ -35,8 +35,7 @@ export class AxisService {
           const contentVm = new ContentViewModel(
             data,
             timeAxisVm,
-            resourceAxisVm,
-            orientation
+            resourceAxisVm
           );
           return {
             resourceAxisVm,

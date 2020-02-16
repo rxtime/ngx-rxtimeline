@@ -7,8 +7,7 @@ export class ContentViewModel {
   constructor(
     readonly data: TimelineEvent[],
     private timeAxisVm: TimeAxisViewModel,
-    private resourcesAxisVm: ResourcesAxisViewModel,
-    orientation: Orientation
+    private resourcesAxisVm: ResourcesAxisViewModel
   ) {}
 
   dataTransform(data: TimelineEvent) {
