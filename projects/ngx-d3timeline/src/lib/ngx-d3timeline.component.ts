@@ -26,10 +26,7 @@ import { DataService } from './data.service';
       class="ngx-d3timeline"
     >
       <g [attr.transform]="viewService.rootTransform">
-        <g
-          ngx-d3timeline-resources-axis
-          [vm]="axisService.resourcesAxisVm$ | async"
-        ></g>
+        <g ngx-d3timeline-resources-axis></g>
         <g ngx-d3timeline-time-axis></g>
         <g ngx-d3timeline-content [vm]="axisService.contentVm$ | async"></g>
       </g>
