@@ -12,15 +12,7 @@ export class ContentViewModel {
   ) {}
 
   dataTransform(data: TimelineEvent) {
-    if (this.orientation == Orientation.Vertical) {
-      return `translate(${this.resourcesAxisVm.mapToPixel(
-        data.series
-      )}, ${this.timeAxisVm.mapToPixel(data.start)})`;
-    } else {
-      return `translate(${this.timeAxisVm.mapToPixel(
-        data.start
-      )}, ${this.resourcesAxisVm.mapToPixel(data.series)})`;
-    }
+    return `translate(${this.getEventX(data)}, ${this.getEventY(data)})`;
   }
 
   rectHeight(data: TimelineEvent) {
@@ -35,14 +27,34 @@ export class ContentViewModel {
       : this.rectTimeBreadth(data);
   }
 
-  private rectTimeBreadth(data: TimelineEvent) {
+  private getEventX(data: TimelineEvent) {
+    return this.orientation == Orientation.Vertical
+      ? this.positionInResourceAxis(data)
+      : this.positionInTimeAxis(data);
+  }
+
+  private getEventY(data: TimelineEvent) {
+    return this.orientation == Orientation.Vertical
+      ? this.positionInTimeAxis(data)
+      : this.positionInResourceAxis(data);
+  }
+
+  private positionInResourceAxis(data: TimelineEvent): number {
+    return this.resourcesAxisVm.mapToPixel(data.series);
+  }
+
+  private positionInTimeAxis(data: TimelineEvent): number {
+    return this.timeAxisVm.mapToPixel(data.start);
+  }
+
+  private rectTimeBreadth(data: TimelineEvent): number {
     return (
       this.timeAxisVm.mapToPixel(data.finish) -
       this.timeAxisVm.mapToPixel(data.start)
     );
   }
 
-  private get rectResourceBreadth() {
+  private get rectResourceBreadth(): number {
     return this.resourcesAxisVm.bandwidth;
   }
 }
