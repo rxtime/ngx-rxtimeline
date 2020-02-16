@@ -23,14 +23,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(0, 316.3265933255485)"
     >
       <rect
-        fill="none"
         height="33.673406674451485"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -39,14 +36,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(0, 0)"
     >
       <rect
-        fill="none"
         height="49.78182041669228"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -55,14 +49,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(0, 49.78182041669228)"
     >
       <rect
-        fill="none"
         height="8.296970069448712"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         DriveBreak
       </text>
@@ -71,14 +62,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(83.33333333333333, 64.65183455227091)"
     >
       <rect
-        fill="none"
         height="1.5702784094401068"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -87,14 +75,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(83.33333333333333, 56.3548644828222)"
     >
       <rect
-        fill="none"
         height="0.23354434269558766"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Waiting
       </text>
@@ -103,14 +88,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(83.33333333333333, 106.13668489951448)"
     >
       <rect
-        fill="none"
         height="12.43623624854034"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -119,14 +101,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(166.66666666666666, 316.3265933255485)"
     >
       <rect
-        fill="none"
         height="33.673406674451485"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -135,14 +114,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(166.66666666666666, 0)"
     >
       <rect
-        fill="none"
         height="49.78182041669228"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -151,14 +127,11 @@ exports[`ContentComponent when Horizontal should render correctly 1`] = `
       transform="translate(166.66666666666666, 49.78182041669228)"
     >
       <rect
-        fill="none"
         height="8.296970069448712"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         DriveBreak
       </text>
@@ -181,14 +154,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(0, 316.3265933255485)"
     >
       <rect
-        fill="none"
         height="33.673406674451485"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -197,14 +167,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(0, 0)"
     >
       <rect
-        fill="none"
         height="49.78182041669228"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -213,14 +180,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(0, 49.78182041669228)"
     >
       <rect
-        fill="none"
         height="8.296970069448712"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         DriveBreak
       </text>
@@ -229,14 +193,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(83.33333333333333, 64.65183455227091)"
     >
       <rect
-        fill="none"
         height="1.5702784094401068"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -245,14 +206,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(83.33333333333333, 56.3548644828222)"
     >
       <rect
-        fill="none"
         height="0.23354434269558766"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Waiting
       </text>
@@ -261,14 +219,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(83.33333333333333, 106.13668489951448)"
     >
       <rect
-        fill="none"
         height="12.43623624854034"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -277,14 +232,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(166.66666666666666, 316.3265933255485)"
     >
       <rect
-        fill="none"
         height="33.673406674451485"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -293,14 +245,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(166.66666666666666, 0)"
     >
       <rect
-        fill="none"
         height="49.78182041669228"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         Driving
       </text>
@@ -309,14 +258,11 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
       transform="translate(166.66666666666666, 49.78182041669228)"
     >
       <rect
-        fill="none"
         height="8.296970069448712"
-        stroke="#000"
         width="83.33333333333333"
       />
       <text
         dy="1em"
-        font-size="10px"
       >
         DriveBreak
       </text>

@@ -9,16 +9,26 @@ import { ContentViewModel } from './content-view-model';
         *ngFor="let event of vm.data"
         [attr.transform]="vm.dataTransform(event)"
       >
-        <rect
+        <svg:rect
           [attr.height]="vm.rectHeight(event)"
           [attr.width]="vm.bandwidth"
-          fill="none"
-          stroke="#000"
-        ></rect>
-        <text font-size="10px" dy="1em">{{ event.type }}</text>
+        ></svg:rect>
+        <svg:text dy="1em">{{ event.type }}</svg:text>
       </svg:g>
     </svg:g>
-  `
+  `,
+  styles: [
+    `
+      .content-group {
+        font-size: 10px;
+      }
+
+      rect {
+        fill: none;
+        stroke: #000;
+      }
+    `
+  ]
 })
 export class ContentComponent {
   @Input() vm: ContentViewModel;
