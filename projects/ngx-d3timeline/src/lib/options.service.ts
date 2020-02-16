@@ -13,4 +13,10 @@ export class OptionsService {
   setOrientation(orientation: Orientation) {
     this.orientationSubject.next(orientation);
   }
+
+  tickTransform(range: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical
+      ? `translate(0,${range})`
+      : `translate(${range}, 0)`;
+  }
 }
