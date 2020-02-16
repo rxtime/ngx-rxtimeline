@@ -30,7 +30,7 @@ import { DataService } from './data.service';
           ngx-d3timeline-resources-axis
           [vm]="axisService.resourcesAxisVm$ | async"
         ></g>
-        <g ngx-d3timeline-time-axis [vm]="axisService.timeAxisVm$ | async"></g>
+        <g ngx-d3timeline-time-axis></g>
         <g ngx-d3timeline-content [vm]="axisService.contentVm$ | async"></g>
       </g>
     </svg>
