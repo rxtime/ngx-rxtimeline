@@ -47,12 +47,16 @@ export class TimeAxisViewModel {
 
   private tickTransform(tick: Date) {
     return this.orientation === Orientation.Vertical
-      ? `translate(0,${this.scaleTime(tick)})`
-      : `translate(${this.scaleTime(tick)}, 0)`;
+      ? `translate(0,${this.mapToPixel(tick)})`
+      : `translate(${this.mapToPixel(tick)}, 0)`;
   }
   private getTransformedScale(scale: ScaleTime<number, number>, event: any) {
     return this.orientation === Orientation.Vertical
       ? event.transform.rescaleY(scale)
       : event.transform.rescaleX(scale);
+  }
+
+  mapToPixel(domain: Date): number {
+    return this.scaleTime(domain);
   }
 }

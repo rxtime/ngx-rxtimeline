@@ -7,6 +7,7 @@ import { ViewService } from './view/view.service';
 import { TimeAxisViewModel } from './time-axis/time-axis-view-model';
 import { EventService } from './event.service';
 import { OptionsService } from './options.service';
+import { ContentViewModel } from './content/content-view-model';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -19,25 +20,36 @@ export class AxisService {
   ]).pipe(
     switchMap(([data, timelineView, orientation]) =>
       this.eventService.event$.pipe(
-        map(event => ({
-          resourceAxisVm: new ResourcesAxisViewModel(
+        map(event => {
+          const resourceAxisVm = new ResourcesAxisViewModel(
             data,
             timelineView,
             orientation
-          ),
-          timeAxisVm: new TimeAxisViewModel(
+          );
+          const timeAxisVm = new TimeAxisViewModel(
             data,
             timelineView,
             event,
             orientation
-          )
-        }))
+          );
+          const contentVm = new ContentViewModel(
+            data,
+            timeAxisVm,
+            resourceAxisVm
+          );
+          return {
+            resourceAxisVm,
+            timeAxisVm,
+            contentVm
+          };
+        })
       )
     )
   );
 
   resourcesAxisVm$ = this.axis$.pipe(pluck('resourceAxisVm'));
   timeAxisVm$ = this.axis$.pipe(pluck('timeAxisVm'));
+  contentVm$ = this.axis$.pipe(pluck('contentVm'));
 
   constructor(
     private viewService: ViewService,

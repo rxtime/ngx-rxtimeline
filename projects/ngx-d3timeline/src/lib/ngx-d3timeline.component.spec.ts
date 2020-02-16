@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
 import { ResourcesAxisComponent } from './resources-axis/resources-axis.component';
 import { TimeAxisComponent } from './time-axis/time-axis.component';
+import { ContentComponent } from './content/content.component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
@@ -13,7 +14,8 @@ describe('NgxD3timelineComponent', () => {
       declarations: [
         NgxD3timelineComponent,
         ResourcesAxisComponent,
-        TimeAxisComponent
+        TimeAxisComponent,
+        ContentComponent
       ]
     }).compileComponents();
   }));
