@@ -4,7 +4,7 @@ import { ScaleTime, ScaleBand } from 'd3-scale';
 import { Orientation } from '../orientation';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TickInfo, AxisViewModel } from './axis-view-model';
+import { TickInfo, AxisViewModel, Line } from './axis-view-model';
 import { EventService } from '../event.service';
 import { ScaleService } from '../scale/scale-service';
 
@@ -29,8 +29,13 @@ export class AxisViewService {
     this.optionsService.orientation$
   ]).pipe(
     map(
-      ([scaleBand, orientation]): AxisViewModel =>
-        this.getAxisViewModel(scaleBand(orientation), orientation)
+      ([scaleBand, timeAxisOrientation]): AxisViewModel => {
+        const orienation = this.optionsService.flipOrientation(
+          timeAxisOrientation
+        );
+
+        return this.getAxisViewModel(scaleBand(orienation), orienation);
+      }
     )
   );
 
@@ -58,8 +63,21 @@ export class AxisViewService {
   ): AxisViewModel {
     return {
       tickInfos: this.getTickInfos(scale, orientation),
-      axisLine: { x1: 0, y1: 0, x2: 0, y2: scale.range()[1] }
+      axisLine: this.getAxisLine(scale.range()[1], orientation)
     };
+  }
+
+  private getAxisLine(rangeLimit: number, orientation: Orientation): Line {
+    const axisLine: Line = {
+      x1: 0,
+      x2: 0,
+      y1: 0,
+      y2: 0
+    };
+
+    return orientation === Orientation.Vertical
+      ? { ...axisLine, y2: rangeLimit }
+      : { ...axisLine, x2: rangeLimit };
   }
 
   private getTickInfos(
@@ -68,8 +86,24 @@ export class AxisViewService {
   ): TickInfo[] {
     return this.getTicks(scale).map(tick => ({
       label: this.getLabel(scale, tick),
-      transform: this.optionsService.tickTransform(scale(tick), orientation)
+      transform: this.optionsService.tickTransform(
+        this.mapTickToRange(scale, tick),
+        orientation
+      )
     }));
+  }
+
+  private mapTickToRange(
+    scale: ScaleTime<number, number> | ScaleBand<string>,
+    tick: any
+  ): number {
+    return this.isScaleTime(scale)
+      ? scale(tick)
+      : this.getScaleBandMidPoint(scale, tick);
+  }
+
+  private getScaleBandMidPoint(scaleBand: ScaleBand<string>, tick: string) {
+    return scaleBand(tick) + scaleBand.bandwidth() / 2;
   }
 
   private getLabel(

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AxisService } from '../axis-view.service';
+import { AxisViewService } from '../scale/axis-view.service';
 
 @Component({
   selector: '[ngx-d3timeline-time-axis]',
@@ -17,7 +17,10 @@ import { AxisService } from '../axis-view.service';
         </svg:text>
         <svg:line x2="-5"></svg:line>
       </svg:g>
-      <svg:line [attr.y2]="vm.axisLine.y2"></svg:line>
+      <svg:line
+        [attr.x2]="vm.axisLine.x2"
+        [attr.y2]="vm.axisLine.y2"
+      ></svg:line>
     </svg:g>
   `,
   styles: [
@@ -35,5 +38,5 @@ import { AxisService } from '../axis-view.service';
   ]
 })
 export class TimeAxisComponent {
-  constructor(public axisService: AxisService) {}
+  constructor(public axisService: AxisViewService) {}
 }

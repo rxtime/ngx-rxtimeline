@@ -19,6 +19,7 @@ import { AxisViewService } from '../scale/axis-view.service';
       <svg:line
         class="resources-axis-line"
         [attr.x2]="vm.axisLine.x2"
+        [attr.y2]="vm.axisLine.y2"
       ></svg:line>
     </svg:g>
   `,

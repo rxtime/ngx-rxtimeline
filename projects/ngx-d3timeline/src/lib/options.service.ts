@@ -19,4 +19,10 @@ export class OptionsService {
       ? `translate(0,${range})`
       : `translate(${range}, 0)`;
   }
+
+  flipOrientation(orientation: Orientation) {
+    return orientation === Orientation.Horizontal
+      ? Orientation.Vertical
+      : Orientation.Horizontal;
+  }
 }
