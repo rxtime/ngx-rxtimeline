@@ -13,6 +13,7 @@ import { select, event } from 'd3-selection';
 import { EventService } from './event.service';
 import { Orientation } from './orientation';
 import { OptionsService } from './options.service';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -38,7 +39,7 @@ import { OptionsService } from './options.service';
 })
 export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set data(value: TimelineEvent[]) {
-    this.axisService.setData(value);
+    this.dataService.setData(value);
   }
 
   @Input() set view([width, height]: [number, number]) {
@@ -55,7 +56,8 @@ export class NgxD3timelineComponent implements AfterViewInit {
     public viewService: ViewService,
     public axisService: AxisService,
     private eventService: EventService,
-    private optionsService: OptionsService
+    private optionsService: OptionsService,
+    private dataService: DataService
   ) {}
 
   ngAfterViewInit(): void {
