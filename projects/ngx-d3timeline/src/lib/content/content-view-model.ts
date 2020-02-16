@@ -7,23 +7,42 @@ export class ContentViewModel {
   constructor(
     readonly data: TimelineEvent[],
     private timeAxisVm: TimeAxisViewModel,
-    private resourcesAxisVm: ResourcesAxisViewModel
+    private resourcesAxisVm: ResourcesAxisViewModel,
+    private readonly orientation: Orientation
   ) {}
 
   dataTransform(data: TimelineEvent) {
-    return `translate(${this.resourcesAxisVm.mapToPixel(
-      data.series
-    )}, ${this.timeAxisVm.mapToPixel(data.start)})`;
+    if (this.orientation == Orientation.Vertical) {
+      return `translate(${this.resourcesAxisVm.mapToPixel(
+        data.series
+      )}, ${this.timeAxisVm.mapToPixel(data.start)})`;
+    } else {
+      return `translate(${this.timeAxisVm.mapToPixel(
+        data.start
+      )}, ${this.resourcesAxisVm.mapToPixel(data.series)})`;
+    }
   }
 
   rectHeight(data: TimelineEvent) {
+    return this.orientation == Orientation.Vertical
+      ? this.rectTimeBreadth(data)
+      : this.rectResourceBreadth;
+  }
+
+  rectWidth(data: TimelineEvent) {
+    return this.orientation == Orientation.Vertical
+      ? this.rectResourceBreadth
+      : this.rectTimeBreadth(data);
+  }
+
+  private rectTimeBreadth(data: TimelineEvent) {
     return (
       this.timeAxisVm.mapToPixel(data.finish) -
       this.timeAxisVm.mapToPixel(data.start)
     );
   }
 
-  get bandwidth() {
+  private get rectResourceBreadth() {
     return this.resourcesAxisVm.bandwidth;
   }
 }

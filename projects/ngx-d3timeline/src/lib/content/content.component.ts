@@ -11,7 +11,7 @@ import { ContentViewModel } from './content-view-model';
       >
         <svg:rect
           [attr.height]="vm.rectHeight(event)"
-          [attr.width]="vm.bandwidth"
+          [attr.width]="vm.rectWidth(event)"
         ></svg:rect>
         <svg:text dy="1em">{{ event.type }}</svg:text>
       </svg:g>
