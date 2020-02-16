@@ -34,15 +34,14 @@ describe('ContentComponent', () => {
     });
   });
 
-  // TODO uncomment and check when ContentComponent is made orientation aware
-  // describe('when Horizontal', () => {
-  //   it('should render correctly', () => {
-  //     fixture.componentInstance.vm = createContentVm(Orientation.Horizontal);
-  //     fixture.detectChanges();
+  describe('when Horizontal', () => {
+    it('should render correctly', () => {
+      fixture.componentInstance.vm = createContentVm(Orientation.Horizontal);
+      fixture.detectChanges();
 
-  //     expect(fixture.nativeElement).toMatchSnapshot();
-  //   });
-  // });
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+  });
 });
 
 function createContentVm(orientation: Orientation) {
@@ -58,5 +57,10 @@ function createContentVm(orientation: Orientation) {
     timelineView,
     orientation
   );
-  return new ContentViewModel(mockData, timeAxisVm, resourcesAxisVm);
+  return new ContentViewModel(
+    mockData,
+    timeAxisVm,
+    resourcesAxisVm,
+    orientation
+  );
 }
