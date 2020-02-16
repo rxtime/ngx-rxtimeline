@@ -6,23 +6,49 @@ import { Orientation } from '../orientation';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TickInfo, AxisViewModel } from '../axis-view-model';
+import { EventService } from '../event.service';
 
 @Injectable({ providedIn: 'root' })
 export class TimeAxisService {
   vm$ = combineLatest([
     this.scaleTimeService.scaleTime$,
-    this.optionsService.orientation$
+    this.optionsService.orientation$,
+    this.eventService.event$
   ]).pipe(
     map(
-      ([scaleTime, orientation]): AxisViewModel =>
-        this.getTimeAxisViewModel(scaleTime(orientation), orientation)
+      ([scaleTime, orientation, event]): AxisViewModel =>
+        this.getTimeAxisViewModel(
+          this.getScaleTime(scaleTime, orientation, event),
+          orientation
+        )
     )
   );
 
   constructor(
     private scaleTimeService: ScaleTimeService,
-    private optionsService: OptionsService
+    private optionsService: OptionsService,
+    private eventService: EventService
   ) {}
+
+  private getScaleTime(
+    scaleTime: (orientation: Orientation) => ScaleTime<number, number>,
+    orientation: Orientation,
+    event: any
+  ) {
+    const scale = scaleTime(orientation);
+
+    return event ? this.getTransformedScale(scale, event, orientation) : scale;
+  }
+
+  private getTransformedScale(
+    scale: ScaleTime<number, number>,
+    event: any,
+    orientation: Orientation
+  ) {
+    return orientation === Orientation.Vertical
+      ? event.transform.rescaleY(scale)
+      : event.transform.rescaleX(scale);
+  }
 
   private getTimeAxisViewModel(
     scaleTime: ScaleTime<number, number>,
