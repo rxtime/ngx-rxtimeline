@@ -51,6 +51,10 @@ export class ResourcesAxisViewModel {
   }
 
   private getBandMidPoint(tick: string) {
-    return this.scaleBand(tick) + this.scaleBand.bandwidth() / 2;
+    return this.mapToPixel(tick) + this.scaleBand.bandwidth() / 2;
+  }
+
+  mapToPixel(domain: string): number {
+    return this.scaleBand(domain);
   }
 }

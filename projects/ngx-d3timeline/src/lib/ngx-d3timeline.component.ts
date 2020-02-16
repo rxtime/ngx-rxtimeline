@@ -30,6 +30,7 @@ import { OptionsService } from './options.service';
           [vm]="axisService.resourcesAxisVm$ | async"
         ></g>
         <g ngx-d3timeline-time-axis [vm]="axisService.timeAxisVm$ | async"></g>
+        <g ngx-d3timeline-content [vm]="axisService.contentVm$ | async"></g>
       </g>
     </svg>
   `,
