@@ -34,15 +34,15 @@ export class TimeAxisViewModel {
   ) {
     const scale = scaleTime()
       .domain([min(data, d => d.start), max(data, d => d.finish)])
-      .range(this.getRange(timelineView.bounds));
+      .range(this.getRange(timelineView));
 
     return event ? this.getTransformedScale(scale, event) : scale;
   }
 
-  private getRange(bounds: any) {
+  private getRange(view: TimelineView) {
     return this.orientation === Orientation.Vertical
-      ? [bounds.top, bounds.bottom]
-      : [bounds.left, bounds.right];
+      ? [view.top, view.bottom]
+      : [view.left, view.right];
   }
 
   private tickTransform(tick: Date) {

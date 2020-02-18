@@ -8,6 +8,6 @@ describe('TimelineView', () => {
       margin: 50
     });
 
-    expect(timelineView.bounds).toMatchSnapshot();
+    expect(timelineView).toMatchSnapshot();
   });
 });

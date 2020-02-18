@@ -5,6 +5,7 @@ import { State } from './state';
 import { ScaleBand, scaleBand } from 'd3-scale';
 import { Orientation } from './orientation';
 import { TimelineEvent } from './timeline-event';
+import { TimelineView } from './view/timeline-view';
 
 @Injectable({ providedIn: 'root' })
 export class ScalesService {
@@ -21,16 +22,19 @@ export class ScalesService {
   private configureScaleBand(state: State): ScaleBand<string> {
     return scaleBand()
       .domain(this.getDomain(state.data))
-      .range(this.getRange(state.view.bounds, state.timelineOrientation));
+      .range(this.getRange(state.view, state.timelineOrientation));
   }
 
   private getDomain(data: TimelineEvent[]): string[] {
     return [...new Set(data.map(d => d.series))];
   }
 
-  private getRange(bounds: any, orientation: Orientation): [number, number] {
+  private getRange(
+    view: TimelineView,
+    orientation: Orientation
+  ): [number, number] {
     return orientation === Orientation.Vertical
-      ? [bounds.top, bounds.bottom]
-      : [bounds.left, bounds.right];
+      ? [view.top, view.bottom]
+      : [view.left, view.right];
   }
 }

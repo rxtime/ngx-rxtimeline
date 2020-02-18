@@ -35,13 +35,13 @@ export class ResourcesAxisViewModel {
   ) {
     return scaleBand()
       .domain([...new Set(data.map(d => d.series))])
-      .range(this.getRange(timelineView.bounds));
+      .range(this.getRange(timelineView));
   }
 
-  private getRange(bounds: any): [number, number] {
+  private getRange(view: TimelineView): [number, number] {
     return this.orientation === Orientation.Vertical
-      ? [bounds.left, bounds.right]
-      : [bounds.top, bounds.bottom];
+      ? [view.left, view.right]
+      : [view.top, view.bottom];
   }
 
   private tickTransform(tick: string) {
