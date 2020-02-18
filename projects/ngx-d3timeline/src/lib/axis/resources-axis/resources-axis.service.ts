@@ -39,10 +39,10 @@ export class ResourcesAxisService {
     scale: ScaleBand<string>,
     orientation: Orientation
   ): TickInfo[] {
-    return scale.domain().map(tick => ({
-      label: tick,
+    return scale.domain().map(value => ({
+      label: value,
       transform: this.tickTransform(
-        this.getBandMidPoint(scale, tick),
+        this.getBandMidPoint(scale, value),
         orientation
       )
     }));
