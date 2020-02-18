@@ -26,7 +26,7 @@ describe('TimeAxisViewModel', () => {
     });
 
     it('should return correct rangeLimit', () => {
-      expect(vm.rangeLimit).toBe(timelineView.bounds.bottom);
+      expect(vm.rangeLimit).toBe(timelineView.bottom);
     });
   });
 
@@ -45,7 +45,7 @@ describe('TimeAxisViewModel', () => {
     });
 
     it('should return correct rangeLimit', () => {
-      expect(vm.rangeLimit).toBe(timelineView.bounds.right);
+      expect(vm.rangeLimit).toBe(timelineView.right);
     });
   });
 });

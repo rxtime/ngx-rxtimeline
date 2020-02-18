@@ -3,6 +3,11 @@ export class TimelineView {
   readonly height: number;
   readonly margin: number;
 
+  readonly bottom: number;
+  readonly left: number;
+  readonly right: number;
+  readonly top: number;
+
   constructor({
     width,
     height,
@@ -15,14 +20,10 @@ export class TimelineView {
     this.width = width;
     this.height = height;
     this.margin = margin;
-  }
 
-  get bounds(): { left: number; right: number; top: number; bottom: number } {
-    return {
-      bottom: this.height - this.margin,
-      left: 0,
-      right: this.width - this.margin,
-      top: 0
-    };
+    this.bottom = height - margin;
+    this.left = 0;
+    this.right = width - margin;
+    this.top = 0;
   }
 }
