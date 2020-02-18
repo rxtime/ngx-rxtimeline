@@ -1,4 +1,4 @@
-export interface TickInfo {
+export interface Tick {
   label: string;
   transform: string;
 }

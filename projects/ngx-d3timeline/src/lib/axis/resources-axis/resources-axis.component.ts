@@ -9,11 +9,11 @@ import { ResourcesAxisService } from './resources-axis.service';
       *ngIf="resourcesAxisService.vm$ | async as vm"
     >
       <text
-        *ngFor="let tickInfo of vm.tickInfos"
-        [attr.transform]="tickInfo.transform"
+        *ngFor="let tick of vm.ticks"
+        [attr.transform]="tick.transform"
         dy="-2"
       >
-        {{ tickInfo.label }}
+        {{ tick.label }}
       </text>
       <svg:line
         class="resources-axis-line"
