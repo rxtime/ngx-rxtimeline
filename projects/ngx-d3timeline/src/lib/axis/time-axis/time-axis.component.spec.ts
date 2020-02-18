@@ -7,7 +7,11 @@ import { Orientation } from '../../orientation';
 
 describe('TimeAxisComponent', () => {
   let fixture: ComponentFixture<TimeAxisComponent>;
-  const timelineView = new TimelineView(300, 400, 50);
+  const timelineView = new TimelineView({
+    width: 300,
+    height: 400,
+    margin: 50
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({

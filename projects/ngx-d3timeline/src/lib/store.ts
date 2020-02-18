@@ -33,7 +33,9 @@ export class Store {
   }
 
   setView([width, height]: [number, number]) {
-    this.viewSubject.next(new TimelineView(width, height, this.margin));
+    this.viewSubject.next(
+      new TimelineView({ width, height, margin: this.margin })
+    );
   }
 
   setOrientation(orientation: Orientation) {

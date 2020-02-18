@@ -9,7 +9,10 @@ export class ViewService {
 
   private viewSubject = new BehaviorSubject<[number, number]>(null);
   view$ = this.viewSubject.pipe(
-    map(([width, height]) => new TimelineView(width, height, this.margin))
+    map(
+      ([width, height]) =>
+        new TimelineView({ width, height, margin: this.margin })
+    )
   );
 
   get rootTransform() {

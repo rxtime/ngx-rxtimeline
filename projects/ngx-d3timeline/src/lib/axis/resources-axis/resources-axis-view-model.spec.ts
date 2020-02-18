@@ -5,7 +5,11 @@ import { Orientation } from '../../orientation';
 
 describe('ResourcesAxisViewModel', () => {
   let vm: ResourcesAxisViewModel;
-  const timelineView: TimelineView = new TimelineView(300, 400, 50);
+  const timelineView: TimelineView = new TimelineView({
+    width: 300,
+    height: 400,
+    margin: 50
+  });
 
   describe('when Vertical', () => {
     beforeEach(() => {
