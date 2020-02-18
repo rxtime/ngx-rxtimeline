@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
-import { ResourcesAxisComponent } from './resources-axis/resources-axis.component';
+import { ResourcesAxisComponent } from './axis/resources-axis/resources-axis.component';
 import { CommonModule } from '@angular/common';
-import { TimeAxisComponent } from './time-axis/time-axis.component';
+import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
 
 @NgModule({

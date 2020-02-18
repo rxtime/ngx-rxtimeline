@@ -1,8 +1,8 @@
 import { scaleTime, ScaleTime } from 'd3-scale';
 import { max, min } from 'd3-array';
-import { TimelineEvent } from '../timeline-event';
-import { TimelineView } from '../view/timeline-view';
-import { Orientation } from '../orientation';
+import { TimelineEvent } from '../../timeline-event';
+import { TimelineView } from '../../view/timeline-view';
+import { Orientation } from '../../orientation';
 
 export class TimeAxisViewModel {
   readonly scaleTime: ScaleTime<number, number>;

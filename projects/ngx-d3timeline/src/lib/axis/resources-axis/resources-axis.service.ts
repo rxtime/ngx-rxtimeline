@@ -1,15 +1,17 @@
-import { DataService } from '../data.service';
-import { OptionsService } from '../options.service';
-import { ViewService } from '../view/view.service';
+import { DataService } from '../../data.service';
+import { OptionsService } from '../../options.service';
+import { ViewService } from '../../view/view.service';
 import { combineLatest } from 'rxjs';
-import { AxisViewModel, TickInfo, Line } from '../axis-view-model';
-import { Orientation } from '../orientation';
-import { TimelineView } from '../view/timeline-view';
+import { AxisViewModel } from '../axis-view-model';
+import { Orientation } from '../../orientation';
+import { TimelineView } from '../../view/timeline-view';
 import { map } from 'rxjs/operators';
-import { ScaleService } from '../scale.service';
+import { ScaleService } from '../../scale.service';
 import { ScaleBand } from 'd3-scale';
 import { Injectable } from '@angular/core';
-import { TimelineEvent } from '../timeline-event';
+import { TimelineEvent } from '../../timeline-event';
+import { TickInfo } from '../tick-info';
+import { Line } from '../line';
 
 @Injectable({ providedIn: 'root' })
 export class ResourcesAxisService {

@@ -1,7 +1,7 @@
 import { ScaleBand, scaleBand } from 'd3-scale';
-import { TimelineEvent } from '../timeline-event';
-import { TimelineView } from '../view/timeline-view';
-import { Orientation } from '../orientation';
+import { TimelineEvent } from '../../timeline-event';
+import { TimelineView } from '../../view/timeline-view';
+import { Orientation } from '../../orientation';
 
 export class ResourcesAxisViewModel {
   private readonly scaleBand: ScaleBand<string>;
