@@ -17,8 +17,8 @@ import { ResourcesAxisService } from './resources-axis.service';
       </text>
       <svg:line
         class="resources-axis-line"
-        [attr.y2]="vm.axisLine.y2"
         [attr.x2]="vm.axisLine.x2"
+        [attr.y2]="vm.axisLine.y2"
       ></svg:line>
     </svg:g>
   `,
