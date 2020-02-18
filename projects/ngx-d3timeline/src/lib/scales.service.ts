@@ -22,7 +22,14 @@ export class ScalesService {
       this.eventService.event$.pipe(
         map(event =>
           event
-            ? { ...scales, scaleTime: this.rescaleTime(scales, event) }
+            ? {
+                ...scales,
+                scaleTime: this.rescaleTime(
+                  scales.scaleTime,
+                  scales.state.timelineOrientation,
+                  event
+                )
+              }
             : scales
         ),
         share()
@@ -53,18 +60,13 @@ export class ScalesService {
   }
 
   private rescaleTime(
-    {
-      scaleTime,
-      state
-    }: {
-      scaleTime: ScaleTime<number, number>;
-      state: State;
-    },
+    scale: ScaleTime<number, number>,
+    orientation: Orientation,
     event: any
   ): ScaleTime<number, number> {
-    return state.timelineOrientation === Orientation.Vertical
-      ? event.transform.rescaleY(scaleTime)
-      : event.transform.rescaleX(scaleTime);
+    return orientation === Orientation.Vertical
+      ? event.transform.rescaleY(scale)
+      : event.transform.rescaleX(scale);
   }
 
   private getBandScaleDomain(data: TimelineEvent[]): string[] {
