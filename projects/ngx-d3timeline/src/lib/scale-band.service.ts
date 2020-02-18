@@ -1,19 +1,15 @@
 import { scaleBand, ScaleBand } from 'd3-scale';
 import { TimelineEvent } from './timeline-event';
-import { TimelineView } from './view/timeline-view';
+import { State } from './state';
 import { Orientation } from './orientation';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ScaleBandService {
-  configureScaleBand(
-    data: TimelineEvent[],
-    timelineView: TimelineView,
-    orientation: Orientation
-  ): ScaleBand<string> {
+  configureScaleBand(state: State): ScaleBand<string> {
     return scaleBand()
-      .domain(this.getScaleBandDomain(data))
-      .range(this.getRange(timelineView.bounds, orientation));
+      .domain(this.getScaleBandDomain(state.data))
+      .range(this.getRange(state.view.bounds, state.orientation));
   }
 
   private getScaleBandDomain(data: TimelineEvent[]): string[] {

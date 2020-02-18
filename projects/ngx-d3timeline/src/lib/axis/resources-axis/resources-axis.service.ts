@@ -1,51 +1,37 @@
-import { DataService } from '../../data.service';
-import { OptionsService } from '../../options.service';
-import { ViewService } from '../../view/view.service';
-import { combineLatest } from 'rxjs';
 import { AxisViewModel } from '../axis-view-model';
 import { Orientation } from '../../orientation';
-import { TimelineView } from '../../view/timeline-view';
 import { map } from 'rxjs/operators';
-import { ScaleBandService } from '../../scale-band.service';
 import { ScaleBand } from 'd3-scale';
 import { Injectable } from '@angular/core';
-import { TimelineEvent } from '../../timeline-event';
 import { TickInfo } from '../tick-info';
 import { Line } from '../line';
+import { ScalesService } from '../../scales.service';
+import { OptionsService } from '../../options.service';
 
 @Injectable({ providedIn: 'root' })
 export class ResourcesAxisService {
-  vm$ = combineLatest([
-    this.dataService.data$,
-    this.optionsService.orientation$,
-    this.viewService.view$
-  ]).pipe(
-    map(([data, orientation, view]) =>
-      this.createAxisViewModel(data, orientation, view)
+  vm$ = this.scalesService.scales$.pipe(
+    map(scales =>
+      this.createAxisViewModel(scales.scaleBand, scales.state.orientation)
     )
   );
 
   constructor(
-    private dataService: DataService,
-    private optionsService: OptionsService,
-    private viewService: ViewService,
-    private scaleService: ScaleBandService
+    private scalesService: ScalesService,
+    private optionsService: OptionsService
   ) {}
 
   private createAxisViewModel(
-    data: TimelineEvent[],
-    timelineOrientation: Orientation,
-    view: TimelineView
+    scaleBand: ScaleBand<string>,
+    timelineOrientation: Orientation
   ): AxisViewModel {
     const orientation = this.optionsService.flipOrientation(
       timelineOrientation
     );
 
-    const scale = this.scaleService.configureScaleBand(data, view, orientation);
-
     return {
-      tickInfos: this.getTickInfos(scale, orientation),
-      axisLine: this.getAxisLine(scale, orientation)
+      tickInfos: this.getTickInfos(scaleBand, orientation),
+      axisLine: this.getAxisLine(scaleBand, orientation)
     };
   }
 
