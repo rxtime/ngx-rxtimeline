@@ -9,144 +9,7 @@ exports[`TimeAxisComponent should not render if view model is null 1`] = `
 </div>
 `;
 
-exports[`TimeAxisComponent when Horizontal should render correctly 1`] = `
-<div
-  id="root2"
-  ngx-d3timeline-time-axis=""
->
-  
-  <g
-    class="time-axis-group"
-  >
-    
-    <g
-      transform="translate(14.572376796579364, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         06 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(38.27800556643283, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         09 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(61.98363433628629, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         12 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(85.68926310613975, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         03 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(109.39489187599321, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         06 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(133.10052064584667, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         09 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(156.80614941570013, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         Sat 23 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(180.51177818555362, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         03 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(204.21740695540709, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         06 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(227.92303572526055, 0)"
-    >
-      <text
-        dx="-7"
-      >
-         09 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <line
-      y2="250"
-    />
-  </g>
-</div>
-`;
-
-exports[`TimeAxisComponent when Vertical should render correctly 1`] = `
+exports[`TimeAxisComponent should render correctly 1`] = `
 <div
   id="root1"
   ngx-d3timeline-time-axis=""
@@ -157,127 +20,32 @@ exports[`TimeAxisComponent when Vertical should render correctly 1`] = `
   >
     
     <g
-      transform="translate(0,20.40132751521111)"
+      transform="translate(0, 10)"
     >
       <text
         dx="-7"
       >
-         06 AM 
+         tick 1 
       </text>
       <line
         x2="-5"
       />
     </g>
     <g
-      transform="translate(0,53.58920779300596)"
+      transform="translate(0, 20)"
     >
       <text
         dx="-7"
       >
-         09 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,86.77708807080081)"
-    >
-      <text
-        dx="-7"
-      >
-         12 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,119.96496834859565)"
-    >
-      <text
-        dx="-7"
-      >
-         03 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,153.1528486263905)"
-    >
-      <text
-        dx="-7"
-      >
-         06 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,186.34072890418534)"
-    >
-      <text
-        dx="-7"
-      >
-         09 PM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,219.52860918198022)"
-    >
-      <text
-        dx="-7"
-      >
-         Sat 23 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,252.71648945977506)"
-    >
-      <text
-        dx="-7"
-      >
-         03 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,285.9043697375699)"
-    >
-      <text
-        dx="-7"
-      >
-         06 AM 
-      </text>
-      <line
-        x2="-5"
-      />
-    </g>
-    <g
-      transform="translate(0,319.09225001536475)"
-    >
-      <text
-        dx="-7"
-      >
-         09 AM 
+         tick 2 
       </text>
       <line
         x2="-5"
       />
     </g>
     <line
-      y2="350"
+      x2="10"
+      y2="0"
     />
   </g>
 </div>

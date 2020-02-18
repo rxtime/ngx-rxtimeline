@@ -28,7 +28,7 @@ import { Store } from './store';
     >
       <g [attr.transform]="viewService.rootTransform">
         <g ngx-d3timeline-resources-axis></g>
-        <g ngx-d3timeline-time-axis [vm]="axisService.timeAxisVm$ | async"></g>
+        <g ngx-d3timeline-time-axis></g>
         <g ngx-d3timeline-content [vm]="axisService.contentVm$ | async"></g>
       </g>
     </svg>

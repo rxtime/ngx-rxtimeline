@@ -4,27 +4,25 @@ import { map } from 'rxjs/operators';
 import { ScaleBand } from 'd3-scale';
 import { Injectable } from '@angular/core';
 import { Tick } from '../tick';
-import { Line } from '../line';
 import { ScalesService } from '../../scales.service';
 import { OptionsService } from '../../options.service';
+import { AxisService } from '../axis.service';
 
 @Injectable({ providedIn: 'root' })
 export class ResourcesAxisService {
   vm$ = this.scalesService.scales$.pipe(
     map(scales =>
-      this.createAxisViewModel(
-        scales.scaleBand,
-        scales.state.timelineOrientation
-      )
+      this.createAxis(scales.scaleBand, scales.state.timelineOrientation)
     )
   );
 
   constructor(
     private scalesService: ScalesService,
-    private optionsService: OptionsService
+    private optionsService: OptionsService,
+    private axisService: AxisService
   ) {}
 
-  private createAxisViewModel(
+  private createAxis(
     scaleBand: ScaleBand<string>,
     timelineOrientation: Orientation
   ): Axis {
@@ -34,36 +32,18 @@ export class ResourcesAxisService {
 
     return {
       ticks: this.getTicks(scaleBand, orientation),
-      axisLine: this.getAxisLine(scaleBand, orientation)
+      axisLine: this.axisService.getAxisLine(scaleBand, orientation)
     };
   }
 
   private getTicks(scale: ScaleBand<string>, orientation: Orientation): Tick[] {
     return scale.domain().map(value => ({
       label: value,
-      transform: this.tickTransform(
+      transform: this.optionsService.getTranslation(
         this.getBandMidPoint(scale, value),
         orientation
       )
     }));
-  }
-
-  private getAxisLine(
-    scale: ScaleBand<string>,
-    orientation: Orientation
-  ): Line {
-    const axisLine: Line = { x1: 0, x2: 0, y1: 0, y2: 0 };
-    const rangeLimit = scale.range()[1];
-
-    return orientation === Orientation.Vertical
-      ? { ...axisLine, y2: rangeLimit }
-      : { ...axisLine, x2: rangeLimit };
-  }
-
-  private tickTransform(range: number, orientation: Orientation) {
-    return orientation === Orientation.Vertical
-      ? `translate(0, ${range})`
-      : `translate(${range}, 0)`;
   }
 
   private getBandMidPoint(scale: ScaleBand<string>, tick: string) {

@@ -1,20 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { TimeAxisViewModel } from './time-axis-view-model';
+import { Component } from '@angular/core';
+import { TimeAxisService } from './time-axis.service';
 
 @Component({
   selector: '[ngx-d3timeline-time-axis]',
   template: `
-    <svg:g class="time-axis-group" *ngIf="vm">
-      <svg:g
-        *ngFor="let tickInfo of vm.tickInfos"
-        [attr.transform]="tickInfo.transform"
-      >
+    <svg:g class="time-axis-group" *ngIf="timeAxisService.vm$ | async as vm">
+      <svg:g *ngFor="let tick of vm.ticks" [attr.transform]="tick.transform">
         <svg:text dx="-7">
-          {{ tickInfo.label }}
+          {{ tick.label }}
         </svg:text>
         <svg:line x2="-5"></svg:line>
       </svg:g>
-      <svg:line [attr.y2]="vm.rangeLimit"></svg:line>
+      <svg:line
+        [attr.x2]="vm.axisLine.x2"
+        [attr.y2]="vm.axisLine.y2"
+      ></svg:line>
     </svg:g>
   `,
   styles: [
@@ -32,5 +32,5 @@ import { TimeAxisViewModel } from './time-axis-view-model';
   ]
 })
 export class TimeAxisComponent {
-  @Input() vm: TimeAxisViewModel;
+  constructor(public timeAxisService: TimeAxisService) {}
 }
