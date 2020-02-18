@@ -4,6 +4,6 @@ import { TimelineView } from './view/timeline-view';
 
 export class State {
   data: TimelineEvent[];
-  orientation: Orientation;
+  timelineOrientation: Orientation;
   view: TimelineView;
 }

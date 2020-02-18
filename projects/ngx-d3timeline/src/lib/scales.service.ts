@@ -21,7 +21,7 @@ export class ScalesService {
   private configureScaleBand(state: State): ScaleBand<string> {
     return scaleBand()
       .domain(this.getDomain(state.data))
-      .range(this.getRange(state.view.bounds, state.orientation));
+      .range(this.getRange(state.view.bounds, state.timelineOrientation));
   }
 
   private getDomain(data: TimelineEvent[]): string[] {

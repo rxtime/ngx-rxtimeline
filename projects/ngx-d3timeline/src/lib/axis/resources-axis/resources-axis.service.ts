@@ -12,7 +12,10 @@ import { OptionsService } from '../../options.service';
 export class ResourcesAxisService {
   vm$ = this.scalesService.scales$.pipe(
     map(scales =>
-      this.createAxisViewModel(scales.scaleBand, scales.state.orientation)
+      this.createAxisViewModel(
+        scales.scaleBand,
+        scales.state.timelineOrientation
+      )
     )
   );
 
