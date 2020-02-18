@@ -4,8 +4,8 @@ import { mockData } from '../mock-data';
 import { Orientation } from '../orientation';
 import { ContentComponent } from './content.component';
 import { ContentViewModel } from './content-view-model';
-import { ResourcesAxisViewModel } from '../resources-axis/resources-axis-view-model';
-import { TimeAxisViewModel } from '../time-axis/time-axis-view-model';
+import { ResourcesAxisViewModel } from '../axis/resources-axis/resources-axis-view-model';
+import { TimeAxisViewModel } from '../axis/time-axis/time-axis-view-model';
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;

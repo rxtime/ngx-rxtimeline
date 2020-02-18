@@ -6,7 +6,7 @@ import { AxisViewModel } from '../axis-view-model';
 import { Orientation } from '../../orientation';
 import { TimelineView } from '../../view/timeline-view';
 import { map } from 'rxjs/operators';
-import { ScaleService } from '../../scale.service';
+import { ScaleBandService } from '../../scale-band.service';
 import { ScaleBand } from 'd3-scale';
 import { Injectable } from '@angular/core';
 import { TimelineEvent } from '../../timeline-event';
@@ -29,7 +29,7 @@ export class ResourcesAxisService {
     private dataService: DataService,
     private optionsService: OptionsService,
     private viewService: ViewService,
-    private scaleService: ScaleService
+    private scaleService: ScaleBandService
   ) {}
 
   private createAxisViewModel(
