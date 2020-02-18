@@ -28,7 +28,7 @@ describe('ResourcesAxisComponent', () => {
 
   it('should render correctly', () => {
     axisService.vm$ = of({
-      tickInfos: [
+      ticks: [
         {
           label: 'tick 1',
           transform: 'translate(0, 10)'
