@@ -8,11 +8,11 @@ import { Injectable } from '@angular/core';
 export class ScaleBandService {
   configureScaleBand(state: State): ScaleBand<string> {
     return scaleBand()
-      .domain(this.getScaleBandDomain(state.data))
+      .domain(this.getDomain(state.data))
       .range(this.getRange(state.view.bounds, state.orientation));
   }
 
-  private getScaleBandDomain(data: TimelineEvent[]): string[] {
+  private getDomain(data: TimelineEvent[]): string[] {
     return [...new Set(data.map(d => d.series))];
   }
 
