@@ -20,7 +20,13 @@ export class Store {
     this.dataSubject.asObservable(),
     this.viewSubject.asObservable(),
     this.orientationSubject.asObservable()
-  ]).pipe(map(([data, view, orientation]) => ({ data, view, orientation })));
+  ]).pipe(
+    map(([data, view, timelineOrientation]) => ({
+      data,
+      view,
+      timelineOrientation
+    }))
+  );
 
   setData(data: TimelineEvent[]) {
     this.dataSubject.next(data);
