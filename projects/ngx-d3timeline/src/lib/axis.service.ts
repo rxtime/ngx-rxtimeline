@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { map, pluck, switchMap } from 'rxjs/operators';
-import { ResourcesAxisViewModel } from './resources-axis/resources-axis-view-model';
+import { ResourcesAxisViewModel } from './axis/resources-axis/resources-axis-view-model';
 import { ViewService } from './view/view.service';
-import { TimeAxisViewModel } from './time-axis/time-axis-view-model';
+import { TimeAxisViewModel } from './axis/time-axis/time-axis-view-model';
 import { EventService } from './event.service';
 import { OptionsService } from './options.service';
 import { ContentViewModel } from './content/content-view-model';

@@ -1,7 +1,7 @@
 import { ResourcesAxisViewModel } from './resources-axis-view-model';
-import { mockData } from '../mock-data';
-import { TimelineView } from '../view/timeline-view';
-import { Orientation } from '../orientation';
+import { mockData } from '../../mock-data';
+import { TimelineView } from '../../view/timeline-view';
+import { Orientation } from '../../orientation';
 
 describe('ResourcesAxisViewModel', () => {
   let vm: ResourcesAxisViewModel;

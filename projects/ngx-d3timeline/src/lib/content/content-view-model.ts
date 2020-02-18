@@ -1,6 +1,6 @@
 import { TimelineEvent } from '../timeline-event';
-import { TimeAxisViewModel } from '../time-axis/time-axis-view-model';
-import { ResourcesAxisViewModel } from '../resources-axis/resources-axis-view-model';
+import { TimeAxisViewModel } from '../axis/time-axis/time-axis-view-model';
+import { ResourcesAxisViewModel } from '../axis/resources-axis/resources-axis-view-model';
 import { Orientation } from '../orientation';
 
 export class ContentViewModel {

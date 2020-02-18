@@ -1,7 +1,7 @@
 import { TimeAxisViewModel } from './time-axis-view-model';
-import { TimelineView } from '../view/timeline-view';
-import { mockData } from '../mock-data';
-import { Orientation } from '../orientation';
+import { TimelineView } from '../../view/timeline-view';
+import { mockData } from '../../mock-data';
+import { Orientation } from '../../orientation';
 
 describe('TimeAxisViewModel', () => {
   let vm: TimeAxisViewModel;
