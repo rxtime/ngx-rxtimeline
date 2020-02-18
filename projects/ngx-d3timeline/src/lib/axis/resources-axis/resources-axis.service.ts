@@ -1,9 +1,9 @@
-import { AxisViewModel } from '../axis-view-model';
+import { Axis } from '../axis';
 import { Orientation } from '../../orientation';
 import { map } from 'rxjs/operators';
 import { ScaleBand } from 'd3-scale';
 import { Injectable } from '@angular/core';
-import { TickInfo } from '../tick-info';
+import { Tick } from '../tick';
 import { Line } from '../line';
 import { ScalesService } from '../../scales.service';
 import { OptionsService } from '../../options.service';
@@ -27,21 +27,18 @@ export class ResourcesAxisService {
   private createAxisViewModel(
     scaleBand: ScaleBand<string>,
     timelineOrientation: Orientation
-  ): AxisViewModel {
+  ): Axis {
     const orientation = this.optionsService.flipOrientation(
       timelineOrientation
     );
 
     return {
-      tickInfos: this.getTickInfos(scaleBand, orientation),
+      ticks: this.getTicks(scaleBand, orientation),
       axisLine: this.getAxisLine(scaleBand, orientation)
     };
   }
 
-  private getTickInfos(
-    scale: ScaleBand<string>,
-    orientation: Orientation
-  ): TickInfo[] {
+  private getTicks(scale: ScaleBand<string>, orientation: Orientation): Tick[] {
     return scale.domain().map(value => ({
       label: value,
       transform: this.tickTransform(
