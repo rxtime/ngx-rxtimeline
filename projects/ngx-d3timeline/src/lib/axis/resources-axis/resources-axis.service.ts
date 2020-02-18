@@ -42,8 +42,8 @@ export class ResourcesAxisService {
     return scale.domain().map(tick => ({
       label: tick,
       transform: this.tickTransform(
-        orientation,
-        this.getBandMidPoint(scale, tick)
+        this.getBandMidPoint(scale, tick),
+        orientation
       )
     }));
   }
@@ -60,7 +60,7 @@ export class ResourcesAxisService {
       : { ...axisLine, x2: rangeLimit };
   }
 
-  private tickTransform(orientation: Orientation, range: number) {
+  private tickTransform(range: number, orientation: Orientation) {
     return orientation === Orientation.Vertical
       ? `translate(0, ${range})`
       : `translate(${range}, 0)`;
