@@ -82,7 +82,7 @@ export class AxisService {
     tick: any
   ) {
     if (this.isScaleTime(scale)) {
-      scale(tick);
+      return scale(tick);
     }
 
     return this.getBandMidPoint(scale as ScaleBand<string>, tick);
@@ -91,7 +91,7 @@ export class AxisService {
   private isScaleTime(
     scale: ScaleTime<number, number> | ScaleBand<string>
   ): scale is ScaleTime<number, number> {
-    return (scale as ScaleTime<number, number>).ticks() !== undefined;
+    return scale.domain()[0] instanceof Date;
   }
 
   private getBandMidPoint(scale: ScaleBand<string>, tick: string) {
