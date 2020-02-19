@@ -14,12 +14,6 @@ export class OptionsService {
     this.orientationSubject.next(orientation);
   }
 
-  flipOrientation(orientation: Orientation): Orientation {
-    return orientation === Orientation.Vertical
-      ? Orientation.Horizontal
-      : Orientation.Vertical;
-  }
-
   getTranslation(range: number, orientation: Orientation) {
     return orientation === Orientation.Vertical
       ? `translate(0, ${range})`

@@ -7,7 +7,6 @@ import { Orientation } from './orientation';
 import { TimelineEvent } from './timeline-event';
 import { TimelineView } from './view/timeline-view';
 import { min, max } from 'd3-array';
-import { OptionsService } from './options.service';
 import { EventService } from './event.service';
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +25,7 @@ export class ScalesService {
                 ...scales,
                 scaleTime: this.rescaleTime(
                   scales.scaleTime,
-                  scales.state.timelineOrientation,
+                  scales.state.axisOrientations.timeOrientation,
                   event
                 )
               }
@@ -39,24 +38,22 @@ export class ScalesService {
 
   constructor(
     private store: Store,
-    private optionsService: OptionsService,
+
     private eventService: EventService
   ) {}
 
   private configureScaleBand(state: State): ScaleBand<string> {
-    const orientation = this.optionsService.flipOrientation(
-      state.timelineOrientation
-    );
-
     return scaleBand()
       .domain(this.getBandScaleDomain(state.data))
-      .range(this.getRange(state.view, orientation));
+      .range(
+        this.getRange(state.view, state.axisOrientations.resourceOrientation)
+      );
   }
 
   private configureScaleTime(state: State): ScaleTime<number, number> {
     return scaleTime()
       .domain(this.getTimeScaleDomain(state.data))
-      .range(this.getRange(state.view, state.timelineOrientation));
+      .range(this.getRange(state.view, state.axisOrientations.timeOrientation));
   }
 
   private rescaleTime(
