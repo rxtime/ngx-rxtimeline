@@ -23,12 +23,12 @@ export class TimeAxisService {
   ) {}
 
   private createAxis(
-    scaleBand: ScaleTime<number, number>,
+    scaleTime: ScaleTime<number, number>,
     timelineOrientation: Orientation
   ): Axis {
     return {
-      ticks: this.getTicks(scaleBand, timelineOrientation),
-      axisLine: this.axisService.getAxisLine(scaleBand, timelineOrientation)
+      ticks: this.getTicks(scaleTime, timelineOrientation),
+      axisLine: this.axisService.getAxisLine(scaleTime, timelineOrientation)
     };
   }
 
