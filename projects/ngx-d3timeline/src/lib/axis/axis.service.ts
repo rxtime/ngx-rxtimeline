@@ -14,14 +14,17 @@ export class AxisService {
     map(scales =>
       this.createAxis(
         scales.scaleBand,
-        this.optionsService.flipOrientation(scales.state.timelineOrientation)
+        scales.state.axisOrientations.resourceOrientation
       )
     )
   );
 
   timeAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
-      this.createAxis(scales.scaleTime, scales.state.timelineOrientation)
+      this.createAxis(
+        scales.scaleTime,
+        scales.state.axisOrientations.timeOrientation
+      )
     )
   );
 

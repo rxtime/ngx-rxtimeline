@@ -48,7 +48,7 @@ export class NgxD3timelineComponent implements AfterViewInit {
 
   @Input() set orientation(value: Orientation) {
     this.optionsService.setOrientation(value);
-    this.store.setOrientation(value);
+    this.store.setTimeOrientation(value);
   }
 
   @ViewChild('svgEl') svgEl: ElementRef;

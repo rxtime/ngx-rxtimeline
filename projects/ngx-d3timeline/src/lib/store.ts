@@ -12,19 +12,23 @@ export class Store {
 
   private dataSubject = new BehaviorSubject<TimelineEvent[]>(null);
   private viewSubject = new BehaviorSubject<TimelineView>(null);
-  private orientationSubject = new BehaviorSubject<Orientation>(
-    Orientation.Vertical
-  );
+  private axisOrientationsSubject = new BehaviorSubject<{
+    timeOrientation: Orientation;
+    resourceOrientation: Orientation;
+  }>({
+    timeOrientation: Orientation.Vertical,
+    resourceOrientation: Orientation.Horizontal
+  });
 
   state$: Observable<State> = combineLatest([
     this.dataSubject.asObservable(),
     this.viewSubject.asObservable(),
-    this.orientationSubject.asObservable()
+    this.axisOrientationsSubject.asObservable()
   ]).pipe(
-    map(([data, view, timelineOrientation]) => ({
+    map(([data, view, axisOrientations]) => ({
       data,
       view,
-      timelineOrientation
+      axisOrientations
     }))
   );
 
@@ -38,7 +42,15 @@ export class Store {
     );
   }
 
-  setOrientation(orientation: Orientation) {
-    this.orientationSubject.next(orientation);
+  setTimeOrientation(timeOrientation: Orientation) {
+    const resourceOrientation = this.flipOrientation(timeOrientation);
+
+    this.axisOrientationsSubject.next({ timeOrientation, resourceOrientation });
+  }
+
+  private flipOrientation(orientation: Orientation) {
+    return orientation === Orientation.Vertical
+      ? Orientation.Horizontal
+      : Orientation.Vertical;
   }
 }
