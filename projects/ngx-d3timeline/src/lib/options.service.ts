@@ -19,4 +19,10 @@ export class OptionsService {
       ? Orientation.Horizontal
       : Orientation.Vertical;
   }
+
+  getTranslation(range: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical
+      ? `translate(0, ${range})`
+      : `translate(${range}, 0)`;
+  }
 }
