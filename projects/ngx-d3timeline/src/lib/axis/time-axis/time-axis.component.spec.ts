@@ -1,31 +1,31 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { TimeAxisComponent } from './time-axis.component';
-import { TimeAxisService } from './time-axis.service';
+import { AxisService } from '../axis.service';
 import { of } from 'rxjs';
 
 describe('TimeAxisComponent', () => {
   let fixture: ComponentFixture<TimeAxisComponent>;
-  let axisService: TimeAxisService;
+  let axisService: AxisService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TimeAxisComponent],
-      providers: [{ provide: TimeAxisService, useValue: { vm$: jest.fn() } }]
+      providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
     });
 
     fixture = TestBed.createComponent(TimeAxisComponent);
-    axisService = TestBed.inject(TimeAxisService);
+    axisService = TestBed.inject(AxisService);
   });
 
   it('should not render if view model is null', () => {
-    axisService.vm$ = of(null);
+    axisService.timeAxis$ = of(null);
     fixture.detectChanges();
 
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
   it('should render correctly', () => {
-    axisService.vm$ = of({
+    axisService.timeAxis$ = of({
       ticks: [
         {
           label: 'tick 1',

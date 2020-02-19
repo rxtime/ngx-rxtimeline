@@ -1,33 +1,31 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ResourcesAxisComponent } from './resources-axis.component';
-import { ResourcesAxisService } from './resources-axis.service';
+import { AxisService } from '../axis.service';
 import { of } from 'rxjs';
 
 describe('ResourcesAxisComponent', () => {
   let fixture: ComponentFixture<ResourcesAxisComponent>;
-  let axisService: ResourcesAxisService;
+  let axisService: AxisService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ResourcesAxisComponent],
-      providers: [
-        { provide: ResourcesAxisService, useValue: { vm$: jest.fn() } }
-      ]
+      providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
     });
 
     fixture = TestBed.createComponent(ResourcesAxisComponent);
-    axisService = TestBed.inject(ResourcesAxisService);
+    axisService = TestBed.inject(AxisService);
   });
 
   it('should not render if view model is null', () => {
-    axisService.vm$ = of(null);
+    axisService.resourceAxis$ = of(null);
     fixture.detectChanges();
 
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
   it('should render correctly', () => {
-    axisService.vm$ = of({
+    axisService.resourceAxis$ = of({
       ticks: [
         {
           label: 'tick 1',

@@ -14,7 +14,7 @@ export class OptionsService {
     this.orientationSubject.next(orientation);
   }
 
-  flipOrientation(orientation: Orientation) {
+  flipOrientation(orientation: Orientation): Orientation {
     return orientation === Orientation.Vertical
       ? Orientation.Horizontal
       : Orientation.Vertical;

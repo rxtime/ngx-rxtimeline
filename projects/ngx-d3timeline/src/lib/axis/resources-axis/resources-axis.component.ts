@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { ResourcesAxisService } from './resources-axis.service';
+import { AxisService } from '../axis.service';
 
 @Component({
   selector: '[ngx-d3timeline-resources-axis]',
   template: `
     <svg:g
       class="resources-axis-group"
-      *ngIf="resourcesAxisService.vm$ | async as vm"
+      *ngIf="axisService.resourceAxis$ | async as axis"
     >
       <text
-        *ngFor="let tick of vm.ticks"
+        *ngFor="let tick of axis.ticks"
         [attr.transform]="tick.transform"
         dy="-2"
       >
@@ -17,8 +17,8 @@ import { ResourcesAxisService } from './resources-axis.service';
       </text>
       <svg:line
         class="resources-axis-line"
-        [attr.x2]="vm.axisLine.x2"
-        [attr.y2]="vm.axisLine.y2"
+        [attr.x2]="axis.axisLine.x2"
+        [attr.y2]="axis.axisLine.y2"
       ></svg:line>
     </svg:g>
   `,
@@ -34,5 +34,5 @@ import { ResourcesAxisService } from './resources-axis.service';
   ]
 })
 export class ResourcesAxisComponent {
-  constructor(public resourcesAxisService: ResourcesAxisService) {}
+  constructor(public axisService: AxisService) {}
 }
