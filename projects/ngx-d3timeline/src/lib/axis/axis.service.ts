@@ -60,7 +60,7 @@ export class AxisService {
       return scale.ticks();
     }
 
-    return scale.domain();
+    return (scale as ScaleBand<string>).domain();
   }
 
   private getLabel(
