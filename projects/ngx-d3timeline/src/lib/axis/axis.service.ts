@@ -7,6 +7,7 @@ import { Tick } from './tick';
 import { Line } from './line';
 import { ScalesService } from '../scales.service';
 import { OptionsService } from '../options.service';
+import { TimelineView } from '../view/timeline-view';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -14,7 +15,8 @@ export class AxisService {
     map(scales =>
       this.createAxis(
         scales.scaleBand,
-        scales.state.axisOrientations.resourceOrientation
+        scales.state.axisOrientations.resourceOrientation,
+        scales.state.view
       )
     )
   );
@@ -23,7 +25,8 @@ export class AxisService {
     map(scales =>
       this.createAxis(
         scales.scaleTime,
-        scales.state.axisOrientations.timeOrientation
+        scales.state.axisOrientations.timeOrientation,
+        scales.state.view
       )
     )
   );
@@ -35,23 +38,26 @@ export class AxisService {
 
   private createAxis(
     scale: ScaleBand<string> | ScaleTime<number, number>,
-    orientation: Orientation
+    orientation: Orientation,
+    timelineView: TimelineView
   ): Axis {
     return {
-      ticks: this.getTicks(scale, orientation),
-      axisLine: this.getAxisLine(scale, orientation)
+      ticks: this.getTicks(scale, orientation, timelineView),
+      axisLine: this.getAxisLine(scale, orientation, timelineView)
     };
   }
 
   private getTicks(
     scale: ScaleBand<string> | ScaleTime<number, number>,
-    orientation: Orientation
+    orientation: Orientation,
+    timelineView: TimelineView
   ): Tick[] {
     return this.getScaleTicks(scale).map(value => ({
       label: this.getLabel(scale, value),
       transform: this.optionsService.getTranslation(
         this.getTransform(scale, value),
-        orientation
+        orientation,
+        timelineView
       )
     }));
   }
@@ -100,9 +106,15 @@ export class AxisService {
 
   private getAxisLine(
     scale: ScaleBand<string> | ScaleTime<number, number>,
-    orientation: Orientation
+    orientation: Orientation,
+    timelineView: TimelineView
   ): Line {
-    const axisLine: Line = { x1: 0, x2: 0, y1: 0, y2: 0 };
+    const axisLine: Line = {
+      x1: timelineView.left,
+      x2: timelineView.left,
+      y1: timelineView.top,
+      y2: timelineView.top
+    };
     const rangeLimit = scale.range()[1];
 
     return orientation === Orientation.Vertical

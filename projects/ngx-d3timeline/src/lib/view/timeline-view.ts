@@ -22,8 +22,8 @@ export class TimelineView {
     this.margin = margin;
 
     this.bottom = height - margin;
-    this.left = 0;
+    this.left = margin;
     this.right = width - margin;
-    this.top = 0;
+    this.top = margin;
   }
 }
