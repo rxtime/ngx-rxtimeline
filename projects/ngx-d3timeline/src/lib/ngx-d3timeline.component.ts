@@ -6,21 +6,19 @@ import {
   ElementRef
 } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
-import { ViewService } from './view/view.service';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { EventService } from './event.service';
 import { Orientation } from './orientation';
-import { OptionsService } from './options.service';
-import { DataService } from './data.service';
 import { Store } from './store';
+import { ViewService } from './view/view.service';
 
 @Component({
   selector: 'ngx-d3timeline',
   template: `
     <svg
       #svgEl
-      *ngIf="viewService.view$ | async as view"
+      *ngIf="(store.state$ | async).view as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
       class="ngx-d3timeline"
@@ -36,28 +34,23 @@ import { Store } from './store';
 })
 export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set data(value: TimelineEvent[]) {
-    this.dataService.setData(value);
     this.store.setData(value);
   }
 
   @Input() set view([width, height]: [number, number]) {
-    this.viewService.setView([width, height]);
     this.store.setView([width, height]);
   }
 
   @Input() set orientation(value: Orientation) {
-    this.optionsService.setOrientation(value);
     this.store.setTimeOrientation(value);
   }
 
   @ViewChild('svgEl') svgEl: ElementRef;
 
   constructor(
-    public viewService: ViewService,
     private eventService: EventService,
-    private optionsService: OptionsService,
-    private dataService: DataService,
-    private store: Store
+    public store: Store,
+    public viewService: ViewService
   ) {}
 
   ngAfterViewInit(): void {
