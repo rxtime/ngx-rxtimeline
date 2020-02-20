@@ -4,10 +4,10 @@ exports[`TimelineView should return correct bounds 1`] = `
 TimelineView {
   "bottom": 350,
   "height": 400,
-  "left": 0,
+  "left": 50,
   "margin": 50,
   "right": 250,
-  "top": 0,
+  "top": 50,
   "width": 300,
 }
 `;

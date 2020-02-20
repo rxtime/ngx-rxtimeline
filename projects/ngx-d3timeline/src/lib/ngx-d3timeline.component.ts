@@ -11,7 +11,6 @@ import { select, event } from 'd3-selection';
 import { EventService } from './event.service';
 import { Orientation } from './orientation';
 import { Store } from './store';
-import { ViewService } from './view/view.service';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -23,11 +22,9 @@ import { ViewService } from './view/view.service';
       [attr.height]="view.height"
       class="ngx-d3timeline"
     >
-      <g [attr.transform]="viewService.rootTransform">
-        <g ngx-d3timeline-resources-axis></g>
-        <g ngx-d3timeline-time-axis></g>
-        <g ngx-d3timeline-content></g>
-      </g>
+      <g ngx-d3timeline-resources-axis></g>
+      <g ngx-d3timeline-time-axis></g>
+      <g ngx-d3timeline-content></g>
     </svg>
   `,
   styles: []
@@ -47,11 +44,7 @@ export class NgxD3timelineComponent implements AfterViewInit {
 
   @ViewChild('svgEl') svgEl: ElementRef;
 
-  constructor(
-    private eventService: EventService,
-    public store: Store,
-    public viewService: ViewService
-  ) {}
+  constructor(private eventService: EventService, public store: Store) {}
 
   ngAfterViewInit(): void {
     if (this.svgEl) {

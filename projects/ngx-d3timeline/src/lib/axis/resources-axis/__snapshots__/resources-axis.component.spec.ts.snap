@@ -33,7 +33,9 @@ exports[`ResourcesAxisComponent should render correctly 1`] = `
     </text>
     <line
       class="resources-axis-line"
+      x1="0"
       x2="10"
+      y1="1"
       y2="0"
     />
   </g>
