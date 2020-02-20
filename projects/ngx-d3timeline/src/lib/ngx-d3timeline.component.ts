@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { ViewService } from './view/view.service';
-import { AxisService } from './axis.service';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { EventService } from './event.service';
@@ -29,7 +28,7 @@ import { Store } from './store';
       <g [attr.transform]="viewService.rootTransform">
         <g ngx-d3timeline-resources-axis></g>
         <g ngx-d3timeline-time-axis></g>
-        <g ngx-d3timeline-content [vm]="axisService.contentVm$ | async"></g>
+        <g ngx-d3timeline-content></g>
       </g>
     </svg>
   `,
@@ -55,7 +54,6 @@ export class NgxD3timelineComponent implements AfterViewInit {
 
   constructor(
     public viewService: ViewService,
-    public axisService: AxisService,
     private eventService: EventService,
     private optionsService: OptionsService,
     private dataService: DataService,
