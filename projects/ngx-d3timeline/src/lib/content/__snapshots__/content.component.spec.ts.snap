@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContentComponent should not render if view model is null 1`] = `
+exports[`ContentComponent should not render if eventRectangles are null 1`] = `
 <div
   id="root0"
   ngx-d3timeline-content=""
@@ -9,138 +9,7 @@ exports[`ContentComponent should not render if view model is null 1`] = `
 </div>
 `;
 
-exports[`ContentComponent when Horizontal should render correctly 1`] = `
-<div
-  id="root2"
-  ngx-d3timeline-content=""
->
-  
-  <g
-    class="content-group"
-  >
-    
-    <g
-      transform="translate(225.94756666110607, 0)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="24.052433338893934"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(0, 0)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="35.5584431547802"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(35.5584431547802, 0)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="5.9264071924633654"
-      />
-      <text
-        dy="1em"
-      >
-        DriveBreak
-      </text>
-    </g>
-    <g
-      transform="translate(46.17988182305066, 116.66666666666667)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="1.121627435314359"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(40.25347463058729, 116.66666666666667)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="0.16681738763970344"
-      />
-      <text
-        dy="1em"
-      >
-        Waiting
-      </text>
-    </g>
-    <g
-      transform="translate(75.81191778536748, 116.66666666666667)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="8.883025891814526"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(225.94756666110607, 233.33333333333334)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="24.052433338893934"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(0, 233.33333333333334)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="35.5584431547802"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(35.5584431547802, 233.33333333333334)"
-    >
-      <rect
-        height="116.66666666666667"
-        width="5.9264071924633654"
-      />
-      <text
-        dy="1em"
-      >
-        DriveBreak
-      </text>
-    </g>
-  </g>
-</div>
-`;
-
-exports[`ContentComponent when Vertical should render correctly 1`] = `
+exports[`ContentComponent should render correctly 1`] = `
 <div
   id="root1"
   ngx-d3timeline-content=""
@@ -151,120 +20,29 @@ exports[`ContentComponent when Vertical should render correctly 1`] = `
   >
     
     <g
-      transform="translate(0, 316.3265933255485)"
+      transform="translate(50,0)"
     >
       <rect
-        height="33.673406674451485"
-        width="83.33333333333333"
+        height="80"
+        width="50"
       />
       <text
         dy="1em"
       >
-        Driving
+        Event 1
       </text>
     </g>
     <g
-      transform="translate(0, 0)"
+      transform="translate(130,0)"
     >
       <rect
-        height="49.78182041669228"
-        width="83.33333333333333"
+        height="90"
+        width="60"
       />
       <text
         dy="1em"
       >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(0, 49.78182041669228)"
-    >
-      <rect
-        height="8.296970069448712"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        DriveBreak
-      </text>
-    </g>
-    <g
-      transform="translate(83.33333333333333, 64.65183455227091)"
-    >
-      <rect
-        height="1.5702784094401068"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(83.33333333333333, 56.3548644828222)"
-    >
-      <rect
-        height="0.23354434269558766"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        Waiting
-      </text>
-    </g>
-    <g
-      transform="translate(83.33333333333333, 106.13668489951448)"
-    >
-      <rect
-        height="12.43623624854034"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(166.66666666666666, 316.3265933255485)"
-    >
-      <rect
-        height="33.673406674451485"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(166.66666666666666, 0)"
-    >
-      <rect
-        height="49.78182041669228"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        Driving
-      </text>
-    </g>
-    <g
-      transform="translate(166.66666666666666, 49.78182041669228)"
-    >
-      <rect
-        height="8.296970069448712"
-        width="83.33333333333333"
-      />
-      <text
-        dy="1em"
-      >
-        DriveBreak
+        Event 2
       </text>
     </g>
   </g>
