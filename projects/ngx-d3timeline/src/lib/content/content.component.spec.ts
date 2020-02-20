@@ -1,10 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { TimelineView } from '../view/timeline-view';
-import { mockData } from '../mock-data';
-import { Orientation } from '../orientation';
 import { ContentComponent } from './content.component';
-import { ResourcesAxisViewModel } from '../axis/resources-axis/resources-axis-view-model';
-import { TimeAxisViewModel } from '../axis/time-axis/time-axis-view-model';
 import { ContentService } from './content.service';
 import { of } from 'rxjs';
 import { EventRectangle } from './content';
