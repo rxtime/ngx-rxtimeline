@@ -18,6 +18,7 @@ export class AxisService {
     map(scales =>
       this.createAxis(
         new ResourceAxisTickRenderer(scales.scaleBand),
+        scales.scaleBand,
         scales.state.axisOrientations.resourceOrientation,
         scales.state.view
       )
@@ -28,6 +29,7 @@ export class AxisService {
     map(scales =>
       this.createAxis(
         new TimeAxisTickRenderer(scales.scaleTime),
+        scales.scaleTime,
         scales.state.axisOrientations.timeOrientation,
         scales.state.view
       )
@@ -41,12 +43,13 @@ export class AxisService {
 
   private createAxis(
     tickRenderer: TickRenderer,
+    scale: BandScale | TimeScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
     return {
       ticks: this.getTicks(tickRenderer, orientation, timelineView),
-      axisLine: this.getAxisLine(tickRenderer, orientation, timelineView)
+      axisLine: this.getAxisLine(scale, orientation, timelineView)
     };
   }
 
