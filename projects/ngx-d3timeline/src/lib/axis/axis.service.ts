@@ -8,13 +8,16 @@ import { ScalesService } from '../scales.service';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { BandScale, TimeScale } from '../scale-types';
+import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
+import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
+import { TickRenderer } from './tick-renderer';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
   resourceAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        scales.scaleBand,
+        new ResourceAxisTickRenderer(scales.scaleBand),
         scales.state.axisOrientations.resourceOrientation,
         scales.state.view
       )
@@ -24,7 +27,7 @@ export class AxisService {
   timeAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        scales.scaleTime,
+        new TimeAxisTickRenderer(scales.scaleTime),
         scales.state.axisOrientations.timeOrientation,
         scales.state.view
       )
@@ -37,61 +40,29 @@ export class AxisService {
   ) {}
 
   private createAxis(
-    scale: BandScale | TimeScale,
+    tickRenderer: TickRenderer,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
     return {
-      ticks: this.getTicks(scale, orientation, timelineView),
-      axisLine: this.getAxisLine(scale, orientation, timelineView)
+      ticks: this.getTicks(tickRenderer, orientation, timelineView),
+      axisLine: this.getAxisLine(tickRenderer, orientation, timelineView)
     };
   }
 
   private getTicks(
-    scale: BandScale | TimeScale,
+    tickRenderer: TickRenderer,
     orientation: Orientation,
     timelineView: TimelineView
   ): Tick[] {
-    return this.getScaleTicks(scale).map(value => ({
-      label: this.getLabel(scale, value),
+    return tickRenderer.getTickValues().map(value => ({
+      label: tickRenderer.getLabel(value),
       transform: this.optionsService.getTranslation(
-        this.getTransform(scale, value),
+        tickRenderer.getTransform(value),
         orientation,
         timelineView
       )
     }));
-  }
-
-  private getScaleTicks(scale: TimeScale | BandScale): any[] {
-    if (this.isScaleTime(scale)) {
-      return scale.ticks();
-    }
-
-    return (scale as BandScale).domain();
-  }
-
-  private getLabel(scale: TimeScale | BandScale, tick: any) {
-    if (this.isScaleTime(scale)) {
-      return scale.tickFormat()(tick);
-    }
-
-    return tick;
-  }
-
-  private getTransform(scale: TimeScale | BandScale, tick: any) {
-    if (this.isScaleTime(scale)) {
-      return scale(tick);
-    }
-
-    return this.getBandMidPoint(scale as BandScale, tick);
-  }
-
-  private isScaleTime(scale: TimeScale | BandScale): scale is TimeScale {
-    return scale.domain()[0] instanceof Date;
-  }
-
-  private getBandMidPoint(scale: BandScale, tick: string) {
-    return scale(tick) + scale.bandwidth() / 2;
   }
 
   private getAxisLine(
