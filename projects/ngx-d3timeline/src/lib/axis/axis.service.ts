@@ -1,13 +1,13 @@
 import { Axis } from './axis';
 import { Orientation } from '../orientation';
 import { map } from 'rxjs/operators';
-import { ScaleBand, ScaleTime } from 'd3-scale';
 import { Injectable } from '@angular/core';
 import { Tick } from './tick';
 import { Line } from './line';
 import { ScalesService } from '../scales.service';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
+import { BandScale, TimeScale } from '../scale-types';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -37,7 +37,7 @@ export class AxisService {
   ) {}
 
   private createAxis(
-    scale: ScaleBand<string> | ScaleTime<number, number>,
+    scale: BandScale | TimeScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
@@ -48,7 +48,7 @@ export class AxisService {
   }
 
   private getTicks(
-    scale: ScaleBand<string> | ScaleTime<number, number>,
+    scale: BandScale | TimeScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Tick[] {
@@ -62,20 +62,15 @@ export class AxisService {
     }));
   }
 
-  private getScaleTicks(
-    scale: ScaleTime<number, number> | ScaleBand<string>
-  ): any[] {
+  private getScaleTicks(scale: TimeScale | BandScale): any[] {
     if (this.isScaleTime(scale)) {
       return scale.ticks();
     }
 
-    return (scale as ScaleBand<string>).domain();
+    return (scale as BandScale).domain();
   }
 
-  private getLabel(
-    scale: ScaleTime<number, number> | ScaleBand<string>,
-    tick: any
-  ) {
+  private getLabel(scale: TimeScale | BandScale, tick: any) {
     if (this.isScaleTime(scale)) {
       return scale.tickFormat()(tick);
     }
@@ -83,29 +78,24 @@ export class AxisService {
     return tick;
   }
 
-  private getTransform(
-    scale: ScaleTime<number, number> | ScaleBand<string>,
-    tick: any
-  ) {
+  private getTransform(scale: TimeScale | BandScale, tick: any) {
     if (this.isScaleTime(scale)) {
       return scale(tick);
     }
 
-    return this.getBandMidPoint(scale as ScaleBand<string>, tick);
+    return this.getBandMidPoint(scale as BandScale, tick);
   }
 
-  private isScaleTime(
-    scale: ScaleTime<number, number> | ScaleBand<string>
-  ): scale is ScaleTime<number, number> {
+  private isScaleTime(scale: TimeScale | BandScale): scale is TimeScale {
     return scale.domain()[0] instanceof Date;
   }
 
-  private getBandMidPoint(scale: ScaleBand<string>, tick: string) {
+  private getBandMidPoint(scale: BandScale, tick: string) {
     return scale(tick) + scale.bandwidth() / 2;
   }
 
   private getAxisLine(
-    scale: ScaleBand<string> | ScaleTime<number, number>,
+    scale: BandScale | TimeScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Line {

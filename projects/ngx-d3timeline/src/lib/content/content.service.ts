@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ScalesService } from '../scales.service';
 import { State } from '../state';
-import { ScaleBand, ScaleTime } from 'd3-scale';
 import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
+import { TimeScale, BandScale } from '../scale-types';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -20,8 +20,8 @@ export class ContentService {
     scaleTime,
     state
   }: {
-    scaleBand: ScaleBand<string>;
-    scaleTime: ScaleTime<number, number>;
+    scaleBand: BandScale;
+    scaleTime: TimeScale;
     state: State;
   }): EventRectangle[] {
     return state.data.map(d => ({
@@ -50,8 +50,8 @@ export class ContentService {
   dataTransform(
     data: TimelineEvent,
     orientation: Orientation,
-    scaleBand: ScaleBand<string>,
-    scaleTime: ScaleTime<number, number>
+    scaleBand: BandScale,
+    scaleTime: TimeScale
   ) {
     return `translate(${this.getEventX(
       data,
@@ -64,8 +64,8 @@ export class ContentService {
   rectHeight(
     data: TimelineEvent,
     orientation: Orientation,
-    scaleBand: ScaleBand<string>,
-    scaleTime: ScaleTime<number, number>
+    scaleBand: BandScale,
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.rectTimeBreadth(data, scaleTime)
@@ -75,8 +75,8 @@ export class ContentService {
   rectWidth(
     data: TimelineEvent,
     orientation: Orientation,
-    scaleBand: ScaleBand<string>,
-    scaleTime: ScaleTime<number, number>
+    scaleBand: BandScale,
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.rectResourceBreadth(scaleBand)
@@ -85,8 +85,8 @@ export class ContentService {
   private getEventX(
     data: TimelineEvent,
     orientation: Orientation,
-    scaleBand: ScaleBand<string>,
-    scaleTime: ScaleTime<number, number>
+    scaleBand: BandScale,
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.positionInResourceAxis(data, scaleBand)
@@ -96,8 +96,8 @@ export class ContentService {
   private getEventY(
     data: TimelineEvent,
     orientation: Orientation,
-    scaleBand: ScaleBand<string>,
-    scaleTime: ScaleTime<number, number>
+    scaleBand: BandScale,
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.positionInTimeAxis(data, scaleTime)
@@ -106,26 +106,23 @@ export class ContentService {
 
   private positionInResourceAxis(
     data: TimelineEvent,
-    scaleBand: ScaleBand<string>
+    scaleBand: BandScale
   ): number {
     return scaleBand(data.series);
   }
 
   private positionInTimeAxis(
     data: TimelineEvent,
-    scaleTime: ScaleTime<number, number>
+    scaleTime: TimeScale
   ): number {
     return scaleTime(data.start);
   }
 
-  private rectTimeBreadth(
-    data: TimelineEvent,
-    scaleTime: ScaleTime<number, number>
-  ): number {
+  private rectTimeBreadth(data: TimelineEvent, scaleTime: TimeScale): number {
     return scaleTime(data.finish) - scaleTime(data.start);
   }
 
-  private rectResourceBreadth(scaleBand: ScaleBand<string>): number {
+  private rectResourceBreadth(scaleBand: BandScale): number {
     return scaleBand.bandwidth();
   }
 }
