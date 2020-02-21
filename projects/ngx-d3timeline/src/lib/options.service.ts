@@ -6,11 +6,13 @@ import { TimelineView } from './view/timeline-view';
 export class OptionsService {
   getTranslation(
     range: number,
+    cx: number,
+    cy: number,
     orientation: Orientation,
     timelineView: TimelineView
   ) {
     return orientation === Orientation.Vertical
-      ? `translate(${timelineView.left}, ${range})`
-      : `translate(${range}, ${timelineView.top})`;
+      ? `translate(${timelineView.left + cx}, ${range + cy})`
+      : `translate(${range + cx}, ${timelineView.top + cy})`;
   }
 }

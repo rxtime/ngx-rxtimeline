@@ -17,7 +17,12 @@ export class AxisService {
   resourceAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        new ResourceAxisTickRenderer(scales.scaleBand),
+        new ResourceAxisTickRenderer(
+          scales.scaleBand,
+          scales.state.axisOrientations.resourceOrientation,
+          this.optionsService,
+          scales.state.view
+        ),
         scales.scaleBand,
         scales.state.axisOrientations.resourceOrientation,
         scales.state.view
@@ -28,7 +33,12 @@ export class AxisService {
   timeAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        new TimeAxisTickRenderer(scales.scaleTime),
+        new TimeAxisTickRenderer(
+          scales.scaleTime,
+          scales.state.axisOrientations.timeOrientation,
+          this.optionsService,
+          scales.state.view
+        ),
         scales.scaleTime,
         scales.state.axisOrientations.timeOrientation,
         scales.state.view
@@ -48,23 +58,16 @@ export class AxisService {
     timelineView: TimelineView
   ): Axis {
     return {
-      ticks: this.getTicks(tickRenderer, orientation, timelineView),
+      ticks: this.getTicks(tickRenderer),
       axisLine: this.getAxisLine(scale, orientation, timelineView)
     };
   }
 
-  private getTicks(
-    tickRenderer: TickRenderer,
-    orientation: Orientation,
-    timelineView: TimelineView
-  ): Tick[] {
+  private getTicks(tickRenderer: TickRenderer): Tick[] {
     return tickRenderer.getTickValues().map(value => ({
       label: tickRenderer.getLabel(value),
-      transform: this.optionsService.getTranslation(
-        tickRenderer.getTransform(value),
-        orientation,
-        timelineView
-      )
+      transform: tickRenderer.getTransform(value),
+      textAnchor: tickRenderer.getTextAnchor()
     }));
   }
 

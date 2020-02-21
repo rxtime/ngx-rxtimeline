@@ -11,7 +11,7 @@ import { AxisService } from '../axis.service';
       <text
         *ngFor="let tick of axis.ticks"
         [attr.transform]="tick.transform"
-        dy="-2"
+        [attr.text-anchor]="tick.textAnchor"
       >
         {{ tick.label }}
       </text>
@@ -27,8 +27,9 @@ import { AxisService } from '../axis.service';
   styles: [
     `
       .resources-axis-group {
-        text-anchor: middle;
+        dominant-baseline: central;
       }
+
       .resources-axis-line {
         stroke: #000;
       }
