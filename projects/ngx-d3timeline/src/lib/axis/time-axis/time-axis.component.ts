@@ -25,6 +25,7 @@ import { AxisService } from '../axis.service';
   styles: [
     `
       .time-axis-group {
+        text-anchor: end;
         dominant-baseline: central;
         font-size: 10px;
       }
