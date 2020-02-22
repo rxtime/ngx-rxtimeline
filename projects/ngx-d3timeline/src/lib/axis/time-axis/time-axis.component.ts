@@ -8,7 +8,11 @@ import { AxisService } from '../axis.service';
       class="time-axis-group"
       *ngIf="axisService.timeAxis$ | async as axis"
     >
-      <svg:g *ngFor="let tick of axis.ticks" [attr.transform]="tick.transform">
+      <svg:g
+        *ngFor="let tick of axis.ticks"
+        [attr.transform]="tick.transform"
+        [attr.text-anchor]="tick.textAnchor"
+      >
         <svg:text dx="-7">
           {{ tick.label }}
         </svg:text>
@@ -25,7 +29,6 @@ import { AxisService } from '../axis.service';
   styles: [
     `
       .time-axis-group {
-        text-anchor: end;
         dominant-baseline: central;
         font-size: 10px;
       }
