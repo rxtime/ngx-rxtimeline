@@ -20,6 +20,7 @@ exports[`TimeAxisComponent should render correctly 1`] = `
   >
     
     <g
+      text-anchor="end"
       transform="translate(0, 10)"
     >
       <text
@@ -32,6 +33,7 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       />
     </g>
     <g
+      text-anchor="end"
       transform="translate(0, 20)"
     >
       <text
