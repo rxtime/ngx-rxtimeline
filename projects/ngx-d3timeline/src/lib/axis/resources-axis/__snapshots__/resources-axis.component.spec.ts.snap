@@ -20,11 +20,13 @@ exports[`ResourcesAxisComponent should render correctly 1`] = `
   >
     
     <text
+      text-anchor="end"
       transform="translate(0, 10)"
     >
        tick 1 
     </text>
     <text
+      text-anchor="end"
       transform="translate(0, 20)"
     >
        tick 2 
