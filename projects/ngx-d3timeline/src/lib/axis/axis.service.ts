@@ -7,7 +7,7 @@ import { Line } from './line';
 import { ScalesService } from '../scales.service';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
-import { BandScale, TimeScale } from '../scale-types';
+import { Scale } from '../scale-types';
 import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
@@ -17,7 +17,7 @@ export class AxisService {
   resourceAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        new ResourceAxisTickRenderer(scales.scaleBand),
+        new ResourceAxisTickRenderer(),
         scales.scaleBand,
         scales.state.axisOrientations.resourceOrientation,
         scales.state.view
@@ -28,7 +28,7 @@ export class AxisService {
   timeAxis$ = this.scalesService.scales$.pipe(
     map(scales =>
       this.createAxis(
-        new TimeAxisTickRenderer(scales.scaleTime),
+        new TimeAxisTickRenderer(),
         scales.scaleTime,
         scales.state.axisOrientations.timeOrientation,
         scales.state.view
@@ -41,35 +41,36 @@ export class AxisService {
     private optionsService: OptionsService
   ) {}
 
-  private createAxis(
-    tickRenderer: TickRenderer,
-    scale: BandScale | TimeScale,
+  private createAxis<TScale extends Scale>(
+    tickRenderer: TickRenderer<TScale>,
+    scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
     return {
-      ticks: this.getTicks(tickRenderer, orientation, timelineView),
+      ticks: this.getTicks(tickRenderer, scale, orientation, timelineView),
       axisLine: this.getAxisLine(scale, orientation, timelineView)
     };
   }
 
-  private getTicks(
-    tickRenderer: TickRenderer,
+  private getTicks<TScale extends Scale>(
+    tickRenderer: TickRenderer<TScale>,
+    scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Tick[] {
-    return tickRenderer.getTickValues().map(value => ({
-      label: tickRenderer.getLabel(value),
+    return tickRenderer.getTickValues(scale).map(value => ({
+      label: tickRenderer.getLabel(scale, value),
       transform: this.optionsService.getTranslation(
-        tickRenderer.getTransform(value),
+        tickRenderer.getTransform(scale, value),
         orientation,
         timelineView
       )
     }));
   }
 
-  private getAxisLine(
-    scale: BandScale | TimeScale,
+  private getAxisLine<TScale extends Scale>(
+    scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Line {
