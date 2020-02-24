@@ -1,18 +1,16 @@
 import { TimeScale } from '../../scale-types';
 import { TickRenderer } from '../tick-renderer';
 
-export class TimeAxisTickRenderer implements TickRenderer {
-  constructor(private scale: TimeScale) {}
-
-  getTickValues(): Date[] {
-    return this.scale.ticks();
+export class TimeAxisTickRenderer implements TickRenderer<TimeScale> {
+  getTickValues(scale: TimeScale): Date[] {
+    return scale.ticks();
   }
 
-  getLabel(tick: any): string {
-    return this.scale.tickFormat()(tick);
+  getLabel(scale: TimeScale, tick: any): string {
+    return scale.tickFormat()(tick);
   }
 
-  getTransform(tick: any): number {
-    return this.scale(tick);
+  getTransform(scale: TimeScale, tick: any): number {
+    return scale(tick);
   }
 }
