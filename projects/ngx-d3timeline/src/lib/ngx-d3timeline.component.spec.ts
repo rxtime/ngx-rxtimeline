@@ -4,6 +4,7 @@ import { NgxD3timelineComponent } from './ngx-d3timeline.component';
 import { ResourcesAxisComponent } from './axis/resources-axis/resources-axis.component';
 import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
+import { EventRectangleComponent } from './content/event-rectangle.component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
@@ -15,7 +16,8 @@ describe('NgxD3timelineComponent', () => {
         NgxD3timelineComponent,
         ResourcesAxisComponent,
         TimeAxisComponent,
-        ContentComponent
+        ContentComponent,
+        EventRectangleComponent
       ]
     }).compileComponents();
   }));

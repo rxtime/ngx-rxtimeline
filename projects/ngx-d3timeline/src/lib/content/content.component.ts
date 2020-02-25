@@ -10,28 +10,11 @@ import { ContentService } from './content.service';
     >
       <svg:g
         *ngFor="let eventRectangle of eventRectangles"
-        [attr.transform]="eventRectangle.transform"
-      >
-        <svg:rect
-          [attr.height]="eventRectangle.height"
-          [attr.width]="eventRectangle.width"
-        ></svg:rect>
-        <svg:text dy="1em">{{ eventRectangle.title }}</svg:text>
-      </svg:g>
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="eventRectangle"
+      ></svg:g>
     </svg:g>
-  `,
-  styles: [
-    `
-      .content-group {
-        font-size: 10px;
-      }
-
-      rect {
-        fill: none;
-        stroke: #000;
-      }
-    `
-  ]
+  `
 })
 export class ContentComponent {
   constructor(public contentService: ContentService) {}
