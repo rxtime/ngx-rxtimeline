@@ -6,6 +6,8 @@ import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
+import { BehaviorSubject } from 'rxjs';
+import { DragEvent } from './drag-event';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -13,7 +15,13 @@ export class ContentService {
     map(scales => this.createEventRectangles(scales))
   );
 
+  private dragSubject = new BehaviorSubject<any>(null);
+
   constructor(private scalesService: ScalesService) {}
+
+  onDrag(event: DragEvent) {
+    this.dragSubject.next(event);
+  }
 
   createEventRectangles({
     scaleBand,
@@ -25,6 +33,7 @@ export class ContentService {
     state: State;
   }): EventRectangle[] {
     return state.data.map(d => ({
+      id: d.id,
       title: d.type,
       transform: this.dataTransform(
         d,
@@ -124,5 +133,20 @@ export class ContentService {
 
   private rectResourceBreadth(scaleBand: BandScale): number {
     return scaleBand.bandwidth();
+  }
+
+  shiftTimelineEventForDrag(
+    data: TimelineEvent,
+    dragEvent: any,
+    timeScale: TimeScale
+  ): TimelineEvent {
+    const shiftedEventStart = timeScale(data.start) + dragEvent.dy;
+    const shiftedEventFinish = timeScale(data.finish) + dragEvent.dy;
+
+    return {
+      ...data,
+      start: timeScale.invert(shiftedEventStart),
+      finish: timeScale.invert(shiftedEventFinish)
+    };
   }
 }
