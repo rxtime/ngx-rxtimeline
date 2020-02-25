@@ -50,13 +50,15 @@ export class EventRectangleComponent implements AfterViewInit {
   }
 
   private setupDrag() {
-    const onDrag = drag().on('drag', () =>
-      this.contentService.onDrag({
-        id: this.eventRectangle.id,
-        dx: event.dx,
-        dy: event.dy
-      })
-    );
-    onDrag(select(this.eventRectangleEl.nativeElement));
+    if (this.eventRectangleEl) {
+      const onDrag = drag().on('drag', () =>
+        this.contentService.onDrag({
+          id: this.eventRectangle.id,
+          dx: event.dx,
+          dy: event.dy
+        })
+      );
+      onDrag(select(this.eventRectangleEl.nativeElement));
+    }
   }
 }
