@@ -22,7 +22,8 @@ export class ContentService {
             this.shiftDraggedTimelineEvent(
               scales.state.data,
               dragEvent,
-              scales.scaleTime
+              scales.scaleTime,
+              scales.state.axisOrientations.timeOrientation
             )
           )
         : scales
@@ -171,22 +172,26 @@ export class ContentService {
   private shiftDraggedTimelineEvent(
     data: TimelineEvent[],
     dragEvent: any,
-    timeScale: TimeScale
+    timeScale: TimeScale,
+    timeOrientation: Orientation
   ) {
+    const deltaTime =
+      timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
+
     return data.map(d =>
       d.id === dragEvent.id
-        ? this.shiftTimelineEventForDrag(d, dragEvent, timeScale)
+        ? this.shiftTimelineEventForDrag(d, deltaTime, timeScale)
         : d
     );
   }
 
   private shiftTimelineEventForDrag(
     data: TimelineEvent,
-    dragEvent: any,
+    deltaTime: number,
     timeScale: TimeScale
   ): TimelineEvent {
-    const shiftedEventStart = timeScale(data.start) + dragEvent.dy;
-    const shiftedEventFinish = timeScale(data.finish) + dragEvent.dy;
+    const shiftedEventStart = timeScale(data.start) + deltaTime;
+    const shiftedEventFinish = timeScale(data.finish) + deltaTime;
 
     return {
       ...data,

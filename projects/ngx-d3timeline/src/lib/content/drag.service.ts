@@ -10,11 +10,15 @@ export class DragService {
   private dragEndSubject = new Subject<any>();
 
   drag$ = this.dragSubject.pipe(
-    scan((acc, curr) => (curr ? { ...curr, dy: acc.dy + curr.dy } : acc), {
-      dx: 0,
-      dy: 0,
-      id: null
-    }),
+    scan(
+      (acc, curr) =>
+        curr ? { ...curr, dy: acc.dy + curr.dy, dx: acc.dx + curr.dx } : acc,
+      {
+        dx: 0,
+        dy: 0,
+        id: null
+      }
+    ),
     takeUntil(this.dragEndSubject),
     repeat()
   );
