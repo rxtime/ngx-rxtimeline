@@ -6,6 +6,7 @@ import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
 import { Component, Input } from '@angular/core';
 import { Line } from './axis/line';
+import { EventRectangleComponent } from './content/event-rectangle.component';
 
 @Component({
   selector: '[ngx-d3timeline-axis-line]',
@@ -28,7 +29,8 @@ describe('NgxD3timelineComponent', () => {
         ResourcesAxisComponent,
         TimeAxisComponent,
         ContentComponent,
-        FakeAxisLineComponent
+        FakeAxisLineComponent,
+        EventRectangleComponent
       ]
     }).compileComponents();
   }));

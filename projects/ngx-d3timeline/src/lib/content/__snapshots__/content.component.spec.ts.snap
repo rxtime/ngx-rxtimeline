@@ -20,30 +20,14 @@ exports[`ContentComponent should render correctly 1`] = `
   >
     
     <g
-      transform="translate(50,0)"
+      ngx-d3timeline-event-rectangle=""
     >
-      <rect
-        height="80"
-        width="50"
-      />
-      <text
-        dy="1em"
-      >
-        Event 1
-      </text>
+      <g />
     </g>
     <g
-      transform="translate(130,0)"
+      ngx-d3timeline-event-rectangle=""
     >
-      <rect
-        height="90"
-        width="60"
-      />
-      <text
-        dy="1em"
-      >
-        Event 2
-      </text>
+      <g />
     </g>
   </g>
 </div>

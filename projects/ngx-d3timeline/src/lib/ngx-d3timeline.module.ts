@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
 import { AxisLineComponent } from './axis/axis-line/axis-line.component';
+import { EventRectangleComponent } from './content/event-rectangle.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AxisLineComponent } from './axis/axis-line/axis-line.component';
     ResourcesAxisComponent,
     TimeAxisComponent,
     ContentComponent,
-    AxisLineComponent
+    AxisLineComponent,
+    EventRectangleComponent
   ],
   imports: [CommonModule],
   exports: [NgxD3timelineComponent]
