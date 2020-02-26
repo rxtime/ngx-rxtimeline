@@ -1,6 +1,7 @@
 import { TimelineEvent } from './timeline-event';
 import { Orientation } from './orientation';
 import { TimelineView } from './view/timeline-view';
+import { EventRectangleDragEvent } from './content/event-rectangle-drag-event';
 
 export class State {
   data: TimelineEvent[];
@@ -9,4 +10,5 @@ export class State {
     resourceOrientation: Orientation;
   };
   view: TimelineView;
+  dragEvent: EventRectangleDragEvent;
 }

@@ -6,35 +6,16 @@ import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
-import { combineLatest } from 'rxjs';
 import { DragService } from './drag.service';
+import { EventRectangleDragEvent } from './event-rectangle-drag-event';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = combineLatest([
-    this.scalesService.scales$,
-    this.dragService.drag$
-  ]).pipe(
-    map(([scales, dragEvent]) =>
-      dragEvent
-        ? this.updateDataInScales(
-            scales,
-            this.updateDraggedTimelineEvent(
-              scales.state.data,
-              dragEvent,
-              scales.scaleTime,
-              scales.state.axisOrientations.timeOrientation
-            )
-          )
-        : scales
-    ),
+  eventRectangles$ = this.scalesService.scales$.pipe(
     map(scales => this.createEventRectangles(scales))
   );
 
-  constructor(
-    private scalesService: ScalesService,
-    private dragService: DragService
-  ) {}
+  constructor(private scalesService: ScalesService) {}
 
   createEventRectangles({
     scaleBand,
@@ -52,7 +33,8 @@ export class ContentService {
         d,
         state.axisOrientations.timeOrientation,
         scaleBand,
-        scaleTime
+        scaleTime,
+        state.dragEvent
       ),
       width: this.rectWidth(
         d,
@@ -71,16 +53,27 @@ export class ContentService {
 
   dataTransform(
     data: TimelineEvent,
-    orientation: Orientation,
+    timeOrientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale
+    scaleTime: TimeScale,
+    dragEvent: EventRectangleDragEvent
   ) {
+    dragEvent =
+      dragEvent && dragEvent.id === data.id ? dragEvent : DragService.dragSeed;
+
     return `translate(${this.getEventX(
       data,
-      orientation,
+      timeOrientation,
       scaleBand,
-      scaleTime
-    )}, ${this.getEventY(data, orientation, scaleBand, scaleTime)})`;
+      scaleTime,
+      dragEvent
+    )}, ${this.getEventY(
+      data,
+      timeOrientation,
+      scaleBand,
+      scaleTime,
+      dragEvent
+    )})`;
   }
 
   rectHeight(
@@ -108,36 +101,40 @@ export class ContentService {
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale
+    scaleTime: TimeScale,
+    dragEvent: EventRectangleDragEvent
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(data, scaleBand)
-      : this.positionInTimeAxis(data, scaleTime);
+      ? this.positionInResourceAxis(data, scaleBand, dragEvent.dx)
+      : this.positionInTimeAxis(data, scaleTime, dragEvent.dx);
   }
 
   private getEventY(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale
+    scaleTime: TimeScale,
+    dragEvent: EventRectangleDragEvent
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(data, scaleTime)
-      : this.positionInResourceAxis(data, scaleBand);
+      ? this.positionInTimeAxis(data, scaleTime, dragEvent.dy)
+      : this.positionInResourceAxis(data, scaleBand, dragEvent.dy);
   }
 
   private positionInResourceAxis(
     data: TimelineEvent,
-    scaleBand: BandScale
+    scaleBand: BandScale,
+    deltaResources: number
   ): number {
-    return scaleBand(data.series);
+    return scaleBand(data.series) + deltaResources;
   }
 
   private positionInTimeAxis(
     data: TimelineEvent,
-    scaleTime: TimeScale
+    scaleTime: TimeScale,
+    dragDelta: number
   ): number {
-    return scaleTime(data.start);
+    return scaleTime(data.start) + dragDelta;
   }
 
   private rectTimeBreadth(data: TimelineEvent, scaleTime: TimeScale): number {
@@ -146,57 +143,5 @@ export class ContentService {
 
   private rectResourceBreadth(scaleBand: BandScale): number {
     return scaleBand.bandwidth();
-  }
-
-  private updateDataInScales(
-    scales: {
-      scaleBand: BandScale;
-      scaleTime: TimeScale;
-      state: State;
-    },
-    data: TimelineEvent[]
-  ): {
-    scaleBand: BandScale;
-    scaleTime: TimeScale;
-    state: State;
-  } {
-    return {
-      ...scales,
-      state: {
-        ...scales.state,
-        data
-      }
-    };
-  }
-
-  private updateDraggedTimelineEvent(
-    data: TimelineEvent[],
-    dragEvent: any,
-    timeScale: TimeScale,
-    timeOrientation: Orientation
-  ) {
-    const deltaTime =
-      timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
-
-    return data.map(d =>
-      d.id === dragEvent.id
-        ? this.shiftTimelineEventForDrag(d, deltaTime, timeScale)
-        : d
-    );
-  }
-
-  private shiftTimelineEventForDrag(
-    data: TimelineEvent,
-    deltaTime: number,
-    timeScale: TimeScale
-  ): TimelineEvent {
-    const shiftedEventStart = timeScale(data.start) + deltaTime;
-    const shiftedEventFinish = timeScale(data.finish) + deltaTime;
-
-    return {
-      ...data,
-      start: timeScale.invert(shiftedEventStart),
-      finish: timeScale.invert(shiftedEventFinish)
-    };
   }
 }

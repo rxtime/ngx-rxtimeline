@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EventRectangleDragEvent } from './event-rectangle-drag-event';
-import { scan, takeUntil, repeat } from 'rxjs/operators';
+import { scan, takeUntil, repeat, tap } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { EventRectangle } from './content';
 
@@ -9,7 +9,7 @@ export class DragService {
   private dragSubject = new BehaviorSubject<EventRectangleDragEvent>(null);
   private dragEndSubject = new Subject<any>();
 
-  private readonly dragSeed = {
+  static dragSeed: EventRectangleDragEvent = {
     dx: 0,
     dy: 0,
     id: null
@@ -19,7 +19,7 @@ export class DragService {
     scan(
       (acc, curr): EventRectangleDragEvent =>
         curr ? { ...curr, dy: acc.dy + curr.dy, dx: acc.dx + curr.dx } : acc,
-      this.dragSeed
+      DragService.dragSeed
     ),
     takeUntil(this.dragEndSubject),
     repeat()

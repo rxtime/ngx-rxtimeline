@@ -5,6 +5,7 @@ import { TimelineView } from './view/timeline-view';
 import { Orientation } from './orientation';
 import { State } from './state';
 import { map } from 'rxjs/operators';
+import { DragService } from './content/drag.service';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -23,14 +24,18 @@ export class Store {
   state$: Observable<State> = combineLatest([
     this.dataSubject.asObservable(),
     this.viewSubject.asObservable(),
-    this.axisOrientationsSubject.asObservable()
+    this.axisOrientationsSubject.asObservable(),
+    this.dragService.drag$
   ]).pipe(
-    map(([data, view, axisOrientations]) => ({
+    map(([data, view, axisOrientations, dragEvent]) => ({
       data,
       view,
-      axisOrientations
+      axisOrientations,
+      dragEvent
     }))
   );
+
+  private constructor(private dragService: DragService) {}
 
   setData(data: TimelineEvent[]) {
     this.dataSubject.next(data);
