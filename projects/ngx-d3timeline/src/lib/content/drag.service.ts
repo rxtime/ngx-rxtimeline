@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { DragEvent } from './drag-event';
+import { EventRectangleDragEvent } from './event-rectangle-drag-event';
 import { scan, takeUntil, repeat } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { EventRectangle } from './content';
 
 @Injectable({ providedIn: 'root' })
 export class DragService {
-  private dragSubject = new BehaviorSubject<DragEvent>(null);
+  private dragSubject = new BehaviorSubject<EventRectangleDragEvent>(null);
   private dragEndSubject = new Subject<any>();
 
   drag$ = this.dragSubject.pipe(
