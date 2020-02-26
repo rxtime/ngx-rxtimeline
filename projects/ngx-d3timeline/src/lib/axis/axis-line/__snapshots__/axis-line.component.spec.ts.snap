@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AxisLineComponent should render correctly 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-axis-line=""
+>
+  <line
+    class="axis-line"
+    x1="0"
+    x2="50"
+    y1="0"
+    y2="50"
+  />
+</div>
+`;

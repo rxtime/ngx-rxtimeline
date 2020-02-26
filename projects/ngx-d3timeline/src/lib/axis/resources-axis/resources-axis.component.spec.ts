@@ -2,6 +2,19 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ResourcesAxisComponent } from './resources-axis.component';
 import { AxisService } from '../axis.service';
 import { of } from 'rxjs';
+import { AxisLineComponent } from '../axis-line/axis-line.component';
+import { Input, Component } from '@angular/core';
+import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
+
+@Component({
+  selector: '[ngx-d3timeline-axis-line]',
+  template: `
+    <svg:g></svg:g>
+  `
+})
+class FakeAxisLineComponent {
+  @Input() axisLine: Line;
+}
 
 describe('ResourcesAxisComponent', () => {
   let fixture: ComponentFixture<ResourcesAxisComponent>;
@@ -9,7 +22,7 @@ describe('ResourcesAxisComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResourcesAxisComponent],
+      declarations: [ResourcesAxisComponent, FakeAxisLineComponent],
       providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
     });
 

@@ -15,22 +15,13 @@ import { AxisService } from '../axis.service';
       >
         {{ tick.label }}
       </text>
-      <svg:line
-        class="resources-axis-line"
-        [attr.x1]="axis.axisLine.x1"
-        [attr.x2]="axis.axisLine.x2"
-        [attr.y1]="axis.axisLine.y1"
-        [attr.y2]="axis.axisLine.y2"
-      ></svg:line>
+      <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
     </svg:g>
   `,
   styles: [
     `
       .resources-axis-group {
         text-anchor: middle;
-      }
-      .resources-axis-line {
-        stroke: #000;
       }
     `
   ]
