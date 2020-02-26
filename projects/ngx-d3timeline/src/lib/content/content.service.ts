@@ -19,7 +19,7 @@ export class ContentService {
       dragEvent
         ? this.updateDataInScales(
             scales,
-            this.shiftDraggedTimelineEvent(
+            this.updateDraggedTimelineEvent(
               scales.state.data,
               dragEvent,
               scales.scaleTime,
@@ -169,7 +169,7 @@ export class ContentService {
     };
   }
 
-  private shiftDraggedTimelineEvent(
+  private updateDraggedTimelineEvent(
     data: TimelineEvent[],
     dragEvent: any,
     timeScale: TimeScale,
