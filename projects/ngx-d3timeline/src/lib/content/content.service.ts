@@ -66,13 +66,13 @@ export class ContentService {
       timeOrientation,
       scaleBand,
       scaleTime,
-      dragEvent
+      dragEvent.dx
     )}, ${this.getEventY(
       data,
       timeOrientation,
       scaleBand,
       scaleTime,
-      dragEvent
+      dragEvent.dy
     )})`;
   }
 
@@ -102,11 +102,11 @@ export class ContentService {
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
-    dragEvent: EventRectangleDragEvent
+    dragEventDx: number
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(data, scaleBand, dragEvent.dx)
-      : this.positionInTimeAxis(data, scaleTime, dragEvent.dx);
+      ? this.positionInResourceAxis(data, scaleBand, dragEventDx)
+      : this.positionInTimeAxis(data, scaleTime, dragEventDx);
   }
 
   private getEventY(
@@ -114,11 +114,11 @@ export class ContentService {
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
-    dragEvent: EventRectangleDragEvent
+    dragEventDy: number
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(data, scaleTime, dragEvent.dy)
-      : this.positionInResourceAxis(data, scaleBand, dragEvent.dy);
+      ? this.positionInTimeAxis(data, scaleTime, dragEventDy)
+      : this.positionInResourceAxis(data, scaleBand, dragEventDy);
   }
 
   private positionInResourceAxis(
