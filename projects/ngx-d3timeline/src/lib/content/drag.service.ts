@@ -9,15 +9,17 @@ export class DragService {
   private dragSubject = new BehaviorSubject<EventRectangleDragEvent>(null);
   private dragEndSubject = new Subject<any>();
 
+  private readonly dragSeed = {
+    dx: 0,
+    dy: 0,
+    id: null
+  };
+
   drag$ = this.dragSubject.pipe(
     scan(
-      (acc, curr) =>
+      (acc, curr): EventRectangleDragEvent =>
         curr ? { ...curr, dy: acc.dy + curr.dy, dx: acc.dx + curr.dx } : acc,
-      {
-        dx: 0,
-        dy: 0,
-        id: null
-      }
+      this.dragSeed
     ),
     takeUntil(this.dragEndSubject),
     repeat()
