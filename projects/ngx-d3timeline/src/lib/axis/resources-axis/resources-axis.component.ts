@@ -23,9 +23,6 @@ import { AxisService } from '../axis.service';
       .resources-axis-group {
         text-anchor: middle;
       }
-      .resources-axis-line {
-        stroke: #000;
-      }
     `
   ]
 })

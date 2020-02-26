@@ -24,10 +24,6 @@ import { AxisService } from '../axis.service';
         dominant-baseline: central;
         font-size: 10px;
       }
-
-      line {
-        stroke: #000;
-      }
     `
   ]
 })
