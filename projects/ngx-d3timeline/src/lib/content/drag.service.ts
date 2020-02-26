@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EventRectangleDragEvent } from './event-rectangle-drag-event';
-import { scan, takeUntil, repeat, tap } from 'rxjs/operators';
+import { scan, takeUntil, repeat } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { EventRectangle } from './content';
 
