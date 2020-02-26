@@ -6,22 +6,34 @@ import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
-import { BehaviorSubject } from 'rxjs';
-import { DragEvent } from './drag-event';
+import { combineLatest } from 'rxjs';
+import { DragService } from './drag.service';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = this.scalesService.scales$.pipe(
+  eventRectangles$ = combineLatest([
+    this.scalesService.scales$,
+    this.dragService.drag$
+  ]).pipe(
+    map(([scales, dragEvent]) =>
+      dragEvent
+        ? this.updateDataInScales(
+            scales,
+            this.shiftDraggedTimelineEvent(
+              scales.state.data,
+              dragEvent,
+              scales.scaleTime
+            )
+          )
+        : scales
+    ),
     map(scales => this.createEventRectangles(scales))
   );
 
-  private dragSubject = new BehaviorSubject<any>(null);
-
-  constructor(private scalesService: ScalesService) {}
-
-  onDrag(event: DragEvent) {
-    this.dragSubject.next(event);
-  }
+  constructor(
+    private scalesService: ScalesService,
+    private dragService: DragService
+  ) {}
 
   createEventRectangles({
     scaleBand,
@@ -135,7 +147,40 @@ export class ContentService {
     return scaleBand.bandwidth();
   }
 
-  shiftTimelineEventForDrag(
+  private updateDataInScales(
+    scales: {
+      scaleBand: BandScale;
+      scaleTime: TimeScale;
+      state: State;
+    },
+    data: TimelineEvent[]
+  ): {
+    scaleBand: BandScale;
+    scaleTime: TimeScale;
+    state: State;
+  } {
+    return {
+      ...scales,
+      state: {
+        ...scales.state,
+        data
+      }
+    };
+  }
+
+  private shiftDraggedTimelineEvent(
+    data: TimelineEvent[],
+    dragEvent: any,
+    timeScale: TimeScale
+  ) {
+    return data.map(d =>
+      d.id === dragEvent.id
+        ? this.shiftTimelineEventForDrag(d, dragEvent, timeScale)
+        : d
+    );
+  }
+
+  private shiftTimelineEventForDrag(
     data: TimelineEvent,
     dragEvent: any,
     timeScale: TimeScale
