@@ -22,6 +22,7 @@ describe('EventRectangleComponent', () => {
 
   it('should render correctly', () => {
     fixture.componentInstance.eventRectangle = {
+      id: 1,
       title: 'Event 1',
       transform: 'translate(50,0)',
       width: 50,

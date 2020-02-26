@@ -6,14 +6,35 @@ import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
+import { combineLatest } from 'rxjs';
+import { DragService } from './drag.service';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = this.scalesService.scales$.pipe(
+  eventRectangles$ = combineLatest([
+    this.scalesService.scales$,
+    this.dragService.drag$
+  ]).pipe(
+    map(([scales, dragEvent]) =>
+      dragEvent
+        ? this.updateDataInScales(
+            scales,
+            this.updateDraggedTimelineEvent(
+              scales.state.data,
+              dragEvent,
+              scales.scaleTime,
+              scales.state.axisOrientations.timeOrientation
+            )
+          )
+        : scales
+    ),
     map(scales => this.createEventRectangles(scales))
   );
 
-  constructor(private scalesService: ScalesService) {}
+  constructor(
+    private scalesService: ScalesService,
+    private dragService: DragService
+  ) {}
 
   createEventRectangles({
     scaleBand,
@@ -25,6 +46,7 @@ export class ContentService {
     state: State;
   }): EventRectangle[] {
     return state.data.map(d => ({
+      id: d.id,
       title: d.type,
       transform: this.dataTransform(
         d,
@@ -124,5 +146,57 @@ export class ContentService {
 
   private rectResourceBreadth(scaleBand: BandScale): number {
     return scaleBand.bandwidth();
+  }
+
+  private updateDataInScales(
+    scales: {
+      scaleBand: BandScale;
+      scaleTime: TimeScale;
+      state: State;
+    },
+    data: TimelineEvent[]
+  ): {
+    scaleBand: BandScale;
+    scaleTime: TimeScale;
+    state: State;
+  } {
+    return {
+      ...scales,
+      state: {
+        ...scales.state,
+        data
+      }
+    };
+  }
+
+  private updateDraggedTimelineEvent(
+    data: TimelineEvent[],
+    dragEvent: any,
+    timeScale: TimeScale,
+    timeOrientation: Orientation
+  ) {
+    const deltaTime =
+      timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
+
+    return data.map(d =>
+      d.id === dragEvent.id
+        ? this.shiftTimelineEventForDrag(d, deltaTime, timeScale)
+        : d
+    );
+  }
+
+  private shiftTimelineEventForDrag(
+    data: TimelineEvent,
+    deltaTime: number,
+    timeScale: TimeScale
+  ): TimelineEvent {
+    const shiftedEventStart = timeScale(data.start) + deltaTime;
+    const shiftedEventFinish = timeScale(data.finish) + deltaTime;
+
+    return {
+      ...data,
+      start: timeScale.invert(shiftedEventStart),
+      finish: timeScale.invert(shiftedEventFinish)
+    };
   }
 }

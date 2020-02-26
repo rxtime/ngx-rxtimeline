@@ -39,12 +39,14 @@ describe('ContentComponent', () => {
   it('should render correctly', () => {
     const rectangles: EventRectangle[] = [
       {
+        id: 1,
         title: 'Event 1',
         transform: 'translate(50,0)',
         width: 50,
         height: 80
       },
       {
+        id: 2,
         title: 'Event 2',
         transform: 'translate(130,0)',
         width: 60,
