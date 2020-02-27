@@ -25,7 +25,7 @@ export class DragService {
     repeat()
   );
 
-  onDrag(eventRectangle: EventRectangle, event: EventRectangleDragEvent) {
+  onDrag(eventRectangle: EventRectangle, event: any) {
     this.dragSubject.next({
       id: eventRectangle.id,
       dx: event.dx,
