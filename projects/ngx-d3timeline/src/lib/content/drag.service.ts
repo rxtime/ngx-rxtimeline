@@ -9,7 +9,7 @@ export class DragService {
   private dragSubject = new BehaviorSubject<EventRectangleDragEvent>(null);
   private dragEndSubject = new Subject<any>();
 
-  private readonly dragSeed = {
+  private readonly dragSeed: EventRectangleDragEvent = {
     dx: 0,
     dy: 0,
     id: null
