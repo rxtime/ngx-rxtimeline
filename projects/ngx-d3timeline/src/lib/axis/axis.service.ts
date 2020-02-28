@@ -19,7 +19,7 @@ export class AxisService {
       this.createAxis(
         new ResourceAxisTickRenderer(),
         scales.scaleBand,
-        scales.state.axisOrientations.resourceOrientation,
+        scales.state.orientations.resource,
         scales.state.view
       )
     )
@@ -30,7 +30,7 @@ export class AxisService {
       this.createAxis(
         new TimeAxisTickRenderer(),
         scales.scaleTime,
-        scales.state.axisOrientations.timeOrientation,
+        scales.state.orientations.time,
         scales.state.view
       )
     )

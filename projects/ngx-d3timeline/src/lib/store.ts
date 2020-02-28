@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { TimelineEvent } from './timeline-event';
 import { TimelineView } from './view/timeline-view';
-import { Orientation } from './orientation';
 import { State } from './state';
 import { map } from 'rxjs/operators';
+import { Orientation } from './orientation';
+import { AxisOrientations } from './axis-orientations';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -12,23 +13,20 @@ export class Store {
 
   private dataSubject = new BehaviorSubject<TimelineEvent[]>(null);
   private viewSubject = new BehaviorSubject<TimelineView>(null);
-  private axisOrientationsSubject = new BehaviorSubject<{
-    timeOrientation: Orientation;
-    resourceOrientation: Orientation;
-  }>({
-    timeOrientation: Orientation.Vertical,
-    resourceOrientation: Orientation.Horizontal
+  private orientationsSubject = new BehaviorSubject<AxisOrientations>({
+    time: Orientation.Vertical,
+    resource: Orientation.Horizontal
   });
 
   state$: Observable<State> = combineLatest([
     this.dataSubject.asObservable(),
     this.viewSubject.asObservable(),
-    this.axisOrientationsSubject.asObservable()
+    this.orientationsSubject.asObservable()
   ]).pipe(
-    map(([data, view, axisOrientations]) => ({
+    map(([data, view, orientations]) => ({
       data,
       view,
-      axisOrientations
+      orientations
     }))
   );
 
@@ -45,7 +43,10 @@ export class Store {
   setTimeOrientation(timeOrientation: Orientation) {
     const resourceOrientation = this.flipOrientation(timeOrientation);
 
-    this.axisOrientationsSubject.next({ timeOrientation, resourceOrientation });
+    this.orientationsSubject.next({
+      time: timeOrientation,
+      resource: resourceOrientation
+    });
   }
 
   private flipOrientation(orientation: Orientation) {

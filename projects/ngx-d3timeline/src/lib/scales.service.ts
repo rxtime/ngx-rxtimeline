@@ -26,7 +26,7 @@ export class ScalesService {
                 ...scales,
                 scaleTime: this.rescaleTime(
                   scales.scaleTime,
-                  scales.state.axisOrientations.timeOrientation,
+                  scales.state.orientations.time,
                   event
                 )
               }
@@ -46,15 +46,13 @@ export class ScalesService {
   private configureScaleBand(state: State): BandScale {
     return scaleBand()
       .domain(this.getBandScaleDomain(state.data))
-      .range(
-        this.getRange(state.view, state.axisOrientations.resourceOrientation)
-      );
+      .range(this.getRange(state.view, state.orientations.resource));
   }
 
   private configureScaleTime(state: State): TimeScale {
     return scaleTime()
       .domain(this.getTimeScaleDomain(state.data))
-      .range(this.getRange(state.view, state.axisOrientations.timeOrientation));
+      .range(this.getRange(state.view, state.orientations.time));
   }
 
   private rescaleTime(
