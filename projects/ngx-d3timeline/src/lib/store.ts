@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { TimelineEvent } from './timeline-event';
 import { TimelineView } from './view/timeline-view';
-import { Orientations } from './orientations';
 import { State } from './state';
 import { map } from 'rxjs/operators';
 import { Orientation } from './orientation';
+import { AxisOrientations } from './axis-orientations';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -13,7 +13,7 @@ export class Store {
 
   private dataSubject = new BehaviorSubject<TimelineEvent[]>(null);
   private viewSubject = new BehaviorSubject<TimelineView>(null);
-  private orientationsSubject = new BehaviorSubject<Orientations>({
+  private orientationsSubject = new BehaviorSubject<AxisOrientations>({
     time: Orientation.Vertical,
     resource: Orientation.Horizontal
   });

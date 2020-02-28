@@ -1,9 +1,9 @@
 import { TimelineEvent } from './timeline-event';
-import { Orientations } from './orientations';
 import { TimelineView } from './view/timeline-view';
+import { AxisOrientations } from './axis-orientations';
 
 export class State {
   data: TimelineEvent[];
-  orientations: Orientations;
+  orientations: AxisOrientations;
   view: TimelineView;
 }

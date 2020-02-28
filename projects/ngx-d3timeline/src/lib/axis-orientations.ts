@@ -1,6 +1,6 @@
 import { Orientation } from './orientation';
 
-export interface Orientations {
+export interface AxisOrientations {
   time: Orientation;
   resource: Orientation;
 }
