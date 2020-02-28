@@ -41,23 +41,13 @@ export class ContentService {
       title: d.type,
       transform: this.dataTransform(
         d,
-        state.axisOrientations.timeOrientation,
+        state.orientations.time,
         scaleBand,
         scaleTime,
         dragEvent.id === d.id ? dragEvent : null
       ),
-      width: this.rectWidth(
-        d,
-        state.axisOrientations.timeOrientation,
-        scaleBand,
-        scaleTime
-      ),
-      height: this.rectHeight(
-        d,
-        state.axisOrientations.timeOrientation,
-        scaleBand,
-        scaleTime
-      )
+      width: this.rectWidth(d, state.orientations.time, scaleBand, scaleTime),
+      height: this.rectHeight(d, state.orientations.time, scaleBand, scaleTime)
     }));
   }
 
