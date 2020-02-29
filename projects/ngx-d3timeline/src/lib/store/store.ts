@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { ActionTypes } from './actions';
+import { ActionType } from './actions';
 import { shareReplay, scan } from 'rxjs/operators';
 import { initialState } from './state';
 import { State } from './state';
@@ -30,11 +30,11 @@ export class Store {
 
   private reducer(state: State, action: Actions): State {
     switch (action.type) {
-      case ActionTypes.DataChanged: {
+      case ActionType.DataChanged: {
         return this.recomputeStateAndScales(state, { data: action.payload });
       }
 
-      case ActionTypes.OrientationChanged: {
+      case ActionType.OrientationChanged: {
         return this.recomputeStateAndScales(state, {
           axisOrientations: this.optionsService.setAxisOrientations(
             action.payload
@@ -42,13 +42,13 @@ export class Store {
         });
       }
 
-      case ActionTypes.ViewChanged: {
+      case ActionType.ViewChanged: {
         return this.recomputeStateAndScales(state, {
           view: new TimelineView(action.payload)
         });
       }
 
-      case ActionTypes.ZoomEvent: {
+      case ActionType.Zoomed: {
         return {
           ...state,
           timeScale: this.scaleService.rescaleTime(state, action.payload)

@@ -6,7 +6,7 @@ export interface Action {
   payload?: any;
 }
 
-export enum ActionTypes {
+export enum ActionType {
   DataChanged = 'Data Changed',
   OrientationChanged = 'Orientation Changed',
   ViewChanged = 'View Changed',
@@ -14,22 +14,22 @@ export enum ActionTypes {
 }
 
 export class DataChangedAction implements Action {
-  readonly type = ActionTypes.DataChanged;
+  readonly type = ActionType.DataChanged;
   constructor(public payload: TimelineEvent[]) {}
 }
 
 export class OrientationChangedAction implements Action {
-  readonly type = ActionTypes.OrientationChanged;
+  readonly type = ActionType.OrientationChanged;
   constructor(public payload: Orientation) {}
 }
 
 export class ViewChangedAction implements Action {
-  readonly type = ActionTypes.ViewChanged;
+  readonly type = ActionType.ViewChanged;
   constructor(public payload: [number, number]) {}
 }
 
 export class ZoomedAction implements Action {
-  readonly type = ActionTypes.Zoomed;
+  readonly type = ActionType.Zoomed;
   constructor(public payload: any) {}
 }
 
