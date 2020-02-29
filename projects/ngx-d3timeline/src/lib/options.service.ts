@@ -26,11 +26,9 @@ export class OptionsService {
       : Orientation.Vertical;
   }
 
-  getTickLineX2(offset: number, orientation: Orientation) {
-    return orientation === Orientation.Vertical ? offset : 0;
-  }
-
-  getTickLineY2(offset: number, orientation: Orientation) {
-    return orientation === Orientation.Vertical ? 0 : offset;
+  getTickLineEnd(lineOffset: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical
+      ? { x: lineOffset, y: 0 }
+      : { x: 0, y: lineOffset };
   }
 }

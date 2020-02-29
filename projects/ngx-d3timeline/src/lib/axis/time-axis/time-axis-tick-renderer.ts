@@ -15,6 +15,6 @@ export class TimeAxisTickRenderer implements TickRenderer<TimeScale> {
   }
 
   getTickLineOffset() {
-    return 5;
+    return -5;
   }
 }

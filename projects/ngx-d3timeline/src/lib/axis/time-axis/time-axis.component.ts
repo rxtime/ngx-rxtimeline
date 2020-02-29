@@ -14,8 +14,8 @@ import { AxisService } from '../axis.service';
         </svg:text>
         <svg:line
           class="tick-line"
-          [attr.x2]="tick.lineX2"
-          [attr.y2]="tick.lineY2"
+          [attr.x2]="tick.lineEnd.x"
+          [attr.y2]="tick.lineEnd.y"
         ></svg:line>
       </svg:g>
       <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
