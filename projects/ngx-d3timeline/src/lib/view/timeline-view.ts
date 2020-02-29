@@ -8,7 +8,7 @@ export class TimelineView {
   readonly right: number;
   readonly bottom: number;
 
-  constructor({ width, height }: { width: number; height: number }) {
+  constructor([width, height]: [number, number]) {
     this.width = width;
     this.height = height;
 

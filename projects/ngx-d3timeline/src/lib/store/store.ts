@@ -40,10 +40,7 @@ export class Store {
 
       case ActionTypes.ViewChanged: {
         return this.recomputeStateAndScales(state, {
-          view: new TimelineView({
-            width: action.payload[0],
-            height: action.payload[1]
-          })
+          view: new TimelineView(action.payload)
         });
       }
 

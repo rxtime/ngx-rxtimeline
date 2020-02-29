@@ -14,7 +14,7 @@ export interface State {
 }
 
 const initialAxisOrientations = { time: null, resource: null };
-const initialView = new TimelineView({ width: null, height: null });
+const initialView = new TimelineView([null, null]);
 
 export const initialState: State = {
   data: [],
