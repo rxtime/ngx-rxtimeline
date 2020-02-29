@@ -30,6 +30,7 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       <line
         class="tick-line"
         x2="-5"
+        y2="0"
       />
     </g>
     <g
@@ -43,6 +44,7 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       <line
         class="tick-line"
         x2="-5"
+        y2="0"
       />
     </g>
     <g
