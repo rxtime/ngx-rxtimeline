@@ -16,7 +16,7 @@ export class Store {
   constructor(private scaleService: ScaleService) {}
 
   state$ = this.actionsSubject.pipe(
-    scan(this.reducer, initialState),
+    scan(this.reducer.bind(this), initialState),
     shareReplay()
   );
 
