@@ -49,7 +49,7 @@ export class NgxD3timelineComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.svgEl) {
       const onZoom = zoom().on('zoom', () =>
-        this.store.dispatch(new fromActions.ZoomEventAction(event))
+        this.store.dispatch(new fromActions.ZoomedAction(event))
       );
       onZoom(select(this.svgEl.nativeElement));
     }
