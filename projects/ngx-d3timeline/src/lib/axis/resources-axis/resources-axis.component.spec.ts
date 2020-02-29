@@ -42,11 +42,13 @@ describe('ResourcesAxisComponent', () => {
       ticks: [
         {
           label: 'tick 1',
-          transform: 'translate(0, 10)'
+          transform: 'translate(0, 10)',
+          lineEnd: { x: 0, y: 0 }
         },
         {
           label: 'tick 2',
-          transform: 'translate(0, 20)'
+          transform: 'translate(0, 20)',
+          lineEnd: { x: 0, y: 0 }
         }
       ],
       axisLine: { x1: 0, x2: 10, y1: 1, y2: 0 }
