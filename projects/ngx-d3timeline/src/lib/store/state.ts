@@ -17,10 +17,10 @@ const initialAxisOrientations = { time: null, resource: null };
 const initialView = new TimelineView([null, null]);
 
 export const initialState: State = {
-  data: [],
-  dragEvent: null,
-  axisOrientations: initialAxisOrientations,
   view: initialView,
+  axisOrientations: initialAxisOrientations,
+  data: [],
   timeScale: null,
-  bandScale: null
+  bandScale: null,
+  dragEvent: null
 };
