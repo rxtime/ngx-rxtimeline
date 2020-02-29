@@ -22,7 +22,7 @@ import {
   template: `
     <svg
       #svgEl
-      *ngIf="(store.state$ | async)?.view as view"
+      *ngIf="(store.state$ | async).view as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
       class="ngx-d3timeline"
