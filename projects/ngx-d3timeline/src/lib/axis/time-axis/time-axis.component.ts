@@ -14,12 +14,7 @@ import { AxisService } from '../axis.service';
         </svg:text>
         <svg:line x2="-5"></svg:line>
       </svg:g>
-      <svg:line
-        [attr.x1]="axis.axisLine.x1"
-        [attr.x2]="axis.axisLine.x2"
-        [attr.y1]="axis.axisLine.y1"
-        [attr.y2]="axis.axisLine.y2"
-      ></svg:line>
+      <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
     </svg:g>
   `,
   styles: [
@@ -28,10 +23,6 @@ import { AxisService } from '../axis.service';
         text-anchor: end;
         dominant-baseline: central;
         font-size: 10px;
-      }
-
-      line {
-        stroke: #000;
       }
     `
   ]

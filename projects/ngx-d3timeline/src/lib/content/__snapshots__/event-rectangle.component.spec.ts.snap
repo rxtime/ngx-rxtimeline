@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventRectangleComponent should not render if eventRectangle is null 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-event-rectangle=""
+>
+  
+</div>
+`;
+
+exports[`EventRectangleComponent should render correctly 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-event-rectangle=""
+>
+  
+  <g
+    transform="translate(50,0)"
+  >
+    <rect
+      height="80"
+      width="50"
+    />
+    <text
+      dy="1em"
+    >
+      Event 1
+    </text>
+  </g>
+</div>
+`;

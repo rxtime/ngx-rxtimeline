@@ -1,16 +1,27 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ContentComponent } from './content.component';
 import { ContentService } from './content.service';
 import { of } from 'rxjs';
+import { ContentComponent } from './content.component';
+import { Component, Input } from '@angular/core';
 import { EventRectangle } from './content';
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let contentService: ContentService;
 
+  @Component({
+    selector: '[ngx-d3timeline-event-rectangle]',
+    template: `
+      <svg:g></svg:g>
+    `
+  })
+  class FakeEventRectangleComponent {
+    @Input() eventRectangle: EventRectangle;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContentComponent],
+      declarations: [ContentComponent, FakeEventRectangleComponent],
       providers: [{ provide: ContentService, useValue: jest.fn() }]
     });
 
@@ -28,12 +39,14 @@ describe('ContentComponent', () => {
   it('should render correctly', () => {
     const rectangles: EventRectangle[] = [
       {
+        id: 1,
         title: 'Event 1',
         transform: 'translate(50,0)',
         width: 50,
         height: 80
       },
       {
+        id: 2,
         title: 'Event 2',
         transform: 'translate(130,0)',
         width: 60,
