@@ -31,11 +31,11 @@ export class Store {
   private reducer(state: State, action: Actions): State {
     switch (action.type) {
       case ActionType.DataChanged: {
-        return this.recomputeStateAndScales(state, { data: action.payload });
+        return this.patchStateAndUpdateScales(state, { data: action.payload });
       }
 
       case ActionType.OrientationChanged: {
-        return this.recomputeStateAndScales(state, {
+        return this.patchStateAndUpdateScales(state, {
           axisOrientations: this.optionsService.setAxisOrientations(
             action.payload
           )
@@ -43,7 +43,7 @@ export class Store {
       }
 
       case ActionType.ViewChanged: {
-        return this.recomputeStateAndScales(state, {
+        return this.patchStateAndUpdateScales(state, {
           view: new TimelineView(action.payload)
         });
       }
@@ -61,8 +61,8 @@ export class Store {
     }
   }
 
-  private recomputeStateAndScales(state: State, bar: Partial<State>) {
-    const stateCopy = { ...state, ...bar };
+  private patchStateAndUpdateScales(state: State, patch: Partial<State>) {
+    const stateCopy = { ...state, ...patch };
     return {
       ...stateCopy,
       timeScale: this.scaleService.configureTimeScale(stateCopy),
