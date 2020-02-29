@@ -3,7 +3,6 @@ import { EventRectangleDragEvent } from '../content/event-rectangle-drag-event';
 import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
-import { Orientation } from '../orientation';
 
 export interface State {
   data: TimelineEvent[];
@@ -15,12 +14,13 @@ export interface State {
 }
 
 const initialAxisOrientations = { time: null, resource: null };
+const initialView = new TimelineView({ width: null, height: null });
 
 export const initialState: State = {
   data: [],
   dragEvent: null,
   axisOrientations: initialAxisOrientations,
-  view: new TimelineView({ width: 1, height: 1, margin: 0 }),
+  view: initialView,
   timeScale: null,
   bandScale: null
 };
