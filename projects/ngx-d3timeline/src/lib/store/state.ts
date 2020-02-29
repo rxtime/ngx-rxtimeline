@@ -5,12 +5,12 @@ import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
 
 export interface State {
-  data: TimelineEvent[];
-  dragEvent: EventRectangleDragEvent;
-  axisOrientations: AxisOrientations;
   view: TimelineView;
+  axisOrientations: AxisOrientations;
+  data: TimelineEvent[];
   timeScale: TimeScale;
   bandScale: BandScale;
+  dragEvent: EventRectangleDragEvent;
 }
 
 const initialAxisOrientations = { time: null, resource: null };
