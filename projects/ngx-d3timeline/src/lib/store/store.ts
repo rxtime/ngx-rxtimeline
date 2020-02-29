@@ -62,11 +62,11 @@ export class Store {
   }
 
   private patchStateAndUpdateScales(state: State, patch: Partial<State>) {
-    const stateCopy = { ...state, ...patch };
+    const patchedState = { ...state, ...patch };
     return {
-      ...stateCopy,
-      timeScale: this.scaleService.configureTimeScale(stateCopy),
-      bandScale: this.scaleService.configureBandScale(stateCopy)
+      ...patchedState,
+      timeScale: this.scaleService.configureTimeScale(patchedState),
+      bandScale: this.scaleService.configureBandScale(patchedState)
     };
   }
 }
