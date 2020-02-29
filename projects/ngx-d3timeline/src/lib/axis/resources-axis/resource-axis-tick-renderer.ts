@@ -18,7 +18,7 @@ export class ResourceAxisTickRenderer implements TickRenderer<BandScale> {
     return scale(tick) + scale.bandwidth() / 2;
   }
 
-  getTickLineOffset() {
+  getTickLineOffset(): number {
     return 0;
   }
 }
