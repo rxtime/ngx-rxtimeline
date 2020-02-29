@@ -35,6 +35,6 @@ export class ZoomedAction implements Action {
 
 export type Actions =
   | DataChangedAction
+  | OrientationChangedAction
   | ViewChangedAction
-  | ZoomedAction
-  | OrientationChangedAction;
+  | ZoomedAction;
