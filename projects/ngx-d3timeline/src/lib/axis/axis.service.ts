@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Tick } from './tick';
 import { Line } from './line';
-import { ScalesService } from '../scales.service';
+import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { Scale } from '../scale-types';
@@ -14,32 +14,29 @@ import { TickRenderer } from './tick-renderer';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
-  resourceAxis$ = this.scalesService.scales$.pipe(
-    map(scales =>
+  resourceAxis$ = this.store.state$.pipe(
+    map(state =>
       this.createAxis(
         new ResourceAxisTickRenderer(),
-        scales.scaleBand,
-        scales.state.orientations.resource,
-        scales.state.view
+        state.bandScale,
+        state.axisOrientations.resource,
+        state.view
       )
     )
   );
 
-  timeAxis$ = this.scalesService.scales$.pipe(
-    map(scales =>
+  timeAxis$ = this.store.state$.pipe(
+    map(state =>
       this.createAxis(
         new TimeAxisTickRenderer(),
-        scales.scaleTime,
-        scales.state.orientations.time,
-        scales.state.view
+        state.timeScale,
+        state.axisOrientations.time,
+        state.view
       )
     )
   );
 
-  constructor(
-    private scalesService: ScalesService,
-    private optionsService: OptionsService
-  ) {}
+  constructor(private store: Store, private optionsService: OptionsService) {}
 
   private createAxis<TScale extends Scale>(
     tickRenderer: TickRenderer<TScale>,
