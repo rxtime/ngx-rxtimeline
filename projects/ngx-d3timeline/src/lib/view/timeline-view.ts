@@ -11,11 +11,11 @@ export class TimelineView {
   constructor({
     width,
     height,
-    margin
+    margin = 50
   }: {
     width: number;
     height: number;
-    margin: number;
+    margin?: number;
   }) {
     this.width = width;
     this.height = height;
