@@ -1,29 +1,18 @@
 export class TimelineView {
   readonly width: number;
   readonly height: number;
-  readonly margin: number;
+  readonly margin = 50;
 
-  readonly bottom: number;
-  readonly left: number;
+  readonly left = this.margin;
+  readonly top = this.margin;
   readonly right: number;
-  readonly top: number;
+  readonly bottom: number;
 
-  constructor({
-    width,
-    height,
-    margin
-  }: {
-    width: number;
-    height: number;
-    margin: number;
-  }) {
+  constructor([width, height]: [number, number]) {
     this.width = width;
     this.height = height;
-    this.margin = margin;
 
-    this.bottom = height - margin;
-    this.left = margin;
-    this.right = width - margin;
-    this.top = margin;
+    this.bottom = height - this.margin;
+    this.right = width - this.margin;
   }
 }

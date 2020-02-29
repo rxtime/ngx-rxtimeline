@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ScalesService } from '../scales.service';
-import { State } from '../state';
+import { Store } from '../store/store';
+import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
@@ -13,27 +13,16 @@ import { EventRectangleDragEvent } from './event-rectangle-drag-event';
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   eventRectangles$ = combineLatest([
-    this.scalesService.scales$,
+    this.store.state$,
     this.dragService.drag$
   ]).pipe(
     map(([scales, dragEvent]) => this.createEventRectangles(scales, dragEvent))
   );
 
-  constructor(
-    private scalesService: ScalesService,
-    private dragService: DragService
-  ) {}
+  constructor(private store: Store, private dragService: DragService) {}
 
   createEventRectangles(
-    {
-      scaleBand,
-      scaleTime,
-      state
-    }: {
-      scaleBand: BandScale;
-      scaleTime: TimeScale;
-      state: State;
-    },
+    state: State,
     dragEvent: EventRectangleDragEvent
   ): EventRectangle[] {
     return state.data.map(d => ({
@@ -41,13 +30,23 @@ export class ContentService {
       title: d.type,
       transform: this.dataTransform(
         d,
-        state.orientations.time,
-        scaleBand,
-        scaleTime,
+        state.axisOrientations.time,
+        state.bandScale,
+        state.timeScale,
         dragEvent.id === d.id ? dragEvent : null
       ),
-      width: this.rectWidth(d, state.orientations.time, scaleBand, scaleTime),
-      height: this.rectHeight(d, state.orientations.time, scaleBand, scaleTime)
+      width: this.rectWidth(
+        d,
+        state.axisOrientations.time,
+        state.bandScale,
+        state.timeScale
+      ),
+      height: this.rectHeight(
+        d,
+        state.axisOrientations.time,
+        state.bandScale,
+        state.timeScale
+      )
     }));
   }
 
