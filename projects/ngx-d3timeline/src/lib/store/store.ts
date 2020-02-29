@@ -11,8 +11,8 @@ import { OptionsService } from '../options.service';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
-  private readonly replayBuffer = 100;
-  private actionsSubject = new ReplaySubject<Actions>(this.replayBuffer);
+  private readonly replayBufferSize = 100;
+  private actionsSubject = new ReplaySubject<Actions>(this.replayBufferSize);
 
   constructor(
     private scaleService: ScaleService,
