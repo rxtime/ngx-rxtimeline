@@ -14,13 +14,12 @@ export interface State {
   bandScale: BandScale;
 }
 
+const initialAxisOrientations = { time: null, resource: null };
+
 export const initialState: State = {
   data: [],
   dragEvent: null,
-  axisOrientations: {
-    time: Orientation.Vertical,
-    resource: Orientation.Horizontal
-  },
+  axisOrientations: initialAxisOrientations,
   view: new TimelineView({ width: 1, height: 1, margin: 0 }),
   timeScale: null,
   bandScale: null
