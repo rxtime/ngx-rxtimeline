@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { State } from './state';
-import { TimeScale, BandScale } from '../scale-types';
-import { Orientation } from '../orientation';
-import { AxisOrientations } from '../axis-orientations';
+import { State } from './store/state';
+import { TimeScale, BandScale } from './scale-types';
+import { Orientation } from './orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
-import { TimelineEvent } from '../timeline-event';
+import { TimelineEvent } from './timeline-event';
 import { min, max } from 'd3-array';
-import { TimelineView } from '../view/timeline-view';
+import { TimelineView } from './view/timeline-view';
 
 @Injectable({ providedIn: 'root' })
 export class ScaleService {
@@ -16,11 +15,6 @@ export class ScaleService {
     return state.axisOrientations.time === Orientation.Vertical
       ? event.transform.rescaleY(timeScale)
       : event.transform.rescaleX(timeScale);
-  }
-
-  setAxisOrientations(timeOrientation: Orientation): AxisOrientations {
-    const resourceOrientation = this.flipOrientation(timeOrientation);
-    return { time: timeOrientation, resource: resourceOrientation };
   }
 
   configureBandScale(state: State): BandScale {
@@ -33,12 +27,6 @@ export class ScaleService {
     return scaleTime()
       .domain(this.getTimeScaleDomain(state.data))
       .range(this.getRange(state.view, state.axisOrientations.time));
-  }
-
-  private flipOrientation(orientation: Orientation) {
-    return orientation === Orientation.Vertical
-      ? Orientation.Horizontal
-      : Orientation.Vertical;
   }
 
   private getBandScaleDomain(data: TimelineEvent[]): string[] {

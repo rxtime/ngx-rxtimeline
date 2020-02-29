@@ -6,14 +6,18 @@ import { initialState } from './state';
 import { State } from './state';
 import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
-import { ScaleService } from './scale.service';
+import { ScaleService } from '../scale.service';
+import { OptionsService } from '../options.service';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private readonly replayBuffer = 100;
   private actionsSubject = new ReplaySubject<Actions>(this.replayBuffer);
 
-  constructor(private scaleService: ScaleService) {}
+  constructor(
+    private scaleService: ScaleService,
+    private optionsService: OptionsService
+  ) {}
 
   state$ = this.actionsSubject.pipe(
     scan(this.reducer.bind(this), initialState),
@@ -32,7 +36,7 @@ export class Store {
 
       case ActionTypes.OrientationChanged: {
         return this.recomputeStateAndScales(state, {
-          axisOrientations: this.scaleService.setAxisOrientations(
+          axisOrientations: this.optionsService.setAxisOrientations(
             action.payload
           )
         });
