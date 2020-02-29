@@ -25,4 +25,12 @@ export class OptionsService {
       ? Orientation.Horizontal
       : Orientation.Vertical;
   }
+
+  getTickLineX2(offset: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical ? offset : 0;
+  }
+
+  getTickLineY2(offset: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical ? 0 : offset;
+  }
 }

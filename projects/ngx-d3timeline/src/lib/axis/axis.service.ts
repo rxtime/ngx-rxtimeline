@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Tick } from './tick';
 import { Line } from './line';
-import { Store } from '../store/store';
+import { ScalesService } from '../scales.service';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { Scale } from '../scale-types';
@@ -14,29 +14,32 @@ import { TickRenderer } from './tick-renderer';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
-  resourceAxis$ = this.store.state$.pipe(
-    map(state =>
+  resourceAxis$ = this.scalesService.scales$.pipe(
+    map(scales =>
       this.createAxis(
         new ResourceAxisTickRenderer(),
-        state.bandScale,
-        state.axisOrientations.resource,
-        state.view
+        scales.scaleBand,
+        scales.state.orientations.resource,
+        scales.state.view
       )
     )
   );
 
-  timeAxis$ = this.store.state$.pipe(
-    map(state =>
+  timeAxis$ = this.scalesService.scales$.pipe(
+    map(scales =>
       this.createAxis(
         new TimeAxisTickRenderer(),
-        state.timeScale,
-        state.axisOrientations.time,
-        state.view
+        scales.scaleTime,
+        scales.state.orientations.time,
+        scales.state.view
       )
     )
   );
 
-  constructor(private store: Store, private optionsService: OptionsService) {}
+  constructor(
+    private scalesService: ScalesService,
+    private optionsService: OptionsService
+  ) {}
 
   private createAxis<TScale extends Scale>(
     tickRenderer: TickRenderer<TScale>,
@@ -56,13 +59,16 @@ export class AxisService {
     orientation: Orientation,
     timelineView: TimelineView
   ): Tick[] {
+    const tickLineOffset = tickRenderer.getTickLineOffset();
     return tickRenderer.getTickValues(scale).map(value => ({
       label: tickRenderer.getLabel(scale, value),
       transform: this.optionsService.getTranslation(
         tickRenderer.getTransform(scale, value),
         orientation,
         timelineView
-      )
+      ),
+      lineX2: this.optionsService.getTickLineX2(tickLineOffset, orientation),
+      lineY2: this.optionsService.getTickLineY2(tickLineOffset, orientation)
     }));
   }
 
