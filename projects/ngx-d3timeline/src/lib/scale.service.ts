@@ -9,14 +9,6 @@ import { TimelineView } from './view/timeline-view';
 
 @Injectable({ providedIn: 'root' })
 export class ScaleService {
-  rescaleTime(state: State, event: any): TimeScale {
-    const unscaledTimeScale = this.configureTimeScale(state);
-
-    return state.axisOrientations.time === Orientation.Vertical
-      ? event.transform.rescaleY(unscaledTimeScale)
-      : event.transform.rescaleX(unscaledTimeScale);
-  }
-
   configureBandScale(state: State): BandScale {
     return scaleBand()
       .domain(this.getBandScaleDomain(state.data))

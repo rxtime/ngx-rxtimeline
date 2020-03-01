@@ -29,21 +29,7 @@ export class Store {
       bandScale: this.scaleService.configureBandScale(state),
       timeScale: this.scaleService.configureTimeScale(state)
     })),
-    switchMap(stateWithScales =>
-      this.zoomService.zoom$.pipe(
-        map(zoomEvent =>
-          zoomEvent
-            ? {
-                ...stateWithScales,
-                timeScale: this.scaleService.rescaleTime(
-                  stateWithScales,
-                  zoomEvent
-                )
-              }
-            : stateWithScales
-        )
-      )
-    )
+    switchMap(stateWithScales => this.zoomService.rescale(stateWithScales))
   );
 
   constructor(
