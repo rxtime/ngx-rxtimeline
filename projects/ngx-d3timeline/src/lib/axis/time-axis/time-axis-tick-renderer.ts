@@ -1,4 +1,4 @@
-import { TimeScale } from '../../scale-types';
+import { TimeScale } from '../../types';
 import { TickRenderer } from '../tick-renderer';
 
 export class TimeAxisTickRenderer implements TickRenderer<TimeScale> {

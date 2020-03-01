@@ -1,4 +1,4 @@
-import { BandScale } from '../../scale-types';
+import { BandScale } from '../../types';
 import { TickRenderer } from '../tick-renderer';
 
 export class ResourceAxisTickRenderer implements TickRenderer<BandScale> {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State } from './store/state';
-import { TimeScale, BandScale } from './scale-types';
+import { TimeScale, BandScale } from './types';
 import { Orientation } from './orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { TimelineEvent } from './timeline-event';

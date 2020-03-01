@@ -1,4 +1,4 @@
-import { Scale } from '../scale-types';
+import { Scale } from '../types';
 
 export interface TickRenderer<TScale extends Scale> {
   getTickValues(scale: TScale): any[];

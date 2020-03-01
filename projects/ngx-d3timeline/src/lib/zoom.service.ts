@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { StateWithScales, TimeScale } from './scale-types';
+import { StateWithScales, TimeScale } from './types';
 import { Orientation } from './orientation';
 import { map } from 'rxjs/operators';
 

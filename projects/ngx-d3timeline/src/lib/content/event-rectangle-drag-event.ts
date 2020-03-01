@@ -1,5 +1,7 @@
+import { identifier } from '../types';
+
 export interface EventRectangleDragEvent {
-  id: string | number;
+  id: identifier;
   dx: number;
   dy: number;
 }
