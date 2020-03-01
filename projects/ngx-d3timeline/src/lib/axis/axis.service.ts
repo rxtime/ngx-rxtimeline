@@ -8,13 +8,14 @@ import { Line } from './line';
 import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
-import { Scale, BandScale } from '../scale-types';
+import { Scale, BandScale, TimeScale } from '../scale-types';
 import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
 import { State } from '../store/state';
 import { TimelineEvent } from '../timeline-event';
-import { scaleBand } from 'd3-scale';
+import { scaleBand, scaleTime } from 'd3-scale';
+import { min, max } from 'd3-array';
 import { createSliceSelector } from '../store/slice-selector';
 import { createSelector } from '../store/memoized-selector';
 
@@ -35,14 +36,13 @@ export class AxisService {
     )
   );
 
-  timeAxis$ = this.store.state$.pipe(
-    map(state =>
-      this.createAxis(
-        new TimeAxisTickRenderer(),
-        state.timeScale,
-        state.axisOrientations.time,
-        state.view
-      )
+  timeAxis$ = combineLatest([
+    this.store.select(selectTimeScale),
+    this.store.select(selectTimeOrientation),
+    this.store.select(selectView)
+  ]).pipe(
+    map(([timeScale, orientation, view]) =>
+      this.createAxis(new TimeAxisTickRenderer(), timeScale, orientation, view)
     )
   );
 
@@ -99,6 +99,9 @@ export class AxisService {
   }
 }
 
+const selectTimeOrientation = createSliceSelector(
+  (state: State) => Orientation.Vertical
+); // temp as orientation not populated in store
 const selectResourceOrientation = createSliceSelector(
   (state: State) => Orientation.Horizontal
 ); // temp as orientation not populated in store
@@ -110,19 +113,38 @@ const selectBandScale = createSelector(
   configureBandScale2
 );
 
+const selectTimeScale = createSelector(
+  [selectData, selectView, selectResourceOrientation],
+  configureTimeScale2
+);
+
 // ---------------------temp code copied fom scale service ------------------------------
+function configureTimeScale2(
+  data: TimelineEvent[],
+  view: TimelineView,
+  orientation: Orientation
+): TimeScale {
+  return scaleTime()
+    .domain(getTimeScaleDomain(data))
+    .range(getRange(view, orientation));
+}
+
 function configureBandScale2(
   data: TimelineEvent[],
   view: TimelineView,
-  resourceOrientation: Orientation
+  orientation: Orientation
 ): BandScale {
   return scaleBand()
     .domain(getBandScaleDomain(data))
-    .range(getRange(view, resourceOrientation));
+    .range(getRange(view, orientation));
 }
 
 function getBandScaleDomain(data: TimelineEvent[]): string[] {
   return [...new Set(data.map(d => d.series))];
+}
+
+function getTimeScaleDomain(data: TimelineEvent[]): [Date, Date] {
+  return [min(data, d => d.start), max(data, d => d.finish)];
 }
 
 function getRange(
