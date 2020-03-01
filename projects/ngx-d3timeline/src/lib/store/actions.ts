@@ -1,5 +1,7 @@
 import { TimelineEvent } from '../timeline-event';
 import { Orientation } from '../orientation';
+import { identifier } from '../types';
+import { EventRectangleDragEvent } from '../content/event-rectangle-drag-event';
 
 export interface Action {
   type: string;
@@ -9,7 +11,10 @@ export interface Action {
 export enum ActionType {
   DataChanged = 'Data Changed',
   OrientationChanged = 'Orientation Changed',
-  ViewChanged = 'View Changed'
+  ViewChanged = 'View Changed',
+  EventRectangleDragStart = 'Event Rectangle Drag Start',
+  EventRectangleDrag = 'Event Rectangle Drag',
+  EventRectangleDragEnd = 'Event Rectangle Drag End'
 }
 
 export class DataChangedAction implements Action {
@@ -25,6 +30,21 @@ export class OrientationChangedAction implements Action {
 export class ViewChangedAction implements Action {
   readonly type = ActionType.ViewChanged;
   constructor(public payload: [number, number]) {}
+}
+
+export class EventRectangleDragStartAction implements Action {
+  readonly type = ActionType.EventRectangleDragStart;
+  constructor(public payload: identifier) {}
+}
+
+export class EventRectangleDragAction implements Action {
+  readonly type = ActionType.EventRectangleDrag;
+  constructor(public payload: EventRectangleDragEvent) {}
+}
+
+export class EventRectangleDragEndAction implements Action {
+  readonly type = ActionType.EventRectangleDragEnd;
+  constructor(public payload: identifier) {}
 }
 
 export type Actions =

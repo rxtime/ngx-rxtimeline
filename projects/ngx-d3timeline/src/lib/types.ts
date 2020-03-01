@@ -9,3 +9,5 @@ export type StateWithScales = State & {
   bandScale: BandScale;
   timeScale: TimeScale;
 };
+
+export type identifier = string | number;

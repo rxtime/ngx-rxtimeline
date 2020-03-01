@@ -1,5 +1,7 @@
+import { identifier } from '../types';
+
 export interface EventRectangle {
-  id: string | number;
+  id: identifier;
   title: string;
   transform: string;
   width: number;
