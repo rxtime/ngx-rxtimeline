@@ -8,7 +8,7 @@ import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { combineLatest } from 'rxjs';
 import { DragService } from './drag.service';
-import { EventRectangleDragEvent } from './event-rectangle-drag-event';
+import { TimelineDragEvent } from './timeline-drag-event';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -23,7 +23,7 @@ export class ContentService {
 
   createEventRectangles(
     state: State,
-    dragEvent: EventRectangleDragEvent
+    dragEvent: TimelineDragEvent
   ): EventRectangle[] {
     return state.data.map(d => ({
       id: d.id,
@@ -55,7 +55,7 @@ export class ContentService {
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
-    dragEvent: EventRectangleDragEvent
+    dragEvent: TimelineDragEvent
   ) {
     return `translate(${this.getEventX(
       data,
