@@ -47,7 +47,11 @@ describe('NgxD3timelineComponent', () => {
 
   beforeEach(() => {
     store = TestBed.inject(Store);
-    store.state$ = of(initialState);
+    store.stateWithScales$ = of({
+      ...initialState,
+      timeScale: null,
+      bandScale: null
+    });
     fixture = TestBed.createComponent(NgxD3timelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

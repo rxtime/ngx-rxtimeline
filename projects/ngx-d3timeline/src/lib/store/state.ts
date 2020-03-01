@@ -7,8 +7,6 @@ export interface State {
   view: TimelineView;
   axisOrientations: AxisOrientations;
   data: TimelineEvent[];
-  timeScale: TimeScale;
-  bandScale: BandScale;
 }
 
 const initialAxisOrientations = { time: null, resource: null };
@@ -17,7 +15,5 @@ const initialView = new TimelineView([null, null]);
 export const initialState: State = {
   view: initialView,
   axisOrientations: initialAxisOrientations,
-  data: [],
-  timeScale: null,
-  bandScale: null
+  data: []
 };
