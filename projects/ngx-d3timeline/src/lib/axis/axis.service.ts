@@ -62,6 +62,10 @@ export class AxisService {
         tickRenderer.getTransform(scale, value),
         orientation,
         timelineView
+      ),
+      lineEnd: this.optionsService.getTickLineEnd(
+        tickRenderer.getTickLineOffset(),
+        orientation
       )
     }));
   }
