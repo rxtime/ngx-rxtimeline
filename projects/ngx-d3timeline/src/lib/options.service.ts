@@ -25,4 +25,10 @@ export class OptionsService {
       ? Orientation.Horizontal
       : Orientation.Vertical;
   }
+
+  getTickLineEnd(lineOffset: number, orientation: Orientation) {
+    return orientation === Orientation.Vertical
+      ? { x: lineOffset, y: 0 }
+      : { x: 0, y: lineOffset };
+  }
 }

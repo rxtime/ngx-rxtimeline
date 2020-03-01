@@ -17,4 +17,8 @@ export class ResourceAxisTickRenderer implements TickRenderer<BandScale> {
   private getBandMidPoint(scale: BandScale, tick: string): number {
     return scale(tick) + scale.bandwidth() / 2;
   }
+
+  getTickLineOffset(): number {
+    return 0;
+  }
 }
