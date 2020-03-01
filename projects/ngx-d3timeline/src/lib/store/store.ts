@@ -4,7 +4,7 @@ import { shareReplay, scan, map, switchMap } from 'rxjs/operators';
 import { initialState } from './state';
 import { Actions } from './actions';
 import { ScaleService } from '../scale.service';
-import { StateWithScales } from '../scale-types';
+import { StateWithScales } from '../types';
 import { ZoomService } from '../zoom.service';
 import { reducer } from './reducer';
 

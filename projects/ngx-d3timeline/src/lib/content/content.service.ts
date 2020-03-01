@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
-import { TimeScale, BandScale, StateWithScales } from '../scale-types';
+import { TimeScale, BandScale, StateWithScales } from '../types';
 import { combineLatest } from 'rxjs';
 import { DragService } from './drag.service';
 import { EventRectangleDragEvent } from './event-rectangle-drag-event';
