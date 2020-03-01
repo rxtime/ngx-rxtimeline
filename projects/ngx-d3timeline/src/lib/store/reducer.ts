@@ -1,6 +1,9 @@
 import { State } from './state';
 import { Actions, ActionType } from './actions';
 import { TimelineView } from '../view/timeline-view';
+import { Orientation } from '../orientation';
+import { AxisOrientations } from '../axis-orientations';
+import { flipOrientation } from '../utils';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -11,9 +14,7 @@ export function reducer(state: State, action: Actions): State {
     case ActionType.OrientationChanged: {
       return {
         ...state,
-        axisOrientations: this.optionsService.setAxisOrientations(
-          action.payload
-        )
+        axisOrientations: setAxisOrientations(action.payload)
       };
     }
 
@@ -25,4 +26,9 @@ export function reducer(state: State, action: Actions): State {
       return state;
     }
   }
+}
+
+function setAxisOrientations(timeOrientation: Orientation): AxisOrientations {
+  const resourceOrientation = flipOrientation(timeOrientation);
+  return { time: timeOrientation, resource: resourceOrientation };
 }
