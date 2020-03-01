@@ -17,12 +17,12 @@ export const selectBandScale = createSelector(
   configureBandScale
 );
 
-export const selectUnscaledTimeScale = createSelector(
+export const selectOriginalTimeScale = createSelector(
   [selectData, selectView, selectTimeOrientation],
   configureTimeScale
 );
 
 export const selectTimeScale = createSelector(
-  [selectUnscaledTimeScale, selectTimeOrientation, selectZoomEvent],
+  [selectOriginalTimeScale, selectTimeOrientation, selectZoomEvent],
   rescaleTime
 );
