@@ -14,7 +14,7 @@ import { TickRenderer } from './tick-renderer';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
-  resourceAxis$ = this.store.state$.pipe(
+  resourceAxis$ = this.store.stateWithScales$.pipe(
     map(state =>
       this.createAxis(
         new ResourceAxisTickRenderer(),
@@ -25,7 +25,7 @@ export class AxisService {
     )
   );
 
-  timeAxis$ = this.store.state$.pipe(
+  timeAxis$ = this.store.stateWithScales$.pipe(
     map(state =>
       this.createAxis(
         new TimeAxisTickRenderer(),

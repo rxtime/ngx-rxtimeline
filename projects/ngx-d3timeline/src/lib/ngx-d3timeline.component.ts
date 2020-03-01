@@ -11,13 +11,14 @@ import { select, event } from 'd3-selection';
 import { Orientation } from './orientation';
 import { Store } from './store/store';
 import * as fromActions from './store/actions';
+import { ZoomService } from './zoom.service';
 
 @Component({
   selector: 'ngx-d3timeline',
   template: `
     <svg
       #svgEl
-      *ngIf="(store.state$ | async).view as view"
+      *ngIf="(store.stateWithScales$ | async).view as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
       class="ngx-d3timeline"
@@ -44,13 +45,11 @@ export class NgxD3timelineComponent implements AfterViewInit {
 
   @ViewChild('svgEl') svgEl: ElementRef;
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, private zoomService: ZoomService) {}
 
   ngAfterViewInit(): void {
     if (this.svgEl) {
-      const onZoom = zoom().on('zoom', () =>
-        this.store.dispatch(new fromActions.ZoomedAction(event))
-      );
+      const onZoom = zoom().on('zoom', () => this.zoomService.onZoom(event));
       onZoom(select(this.svgEl.nativeElement));
     }
   }

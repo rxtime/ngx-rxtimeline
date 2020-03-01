@@ -9,8 +9,7 @@ export interface Action {
 export enum ActionType {
   DataChanged = 'Data Changed',
   OrientationChanged = 'Orientation Changed',
-  ViewChanged = 'View Changed',
-  Zoomed = 'Zoomed'
+  ViewChanged = 'View Changed'
 }
 
 export class DataChangedAction implements Action {
@@ -28,13 +27,7 @@ export class ViewChangedAction implements Action {
   constructor(public payload: [number, number]) {}
 }
 
-export class ZoomedAction implements Action {
-  readonly type = ActionType.Zoomed;
-  constructor(public payload: any) {}
-}
-
 export type Actions =
   | DataChangedAction
   | OrientationChangedAction
-  | ViewChangedAction
-  | ZoomedAction;
+  | ViewChangedAction;
