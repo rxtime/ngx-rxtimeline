@@ -52,12 +52,7 @@ export class Store {
       case ActionType.Zoomed: {
         return {
           ...state,
-          timeScale: rescaleTime(
-            state.data,
-            state.view,
-            state.axisOrientations.time,
-            action.payload
-          )
+          zoomEvent: action.payload
         };
       }
 

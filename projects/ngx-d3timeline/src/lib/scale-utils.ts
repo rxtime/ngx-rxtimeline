@@ -6,16 +6,17 @@ import { min, max } from 'd3-array';
 import { TimelineView } from './view/timeline-view';
 
 export function rescaleTime(
-  data: TimelineEvent[],
-  view: TimelineView,
+  unscaledTimeScale: TimeScale,
   orientation: Orientation,
   event: any
 ): TimeScale {
-  const unscaledTimeScale = configureTimeScale(data, view, orientation);
-
-  return orientation === Orientation.Vertical
-    ? event.transform.rescaleY(unscaledTimeScale)
-    : event.transform.rescaleX(unscaledTimeScale);
+  if (event) {
+    return orientation === Orientation.Vertical
+      ? event.transform.rescaleY(unscaledTimeScale)
+      : event.transform.rescaleX(unscaledTimeScale);
+  } else {
+    return unscaledTimeScale;
+  }
 }
 
 export function configureBandScale(

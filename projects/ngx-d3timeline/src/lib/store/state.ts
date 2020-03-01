@@ -13,6 +13,7 @@ export interface State {
   timeScale: TimeScale;
   bandScale: BandScale;
   dragEvent: EventRectangleDragEvent;
+  zoomEvent: any; // TODO type
 }
 
 const initialAxisOrientations = { time: null, resource: null };
@@ -24,7 +25,8 @@ export const initialState: State = {
   data: [],
   timeScale: null,
   bandScale: null,
-  dragEvent: null
+  dragEvent: null,
+  zoomEvent: null
 };
 
 export const selectTimeOrientation = createSliceSelector(
@@ -35,3 +37,6 @@ export const selectResourceOrientation = createSliceSelector(
 ); // temp as orientation not populated in store
 export const selectView = createSliceSelector((state: State) => state.view);
 export const selectData = createSliceSelector((state: State) => state.data);
+export const selectZoomEvent = createSliceSelector(
+  (state: State) => state.zoomEvent
+);
