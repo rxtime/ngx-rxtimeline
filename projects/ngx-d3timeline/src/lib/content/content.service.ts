@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../store/store';
-import { State } from '../store/state';
+import { selectData, selectTimeOrientation } from '../store/state';
 import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
 import { EventRectangle } from './content';
@@ -9,44 +9,49 @@ import { TimeScale, BandScale } from '../scale-types';
 import { combineLatest } from 'rxjs';
 import { DragService } from './drag.service';
 import { EventRectangleDragEvent } from './event-rectangle-drag-event';
+import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   eventRectangles$ = combineLatest([
-    this.store.state$,
+    this.store.select(selectData),
+    this.store.select(selectTimeOrientation),
+    this.store.select(selectBandScale),
+    this.store.select(selectTimeScale),
     this.dragService.drag$
   ]).pipe(
-    map(([scales, dragEvent]) => this.createEventRectangles(scales, dragEvent))
+    map(([data, orientation, bandScale, timeScale, dragEvent]) =>
+      this.createEventRectangles(
+        data,
+        orientation,
+        bandScale,
+        timeScale,
+        dragEvent
+      )
+    )
   );
 
   constructor(private store: Store, private dragService: DragService) {}
 
   createEventRectangles(
-    state: State,
+    data: TimelineEvent[],
+    timeOrientation: Orientation,
+    bandScale: BandScale,
+    timeScale: TimeScale,
     dragEvent: EventRectangleDragEvent
   ): EventRectangle[] {
-    return state.data.map(d => ({
+    return data.map(d => ({
       id: d.id,
       title: d.type,
       transform: this.dataTransform(
         d,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale,
+        timeOrientation,
+        bandScale,
+        timeScale,
         dragEvent.id === d.id ? dragEvent : null
       ),
-      width: this.rectWidth(
-        d,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale
-      ),
-      height: this.rectHeight(
-        d,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale
-      )
+      width: this.rectWidth(d, timeOrientation, bandScale, timeScale),
+      height: this.rectHeight(d, timeOrientation, bandScale, timeScale)
     }));
   }
 
