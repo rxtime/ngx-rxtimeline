@@ -7,7 +7,7 @@ export class MemoizedSelector {
 
   constructor(
     private inputSelectors: Selector[],
-    private projector: (...args) => any
+    private projector: (...args: any[]) => any
   ) {}
 
   execute(state: State) {
@@ -33,7 +33,7 @@ export class MemoizedSelector {
 
 export function createSelector(
   inputSelectors: Selector[],
-  projector: (...args) => any
+  projector: (...args: any[]) => any
 ) {
   return new MemoizedSelector(inputSelectors, projector);
 }
