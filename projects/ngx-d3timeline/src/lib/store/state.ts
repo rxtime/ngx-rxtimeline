@@ -4,7 +4,6 @@ import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
 import { createSliceSelector } from './slice-selector';
-import { Orientation } from '../orientation';
 
 export interface State {
   view: TimelineView;

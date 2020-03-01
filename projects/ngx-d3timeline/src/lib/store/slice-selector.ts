@@ -1,15 +1,14 @@
 import { State } from '../store/state';
-import { Projector } from './projector';
+import { SliceProjector } from './projector';
 
 export class SliceSelector {
-  constructor(private projector: Projector) {} //keyof State) {}
+  constructor(private projector: SliceProjector) {}
 
   execute(state: State) {
     return this.projector(state);
   }
 }
 
-export function createSliceSelector(projector: Projector) {
-  // TODO keyof State) {
+export function createSliceSelector(projector: SliceProjector) {
   return new SliceSelector(projector);
 }
