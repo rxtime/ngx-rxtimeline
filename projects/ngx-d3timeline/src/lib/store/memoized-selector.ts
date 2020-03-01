@@ -1,5 +1,6 @@
 import { State } from '../store/state';
 import { Selector } from './selector';
+import { Projector } from './projector';
 
 export class MemoizedSelector {
   lastArgs: any[];
@@ -7,7 +8,7 @@ export class MemoizedSelector {
 
   constructor(
     private inputSelectors: Selector[],
-    private projector: (...args: any[]) => any
+    private projector: Projector
   ) {}
 
   execute(state: State) {
@@ -33,7 +34,7 @@ export class MemoizedSelector {
 
 export function createSelector(
   inputSelectors: Selector[],
-  projector: (...args: any[]) => any
+  projector: Projector
 ) {
   return new MemoizedSelector(inputSelectors, projector);
 }
