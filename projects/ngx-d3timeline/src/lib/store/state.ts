@@ -1,6 +1,5 @@
 import { TimelineEvent } from '../timeline-event';
 import { TimelineView } from '../view/timeline-view';
-import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
 
 export interface State {
