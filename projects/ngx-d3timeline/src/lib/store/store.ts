@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ActionType } from './actions';
-import { shareReplay, scan } from 'rxjs/operators';
+import { shareReplay, scan, map } from 'rxjs/operators';
 import { initialState } from './state';
 import { State } from './state';
 import { TimelineView } from '../view/timeline-view';
@@ -26,6 +26,10 @@ export class Store {
 
   dispatch(action: Actions) {
     this.actionsSubject.next(action);
+  }
+
+  select(selector: (state: State) => any) {
+    return this.state$.pipe(map(state => selector(state)));
   }
 
   private reducer(state: State, action: Actions): State {
