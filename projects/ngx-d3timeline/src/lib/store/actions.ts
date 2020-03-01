@@ -13,9 +13,9 @@ export enum ActionType {
   OrientationChanged = 'Orientation Changed',
   ViewChanged = 'View Changed',
   Zoomed = 'Zoomed',
-  TimelineDragStart = 'Timeline Drag Start',
-  TimelineDrag = 'Timeline Drag',
-  TimelineDragEnd = 'Timeline Drag End'
+  TimelineDragStarted = 'Timeline Drag Started',
+  TimelineDragging = 'Timeline Dragging',
+  TimelineDragEnded = 'Timeline Drag Ended'
 }
 
 export class DataChangedAction implements Action {
@@ -38,18 +38,18 @@ export class ZoomedAction implements Action {
   constructor(public payload: any) {}
 }
 
-export class TimelineDragStartAction implements Action {
-  readonly type = ActionType.TimelineDragStart;
+export class TimelineDragStartedAction implements Action {
+  readonly type = ActionType.TimelineDragStarted;
   constructor(public payload: identifier) {}
 }
 
-export class TimelineDragAction implements Action {
-  readonly type = ActionType.TimelineDrag;
+export class TimelineDraggingAction implements Action {
+  readonly type = ActionType.TimelineDragging;
   constructor(public payload: { eventRectangle: EventRectangle; event: any }) {}
 }
 
-export class TimelineDragEndAction implements Action {
-  readonly type = ActionType.TimelineDragEnd;
+export class TimelineDragEndedAction implements Action {
+  readonly type = ActionType.TimelineDragEnded;
   constructor(public payload: identifier) {}
 }
 
@@ -58,6 +58,6 @@ export type Actions =
   | OrientationChangedAction
   | ViewChangedAction
   | ZoomedAction
-  | TimelineDragStartAction
-  | TimelineDragAction
-  | TimelineDragEndAction;
+  | TimelineDragStartedAction
+  | TimelineDraggingAction
+  | TimelineDragEndedAction;
