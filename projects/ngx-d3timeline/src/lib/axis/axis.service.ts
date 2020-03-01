@@ -123,18 +123,9 @@ function selectBandScale(state: State) {
   return lastResult;
 }
 
-function selectResourceOrientation(state: State) {
-  return Orientation.Horizontal; // temp as orientation not populated in store
-  //return state.axisOrientations.resource;
-}
-
-function selectView(state: State) {
-  return state.view;
-}
-
-function selectData(state: State) {
-  return state.data;
-}
+const selectResourceOrientation = (state: State) => Orientation.Horizontal; // temp as orientation not populated in store
+const selectView = (state: State) => state.view;
+const selectData = (state: State) => state.data;
 
 // ---------------------temp code copied fom scale service ------------------------------
 function configureBandScale2(
