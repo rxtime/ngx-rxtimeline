@@ -8,14 +8,16 @@ import { Line } from './line';
 import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
-import { Scale, BandScale, TimeScale } from '../scale-types';
+import { Scale } from '../scale-types';
 import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
-import { State } from '../store/state';
-import { createSliceSelector } from '../store/slice-selector';
-import { createSelector } from '../store/memoized-selector';
-import { configureBandScale, configureTimeScale } from '../scale-utils';
+import {
+  selectResourceOrientation,
+  selectView,
+  selectTimeOrientation
+} from '../store/state';
+import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -96,22 +98,3 @@ export class AxisService {
       : { ...axisLine, x2: rangeLimit };
   }
 }
-
-const selectTimeOrientation = createSliceSelector(
-  (state: State) => Orientation.Vertical
-); // temp as orientation not populated in store
-const selectResourceOrientation = createSliceSelector(
-  (state: State) => Orientation.Horizontal
-); // temp as orientation not populated in store
-const selectView = createSliceSelector((state: State) => state.view);
-const selectData = createSliceSelector((state: State) => state.data);
-
-const selectBandScale = createSelector(
-  [selectData, selectView, selectResourceOrientation],
-  configureBandScale
-);
-
-const selectTimeScale = createSelector(
-  [selectData, selectView, selectResourceOrientation],
-  configureTimeScale
-);

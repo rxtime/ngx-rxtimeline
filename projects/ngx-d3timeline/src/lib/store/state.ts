@@ -3,6 +3,8 @@ import { EventRectangleDragEvent } from '../content/event-rectangle-drag-event';
 import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
+import { createSliceSelector } from './slice-selector';
+import { Orientation } from '../orientation';
 
 export interface State {
   view: TimelineView;
@@ -24,3 +26,12 @@ export const initialState: State = {
   bandScale: null,
   dragEvent: null
 };
+
+export const selectTimeOrientation = createSliceSelector(
+  (state: State) => Orientation.Vertical
+); // temp as orientation not populated in store
+export const selectResourceOrientation = createSliceSelector(
+  (state: State) => Orientation.Horizontal
+); // temp as orientation not populated in store
+export const selectView = createSliceSelector((state: State) => state.view);
+export const selectData = createSliceSelector((state: State) => state.data);
