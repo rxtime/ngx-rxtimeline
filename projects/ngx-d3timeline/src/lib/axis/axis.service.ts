@@ -1,26 +1,34 @@
 import { Axis } from './axis';
 import { Orientation } from '../orientation';
 import { map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Tick } from './tick';
 import { Line } from './line';
 import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
-import { Scale } from '../scale-types';
+import { Scale, BandScale } from '../scale-types';
 import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
+import { State } from '../store/state';
+import { TimelineEvent } from '../timeline-event';
+import { scaleBand } from 'd3-scale';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
-  resourceAxis$ = this.store.state$.pipe(
-    map(state =>
+  resourceAxis$ = combineLatest([
+    this.store.select(selectBandScale),
+    this.store.select(selectResourceOrientation),
+    this.store.select(selectView)
+  ]).pipe(
+    map(([bandScale, orientation, view]) =>
       this.createAxis(
         new ResourceAxisTickRenderer(),
-        state.bandScale,
-        state.axisOrientations.resource,
-        state.view
+        bandScale,
+        orientation,
+        view
       )
     )
   );
@@ -88,3 +96,68 @@ export class AxisService {
       : { ...axisLine, x2: rangeLimit };
   }
 }
+
+let lastData = null;
+let lastView = null;
+let lastOrientation = null;
+let lastResult = null;
+
+function selectBandScale(state: State) {
+  const [data, view, orientation] = [
+    selectData(state),
+    selectView(state),
+    selectResourceOrientation(state)
+  ];
+
+  if (
+    data !== lastData ||
+    view !== lastView ||
+    orientation !== lastOrientation
+  ) {
+    [lastData, lastView, lastOrientation] = [data, view, orientation];
+    lastResult = configureBandScale2(data, view, orientation);
+    console.log('new band scale created');
+  }
+
+  console.log('band scale selected');
+  return lastResult;
+}
+
+function selectResourceOrientation(state: State) {
+  return Orientation.Horizontal; // temp as orientation not populated in store
+  //return state.axisOrientations.resource;
+}
+
+function selectView(state: State) {
+  return state.view;
+}
+
+function selectData(state: State) {
+  return state.data;
+}
+
+// ---------------------temp code copied fom scale service ------------------------------
+function configureBandScale2(
+  data: TimelineEvent[],
+  view: TimelineView,
+  resourceOrientation: Orientation
+): BandScale {
+  return scaleBand()
+    .domain(getBandScaleDomain(data))
+    .range(getRange(view, resourceOrientation));
+}
+
+function getBandScaleDomain(data: TimelineEvent[]): string[] {
+  return [...new Set(data.map(d => d.series))];
+}
+
+function getRange(
+  view: TimelineView,
+  orientation: Orientation
+): [number, number] {
+  return orientation === Orientation.Vertical
+    ? [view.top, view.bottom]
+    : [view.left, view.right];
+}
+
+// ---------------------temp code copied fom scale service ------------------------------
