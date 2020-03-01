@@ -8,6 +8,7 @@ import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
 import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
+import { Selector } from './selector';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -28,8 +29,8 @@ export class Store {
     this.actionsSubject.next(action);
   }
 
-  select(selector: (state: State) => any) {
-    return this.state$.pipe(map(state => selector(state)));
+  select(selector: Selector) {
+    return this.state$.pipe(map(state => selector.execute(state)));
   }
 
   private reducer(state: State, action: Actions): State {

@@ -15,6 +15,8 @@ import { TickRenderer } from './tick-renderer';
 import { State } from '../store/state';
 import { TimelineEvent } from '../timeline-event';
 import { scaleBand } from 'd3-scale';
+import { createSliceSelector } from '../store/slice-selector';
+import { createSelector } from '../store/memoized-selector';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -97,35 +99,16 @@ export class AxisService {
   }
 }
 
-let lastData = null;
-let lastView = null;
-let lastOrientation = null;
-let lastResult = null;
+const selectResourceOrientation = createSliceSelector(
+  (state: State) => Orientation.Horizontal
+); // temp as orientation not populated in store
+const selectView = createSliceSelector((state: State) => state.view);
+const selectData = createSliceSelector((state: State) => state.data);
 
-function selectBandScale(state: State) {
-  const [data, view, orientation] = [
-    selectData(state),
-    selectView(state),
-    selectResourceOrientation(state)
-  ];
-
-  if (
-    data !== lastData ||
-    view !== lastView ||
-    orientation !== lastOrientation
-  ) {
-    [lastData, lastView, lastOrientation] = [data, view, orientation];
-    lastResult = configureBandScale2(data, view, orientation);
-    console.log('new band scale created');
-  }
-
-  console.log('band scale selected');
-  return lastResult;
-}
-
-const selectResourceOrientation = (state: State) => Orientation.Horizontal; // temp as orientation not populated in store
-const selectView = (state: State) => state.view;
-const selectData = (state: State) => state.data;
+const selectBandScale = createSelector(
+  [selectData, selectView, selectResourceOrientation],
+  configureBandScale2
+);
 
 // ---------------------temp code copied fom scale service ------------------------------
 function configureBandScale2(
