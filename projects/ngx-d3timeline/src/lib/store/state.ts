@@ -30,11 +30,11 @@ export const initialState: State = {
 };
 
 export const selectTimeOrientation = createSliceSelector(
-  (state: State) => Orientation.Vertical
-); // temp as orientation not populated in store
+  (state: State) => state.axisOrientations.time
+);
 export const selectResourceOrientation = createSliceSelector(
-  (state: State) => Orientation.Horizontal
-); // temp as orientation not populated in store
+  (state: State) => state.axisOrientations.resource
+);
 export const selectView = createSliceSelector((state: State) => state.view);
 export const selectData = createSliceSelector((state: State) => state.data);
 export const selectZoomEvent = createSliceSelector(
