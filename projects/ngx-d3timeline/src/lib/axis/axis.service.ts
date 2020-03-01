@@ -13,11 +13,9 @@ import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-re
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
 import { State } from '../store/state';
-import { TimelineEvent } from '../timeline-event';
-import { scaleBand, scaleTime } from 'd3-scale';
-import { min, max } from 'd3-array';
 import { createSliceSelector } from '../store/slice-selector';
 import { createSelector } from '../store/memoized-selector';
+import { configureBandScale, configureTimeScale } from '../scale-utils';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -110,50 +108,10 @@ const selectData = createSliceSelector((state: State) => state.data);
 
 const selectBandScale = createSelector(
   [selectData, selectView, selectResourceOrientation],
-  configureBandScale2
+  configureBandScale
 );
 
 const selectTimeScale = createSelector(
   [selectData, selectView, selectResourceOrientation],
-  configureTimeScale2
+  configureTimeScale
 );
-
-// ---------------------temp code copied fom scale service ------------------------------
-function configureTimeScale2(
-  data: TimelineEvent[],
-  view: TimelineView,
-  orientation: Orientation
-): TimeScale {
-  return scaleTime()
-    .domain(getTimeScaleDomain(data))
-    .range(getRange(view, orientation));
-}
-
-function configureBandScale2(
-  data: TimelineEvent[],
-  view: TimelineView,
-  orientation: Orientation
-): BandScale {
-  return scaleBand()
-    .domain(getBandScaleDomain(data))
-    .range(getRange(view, orientation));
-}
-
-function getBandScaleDomain(data: TimelineEvent[]): string[] {
-  return [...new Set(data.map(d => d.series))];
-}
-
-function getTimeScaleDomain(data: TimelineEvent[]): [Date, Date] {
-  return [min(data, d => d.start), max(data, d => d.finish)];
-}
-
-function getRange(
-  view: TimelineView,
-  orientation: Orientation
-): [number, number] {
-  return orientation === Orientation.Vertical
-    ? [view.top, view.bottom]
-    : [view.left, view.right];
-}
-
-// ---------------------temp code copied fom scale service ------------------------------
