@@ -8,6 +8,7 @@ import { EventRectangle } from './content';
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let contentService: ContentService;
+  let mockEventRectangles: EventRectangle[];
 
   @Component({
     selector: '[ngx-d3timeline-event-rectangle]',
@@ -27,17 +28,7 @@ describe('ContentComponent', () => {
 
     fixture = TestBed.createComponent(ContentComponent);
     contentService = TestBed.inject(ContentService);
-  });
-
-  it('should not render if eventRectangles are null', () => {
-    contentService.eventRectangles$ = of(null);
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement).toMatchSnapshot();
-  });
-
-  it('should correctly render eventRectangles when dragEventRectangle is null', () => {
-    const rectangles: EventRectangle[] = [
+    mockEventRectangles = [
       {
         id: 1,
         title: 'Event 1',
@@ -53,33 +44,45 @@ describe('ContentComponent', () => {
         height: 90
       }
     ];
-    contentService.eventRectangles$ = of(rectangles);
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement).toMatchSnapshot();
   });
 
-  it('should render correctly when eventRectangles and dragEventRectangle set', () => {
-    const rectangles: EventRectangle[] = [
-      {
-        id: 1,
-        title: 'Event 1',
-        transform: 'translate(50,0)',
-        width: 50,
-        height: 80
-      },
-      {
-        id: 2,
-        title: 'Event 2',
-        transform: 'translate(130,0)',
-        width: 60,
-        height: 90
-      }
-    ];
-    contentService.eventRectangles$ = of(rectangles);
-    contentService.dragEventRectangle$ = of(rectangles[0]);
-    fixture.detectChanges();
+  describe('eventRectangles null', () => {
+    beforeEach(() => {
+      contentService.eventRectangles$ = of(null);
+    });
 
-    expect(fixture.nativeElement).toMatchSnapshot();
+    it('should not render', () => {
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+
+    it('should not render when dragEventRectangle set', () => {
+      contentService.dragEventRectangle$ = of(mockEventRectangles[0]);
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+
+    it('should not render when previewEventRectangle set', () => {
+      contentService.previewRectangle$ = of(mockEventRectangles[0]);
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+  });
+
+  describe('eventRectangles set', () => {
+    it('should render', () => {
+      contentService.eventRectangles$ = of(mockEventRectangles);
+      contentService.dragEventRectangle$ = of(mockEventRectangles[0]);
+      contentService.previewRectangle$ = of(mockEventRectangles[0]);
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
   });
 });

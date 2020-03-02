@@ -58,7 +58,10 @@ export class Store {
       }
 
       case ActionType.TimelineDragStarted: {
-        return { ...state, dragEvent: { id: action.payload, dx: 0, dy: 0 } };
+        return {
+          ...state,
+          dragEvent: { id: action.payload, dx: 0, dy: 0, y: 0, x: 0 }
+        };
       }
 
       case ActionType.TimelineDragging: {
@@ -100,7 +103,9 @@ export class Store {
       ...dragEvent,
       id: eventRectangle.id,
       dx: dragEvent && dragEvent.dx + event.dx,
-      dy: dragEvent && dragEvent.dy + event.dy
+      dy: dragEvent && dragEvent.dy + event.dy,
+      x: event.x,
+      y: event.y
     };
   }
 }
