@@ -57,13 +57,7 @@ export class Store {
         };
       }
 
-      case ActionType.TimelineDragStarted: {
-        return {
-          ...state,
-          dragEvent: { id: action.payload, dx: 0, dy: 0, y: 0, x: 0 }
-        };
-      }
-
+      case ActionType.TimelineDragStarted:
       case ActionType.TimelineDragging: {
         return {
           ...state,

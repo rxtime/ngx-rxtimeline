@@ -63,7 +63,10 @@ export class EventRectangleComponent implements AfterViewInit {
 
   private onDragStarted() {
     this.store.dispatch(
-      new fromActions.TimelineDragStartedAction(this.eventRectangle.id)
+      new fromActions.TimelineDragStartedAction({
+        eventRectangle: this.eventRectangle,
+        event
+      })
     );
   }
 
