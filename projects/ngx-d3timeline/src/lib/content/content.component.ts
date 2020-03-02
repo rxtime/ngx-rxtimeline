@@ -13,6 +13,12 @@ import { ContentService } from './content.service';
         ngx-d3timeline-event-rectangle
         [eventRectangle]="eventRectangle"
       ></svg:g>
+
+      <svg:g
+        *ngIf="contentService.dragEventRectangle$ | async as dragEventRectangle"
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="dragEventRectangle"
+      ></svg:g>
     </svg:g>
   `
 })

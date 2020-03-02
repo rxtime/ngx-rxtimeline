@@ -14,57 +14,74 @@ export class ContentService {
     map(state => this.createEventRectangles(state))
   );
 
+  dragEventRectangle$ = this.store.state$.pipe(
+    map(state => this.createDragEventRectangle(state))
+  );
+
   constructor(private store: Store) {}
 
-  createEventRectangles(state: State): EventRectangle[] {
-    return state.data.map(d => ({
-      id: d.id,
-      title: d.type,
+  private createEventRectangles(state: State): EventRectangle[] {
+    return state.data.map(data =>
+      this.timelineEventToEventRectangle(data, state)
+    );
+  }
+
+  private createDragEventRectangle(state: State): EventRectangle {
+    const timelineEvent =
+      state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
+    return (
+      timelineEvent &&
+      this.timelineEventToEventRectangle(timelineEvent, state, state.dragEvent)
+    );
+  }
+
+  private timelineEventToEventRectangle(
+    timelineEvent: TimelineEvent,
+    state: State,
+    dragEvent?: TimelineDragEvent
+  ): EventRectangle {
+    return {
+      id: timelineEvent.id,
+      title: timelineEvent.type,
       transform: this.dataTransform(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale,
-        state.dragEvent && state.dragEvent.id === d.id ? state.dragEvent : null
+        dragEvent
       ),
       width: this.rectWidth(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale
       ),
       height: this.rectHeight(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale
       )
-    }));
+    };
   }
 
-  dataTransform(
+  private dataTransform(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
-    dragEvent: TimelineDragEvent
+    dragEvent?: TimelineDragEvent
   ) {
-    return `translate(${this.getEventX(
-      data,
-      orientation,
-      scaleBand,
-      scaleTime,
-      dragEvent && dragEvent.dx
-    )}, ${this.getEventY(
-      data,
-      orientation,
-      scaleBand,
-      scaleTime,
-      dragEvent && dragEvent.dy
-    )})`;
+    const eventX = this.getEventX(data, orientation, scaleBand, scaleTime);
+    const dx = (dragEvent && dragEvent.dx) || 0;
+
+    const eventY = this.getEventY(data, orientation, scaleBand, scaleTime);
+    const dy = (dragEvent && dragEvent.dy) || 0;
+
+    return `translate(${eventX + dx}, ${eventY + dy})`;
   }
 
-  rectHeight(
+  private rectHeight(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
@@ -75,7 +92,7 @@ export class ContentService {
       : this.rectResourceBreadth(scaleBand);
   }
 
-  rectWidth(
+  private rectWidth(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
@@ -89,40 +106,36 @@ export class ContentService {
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale,
-    dragEventDx: number
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(data, scaleBand, dragEventDx)
-      : this.positionInTimeAxis(data, scaleTime, dragEventDx);
+      ? this.positionInResourceAxis(data, scaleBand)
+      : this.positionInTimeAxis(data, scaleTime);
   }
 
   private getEventY(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale,
-    dragEventDy: number
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(data, scaleTime, dragEventDy)
-      : this.positionInResourceAxis(data, scaleBand, dragEventDy);
+      ? this.positionInTimeAxis(data, scaleTime)
+      : this.positionInResourceAxis(data, scaleBand);
   }
 
   private positionInResourceAxis(
     data: TimelineEvent,
-    scaleBand: BandScale,
-    dragDelta: number
+    scaleBand: BandScale
   ): number {
-    return scaleBand(data.series) + dragDelta;
+    return scaleBand(data.series);
   }
 
   private positionInTimeAxis(
     data: TimelineEvent,
-    scaleTime: TimeScale,
-    dragDelta: number
+    scaleTime: TimeScale
   ): number {
-    return scaleTime(data.start) + dragDelta;
+    return scaleTime(data.start);
   }
 
   private rectTimeBreadth(data: TimelineEvent, scaleTime: TimeScale): number {
