@@ -7,7 +7,7 @@ import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { scaleBandInvert } from '../scale-util';
+import { getDraggedTimelineEvent, getDropTimelineEvent } from '../drag-util';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -32,44 +32,24 @@ export class ContentService {
   }
 
   private createDragEventRectangle(state: State): EventRectangle {
-    const timelineEvent = this.getDraggedTimelineEvent(state);
+    const draggedTimelineEvent = getDraggedTimelineEvent(state);
     return (
-      timelineEvent &&
-      this.timelineEventToEventRectangle(timelineEvent, state, state.dragEvent)
+      draggedTimelineEvent &&
+      this.timelineEventToEventRectangle(
+        draggedTimelineEvent,
+        state,
+        state.dragEvent
+      )
     );
   }
 
   private createPreviewRectangle(state: State): EventRectangle {
-    let timelineEvent = this.getDraggedTimelineEvent(state);
-
-    if (!timelineEvent) {
-      return null;
-    }
-
-    const invert = scaleBandInvert(state.bandScale);
-    const series =
-      state.axisOrientations.time === Orientation.Vertical
-        ? invert(state.dragEvent.x)
-        : invert(state.dragEvent.y);
-
-    timelineEvent = timelineEvent && {
-      ...timelineEvent,
-      series
-    };
-
-    const dragEvent: TimelineDragEvent =
-      state.axisOrientations.time === Orientation.Vertical
-        ? { ...state.dragEvent, dx: 0 }
-        : { ...state.dragEvent, dy: 0 };
+    let dropTimelineEvent = getDropTimelineEvent(state);
 
     return (
-      timelineEvent &&
-      this.timelineEventToEventRectangle(timelineEvent, state, dragEvent)
+      dropTimelineEvent &&
+      this.timelineEventToEventRectangle(dropTimelineEvent, state)
     );
-  }
-
-  private getDraggedTimelineEvent(state: State): TimelineEvent {
-    return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
   }
 
   private timelineEventToEventRectangle(
