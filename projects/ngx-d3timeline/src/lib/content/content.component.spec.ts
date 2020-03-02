@@ -36,7 +36,7 @@ describe('ContentComponent', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
-  it('should render correctly', () => {
+  it('should correctly render eventRectangles when dragEventRectangle is null', () => {
     const rectangles: EventRectangle[] = [
       {
         id: 1,
@@ -54,6 +54,30 @@ describe('ContentComponent', () => {
       }
     ];
     contentService.eventRectangles$ = of(rectangles);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
+
+  it('should render correctly when eventRectangles and dragEventRectangle set', () => {
+    const rectangles: EventRectangle[] = [
+      {
+        id: 1,
+        title: 'Event 1',
+        transform: 'translate(50,0)',
+        width: 50,
+        height: 80
+      },
+      {
+        id: 2,
+        title: 'Event 2',
+        transform: 'translate(130,0)',
+        width: 60,
+        height: 90
+      }
+    ];
+    contentService.eventRectangles$ = of(rectangles);
+    contentService.dragEventRectangle$ = of(rectangles[0]);
     fixture.detectChanges();
 
     expect(fixture.nativeElement).toMatchSnapshot();

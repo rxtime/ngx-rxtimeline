@@ -1,15 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContentComponent should not render if eventRectangles are null 1`] = `
-<div
-  id="root0"
-  ngx-d3timeline-content=""
->
-  
-</div>
-`;
-
-exports[`ContentComponent should render correctly 1`] = `
+exports[`ContentComponent should correctly render eventRectangles when dragEventRectangle is null 1`] = `
 <div
   id="root1"
   ngx-d3timeline-content=""
@@ -24,6 +15,46 @@ exports[`ContentComponent should render correctly 1`] = `
     >
       <g />
     </g>
+    <g
+      ngx-d3timeline-event-rectangle=""
+    >
+      <g />
+    </g>
+    
+  </g>
+</div>
+`;
+
+exports[`ContentComponent should not render if eventRectangles are null 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-content=""
+>
+  
+</div>
+`;
+
+exports[`ContentComponent should render correctly when eventRectangles and dragEventRectangle set 1`] = `
+<div
+  id="root2"
+  ngx-d3timeline-content=""
+>
+  
+  <g
+    class="content-group"
+  >
+    
+    <g
+      ngx-d3timeline-event-rectangle=""
+    >
+      <g />
+    </g>
+    <g
+      ngx-d3timeline-event-rectangle=""
+    >
+      <g />
+    </g>
+    
     <g
       ngx-d3timeline-event-rectangle=""
     >
