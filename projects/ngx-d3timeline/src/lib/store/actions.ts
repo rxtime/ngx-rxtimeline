@@ -40,7 +40,7 @@ export class ZoomedAction implements Action {
 
 export class TimelineDragStartedAction implements Action {
   readonly type = ActionType.TimelineDragStarted;
-  constructor(public payload: identifier) {}
+  constructor(public payload: { eventRectangle: EventRectangle; event: any }) {}
 }
 
 export class TimelineDraggingAction implements Action {
