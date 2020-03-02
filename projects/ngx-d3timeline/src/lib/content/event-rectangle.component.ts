@@ -8,7 +8,8 @@ import {
 import { EventRectangle } from './content';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
-import { DragService } from './drag.service';
+import { Store } from '../store/store';
+import * as fromActions from '../store/actions';
 
 @Component({
   selector: '[ngx-d3timeline-event-rectangle]',
@@ -43,7 +44,7 @@ export class EventRectangleComponent implements AfterViewInit {
 
   @ViewChild('eventRectangleEl') eventRectangleEl: ElementRef;
 
-  constructor(private dragService: DragService) {}
+  constructor(private store: Store) {}
 
   ngAfterViewInit() {
     this.setupDrag();
@@ -52,10 +53,32 @@ export class EventRectangleComponent implements AfterViewInit {
   private setupDrag() {
     if (this.eventRectangleEl) {
       const onDrag = drag()
-        .on('drag', () => this.dragService.onDrag(this.eventRectangle, event))
-        .on('end', () => this.dragService.onDragEnd());
+        .on('start', this.onDragStarted.bind(this))
+        .on('drag', this.onDragging.bind(this))
+        .on('end', this.onDragEnded.bind(this));
 
       onDrag(select(this.eventRectangleEl.nativeElement));
     }
+  }
+
+  private onDragStarted() {
+    this.store.dispatch(
+      new fromActions.TimelineDragStartedAction(this.eventRectangle.id)
+    );
+  }
+
+  private onDragging() {
+    this.store.dispatch(
+      new fromActions.TimelineDraggingAction({
+        eventRectangle: this.eventRectangle,
+        event
+      })
+    );
+  }
+
+  private onDragEnded() {
+    this.store.dispatch(
+      new fromActions.TimelineDragEndedAction(this.eventRectangle.id)
+    );
   }
 }

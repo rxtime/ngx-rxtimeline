@@ -8,6 +8,8 @@ import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
 import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
+import { TimelineDragEvent } from '../content/timeline-drag-event';
+import { EventRectangle } from '../content/content';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -55,6 +57,25 @@ export class Store {
         };
       }
 
+      case ActionType.TimelineDragStarted: {
+        return { ...state, dragEvent: { id: action.payload, dx: 0, dy: 0 } };
+      }
+
+      case ActionType.TimelineDragging: {
+        return {
+          ...state,
+          dragEvent: this.setDragEvent(
+            state.dragEvent,
+            action.payload.eventRectangle,
+            action.payload.event
+          )
+        };
+      }
+
+      case ActionType.TimelineDragEnded: {
+        return { ...state, dragEvent: null };
+      }
+
       default: {
         return state;
       }
@@ -67,6 +88,19 @@ export class Store {
       ...patchedState,
       timeScale: this.scaleService.configureTimeScale(patchedState),
       bandScale: this.scaleService.configureBandScale(patchedState)
+    };
+  }
+
+  private setDragEvent(
+    dragEvent: TimelineDragEvent,
+    eventRectangle: EventRectangle,
+    event: any
+  ) {
+    return {
+      ...dragEvent,
+      id: eventRectangle.id,
+      dx: dragEvent && dragEvent.dx + event.dx,
+      dy: dragEvent && dragEvent.dy + event.dy
     };
   }
 }
