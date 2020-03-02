@@ -11,7 +11,7 @@ import { TimelineDragEvent } from './timeline-drag-event';
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   eventRectangles$ = this.store.state$.pipe(
-    map(this.createEventRectangles.bind(this))
+    map(state => this.createEventRectangles(state))
   );
 
   constructor(private store: Store) {}
