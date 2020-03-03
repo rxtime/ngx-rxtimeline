@@ -7,7 +7,7 @@ import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { getDraggedTimelineEvent, getDropTimelineEvent } from '../drag-util';
+import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-util';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -15,12 +15,12 @@ export class ContentService {
     map(state => this.createEventRectangles(state))
   );
 
-  dragEventRectangle$ = this.store.state$.pipe(
-    map(state => this.createDragEventRectangle(state))
+  draggingRectangle$ = this.store.state$.pipe(
+    map(state => this.createDraggingRectangle(state))
   );
 
-  previewRectangle$ = this.store.state$.pipe(
-    map(state => this.createPreviewRectangle(state))
+  dropRectangle$ = this.store.state$.pipe(
+    map(state => this.createDropRectangle(state))
   );
 
   constructor(private store: Store) {}
@@ -31,8 +31,8 @@ export class ContentService {
     );
   }
 
-  private createDragEventRectangle(state: State): EventRectangle {
-    const draggedTimelineEvent = getDraggedTimelineEvent(state);
+  private createDraggingRectangle(state: State): EventRectangle {
+    const draggedTimelineEvent = getDraggingTimelineEvent(state);
     return (
       draggedTimelineEvent &&
       this.timelineEventToEventRectangle(
@@ -43,7 +43,7 @@ export class ContentService {
     );
   }
 
-  private createPreviewRectangle(state: State): EventRectangle {
+  private createDropRectangle(state: State): EventRectangle {
     const dropTimelineEvent = getDropTimelineEvent(state);
 
     return (

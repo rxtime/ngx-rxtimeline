@@ -4,38 +4,38 @@ import { Orientation } from './orientation';
 import { TimelineEvent } from '../public-api';
 
 export function getDropTimelineEvent(state: State) {
-  const draggedTimelineEvent = getDraggedTimelineEvent(state);
+  const draggingTimelineEvent = getDraggingTimelineEvent(state);
 
   return (
-    draggedTimelineEvent && {
-      ...draggedTimelineEvent,
-      series: getDragEventSeries(state),
-      ...shiftedTimesForDraggedTimelineEvent(draggedTimelineEvent, state)
+    draggingTimelineEvent && {
+      ...draggingTimelineEvent,
+      series: getDropEventSeries(state),
+      ...shiftedTimesForDraggingTimelineEvent(draggingTimelineEvent, state)
     }
   );
 }
 
-export function getDraggedTimelineEvent(state: State): TimelineEvent {
+export function getDraggingTimelineEvent(state: State): TimelineEvent {
   return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
 }
 
-function getDragEventSeries(state: State) {
+function getDropEventSeries(state: State) {
   const invert = scaleBandInvert(state.bandScale);
   return state.dragEvent && state.axisOrientations.time === Orientation.Vertical
     ? invert(state.dragEvent.x)
     : invert(state.dragEvent.y);
 }
 
-function shiftedTimesForDraggedTimelineEvent(
-  draggedTimelineEvent: TimelineEvent,
+function shiftedTimesForDraggingTimelineEvent(
+  draggingTimelineEvent: TimelineEvent,
   state: State
 ) {
   const deltaTime = getDeltaTime(state);
 
   const shiftedEventStart =
-    state.timeScale(draggedTimelineEvent.start) + deltaTime;
+    state.timeScale(draggingTimelineEvent.start) + deltaTime;
   const shiftedEventFinish =
-    state.timeScale(draggedTimelineEvent.finish) + deltaTime;
+    state.timeScale(draggingTimelineEvent.finish) + deltaTime;
 
   return {
     start: state.timeScale.invert(shiftedEventStart),
