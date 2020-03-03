@@ -9,7 +9,7 @@ import { Actions } from './actions';
 import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
-import { EventRectangle } from '../content/content';
+import { EventRectangle } from '../content/event-rectangle';
 import { getDropTimelineEvent } from '../drag-util';
 import { TimelineEvent } from '../timeline-event';
 

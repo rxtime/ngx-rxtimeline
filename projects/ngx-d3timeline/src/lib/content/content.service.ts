@@ -3,7 +3,7 @@ import { Store } from '../store/store';
 import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
-import { EventRectangle } from './content';
+import { EventRectangle } from './event-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
