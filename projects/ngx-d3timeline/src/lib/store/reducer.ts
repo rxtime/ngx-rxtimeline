@@ -35,6 +35,7 @@ export function reducer(state: State, action: Actions): State {
     case ActionType.Zoomed: {
       return {
         ...state,
+        zoomEvent: action.payload,
         timeScale: rescaleTime(
           state.data,
           state.view,
