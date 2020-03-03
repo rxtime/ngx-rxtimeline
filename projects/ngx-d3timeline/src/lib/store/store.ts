@@ -6,22 +6,23 @@ import { initialState } from './state';
 import { State } from './state';
 import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
-import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { getDropTimelineEvent } from '../drag-util';
 import { TimelineEvent } from '../timeline-event';
+import {
+  rescaleTime,
+  configureTimeScale,
+  configureBandScale
+} from '../scale-util';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private readonly replayBufferSize = 100;
   private actionsSubject = new ReplaySubject<Actions>(this.replayBufferSize);
 
-  constructor(
-    private scaleService: ScaleService,
-    private optionsService: OptionsService
-  ) {}
+  constructor(private optionsService: OptionsService) {}
 
   state$ = this.actionsSubject.pipe(
     scan(this.reducer.bind(this), initialState),
@@ -55,7 +56,12 @@ export class Store {
       case ActionType.Zoomed: {
         return {
           ...state,
-          timeScale: this.scaleService.rescaleTime(state, action.payload)
+          timeScale: rescaleTime(
+            state.data,
+            state.view,
+            state.axisOrientations.time,
+            action.payload
+          )
         };
       }
 
@@ -93,8 +99,16 @@ export class Store {
     const patchedState = { ...state, ...patch };
     return {
       ...patchedState,
-      timeScale: this.scaleService.configureTimeScale(patchedState),
-      bandScale: this.scaleService.configureBandScale(patchedState)
+      timeScale: configureTimeScale(
+        patchedState.data,
+        patchedState.view,
+        patchedState.axisOrientations.time
+      ),
+      bandScale: configureBandScale(
+        patchedState.data,
+        patchedState.view,
+        patchedState.axisOrientations.resource
+      )
     };
   }
 
