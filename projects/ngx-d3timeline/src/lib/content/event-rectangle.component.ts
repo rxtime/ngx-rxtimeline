@@ -3,7 +3,8 @@ import {
   Input,
   ElementRef,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { EventRectangle } from './event-rectangle';
 import { drag } from 'd3-drag';
@@ -26,7 +27,8 @@ import * as fromActions from '../store/actions';
       ></svg:rect>
       <svg:text dy="1em">{{ eventRectangle.title }}</svg:text>
     </svg:g>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventRectangleComponent implements AfterViewInit {
   @Input() eventRectangle: EventRectangle;

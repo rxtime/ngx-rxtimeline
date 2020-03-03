@@ -4,7 +4,8 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { TimelineEvent } from './timeline-event';
 import { zoom } from 'd3-zoom';
@@ -29,7 +30,8 @@ import * as fromActions from './store/actions';
     </svg>
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set data(value: TimelineEvent[]) {
