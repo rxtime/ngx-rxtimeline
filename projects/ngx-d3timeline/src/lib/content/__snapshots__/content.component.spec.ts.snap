@@ -27,9 +27,18 @@ exports[`ContentComponent eventRectangles null should not render when dropRectan
 </div>
 `;
 
-exports[`ContentComponent eventRectangles set should render 1`] = `
+exports[`ContentComponent eventRectangles null should not render when fromRectangle set 1`] = `
 <div
   id="root3"
+  ngx-d3timeline-content=""
+>
+  
+</div>
+`;
+
+exports[`ContentComponent eventRectangles set should render 1`] = `
+<div
+  id="root4"
   ngx-d3timeline-content=""
 >
   
@@ -43,6 +52,13 @@ exports[`ContentComponent eventRectangles set should render 1`] = `
       <g />
     </g>
     <g
+      ngx-d3timeline-event-rectangle=""
+    >
+      <g />
+    </g>
+    
+    <g
+      class="from-event-rectangle"
       ngx-d3timeline-event-rectangle=""
     >
       <g />

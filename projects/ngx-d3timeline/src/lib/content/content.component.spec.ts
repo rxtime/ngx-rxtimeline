@@ -72,6 +72,14 @@ describe('ContentComponent', () => {
 
       expect(fixture.nativeElement).toMatchSnapshot();
     });
+
+    it('should not render when fromRectangle set', () => {
+      contentService.fromRectangle$ = of(mockEventRectangles[0]);
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
   });
 
   describe('eventRectangles set', () => {
@@ -79,6 +87,7 @@ describe('ContentComponent', () => {
       contentService.eventRectangles$ = of(mockEventRectangles);
       contentService.draggingRectangle$ = of(mockEventRectangles[0]);
       contentService.dropRectangle$ = of(mockEventRectangles[0]);
+      contentService.fromRectangle$ = of(mockEventRectangles[0]);
 
       fixture.detectChanges();
 

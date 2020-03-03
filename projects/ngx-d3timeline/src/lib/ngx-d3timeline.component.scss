@@ -34,4 +34,11 @@
       stroke: #0f0;
     }
   }
+
+  .from-event-rectangle {
+    fill: none;
+    rect {
+      stroke: #f00;
+    }
+  }
 }
