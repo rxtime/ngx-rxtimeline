@@ -17,14 +17,7 @@ import { AxisService } from '../axis.service';
       </text>
       <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
     </svg:g>
-  `,
-  styles: [
-    `
-      .resources-axis-group {
-        text-anchor: middle;
-      }
-    `
-  ]
+  `
 })
 export class ResourcesAxisComponent {
   constructor(public axisService: AxisService) {}

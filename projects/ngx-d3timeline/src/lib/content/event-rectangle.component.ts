@@ -15,6 +15,7 @@ import * as fromActions from '../store/actions';
   selector: '[ngx-d3timeline-event-rectangle]',
   template: `
     <svg:g
+      class="event-rectangle"
       [attr.transform]="eventRectangle.transform"
       *ngIf="eventRectangle"
       #eventRectangleEl
@@ -25,19 +26,7 @@ import * as fromActions from '../store/actions';
       ></svg:rect>
       <svg:text dy="1em">{{ eventRectangle.title }}</svg:text>
     </svg:g>
-  `,
-  styles: [
-    `
-      rect {
-        fill: #fff;
-        stroke: #000;
-      }
-
-      text {
-        font-size: 10px;
-      }
-    `
-  ]
+  `
 })
 export class EventRectangleComponent implements AfterViewInit {
   @Input() eventRectangle: EventRectangle;
