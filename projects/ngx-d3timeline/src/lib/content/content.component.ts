@@ -18,6 +18,7 @@ import { ContentService } from './content.service';
         *ngIf="contentService.dropRectangle$ | async as dropRectangle"
         ngx-d3timeline-event-rectangle
         [eventRectangle]="dropRectangle"
+        class="drop-event-rectangle"
       ></svg:g>
 
       <svg:g

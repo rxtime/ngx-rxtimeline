@@ -49,6 +49,7 @@ exports[`ContentComponent eventRectangles set should render 1`] = `
     </g>
     
     <g
+      class="drop-event-rectangle"
       ngx-d3timeline-event-rectangle=""
     >
       <g />

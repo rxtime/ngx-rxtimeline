@@ -27,4 +27,11 @@
       font-size: 10px;
     }
   }
+
+  .drop-event-rectangle {
+    fill: none;
+    rect {
+      stroke: #0f0;
+    }
+  }
 }
