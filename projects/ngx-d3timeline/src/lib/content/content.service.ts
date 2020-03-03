@@ -7,7 +7,7 @@ import { EventRectangle } from './content';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { scaleBandInvert } from '../scale-util';
+import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-util';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -15,12 +15,12 @@ export class ContentService {
     map(state => this.createEventRectangles(state))
   );
 
-  dragEventRectangle$ = this.store.state$.pipe(
-    map(state => this.createDragEventRectangle(state))
+  draggingRectangle$ = this.store.state$.pipe(
+    map(state => this.createDraggingRectangle(state))
   );
 
-  previewRectangle$ = this.store.state$.pipe(
-    map(state => this.createPreviewRectangle(state))
+  dropRectangle$ = this.store.state$.pipe(
+    map(state => this.createDropRectangle(state))
   );
 
   constructor(private store: Store) {}
@@ -31,45 +31,25 @@ export class ContentService {
     );
   }
 
-  private createDragEventRectangle(state: State): EventRectangle {
-    const timelineEvent = this.getDraggedTimelineEvent(state);
+  private createDraggingRectangle(state: State): EventRectangle {
+    const draggedTimelineEvent = getDraggingTimelineEvent(state);
     return (
-      timelineEvent &&
-      this.timelineEventToEventRectangle(timelineEvent, state, state.dragEvent)
+      draggedTimelineEvent &&
+      this.timelineEventToEventRectangle(
+        draggedTimelineEvent,
+        state,
+        state.dragEvent
+      )
     );
   }
 
-  private createPreviewRectangle(state: State): EventRectangle {
-    let timelineEvent = this.getDraggedTimelineEvent(state);
-
-    if (!timelineEvent) {
-      return null;
-    }
-
-    const invert = scaleBandInvert(state.bandScale);
-    const series =
-      state.axisOrientations.time === Orientation.Vertical
-        ? invert(state.dragEvent.x)
-        : invert(state.dragEvent.y);
-
-    timelineEvent = timelineEvent && {
-      ...timelineEvent,
-      series
-    };
-
-    const dragEvent: TimelineDragEvent =
-      state.axisOrientations.time === Orientation.Vertical
-        ? { ...state.dragEvent, dx: 0 }
-        : { ...state.dragEvent, dy: 0 };
+  private createDropRectangle(state: State): EventRectangle {
+    const dropTimelineEvent = getDropTimelineEvent(state);
 
     return (
-      timelineEvent &&
-      this.timelineEventToEventRectangle(timelineEvent, state, dragEvent)
+      dropTimelineEvent &&
+      this.timelineEventToEventRectangle(dropTimelineEvent, state)
     );
-  }
-
-  private getDraggedTimelineEvent(state: State): TimelineEvent {
-    return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
   }
 
   private timelineEventToEventRectangle(

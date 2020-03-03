@@ -10,6 +10,8 @@ import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/content';
+import { getDropTimelineEvent } from '../drag-util';
+import { TimelineEvent } from '../timeline-event';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -70,13 +72,21 @@ export class Store {
       }
 
       case ActionType.TimelineDragEnded: {
-        return { ...state, dragEvent: null };
+        const data = this.dropTimelineEventOnDragEnd(state);
+        return { ...state, data, dragEvent: null };
       }
 
       default: {
         return state;
       }
     }
+  }
+
+  private dropTimelineEventOnDragEnd(state: State): TimelineEvent[] {
+    const dropEvent = getDropTimelineEvent(state);
+    return state.data.map(data =>
+      data.id === dropEvent.id ? dropEvent : data
+    );
   }
 
   private patchStateAndUpdateScales(state: State, patch: Partial<State>) {

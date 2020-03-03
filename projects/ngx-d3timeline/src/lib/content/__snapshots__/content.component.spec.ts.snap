@@ -9,7 +9,7 @@ exports[`ContentComponent eventRectangles null should not render 1`] = `
 </div>
 `;
 
-exports[`ContentComponent eventRectangles null should not render when dragEventRectangle set 1`] = `
+exports[`ContentComponent eventRectangles null should not render when draggingRectangle set 1`] = `
 <div
   id="root1"
   ngx-d3timeline-content=""
@@ -18,7 +18,7 @@ exports[`ContentComponent eventRectangles null should not render when dragEventR
 </div>
 `;
 
-exports[`ContentComponent eventRectangles null should not render when previewEventRectangle set 1`] = `
+exports[`ContentComponent eventRectangles null should not render when dropRectangle set 1`] = `
 <div
   id="root2"
   ngx-d3timeline-content=""

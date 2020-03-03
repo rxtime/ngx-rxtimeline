@@ -15,15 +15,15 @@ import { ContentService } from './content.service';
       ></svg:g>
 
       <svg:g
-        *ngIf="contentService.previewRectangle$ | async as previewRectangle"
+        *ngIf="contentService.dropRectangle$ | async as dropRectangle"
         ngx-d3timeline-event-rectangle
-        [eventRectangle]="previewRectangle"
+        [eventRectangle]="dropRectangle"
       ></svg:g>
 
       <svg:g
-        *ngIf="contentService.dragEventRectangle$ | async as dragEventRectangle"
+        *ngIf="contentService.draggingRectangle$ | async as draggingRectangle"
         ngx-d3timeline-event-rectangle
-        [eventRectangle]="dragEventRectangle"
+        [eventRectangle]="draggingRectangle"
       ></svg:g>
     </svg:g>
   `
