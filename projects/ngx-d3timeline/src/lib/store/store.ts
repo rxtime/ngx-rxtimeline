@@ -6,7 +6,6 @@ import { initialState } from './state';
 import { State } from './state';
 import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
-import { OptionsService } from '../options.service';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { getDropTimelineEvent } from '../drag-util';
@@ -16,13 +15,14 @@ import {
   configureTimeScale,
   configureBandScale
 } from '../scale-util';
+import { flipOrientation } from '../orientation-utils';
+import { Orientation } from '../orientation';
+import { AxisOrientations } from '../axis-orientations';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private readonly replayBufferSize = 100;
   private actionsSubject = new ReplaySubject<Actions>(this.replayBufferSize);
-
-  constructor(private optionsService: OptionsService) {}
 
   state$ = this.actionsSubject.pipe(
     scan(this.reducer.bind(this), initialState),
@@ -41,9 +41,7 @@ export class Store {
 
       case ActionType.OrientationChanged: {
         return this.patchStateAndUpdateScales(state, {
-          axisOrientations: this.optionsService.setAxisOrientations(
-            action.payload
-          )
+          axisOrientations: this.setAxisOrientations(action.payload)
         });
       }
 
@@ -125,5 +123,10 @@ export class Store {
       x: event.x,
       y: event.y
     };
+  }
+
+  private setAxisOrientations(timeOrientation: Orientation): AxisOrientations {
+    const resourceOrientation = flipOrientation(timeOrientation);
+    return { time: timeOrientation, resource: resourceOrientation };
   }
 }
