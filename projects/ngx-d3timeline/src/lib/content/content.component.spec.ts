@@ -3,7 +3,7 @@ import { ContentService } from './content.service';
 import { of } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { Component, Input } from '@angular/core';
-import { EventRectangle } from './content';
+import { EventRectangle } from './event-rectangle';
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
