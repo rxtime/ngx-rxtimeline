@@ -1,7 +1,7 @@
 import { TimelineEvent } from '../timeline-event';
 import { Orientation } from '../orientation';
 import { identifier } from '../types';
-import { EventRectangle } from '../content/content';
+import { EventRectangle } from '../content/event-rectangle';
 
 export interface Action {
   type: string;

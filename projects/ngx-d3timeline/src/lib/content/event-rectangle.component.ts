@@ -5,7 +5,7 @@ import {
   ViewChild,
   AfterViewInit
 } from '@angular/core';
-import { EventRectangle } from './content';
+import { EventRectangle } from './event-rectangle';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 import { Store } from '../store/store';
