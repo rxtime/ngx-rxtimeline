@@ -44,7 +44,7 @@ export class ContentService {
   }
 
   private createPreviewRectangle(state: State): EventRectangle {
-    let dropTimelineEvent = getDropTimelineEvent(state);
+    const dropTimelineEvent = getDropTimelineEvent(state);
 
     return (
       dropTimelineEvent &&
