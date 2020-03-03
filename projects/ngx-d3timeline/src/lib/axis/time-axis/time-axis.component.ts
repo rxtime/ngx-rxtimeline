@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AxisService } from '../axis.service';
 
 @Component({
@@ -20,7 +20,8 @@ import { AxisService } from '../axis.service';
       </svg:g>
       <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
     </svg:g>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeAxisComponent {
   constructor(public axisService: AxisService) {}

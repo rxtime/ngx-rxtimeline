@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ContentService } from './content.service';
 
 @Component({
@@ -26,7 +26,8 @@ import { ContentService } from './content.service';
         [eventRectangle]="draggingRectangle"
       ></svg:g>
     </svg:g>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent {
   constructor(public contentService: ContentService) {}
