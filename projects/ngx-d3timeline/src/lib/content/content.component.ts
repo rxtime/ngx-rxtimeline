@@ -15,6 +15,13 @@ import { ContentService } from './content.service';
       ></svg:g>
 
       <svg:g
+        *ngIf="contentService.fromRectangle$ | async as fromRectangle"
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="fromRectangle"
+        class="from-event-rectangle"
+      ></svg:g>
+
+      <svg:g
         *ngIf="contentService.dropRectangle$ | async as dropRectangle"
         ngx-d3timeline-event-rectangle
         [eventRectangle]="dropRectangle"

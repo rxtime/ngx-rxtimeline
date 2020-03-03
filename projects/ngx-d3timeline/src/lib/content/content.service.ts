@@ -23,20 +23,32 @@ export class ContentService {
     map(state => this.createDropRectangle(state))
   );
 
+  fromRectangle$ = this.store.state$.pipe(
+    map(state => this.createFromRectangle(state))
+  );
+
   constructor(private store: Store) {}
 
-  private createEventRectangles(state: State): EventRectangle[] {
-    return state.data.map(data =>
-      this.timelineEventToEventRectangle(data, state)
+  private createFromRectangle(state: State) {
+    const draggingTimelineEvent = getDraggingTimelineEvent(state);
+    return (
+      draggingTimelineEvent &&
+      this.timelineEventToEventRectangle(draggingTimelineEvent, state)
     );
   }
 
+  private createEventRectangles(state: State): EventRectangle[] {
+    return state.data
+      .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
+      .map(data => this.timelineEventToEventRectangle(data, state));
+  }
+
   private createDraggingRectangle(state: State): EventRectangle {
-    const draggedTimelineEvent = getDraggingTimelineEvent(state);
+    const draggingTimelineEvent = getDraggingTimelineEvent(state);
     return (
-      draggedTimelineEvent &&
+      draggingTimelineEvent &&
       this.timelineEventToEventRectangle(
-        draggedTimelineEvent,
+        draggingTimelineEvent,
         state,
         state.dragEvent
       )
