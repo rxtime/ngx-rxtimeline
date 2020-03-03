@@ -10,14 +10,7 @@ import { Line } from '../line';
       [attr.y1]="axisLine.y1"
       [attr.y2]="axisLine.y2"
     ></svg:line>
-  `,
-  styles: [
-    `
-      .axis-line {
-        stroke: #000;
-      }
-    `
-  ]
+  `
 })
 export class AxisLineComponent {
   @Input() axisLine: Line;
