@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Line } from '../line';
 @Component({
   selector: '[ngx-d3timeline-axis-line]',
@@ -11,13 +11,7 @@ import { Line } from '../line';
       [attr.y2]="axisLine.y2"
     ></svg:line>
   `,
-  styles: [
-    `
-      .axis-line {
-        stroke: #000;
-      }
-    `
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AxisLineComponent {
   @Input() axisLine: Line;

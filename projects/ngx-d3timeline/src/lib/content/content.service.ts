@@ -3,76 +3,114 @@ import { Store } from '../store/store';
 import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { TimelineEvent } from '../timeline-event';
-import { EventRectangle } from './content';
+import { EventRectangle } from './event-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
-import { combineLatest } from 'rxjs';
-import { DragService } from './drag.service';
-import { EventRectangleDragEvent } from './event-rectangle-drag-event';
+import { TimelineDragEvent } from './timeline-drag-event';
+import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-util';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = combineLatest([
-    this.store.state$,
-    this.dragService.drag$
-  ]).pipe(
-    map(([scales, dragEvent]) => this.createEventRectangles(scales, dragEvent))
+  eventRectangles$ = this.store.state$.pipe(
+    map(state => this.createEventRectangles(state))
   );
 
-  constructor(private store: Store, private dragService: DragService) {}
+  draggingRectangle$ = this.store.state$.pipe(
+    map(state => this.createDraggingRectangle(state))
+  );
 
-  createEventRectangles(
+  dropRectangle$ = this.store.state$.pipe(
+    map(state => this.createDropRectangle(state))
+  );
+
+  fromRectangle$ = this.store.state$.pipe(
+    map(state => this.createFromRectangle(state))
+  );
+
+  constructor(private store: Store) {}
+
+  private createFromRectangle(state: State) {
+    const draggingTimelineEvent = getDraggingTimelineEvent(state);
+    return (
+      draggingTimelineEvent &&
+      this.timelineEventToEventRectangle(draggingTimelineEvent, state)
+    );
+  }
+
+  private createEventRectangles(state: State): EventRectangle[] {
+    return state.data
+      .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
+      .map(data => this.timelineEventToEventRectangle(data, state));
+  }
+
+  private createDraggingRectangle(state: State): EventRectangle {
+    const draggingTimelineEvent = getDraggingTimelineEvent(state);
+    return (
+      draggingTimelineEvent &&
+      this.timelineEventToEventRectangle(
+        draggingTimelineEvent,
+        state,
+        state.dragEvent
+      )
+    );
+  }
+
+  private createDropRectangle(state: State): EventRectangle {
+    const dropTimelineEvent = getDropTimelineEvent(state);
+
+    return (
+      dropTimelineEvent &&
+      this.timelineEventToEventRectangle(dropTimelineEvent, state)
+    );
+  }
+
+  private timelineEventToEventRectangle(
+    timelineEvent: TimelineEvent,
     state: State,
-    dragEvent: EventRectangleDragEvent
-  ): EventRectangle[] {
-    return state.data.map(d => ({
-      id: d.id,
-      title: d.type,
+    dragEvent?: TimelineDragEvent
+  ): EventRectangle {
+    return {
+      id: timelineEvent.id,
+      title: timelineEvent.type,
       transform: this.dataTransform(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale,
-        dragEvent.id === d.id ? dragEvent : null
+        dragEvent
       ),
       width: this.rectWidth(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale
       ),
       height: this.rectHeight(
-        d,
+        timelineEvent,
         state.axisOrientations.time,
         state.bandScale,
         state.timeScale
       )
-    }));
+    };
   }
 
-  dataTransform(
+  private dataTransform(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
-    dragEvent: EventRectangleDragEvent
+    dragEvent?: TimelineDragEvent
   ) {
-    return `translate(${this.getEventX(
-      data,
-      orientation,
-      scaleBand,
-      scaleTime,
-      dragEvent && dragEvent.dx
-    )}, ${this.getEventY(
-      data,
-      orientation,
-      scaleBand,
-      scaleTime,
-      dragEvent && dragEvent.dy
-    )})`;
+    const eventX = this.getEventX(data, orientation, scaleBand, scaleTime);
+    const dx = (dragEvent && dragEvent.dx) || 0;
+
+    const eventY = this.getEventY(data, orientation, scaleBand, scaleTime);
+    const dy = (dragEvent && dragEvent.dy) || 0;
+
+    return `translate(${eventX + dx}, ${eventY + dy})`;
   }
 
-  rectHeight(
+  private rectHeight(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
@@ -83,7 +121,7 @@ export class ContentService {
       : this.rectResourceBreadth(scaleBand);
   }
 
-  rectWidth(
+  private rectWidth(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
@@ -97,40 +135,36 @@ export class ContentService {
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale,
-    dragEventDx: number
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(data, scaleBand, dragEventDx)
-      : this.positionInTimeAxis(data, scaleTime, dragEventDx);
+      ? this.positionInResourceAxis(data, scaleBand)
+      : this.positionInTimeAxis(data, scaleTime);
   }
 
   private getEventY(
     data: TimelineEvent,
     orientation: Orientation,
     scaleBand: BandScale,
-    scaleTime: TimeScale,
-    dragEventDy: number
+    scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(data, scaleTime, dragEventDy)
-      : this.positionInResourceAxis(data, scaleBand, dragEventDy);
+      ? this.positionInTimeAxis(data, scaleTime)
+      : this.positionInResourceAxis(data, scaleBand);
   }
 
   private positionInResourceAxis(
     data: TimelineEvent,
-    scaleBand: BandScale,
-    dragDelta: number
+    scaleBand: BandScale
   ): number {
-    return scaleBand(data.series) + dragDelta;
+    return scaleBand(data.series);
   }
 
   private positionInTimeAxis(
     data: TimelineEvent,
-    scaleTime: TimeScale,
-    dragDelta: number
+    scaleTime: TimeScale
   ): number {
-    return scaleTime(data.start) + dragDelta;
+    return scaleTime(data.start);
   }
 
   private rectTimeBreadth(data: TimelineEvent, scaleTime: TimeScale): number {

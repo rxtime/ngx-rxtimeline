@@ -16,6 +16,7 @@ exports[`EventRectangleComponent should render correctly 1`] = `
 >
   
   <g
+    class="event-rectangle"
     transform="translate(50,0)"
   >
     <rect

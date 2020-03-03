@@ -8,6 +8,10 @@ import { TimelineView } from '../view/timeline-view';
 import { Actions } from './actions';
 import { ScaleService } from '../scale.service';
 import { OptionsService } from '../options.service';
+import { TimelineDragEvent } from '../content/timeline-drag-event';
+import { EventRectangle } from '../content/event-rectangle';
+import { getDropTimelineEvent } from '../drag-util';
+import { TimelineEvent } from '../timeline-event';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -55,10 +59,34 @@ export class Store {
         };
       }
 
+      case ActionType.TimelineDragStarted:
+      case ActionType.TimelineDragging: {
+        return {
+          ...state,
+          dragEvent: this.setDragEvent(
+            state.dragEvent,
+            action.payload.eventRectangle,
+            action.payload.event
+          )
+        };
+      }
+
+      case ActionType.TimelineDragEnded: {
+        const data = this.dropTimelineEventOnDragEnd(state);
+        return { ...state, data, dragEvent: null };
+      }
+
       default: {
         return state;
       }
     }
+  }
+
+  private dropTimelineEventOnDragEnd(state: State): TimelineEvent[] {
+    const dropEvent = getDropTimelineEvent(state);
+    return state.data.map(data =>
+      data.id === dropEvent.id ? dropEvent : data
+    );
   }
 
   private patchStateAndUpdateScales(state: State, patch: Partial<State>) {
@@ -67,6 +95,21 @@ export class Store {
       ...patchedState,
       timeScale: this.scaleService.configureTimeScale(patchedState),
       bandScale: this.scaleService.configureBandScale(patchedState)
+    };
+  }
+
+  private setDragEvent(
+    dragEvent: TimelineDragEvent,
+    eventRectangle: EventRectangle,
+    event: any
+  ) {
+    return {
+      ...dragEvent,
+      id: eventRectangle.id,
+      dx: dragEvent && dragEvent.dx + event.dx,
+      dy: dragEvent && dragEvent.dy + event.dy,
+      x: event.x,
+      y: event.y
     };
   }
 }

@@ -1,0 +1,44 @@
+.ngx-d3timeline {
+  .axis-line {
+    stroke: #000;
+  }
+
+  .resources-axis-group {
+    text-anchor: middle;
+  }
+
+  .time-axis-group {
+    text-anchor: end;
+    dominant-baseline: central;
+    font-size: 10px;
+  }
+
+  .tick-line {
+    stroke: #000;
+  }
+
+  .event-rectangle {
+    rect {
+      fill: #fff;
+      stroke: #000;
+    }
+
+    text {
+      font-size: 10px;
+    }
+  }
+
+  .drop-event-rectangle {
+    fill: none;
+    rect {
+      stroke: #0f0;
+    }
+  }
+
+  .from-event-rectangle {
+    fill: none;
+    rect {
+      stroke: #f00;
+    }
+  }
+}

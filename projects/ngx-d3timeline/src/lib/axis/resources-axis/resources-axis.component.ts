@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AxisService } from '../axis.service';
 
 @Component({
@@ -18,13 +18,7 @@ import { AxisService } from '../axis.service';
       <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
     </svg:g>
   `,
-  styles: [
-    `
-      .resources-axis-group {
-        text-anchor: middle;
-      }
-    `
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourcesAxisComponent {
   constructor(public axisService: AxisService) {}

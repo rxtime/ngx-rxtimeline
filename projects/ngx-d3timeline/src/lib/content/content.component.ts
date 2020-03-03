@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ContentService } from './content.service';
 
 @Component({
@@ -13,8 +13,29 @@ import { ContentService } from './content.service';
         ngx-d3timeline-event-rectangle
         [eventRectangle]="eventRectangle"
       ></svg:g>
+
+      <svg:g
+        *ngIf="contentService.fromRectangle$ | async as fromRectangle"
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="fromRectangle"
+        class="from-event-rectangle"
+      ></svg:g>
+
+      <svg:g
+        *ngIf="contentService.dropRectangle$ | async as dropRectangle"
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="dropRectangle"
+        class="drop-event-rectangle"
+      ></svg:g>
+
+      <svg:g
+        *ngIf="contentService.draggingRectangle$ | async as draggingRectangle"
+        ngx-d3timeline-event-rectangle
+        [eventRectangle]="draggingRectangle"
+      ></svg:g>
     </svg:g>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent {
   constructor(public contentService: ContentService) {}

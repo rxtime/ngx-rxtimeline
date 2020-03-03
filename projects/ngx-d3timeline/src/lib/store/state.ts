@@ -1,8 +1,8 @@
 import { TimelineEvent } from '../timeline-event';
-import { EventRectangleDragEvent } from '../content/event-rectangle-drag-event';
 import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
+import { TimelineDragEvent } from '../content/timeline-drag-event';
 
 export interface State {
   view: TimelineView;
@@ -10,7 +10,7 @@ export interface State {
   data: TimelineEvent[];
   timeScale: TimeScale;
   bandScale: BandScale;
-  dragEvent: EventRectangleDragEvent;
+  dragEvent: TimelineDragEvent;
 }
 
 const initialAxisOrientations = { time: null, resource: null };
