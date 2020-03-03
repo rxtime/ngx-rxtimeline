@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { shareReplay, scan } from 'rxjs/operators';
+import { ReplaySubject, Observable } from 'rxjs';
+import { shareReplay, scan, map } from 'rxjs/operators';
 import { initialState } from './state';
 import { Actions } from './actions';
 import { reducer } from './reducer';
+import { Selector } from '../selector/selector';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -12,7 +13,11 @@ export class Store {
 
   state$ = this.actionsSubject.pipe(scan(reducer, initialState), shareReplay());
 
-  dispatch(action: Actions) {
+  dispatch(action: Actions): void {
     this.actionsSubject.next(action);
+  }
+
+  select(selector: Selector): Observable<any> {
+    return this.state$.pipe(map(state => selector.execute(state)));
   }
 }
