@@ -2,13 +2,13 @@ import { State } from '../store/state';
 import { Selector } from './selector';
 import { Projector } from './types';
 
-export class MemoizedSelector<T> {
+export class MemoizedSelector {
   lastArgs: any[];
   lastResult: any;
 
   constructor(
-    private inputSelectors: Selector<T>[],
-    private projector: Projector<T>
+    private inputSelectors: Selector[],
+    private projector: Projector
   ) {}
 
   execute(state: State) {
@@ -34,9 +34,9 @@ export class MemoizedSelector<T> {
   }
 }
 
-export function createSelector<T>(
-  inputSelectors: Selector<T>[],
-  projector: Projector<T>
-): MemoizedSelector<T> {
+export function createSelector(
+  inputSelectors: Selector[],
+  projector: Projector
+): MemoizedSelector {
   return new MemoizedSelector(inputSelectors, projector);
 }
