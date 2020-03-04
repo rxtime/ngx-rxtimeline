@@ -14,6 +14,14 @@ import { Orientation } from '../orientation';
 import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
 
+const TEMP_NULL_DRAG_EVENT: TimelineDragEvent = {
+  id: 0,
+  dx: 0,
+  dy: 0,
+  x: 0,
+  y: 0
+};
+
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionType.DataChanged: {
@@ -59,7 +67,7 @@ export function reducer(state: State, action: Actions): State {
 
     case ActionType.TimelineDragEnded: {
       const data = dropTimelineEventOnDragEnd(state);
-      return { ...state, data, dragEvent: null };
+      return { ...state, data, dragEvent: { ...TEMP_NULL_DRAG_EVENT } };
     }
 
     default: {
