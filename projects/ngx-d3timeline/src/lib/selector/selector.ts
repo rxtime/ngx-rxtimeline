@@ -1,5 +1,5 @@
 import { State } from '../store/state';
 
-export interface Selector {
-  execute(state: State): any;
+export interface Selector<T> {
+  execute(state: State): T;
 }

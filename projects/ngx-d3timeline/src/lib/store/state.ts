@@ -39,3 +39,6 @@ export const selectData = createSliceSelector((state: State) => state.data);
 export const selectZoomEvent = createSliceSelector(
   (state: State) => state.zoomEvent
 );
+export const selectDragEvent = createSliceSelector(
+  (state: State) => state.dragEvent
+);

@@ -1,7 +1,7 @@
-import { scaleBandInvert } from './scale-util';
 import { State } from './store/state';
 import { Orientation } from './orientation';
 import { TimelineEvent } from '../public-api';
+import { getInverseBandScale } from './scale-util';
 
 export function getDropTimelineEvent(state: State) {
   const draggingTimelineEvent = getDraggingTimelineEvent(state);
@@ -20,7 +20,7 @@ export function getDraggingTimelineEvent(state: State): TimelineEvent {
 }
 
 function getDropEventSeries(state: State) {
-  const invert = scaleBandInvert(state.bandScale);
+  const invert = getInverseBandScale(state.bandScale);
   return state.dragEvent && state.axisOrientations.time === Orientation.Vertical
     ? invert(state.dragEvent.x)
     : invert(state.dragEvent.y);

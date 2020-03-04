@@ -8,12 +8,28 @@ import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
 import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-util';
+import {
+  selectNonDragTimelineEvents,
+  selectNonDragEventRectangles,
+  selectEventRectangle
+} from '../store/drag-selectors';
+import { Statement } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   eventRectangles$ = this.store.state$.pipe(
     map(state => this.createEventRectangles(state))
   );
+
+  foo = this.store.state$.pipe(
+    map(state => selectNonDragEventRectangles.execute(state)[0].execute(state))
+  );
+  // .subscribe(console.log); // .select(selectNonDragEventRectangles.execute()).subscribe(console.log);
+
+  bar = this.store
+    .select(selectNonDragTimelineEvents)
+    .pipe(map(s => this.store.select(selectEventRectangle(s))))
+    .subscribe(console.log);
 
   draggingRectangle$ = this.store.state$.pipe(
     map(state => this.createDraggingRectangle(state))

@@ -1,11 +1,11 @@
-import { TimeScale, BandScale } from './scale-types';
+import { TimeScale, BandScale, InverseBandScale } from './scale-types';
 import { Orientation } from './orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { TimelineEvent } from './timeline-event';
 import { min, max } from 'd3-array';
 import { TimelineView } from './view/timeline-view';
 
-export function scaleBandInvert(scale: BandScale) {
+export function getInverseBandScale(scale: BandScale): InverseBandScale {
   const domain = scale.domain();
   const paddingOuter = scale(domain[0]);
   const eachBand = scale.step();

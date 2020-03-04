@@ -17,7 +17,7 @@ export class Store {
     this.actionsSubject.next(action);
   }
 
-  select(selector: Selector): Observable<any> {
+  select<T>(selector: Selector<T>): Observable<T> {
     return this.state$.pipe(map(state => selector.execute(state)));
   }
 }
