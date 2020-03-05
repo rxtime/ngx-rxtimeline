@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../store/store';
-import { map, tap, distinctUntilChanged } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import * as dragSelectors from '../store/drag-selectors';
-import { selectZoomEvent } from '../store/state';
+import { of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -14,25 +14,28 @@ export class ContentService {
     )
   );
 
-  dropRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectDropTimelineRectangle.execute(state).execute(state)
-    )
-  );
+  dropRectangle$ = of(null);
+  //   dropRectangle$ = this.store.state$.pipe(
+  //   map(state =>
+  //     dragSelectors.selectDropTimelineRectangle.execute(state).execute(state)
+  //   )
+  // );
 
-  draggingRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectDraggingTimelineRectangle
-        .execute(state)
-        .execute(state)
-    )
-  );
+  draggingRectangle$ = of(null);
+  //   draggingRectangle$ = this.store.state$.pipe(
+  //   map(state =>
+  //     dragSelectors.selectDraggingTimelineRectangle
+  //       .execute(state)
+  //       .execute(state)
+  //   )
+  // );
 
-  fromRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectFromTimelineRectangle.execute(state).execute(state)
-    )
-  );
+  fromRectangle$ = of(null);
+  // fromRectangle$ = this.store.state$.pipe(
+  //   map(state =>
+  //     dragSelectors.selectFromTimelineRectangle.execute(state).execute(state)
+  //   )
+  // );
 
   constructor(private store: Store) {}
 }

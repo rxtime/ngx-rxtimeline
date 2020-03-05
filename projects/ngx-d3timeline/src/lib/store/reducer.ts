@@ -7,17 +7,19 @@ import {
   configureTimeScale
 } from '../scale-util';
 import { TimelineEvent } from '../timeline-event';
-import { getDropTimelineEvent } from '../drag-util';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { Orientation } from '../orientation';
 import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
+import { DraggedTimelineEvent } from './dragged-timeline-event';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionType.DataChanged: {
-      return patchStateAndUpdateScales(state, { data: action.payload });
+      return patchStateAndUpdateScales(state, {
+        data: initDraggedTimelineEvents(action.payload)
+      });
     }
 
     case ActionType.OrientationChanged: {
@@ -58,7 +60,7 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const data = dropTimelineEventOnDragEnd(state);
+      const data = dropTimelineEventOnDragEnd(state.data, state.dragEvent);
       return { ...state, data, dragEvent: null };
     }
 
@@ -68,9 +70,22 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-function dropTimelineEventOnDragEnd(state: State): TimelineEvent[] {
-  const dropEvent = getDropTimelineEvent(state);
-  return state.data.map(data => (data.id === dropEvent.id ? dropEvent : data));
+function initDraggedTimelineEvents(
+  timelineEvents: TimelineEvent[]
+): DraggedTimelineEvent[] {
+  return timelineEvents.map(timelineEvent => ({
+    timelineEvent,
+    dragEvent: null
+  }));
+}
+
+function dropTimelineEventOnDragEnd(
+  data: DraggedTimelineEvent[],
+  dragEvent: TimelineDragEvent
+): DraggedTimelineEvent[] {
+  return data.map(d =>
+    d.timelineEvent.id === dragEvent.id ? { ...d, dragEvent } : d
+  );
 }
 
 function patchStateAndUpdateScales(state: State, patch: Partial<State>) {

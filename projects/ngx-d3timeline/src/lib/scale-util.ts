@@ -1,9 +1,9 @@
 import { TimeScale, BandScale, InverseBandScale } from './scale-types';
 import { Orientation } from './orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
-import { TimelineEvent } from './timeline-event';
 import { min, max } from 'd3-array';
 import { TimelineView } from './view/timeline-view';
+import { DraggedTimelineEvent } from './store/dragged-timeline-event';
 
 export function getInverseBandScale(scale: BandScale): InverseBandScale {
   const domain = scale.domain();
@@ -16,7 +16,7 @@ export function getInverseBandScale(scale: BandScale): InverseBandScale {
 }
 
 export function rescaleTime(
-  data: TimelineEvent[],
+  data: DraggedTimelineEvent[],
   view: TimelineView,
   timeOrientation: Orientation,
   event: any
@@ -31,7 +31,7 @@ export function rescaleTime(
 }
 
 export function configureBandScale(
-  data: TimelineEvent[],
+  data: DraggedTimelineEvent[],
   view: TimelineView,
   orientation: Orientation
 ): BandScale {
@@ -41,7 +41,7 @@ export function configureBandScale(
 }
 
 export function configureTimeScale(
-  data: TimelineEvent[],
+  data: DraggedTimelineEvent[],
   view: TimelineView,
   orientation: Orientation
 ): TimeScale {
@@ -50,12 +50,15 @@ export function configureTimeScale(
     .range(getRange(view, orientation));
 }
 
-function getBandScaleDomain(data: TimelineEvent[]): string[] {
-  return [...new Set(data.map(d => d.series))];
+function getBandScaleDomain(data: DraggedTimelineEvent[]): string[] {
+  return [...new Set(data.map(d => d.timelineEvent.series))];
 }
 
-function getTimeScaleDomain(data: TimelineEvent[]): [Date, Date] {
-  return [min(data, d => d.start), max(data, d => d.finish)];
+function getTimeScaleDomain(data: DraggedTimelineEvent[]): [Date, Date] {
+  return [
+    min(data, d => d.timelineEvent.start),
+    max(data, d => d.timelineEvent.finish)
+  ];
 }
 
 function getRange(

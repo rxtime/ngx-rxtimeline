@@ -10,6 +10,7 @@ import { getInverseBandScale } from '../scale-util';
 import { InverseBandScale, TimeScale, BandScale } from '../scale-types';
 import { Orientation } from '../orientation';
 import { pointToTransform } from '../drag-util';
+import { DraggedTimelineEvent } from './dragged-timeline-event';
 
 export const selectDraggingTimelineEvent = createSelector(
   [selectDragEvent, selectData],
@@ -95,20 +96,16 @@ const getEventX = (timelineEvent: TimelineEvent) =>
       timeOrientation === Orientation.Vertical ? pt : pb
   );
 
-const selectEventTopLeft = (timelineEvent: TimelineEvent) =>
+const selectEventTopLeft = (
+  timelineEvent: TimelineEvent,
+  dragEvent: TimelineDragEvent
+) =>
   createSelector(
     [getEventX(timelineEvent), getEventY(timelineEvent)],
-    (x, y) => ({ x, y })
-  );
-
-const selectEventTopLeftOffsetByDragEvent = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [selectEventTopLeft(timelineEvent), selectDragEvent],
-    (topleft, dragEvent: TimelineDragEvent) =>
-      dragEvent && {
-        x: topleft.x + dragEvent.dx,
-        y: topleft.y + dragEvent.dy
-      }
+    (x, y) => ({
+      x: x + (dragEvent && dragEvent.dx),
+      y: y + (dragEvent && dragEvent.dy)
+    })
   );
 
 const rectTimeBreadth = (timelineEvent: TimelineEvent) =>
@@ -171,24 +168,30 @@ const selectDragEventId = createSelector(
 
 export const selectNonDragTimelineEvents = createSelector(
   [selectData, selectDragEventId],
-  (data: TimelineEvent[], dragEventId: number) =>
-    data.filter(d => d.id !== dragEventId)
+  (data: DraggedTimelineEvent[], dragEventId: number) =>
+    data.filter(d => d.timelineEvent.id !== dragEventId)
 );
 
 export const selectEventRectangle = (
-  timelineEvent: TimelineEvent,
-  eventTopLeftSelector: (t: TimelineEvent) => MemoizedSelector
+  timelineEvent: DraggedTimelineEvent,
+  eventTopLeftSelector: (
+    t: TimelineEvent,
+    d: TimelineDragEvent
+  ) => MemoizedSelector
 ) =>
   createSelector(
     [
-      eventTopLeftSelector(timelineEvent),
-      rectWidth(timelineEvent),
-      rectHeight(timelineEvent)
+      eventTopLeftSelector(
+        timelineEvent.timelineEvent,
+        timelineEvent.dragEvent
+      ),
+      rectWidth(timelineEvent.timelineEvent),
+      rectHeight(timelineEvent.timelineEvent)
     ],
     (topleft, width, height) =>
       timelineEvent && {
-        id: timelineEvent.id,
-        title: timelineEvent.type,
+        id: timelineEvent.timelineEvent.id,
+        title: timelineEvent.timelineEvent.type,
         transform: pointToTransform(topleft),
         width,
         height
@@ -197,27 +200,27 @@ export const selectEventRectangle = (
 
 export const selectNonDragEventRectangles = createSelector(
   [selectNonDragTimelineEvents],
-  (timelineEvents: TimelineEvent[]) =>
+  (timelineEvents: DraggedTimelineEvent[]) =>
     timelineEvents.map(e => selectEventRectangle(e, selectEventTopLeft))
 );
 
-export const selectDropTimelineRectangle = createSelector(
-  [selectDropTimelineEvent],
-  (dropTimelineEvent: TimelineEvent) =>
-    selectEventRectangle(dropTimelineEvent, selectEventTopLeft)
-);
+// export const selectDropTimelineRectangle = createSelector(
+//   [selectDropTimelineEvent],
+//   (dropTimelineEvent: TimelineEvent) =>
+//     selectEventRectangle(dropTimelineEvent, selectEventTopLeft)
+// );
 
-export const selectFromTimelineRectangle = createSelector(
-  [selectDraggingTimelineEvent],
-  (draggingTimelineEvent: TimelineEvent) =>
-    selectEventRectangle(draggingTimelineEvent, selectEventTopLeft)
-);
+// export const selectFromTimelineRectangle = createSelector(
+//   [selectDraggingTimelineEvent],
+//   (draggingTimelineEvent: TimelineEvent) =>
+//     selectEventRectangle(draggingTimelineEvent, selectEventTopLeft)
+// );
 
-export const selectDraggingTimelineRectangle = createSelector(
-  [selectDraggingTimelineEvent],
-  (draggingTimelineEvent: TimelineEvent) =>
-    selectEventRectangle(
-      draggingTimelineEvent,
-      selectEventTopLeftOffsetByDragEvent
-    )
-);
+// export const selectDraggingTimelineRectangle = createSelector(
+//   [selectDraggingTimelineEvent],
+//   (draggingTimelineEvent: TimelineEvent) =>
+//     selectEventRectangle(
+//       draggingTimelineEvent,
+//       selectEventTopLeftOffsetByDragEvent
+//     )
+// );
