@@ -15,7 +15,7 @@ import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
 
 const TEMP_NULL_DRAG_EVENT: TimelineDragEvent = {
-  id: 0,
+  id: 1,
   dx: 0,
   dy: 0,
   x: 0,
