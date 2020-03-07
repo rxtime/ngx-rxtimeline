@@ -23,9 +23,14 @@ export function rescaleTime(
 ): TimeScale {
   const unscaledTimeScale = configureTimeScale(data, view, timeOrientation);
 
-  return timeOrientation === Orientation.Vertical
-    ? event.transform.rescaleY(unscaledTimeScale)
-    : event.transform.rescaleX(unscaledTimeScale);
+  // TODO, had to do this if check as it was falsy on initialization. I think we had something like this in the past?
+  if (event) {
+    return timeOrientation === Orientation.Vertical
+      ? event.transform.rescaleY(unscaledTimeScale)
+      : event.transform.rescaleX(unscaledTimeScale);
+  } else {
+    return unscaledTimeScale;
+  }
 }
 
 export function configureBandScale(
