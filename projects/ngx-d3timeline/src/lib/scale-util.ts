@@ -51,14 +51,11 @@ export function configureTimeScale(
 }
 
 function getBandScaleDomain(data: DraggedTimelineEvent[]): string[] {
-  return [...new Set(data.map(d => d.timelineEvent.series))];
+  return [...new Set(data.map(d => d.series))];
 }
 
 function getTimeScaleDomain(data: DraggedTimelineEvent[]): [Date, Date] {
-  return [
-    min(data, d => d.timelineEvent.start),
-    max(data, d => d.timelineEvent.finish)
-  ];
+  return [min(data, d => d.start), max(data, d => d.finish)];
 }
 
 function getRange(

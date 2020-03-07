@@ -1,5 +1,7 @@
+import { identifier } from './types';
+
 export interface TimelineEvent {
-  id: number;
+  id: identifier;
   start: Date;
   finish: Date;
   type?: string;

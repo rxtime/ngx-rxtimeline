@@ -12,7 +12,10 @@ import { EventRectangle } from '../content/event-rectangle';
 import { Orientation } from '../orientation';
 import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
-import { DraggedTimelineEvent } from './dragged-timeline-event';
+import {
+  DraggedTimelineEvent,
+  initialiseDraggedTimelineEvent
+} from './dragged-timeline-event';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -61,7 +64,7 @@ export function reducer(state: State, action: Actions): State {
 
     case ActionType.TimelineDragEnded: {
       const data = dropTimelineEventOnDragEnd(state.data, state.dragEvent);
-      return { ...state, data, dragEvent: null };
+      return { ...state, data, dragEvent: { id: 1, x: 0, y: 0, dx: 0, dy: 0 } };
     }
 
     default: {
@@ -73,10 +76,7 @@ export function reducer(state: State, action: Actions): State {
 function initDraggedTimelineEvents(
   timelineEvents: TimelineEvent[]
 ): DraggedTimelineEvent[] {
-  return timelineEvents.map(timelineEvent => ({
-    timelineEvent,
-    dragEvent: null
-  }));
+  return timelineEvents.map(initialiseDraggedTimelineEvent);
 }
 
 function dropTimelineEventOnDragEnd(
@@ -84,7 +84,15 @@ function dropTimelineEventOnDragEnd(
   dragEvent: TimelineDragEvent
 ): DraggedTimelineEvent[] {
   return data.map(d =>
-    d.timelineEvent.id === dragEvent.id ? { ...d, dragEvent } : d
+    d.id === dragEvent.id
+      ? {
+          ...d,
+          dx: d.dx + dragEvent.dx,
+          dy: d.dy + dragEvent.dy,
+          x: dragEvent.x,
+          y: dragEvent.y
+        }
+      : d
   );
 }
 
