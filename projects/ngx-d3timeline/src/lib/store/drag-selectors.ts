@@ -1,7 +1,4 @@
-import {
-  createSelector,
-  MemoizedSelector
-} from '../selector/memoized-selector';
+import { createSelector } from '../selector/memoized-selector';
 import { selectDragEvent, selectData, selectTimeOrientation } from './state';
 import { selectBandScale, selectTimeScale } from './timeline-selectors';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
@@ -14,6 +11,7 @@ import {
   DraggedTimelineEvent,
   draggingTimelineEvent
 } from './dragged-timeline-event';
+import { EventRectangle } from '../content/event-rectangle';
 
 const selectInverseBandScale = createSelector(
   [selectBandScale],
@@ -172,7 +170,9 @@ export const selectNonDragTimelineEvents = createSelector(
 
 export const selectEventRectangle = createSelector(
   [selectEventTopLeft, rectWidth, rectHeight],
-  (topleft, width, height) => (timelineEvent: DraggedTimelineEvent) =>
+  (topleft, width, height) => (
+    timelineEvent: DraggedTimelineEvent
+  ): EventRectangle =>
     timelineEvent && {
       id: timelineEvent.id,
       title: timelineEvent.type,
@@ -185,23 +185,27 @@ export const selectEventRectangle = createSelector(
 export const selectNonDragEventRectangles = createSelector(
   [selectNonDragTimelineEvents, selectEventRectangle],
   (timelineEvents: DraggedTimelineEvent[], getEventRectangle) =>
-    timelineEvents.map(e => getEventRectangle(e))
+    timelineEvents.map(getEventRectangle)
 );
 
 export const selectDropTimelineRectangle = createSelector(
   [selectDropTimelineEvent, selectEventRectangle],
-  (dropTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
-    getEventRectangle(dropTimelineEvent)
+  timelineEventToRectangle
 );
 
 export const selectFromTimelineRectangle = createSelector(
   [foo, selectEventRectangle],
-  (draggingTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
-    getEventRectangle(draggingTimelineEvent)
+  timelineEventToRectangle
 );
 
 export const selectDraggingTimelineRectangle = createSelector(
   [selectDraggingTimelineEvent, selectEventRectangle],
-  (draggingTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
-    getEventRectangle(draggingTimelineEvent)
+  timelineEventToRectangle
 );
+
+export function timelineEventToRectangle(
+  timelineEvent: DraggedTimelineEvent,
+  getEventRectangle: (e: DraggedTimelineEvent) => EventRectangle
+): EventRectangle {
+  return getEventRectangle(timelineEvent);
+}

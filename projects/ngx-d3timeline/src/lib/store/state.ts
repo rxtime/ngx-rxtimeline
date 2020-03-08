@@ -1,10 +1,9 @@
-import { TimelineEvent } from '../timeline-event';
+import { DraggedTimelineEvent } from './dragged-timeline-event';
 import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
-import { DraggedTimelineEvent } from './dragged-timeline-event';
 
 export interface State {
   view: TimelineView;
