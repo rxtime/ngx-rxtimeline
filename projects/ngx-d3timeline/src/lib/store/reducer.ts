@@ -13,11 +13,17 @@ import { EventRectangle } from '../content/event-rectangle';
 import { Orientation } from '../orientation';
 import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
+import {
+  DraggedTimelineEvent,
+  initialiseDraggedTimelineEvent
+} from '../dragged-timeline-event';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionType.DataChanged: {
-      return patchStateAndUpdateScales(state, { data: action.payload });
+      return patchStateAndUpdateScales(state, {
+        data: initDraggedTimelineEvents(action.payload)
+      });
     }
 
     case ActionType.OrientationChanged: {
@@ -68,7 +74,7 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-function dropTimelineEventOnDragEnd(state: State): TimelineEvent[] {
+function dropTimelineEventOnDragEnd(state: State): DraggedTimelineEvent[] {
   const dropEvent = getDropTimelineEvent(state);
   return state.data.map(data => (data.id === dropEvent.id ? dropEvent : data));
 }
@@ -108,4 +114,10 @@ function setDragEvent(
 function setAxisOrientations(timeOrientation: Orientation): AxisOrientations {
   const resourceOrientation = flipOrientation(timeOrientation);
   return { time: timeOrientation, resource: resourceOrientation };
+}
+
+function initDraggedTimelineEvents(
+  timelineEvents: TimelineEvent[]
+): DraggedTimelineEvent[] {
+  return timelineEvents.map(initialiseDraggedTimelineEvent);
 }

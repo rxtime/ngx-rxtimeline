@@ -2,8 +2,9 @@ import { scaleBandInvert } from './scale-util';
 import { State } from './store/state';
 import { Orientation } from './orientation';
 import { TimelineEvent } from '../public-api';
+import { DraggedTimelineEvent } from './dragged-timeline-event';
 
-export function getDropTimelineEvent(state: State) {
+export function getDropTimelineEvent(state: State): DraggedTimelineEvent {
   const draggingTimelineEvent = getDraggingTimelineEvent(state);
 
   return (
@@ -15,7 +16,7 @@ export function getDropTimelineEvent(state: State) {
   );
 }
 
-export function getDraggingTimelineEvent(state: State): TimelineEvent {
+export function getDraggingTimelineEvent(state: State): DraggedTimelineEvent {
   return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
 }
 
