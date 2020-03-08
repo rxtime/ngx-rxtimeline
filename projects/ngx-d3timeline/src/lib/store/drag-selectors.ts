@@ -83,83 +83,67 @@ const selectShiftedTimesForDraggingTimelineEvent = createSelector(
     }
 );
 
-const positionInTimeScale = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [selectTimeScale],
-    (timeScale: TimeScale) => timelineEvent && timeScale(timelineEvent.start)
-  );
+const positionInTimeScale = createSelector(
+  [selectTimeScale],
+  (timeScale: TimeScale) => (timelineEvent: TimelineEvent) =>
+    timelineEvent && timeScale(timelineEvent.start)
+);
 
-const positionInBandScale = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [selectBandScale],
-    (bandScale: BandScale) => timelineEvent && bandScale(timelineEvent.series)
-  );
+const positionInBandScale = createSelector(
+  [selectBandScale],
+  (bandScale: BandScale) => (timelineEvent: TimelineEvent) =>
+    timelineEvent && bandScale(timelineEvent.series)
+);
 
-const getEventY = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [
-      selectTimeOrientation,
-      positionInBandScale(timelineEvent),
-      positionInTimeScale(timelineEvent)
-    ],
-    (timeOrientation: Orientation, pt: number, pb: number) =>
-      timeOrientation === Orientation.Vertical ? pb : pt
-  );
+const getEventY = createSelector(
+  [selectTimeOrientation, positionInBandScale, positionInTimeScale],
+  (timeOrientation: Orientation, pt, pb) => (timelineEvent: TimelineEvent) =>
+    timeOrientation === Orientation.Vertical
+      ? pb(timelineEvent)
+      : pt(timelineEvent)
+);
 
-const getEventX = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [
-      selectTimeOrientation,
-      positionInBandScale(timelineEvent),
-      positionInTimeScale(timelineEvent)
-    ],
-    (timeOrientation: Orientation, pt: number, pb: number) =>
-      timeOrientation === Orientation.Vertical ? pt : pb
-  );
+const getEventX = createSelector(
+  [selectTimeOrientation, positionInBandScale, positionInTimeScale],
+  (timeOrientation: Orientation, pt, pb) => (timelineEvent: TimelineEvent) =>
+    timeOrientation === Orientation.Vertical
+      ? pt(timelineEvent)
+      : pb(timelineEvent)
+);
 
-const selectEventTopLeft = (timelineEvent: DraggedTimelineEvent) =>
-  createSelector(
-    [getEventX(timelineEvent), getEventY(timelineEvent)],
-    (x, y) => ({
-      x: x + (timelineEvent && timelineEvent.dx),
-      y: y + (timelineEvent && timelineEvent.dy)
-    })
-  );
+const selectEventTopLeft = createSelector(
+  [getEventX, getEventY],
+  (x, y) => (timelineEvent: DraggedTimelineEvent) => ({
+    x: x(timelineEvent) + (timelineEvent && timelineEvent.dx),
+    y: y(timelineEvent) + (timelineEvent && timelineEvent.dy)
+  })
+);
 
-const rectTimeBreadth = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [selectTimeScale],
-    (timeScale: TimeScale) =>
-      timelineEvent &&
-      timeScale(timelineEvent.finish) - timeScale(timelineEvent.start)
-  );
+const rectTimeBreadth = createSelector(
+  [selectTimeScale],
+  (timeScale: TimeScale) => (timelineEvent: TimelineEvent) =>
+    timelineEvent &&
+    timeScale(timelineEvent.finish) - timeScale(timelineEvent.start)
+);
 
 const rectResourceBreadth = createSelector(
   [selectBandScale],
   (bandScale: BandScale) => bandScale.bandwidth()
 );
 
-const rectHeight = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [
-      selectTimeOrientation,
-      rectTimeBreadth(timelineEvent),
-      rectResourceBreadth
-    ],
-    (timeOrientation: Orientation, rt: number, rr: number) =>
-      timeOrientation === Orientation.Vertical ? rt : rr
-  );
+const rectHeight = createSelector(
+  [selectTimeOrientation, rectTimeBreadth, rectResourceBreadth],
+  (timeOrientation: Orientation, rt, rr: number) => (
+    timelineEvent: TimelineEvent
+  ) => (timeOrientation === Orientation.Vertical ? rt(timelineEvent) : rr)
+);
 
-const rectWidth = (timelineEvent: TimelineEvent) =>
-  createSelector(
-    [
-      selectTimeOrientation,
-      rectTimeBreadth(timelineEvent),
-      rectResourceBreadth
-    ],
-    (timeOrientation: Orientation, rt: number, rr: number) =>
-      timeOrientation === Orientation.Vertical ? rr : rt
-  );
+const rectWidth = createSelector(
+  [selectTimeOrientation, rectTimeBreadth, rectResourceBreadth],
+  (timeOrientation: Orientation, rt, rr: number) => (
+    timelineEvent: TimelineEvent
+  ) => (timeOrientation === Orientation.Vertical ? rr : rt(timelineEvent))
+);
 
 export const selectDropTimelineEvent = createSelector(
   [foo, selectDropEventSeries, selectShiftedTimesForDraggingTimelineEvent],
@@ -186,49 +170,38 @@ export const selectNonDragTimelineEvents = createSelector(
     data.filter(d => d.id !== dragEventId)
 );
 
-export const selectEventRectangle = (
-  timelineEvent: DraggedTimelineEvent,
-  eventTopLeftSelector: (
-    t: TimelineEvent,
-    d: TimelineDragEvent
-  ) => MemoizedSelector
-) =>
-  createSelector(
-    [
-      eventTopLeftSelector(timelineEvent, timelineEvent),
-      rectWidth(timelineEvent),
-      rectHeight(timelineEvent)
-    ],
-    (topleft, width, height) =>
-      timelineEvent && {
-        id: timelineEvent.id,
-        title: timelineEvent.type,
-        transform: pointToTransform(topleft),
-        width,
-        height
-      }
-  );
+export const selectEventRectangle = createSelector(
+  [selectEventTopLeft, rectWidth, rectHeight],
+  (topleft, width, height) => (timelineEvent: DraggedTimelineEvent) =>
+    timelineEvent && {
+      id: timelineEvent.id,
+      title: timelineEvent.type,
+      transform: pointToTransform(topleft(timelineEvent)),
+      width: width(timelineEvent),
+      height: height(timelineEvent)
+    }
+);
 
 export const selectNonDragEventRectangles = createSelector(
-  [selectNonDragTimelineEvents],
-  (timelineEvents: DraggedTimelineEvent[]) =>
-    timelineEvents.map(e => selectEventRectangle(e, selectEventTopLeft))
+  [selectNonDragTimelineEvents, selectEventRectangle],
+  (timelineEvents: DraggedTimelineEvent[], getEventRectangle) =>
+    timelineEvents.map(e => getEventRectangle(e))
 );
 
 export const selectDropTimelineRectangle = createSelector(
-  [selectDropTimelineEvent],
-  (dropTimelineEvent: DraggedTimelineEvent) =>
-    selectEventRectangle(dropTimelineEvent, selectEventTopLeft)
+  [selectDropTimelineEvent, selectEventRectangle],
+  (dropTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
+    getEventRectangle(dropTimelineEvent)
 );
 
 export const selectFromTimelineRectangle = createSelector(
-  [foo],
-  (draggingTimelineEvent: DraggedTimelineEvent) =>
-    selectEventRectangle(draggingTimelineEvent, selectEventTopLeft)
+  [foo, selectEventRectangle],
+  (draggingTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
+    getEventRectangle(draggingTimelineEvent)
 );
 
 export const selectDraggingTimelineRectangle = createSelector(
-  [selectDraggingTimelineEvent],
-  (draggingTimelineEvent: DraggedTimelineEvent) =>
-    selectEventRectangle(draggingTimelineEvent, selectEventTopLeft)
+  [selectDraggingTimelineEvent, selectEventRectangle],
+  (draggingTimelineEvent: DraggedTimelineEvent, getEventRectangle) =>
+    getEventRectangle(draggingTimelineEvent)
 );

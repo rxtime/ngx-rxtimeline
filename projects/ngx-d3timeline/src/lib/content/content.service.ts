@@ -6,33 +6,17 @@ import { of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectNonDragEventRectangles
-        .execute(state)
-        .map(s => s.execute(state))
-    )
+  eventRectangles$ = this.store.select(
+    dragSelectors.selectNonDragEventRectangles
   );
 
-  dropRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectDropTimelineRectangle.execute(state).execute(state)
-    )
+  dropRectangle$ = this.store.select(dragSelectors.selectDropTimelineRectangle);
+
+  draggingRectangle$ = this.store.select(
+    dragSelectors.selectDraggingTimelineRectangle
   );
 
-  draggingRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectDraggingTimelineRectangle
-        .execute(state)
-        .execute(state)
-    )
-  );
-
-  fromRectangle$ = this.store.state$.pipe(
-    map(state =>
-      dragSelectors.selectFromTimelineRectangle.execute(state).execute(state)
-    )
-  );
+  fromRectangle$ = this.store.select(dragSelectors.selectFromTimelineRectangle);
 
   constructor(private store: Store) {}
 }
