@@ -18,16 +18,21 @@ const selectInverseBandScale = createSelector(
   getInverseBandScale
 );
 
-const selectDraggedTimelineEventSeriesShifter = createSelector(
+const selectGetShiftedSeries = createSelector(
   [selectInverseBandScale],
   (inverseBandScale: InverseBandScale) => (
     draggedTimelineEvent: DraggedTimelineEvent
-  ) => ({
+  ) =>
+    draggedTimelineEvent.x !== null
+      ? inverseBandScale(draggedTimelineEvent.x)
+      : draggedTimelineEvent.series
+);
+
+const selectDraggedTimelineEventSeriesShifter = createSelector(
+  [selectGetShiftedSeries],
+  getShiftedSeries => (draggedTimelineEvent: DraggedTimelineEvent) => ({
     ...draggedTimelineEvent,
-    series:
-      draggedTimelineEvent.x !== null
-        ? inverseBandScale(draggedTimelineEvent.x)
-        : draggedTimelineEvent.series,
+    series: getShiftedSeries(draggedTimelineEvent),
     dx: 0
   })
 );
