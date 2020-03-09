@@ -4,14 +4,14 @@ import { selectBandScale, selectTimeScale } from './timeline-selectors';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { TimelineEvent } from '../timeline-event';
 import { getInverseBandScale } from '../scale-util';
-import { InverseBandScale, TimeScale, BandScale } from '../scale-types';
+import { InverseBandScale, TimeScale } from '../scale-types';
 import { Orientation } from '../orientation';
-import { pointToTransform } from '../drag-util';
 import {
   DraggedTimelineEvent,
   draggingTimelineEvent
 } from './dragged-timeline-event';
 import { EventRectangle } from '../content/event-rectangle';
+import { selectEventRectangle } from '../content/event-rectangle.selectors';
 
 const selectInverseBandScale = createSelector(
   [selectBandScale],
@@ -81,68 +81,6 @@ const selectShiftedTimesForDraggingTimelineEvent = createSelector(
     }
 );
 
-const positionInTimeScale = createSelector(
-  [selectTimeScale],
-  (timeScale: TimeScale) => (timelineEvent: TimelineEvent) =>
-    timelineEvent && timeScale(timelineEvent.start)
-);
-
-const positionInBandScale = createSelector(
-  [selectBandScale],
-  (bandScale: BandScale) => (timelineEvent: TimelineEvent) =>
-    timelineEvent && bandScale(timelineEvent.series)
-);
-
-const getEventY = createSelector(
-  [selectTimeOrientation, positionInBandScale, positionInTimeScale],
-  (timeOrientation: Orientation, pt, pb) => (timelineEvent: TimelineEvent) =>
-    timeOrientation === Orientation.Vertical
-      ? pb(timelineEvent)
-      : pt(timelineEvent)
-);
-
-const getEventX = createSelector(
-  [selectTimeOrientation, positionInBandScale, positionInTimeScale],
-  (timeOrientation: Orientation, pt, pb) => (timelineEvent: TimelineEvent) =>
-    timeOrientation === Orientation.Vertical
-      ? pt(timelineEvent)
-      : pb(timelineEvent)
-);
-
-const selectEventTopLeft = createSelector(
-  [getEventX, getEventY],
-  (x, y) => (timelineEvent: DraggedTimelineEvent) => ({
-    x: x(timelineEvent) + (timelineEvent && timelineEvent.dx),
-    y: y(timelineEvent) + (timelineEvent && timelineEvent.dy)
-  })
-);
-
-const rectTimeBreadth = createSelector(
-  [selectTimeScale],
-  (timeScale: TimeScale) => (timelineEvent: TimelineEvent) =>
-    timelineEvent &&
-    timeScale(timelineEvent.finish) - timeScale(timelineEvent.start)
-);
-
-const rectResourceBreadth = createSelector(
-  [selectBandScale],
-  (bandScale: BandScale) => bandScale.bandwidth()
-);
-
-const rectHeight = createSelector(
-  [selectTimeOrientation, rectTimeBreadth, rectResourceBreadth],
-  (timeOrientation: Orientation, rt, rr: number) => (
-    timelineEvent: TimelineEvent
-  ) => (timeOrientation === Orientation.Vertical ? rt(timelineEvent) : rr)
-);
-
-const rectWidth = createSelector(
-  [selectTimeOrientation, rectTimeBreadth, rectResourceBreadth],
-  (timeOrientation: Orientation, rt, rr: number) => (
-    timelineEvent: TimelineEvent
-  ) => (timeOrientation === Orientation.Vertical ? rr : rt(timelineEvent))
-);
-
 export const selectDropTimelineEvent = createSelector(
   [foo, selectDropEventSeries, selectShiftedTimesForDraggingTimelineEvent],
   (
@@ -166,20 +104,6 @@ export const selectNonDragTimelineEvents = createSelector(
   [selectSeriesShiftedData, selectDragEventId],
   (data: DraggedTimelineEvent[], dragEventId: number) =>
     data.filter(d => d.id !== dragEventId)
-);
-
-export const selectEventRectangle = createSelector(
-  [selectEventTopLeft, rectWidth, rectHeight],
-  (topleft, width, height) => (
-    timelineEvent: DraggedTimelineEvent
-  ): EventRectangle =>
-    timelineEvent && {
-      id: timelineEvent.id,
-      title: timelineEvent.type,
-      transform: pointToTransform(topleft(timelineEvent)),
-      width: width(timelineEvent),
-      height: height(timelineEvent)
-    }
 );
 
 export const selectNonDragEventRectangles = createSelector(
