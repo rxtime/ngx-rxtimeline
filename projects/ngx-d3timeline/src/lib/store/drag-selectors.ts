@@ -18,14 +18,23 @@ const selectInverseBandScale = createSelector(
   getInverseBandScale
 );
 
+const selectDraggedTimelineEventSeriesShifter = createSelector(
+  [selectInverseBandScale],
+  (inverseBandScale: InverseBandScale) => (
+    draggedTimelineEvent: DraggedTimelineEvent
+  ) => ({
+    ...draggedTimelineEvent,
+    series:
+      draggedTimelineEvent.x !== null
+        ? inverseBandScale(draggedTimelineEvent.x)
+        : draggedTimelineEvent.series,
+    dx: 0
+  })
+);
+
 const selectSeriesShiftedData = createSelector(
-  [selectData, selectInverseBandScale],
-  (data, inverseBandScale) =>
-    data.map(d => ({
-      ...d,
-      series: d.x !== null ? inverseBandScale(d.x) : d.series,
-      dx: 0
-    }))
+  [selectData, selectDraggedTimelineEventSeriesShifter],
+  (data, shiftSeries) => data.map(shiftSeries)
 );
 
 export const foo = createSelector(
