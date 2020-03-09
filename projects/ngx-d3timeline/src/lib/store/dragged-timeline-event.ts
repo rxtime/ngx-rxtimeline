@@ -24,7 +24,7 @@ export function initialiseDraggedTimelineEvent(
   return { ...timelineEvent, ...initialDraggedTimelineEvent };
 }
 
-export function draggingTimelineEvent(
+export function applyDragEventOffset(
   draggedTimelineEvent: DraggedTimelineEvent,
   dragEvent: TimelineDragEvent
 ): DraggedTimelineEvent {

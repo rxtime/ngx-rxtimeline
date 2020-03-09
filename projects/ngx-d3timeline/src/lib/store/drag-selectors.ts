@@ -8,7 +8,7 @@ import { InverseBandScale, TimeScale } from '../scale-types';
 import { Orientation } from '../orientation';
 import {
   DraggedTimelineEvent,
-  draggingTimelineEvent
+  applyDragEventOffset
 } from './dragged-timeline-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { selectEventRectangle } from '../content/event-rectangle.selectors';
@@ -53,7 +53,7 @@ export const foo = createSelector(
 export const selectDraggingTimelineEvent = createSelector(
   [foo, selectDragEvent],
   (foo, dragEvent): DraggedTimelineEvent =>
-    foo && draggingTimelineEvent(foo, dragEvent)
+    foo && applyDragEventOffset(foo, dragEvent)
 );
 
 const selectDeltaTime = createSelector(
