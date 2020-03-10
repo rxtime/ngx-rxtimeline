@@ -18,16 +18,16 @@ const selectInverseBandScale = createSelector(
   getInverseBandScale
 );
 
-const getPositionedSeries = (inverseBandScale: InverseBandScale) => (
-  draggedTimelineEvent: DraggedTimelineEvent
-) =>
+const getPositionedSeriesByInverseBandScale = (
+  inverseBandScale: InverseBandScale
+) => (draggedTimelineEvent: DraggedTimelineEvent) =>
   draggedTimelineEvent.x
     ? inverseBandScale(draggedTimelineEvent.x)
     : draggedTimelineEvent.series;
 
 const selectGetPositionedSeries = createSelector(
   [selectInverseBandScale],
-  getPositionedSeries
+  getPositionedSeriesByInverseBandScale
 );
 
 const selectGetDraggedTimelineWithPositionedSeries = createSelector(
