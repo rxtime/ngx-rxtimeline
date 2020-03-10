@@ -5,9 +5,9 @@ import {
   rescaleTime,
   configureBandScale,
   configureTimeScale
-} from '../scale-util';
+} from '../scale-utils';
 import { TimelineEvent } from '../timeline-event';
-import { getDropTimelineEvent } from '../drag-util';
+import { getDropTimelineEvent } from '../drag-utils';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { Orientation } from '../orientation';

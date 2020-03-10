@@ -10,7 +10,7 @@ import {
   configureBandScale,
   configureTimeScale,
   rescaleTime
-} from '../scale-util';
+} from '../scale-utils';
 
 export const selectBandScale = createSelector(
   [selectData, selectView, selectResourceOrientation],

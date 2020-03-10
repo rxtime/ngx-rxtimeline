@@ -1,4 +1,4 @@
-import { scaleBandInvert } from './scale-util';
+import { scaleBandInvert } from './scale-utils';
 import { State } from './store/state';
 import { Orientation } from './orientation';
 import { TimelineEvent } from '../public-api';
