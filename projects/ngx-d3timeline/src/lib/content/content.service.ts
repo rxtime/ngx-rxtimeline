@@ -7,7 +7,7 @@ import { EventRectangle } from './event-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-util';
+import { getDraggingTimelineEvent, getDropTimelineEvent } from '../drag-utils';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
