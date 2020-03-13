@@ -3,5 +3,5 @@ import { Line } from './line';
 
 export interface Axis {
   ticks: Tick[];
-  axisLine: Line;
+  line: Line;
 }

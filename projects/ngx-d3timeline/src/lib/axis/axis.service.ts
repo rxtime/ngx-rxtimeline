@@ -46,7 +46,7 @@ export class AxisService {
   ): Axis {
     return {
       ticks: this.getTicks(tickRenderer, scale, orientation, timelineView),
-      axisLine: this.getAxisLine(scale, orientation, timelineView)
+      line: this.getLine(scale, orientation, timelineView)
     };
   }
 
@@ -70,12 +70,12 @@ export class AxisService {
     }));
   }
 
-  private getAxisLine<TScale extends Scale>(
+  private getLine<TScale extends Scale>(
     scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Line {
-    const axisLine: Line = {
+    const line: Line = {
       x1: timelineView.left,
       x2: timelineView.left,
       y1: timelineView.top,
@@ -84,7 +84,7 @@ export class AxisService {
     const rangeLimit = scale.range()[1];
 
     return orientation === Orientation.Vertical
-      ? { ...axisLine, y2: rangeLimit }
-      : { ...axisLine, x2: rangeLimit };
+      ? { ...line, y2: rangeLimit }
+      : { ...line, x2: rangeLimit };
   }
 }
