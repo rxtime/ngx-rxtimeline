@@ -18,7 +18,7 @@ import { AxisService } from '../axis.service';
           [attr.y2]="tick.lineEnd.y"
         ></svg:line>
       </svg:g>
-      <svg:g ngx-d3timeline-line [line]="axis.axisLine"></svg:g>
+      <svg:g ngx-d3timeline-line [line]="axis.line"></svg:g>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
