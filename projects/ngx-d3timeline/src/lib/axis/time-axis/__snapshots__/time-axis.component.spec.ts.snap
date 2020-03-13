@@ -48,7 +48,7 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       />
     </g>
     <g
-      ngx-d3timeline-axis-line=""
+      ngx-d3timeline-line=""
     >
       <g />
     </g>

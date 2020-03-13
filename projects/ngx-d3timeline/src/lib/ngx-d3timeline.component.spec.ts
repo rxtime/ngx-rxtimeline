@@ -12,13 +12,13 @@ import { initialState } from './store/state';
 import { of } from 'rxjs';
 
 @Component({
-  selector: '[ngx-d3timeline-axis-line]',
+  selector: '[ngx-d3timeline-line]',
   template: `
     <svg:g></svg:g>
   `
 })
-class FakeAxisLineComponent {
-  @Input() axisLine: Line;
+class FakeLineComponent {
+  @Input() line: Line;
 }
 
 describe('NgxD3timelineComponent', () => {
@@ -33,7 +33,7 @@ describe('NgxD3timelineComponent', () => {
         ResourcesAxisComponent,
         TimeAxisComponent,
         ContentComponent,
-        FakeAxisLineComponent,
+        FakeLineComponent,
         EventRectangleComponent
       ],
       providers: [
