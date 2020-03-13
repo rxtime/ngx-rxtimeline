@@ -1,16 +1,15 @@
-import { Line } from '../line';
+import { Line } from './axis/line';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { AxisLineComponent } from './axis-line.component';
-import { Component, Input } from '@angular/core';
+import { LineComponent } from './line.component';
 
 describe('AxisLineComponent', () => {
-  let fixture: ComponentFixture<AxisLineComponent>;
+  let fixture: ComponentFixture<LineComponent>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AxisLineComponent]
+      declarations: [LineComponent]
     });
 
-    fixture = TestBed.createComponent(AxisLineComponent);
+    fixture = TestBed.createComponent(LineComponent);
   });
 
   it('should render correctly', () => {
@@ -20,7 +19,7 @@ describe('AxisLineComponent', () => {
       y1: 0,
       y2: 50
     };
-    fixture.componentInstance.axisLine = axisLine;
+    fixture.componentInstance.line = axisLine;
     fixture.detectChanges();
 
     expect(fixture.nativeElement).toMatchSnapshot();

@@ -15,7 +15,7 @@ import { AxisService } from '../axis.service';
       >
         {{ tick.label }}
       </text>
-      <svg:g ngx-d3timeline-axis-line [axisLine]="axis.axisLine"></svg:g>
+      <svg:g ngx-d3timeline-line [line]="axis.axisLine"></svg:g>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
