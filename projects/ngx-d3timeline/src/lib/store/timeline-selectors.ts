@@ -6,7 +6,7 @@ import {
   selectTimeOrientation,
   selectZoomEvent
 } from './state'; // TODO use barelling?
-import { configureBandScale, rescaleTime } from '../scale-util';
+import { configureBandScale, rescaleTime } from '../scale-utils';
 
 export const selectBandScale = createSelector(
   [selectData, selectView, selectResourceOrientation],

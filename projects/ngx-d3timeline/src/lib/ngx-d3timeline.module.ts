@@ -4,7 +4,7 @@ import { ResourcesAxisComponent } from './axis/resources-axis/resources-axis.com
 import { CommonModule } from '@angular/common';
 import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
-import { AxisLineComponent } from './axis/axis-line/axis-line.component';
+import { LineComponent } from './line.component';
 import { EventRectangleComponent } from './content/event-rectangle.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { EventRectangleComponent } from './content/event-rectangle.component';
     ResourcesAxisComponent,
     TimeAxisComponent,
     ContentComponent,
-    AxisLineComponent,
+    LineComponent,
     EventRectangleComponent
   ],
   imports: [CommonModule],

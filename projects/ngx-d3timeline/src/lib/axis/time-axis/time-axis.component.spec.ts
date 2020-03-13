@@ -6,13 +6,13 @@ import { Component, Input } from '@angular/core';
 import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
 
 @Component({
-  selector: '[ngx-d3timeline-axis-line]',
+  selector: '[ngx-d3timeline-line]',
   template: `
     <svg:g></svg:g>
   `
 })
-class FakeAxisLineComponent {
-  @Input() axisLine: Line;
+class FakeLineComponent {
+  @Input() line: Line;
 }
 
 describe('TimeAxisComponent', () => {
@@ -21,7 +21,7 @@ describe('TimeAxisComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TimeAxisComponent, FakeAxisLineComponent],
+      declarations: [TimeAxisComponent, FakeLineComponent],
       providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
     });
 
@@ -50,7 +50,7 @@ describe('TimeAxisComponent', () => {
           lineEnd: { x: -5, y: 0 }
         }
       ],
-      axisLine: { x1: 0, x2: 10, y1: 1, y2: 0 }
+      line: { x1: 0, x2: 10, y1: 1, y2: 0 }
     });
 
     fixture.detectChanges();
