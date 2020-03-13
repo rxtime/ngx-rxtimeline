@@ -11,6 +11,7 @@ import { Scale } from '../scale-types';
 import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
 import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
 import { TickRenderer } from './tick-renderer';
+import { flipOrientation } from '../orientation-utils';
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
@@ -63,9 +64,9 @@ export class AxisService {
         orientation,
         timelineView
       ),
-      lineEnd: this.optionsService.getTickLineEnd(
+      line: this.optionsService.getTickLine(
         tickRenderer.getTickLineOffset(),
-        orientation
+        flipOrientation(orientation)
       )
     }));
   }

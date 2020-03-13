@@ -12,11 +12,7 @@ import { AxisService } from '../axis.service';
         <svg:text dx="-7">
           {{ tick.label }}
         </svg:text>
-        <svg:line
-          class="tick-line"
-          [attr.x2]="tick.lineEnd.x"
-          [attr.y2]="tick.lineEnd.y"
-        ></svg:line>
+        <svg:g ngx-d3timeline-line [line]="tick.line"></svg:g>
       </svg:g>
       <svg:g ngx-d3timeline-line [line]="axis.line"></svg:g>
     </svg:g>
