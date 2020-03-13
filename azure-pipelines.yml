@@ -7,6 +7,9 @@ trigger:
   - master
   - selectors
 
+pr:
+  - master
+
 pool:
   vmImage: 'ubuntu-latest'
 
