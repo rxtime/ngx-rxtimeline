@@ -10,7 +10,7 @@ export const origin: Point = {
   y: 0
 };
 
-export function translatePointAlongAxis(
+export function translatePoint(
   point: Point,
   distance: number,
   orientation: Orientation
