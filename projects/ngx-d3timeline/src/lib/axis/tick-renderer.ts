@@ -1,5 +1,4 @@
 import { Scale } from '../scale-types';
-import { Orientation } from '../orientation';
 
 export interface TickRenderer<TScale extends Scale> {
   getTickValues(scale: TScale): any[];
