@@ -3,6 +3,8 @@ import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
 
 export class ResourceAxisTickMarkRenderer
   implements TickMarkRenderer<BandScale> {
+  private readonly tickLineOffset = 0;
+
   getTickValues(scale: BandScale): string[] {
     return scale.domain();
   }
@@ -16,11 +18,11 @@ export class ResourceAxisTickMarkRenderer
   }
 
   getTickLineOffset(): number {
-    return 0;
+    return this.tickLineOffset;
   }
 
   getTickLabelSpacing(): number {
-    return tickLabelSpacing;
+    return this.tickLineOffset + tickLabelSpacing;
   }
 
   private getBandMidPoint(scale: BandScale, tickValue: string): number {
