@@ -1,5 +1,5 @@
 import { BandScale } from '../../scale-types';
-import { TickMarkRenderer } from '../tick-mark-renderer';
+import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
 
 export class ResourceAxisTickMarkRenderer
   implements TickMarkRenderer<BandScale> {
@@ -17,6 +17,10 @@ export class ResourceAxisTickMarkRenderer
 
   getTickLineOffset(): number {
     return 0;
+  }
+
+  getTickLabelSpacing(): number {
+    return tickLabelSpacing;
   }
 
   private getBandMidPoint(scale: BandScale, tickValue: string): number {

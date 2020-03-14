@@ -5,4 +5,7 @@ export interface TickMarkRenderer<TScale extends Scale> {
   getTickLabel(scale: TScale, tickValue: any): string;
   getTransform(scale: TScale, tickValue: any): number;
   getTickLineOffset(): number;
+  getTickLabelSpacing(): number;
 }
+
+export const tickLabelSpacing = -2;

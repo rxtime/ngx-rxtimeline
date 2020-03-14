@@ -46,12 +46,14 @@ describe('TimeAxisComponent', () => {
         {
           label: 'tick 1',
           transform: 'translate(0, 10)',
-          line
+          line,
+          labelOffset: { x: 1, y: 0 }
         },
         {
           label: 'tick 2',
           transform: 'translate(0, 20)',
-          line
+          line,
+          labelOffset: { x: 1, y: 0 }
         }
       ],
       line: { x1: 0, x2: 10, y1: 1, y2: 0 }

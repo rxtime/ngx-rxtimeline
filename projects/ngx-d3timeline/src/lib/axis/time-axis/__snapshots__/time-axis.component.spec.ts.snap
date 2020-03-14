@@ -23,7 +23,8 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       transform="translate(0, 10)"
     >
       <text
-        dx="-7"
+        dx="1"
+        dy="0"
       >
          tick 1 
       </text>
@@ -37,7 +38,8 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       transform="translate(0, 20)"
     >
       <text
-        dx="-7"
+        dx="1"
+        dy="0"
       >
          tick 2 
       </text>
