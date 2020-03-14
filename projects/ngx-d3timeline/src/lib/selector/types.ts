@@ -1,6 +1,4 @@
 import { State } from '../store/state';
 
-export type Projector = (...args: any[]) => any;
-export type SliceProjector = <TSlice extends keyof State>(
-  state: State
-) => State[TSlice];
+export type Projector<TResult> = (...args: any[]) => TResult;
+export type SliceProjector<TResult> = (state: State) => TResult;
