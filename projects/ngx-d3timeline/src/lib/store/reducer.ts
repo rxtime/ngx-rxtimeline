@@ -16,8 +16,8 @@ import { flipOrientation } from '../orientation-utils';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
-    case ActionType.DataChanged: {
-      return patchStateAndUpdateScales(state, { data: action.payload });
+    case ActionType.ActivitiesChanged: {
+      return patchStateAndUpdateScales(state, { activities: action.payload });
     }
 
     case ActionType.OrientationChanged: {
@@ -37,7 +37,7 @@ export function reducer(state: State, action: Actions): State {
         ...state,
         zoomEvent: action.payload,
         timeScale: rescaleTime(
-          state.data,
+          state.activities,
           state.view,
           state.axisOrientations.time,
           action.payload
@@ -58,8 +58,8 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const data = dropActivityOnDragEnd(state);
-      return { ...state, data, dragEvent: null };
+      const activities = dropActivityOnDragEnd(state);
+      return { ...state, activities, dragEvent: null };
     }
 
     default: {
@@ -70,8 +70,8 @@ export function reducer(state: State, action: Actions): State {
 
 function dropActivityOnDragEnd(state: State): Activity[] {
   const dropActivity = getDropActivity(state);
-  return state.data.map(data =>
-    data.id === dropActivity.id ? dropActivity : data
+  return state.activities.map(activity =>
+    activity.id === dropActivity.id ? dropActivity : activity
   );
 }
 
@@ -80,12 +80,12 @@ function patchStateAndUpdateScales(state: State, patch: Partial<State>) {
   return {
     ...patchedState,
     timeScale: configureTimeScale(
-      patchedState.data,
+      patchedState.activities,
       patchedState.view,
       patchedState.axisOrientations.time
     ),
     bandScale: configureBandScale(
-      patchedState.data,
+      patchedState.activities,
       patchedState.view,
       patchedState.axisOrientations.resource
     )

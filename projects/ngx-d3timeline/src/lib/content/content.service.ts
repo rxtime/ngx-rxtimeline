@@ -38,9 +38,11 @@ export class ContentService {
   }
 
   private createActivityRectangles(state: State): ActivityRectangle[] {
-    return state.data
-      .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
-      .map(data => this.activityToActivityRectangle(data, state));
+    return state.activities
+      .filter(
+        activity => activity.id !== (state.dragEvent && state.dragEvent.id)
+      )
+      .map(activity => this.activityToActivityRectangle(activity, state));
   }
 
   private createDraggingRectangle(state: State): ActivityRectangle {
@@ -67,7 +69,7 @@ export class ContentService {
     return {
       id: activity.id,
       title: activity.type,
-      transform: this.dataTransform(
+      transform: this.activityTransform(
         activity,
         state.axisOrientations.time,
         state.bandScale,
@@ -89,15 +91,15 @@ export class ContentService {
     };
   }
 
-  private dataTransform(
-    data: Activity,
+  private activityTransform(
+    activity: Activity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
     dragEvent?: TimelineDragEvent
   ) {
     const activityX = this.getActivityX(
-      data,
+      activity,
       orientation,
       scaleBand,
       scaleTime
@@ -105,7 +107,7 @@ export class ContentService {
     const dx = (dragEvent && dragEvent.dx) || 0;
 
     const activityY = this.getActivityY(
-      data,
+      activity,
       orientation,
       scaleBand,
       scaleTime
@@ -116,58 +118,61 @@ export class ContentService {
   }
 
   private rectHeight(
-    data: Activity,
+    activity: Activity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.rectTimeBreadth(data, scaleTime)
+      ? this.rectTimeBreadth(activity, scaleTime)
       : this.rectResourceBreadth(scaleBand);
   }
 
   private rectWidth(
-    data: Activity,
+    activity: Activity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.rectResourceBreadth(scaleBand)
-      : this.rectTimeBreadth(data, scaleTime);
+      : this.rectTimeBreadth(activity, scaleTime);
   }
   private getActivityX(
-    data: Activity,
+    activity: Activity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(data, scaleBand)
-      : this.positionInTimeAxis(data, scaleTime);
+      ? this.positionInResourceAxis(activity, scaleBand)
+      : this.positionInTimeAxis(activity, scaleTime);
   }
 
   private getActivityY(
-    data: Activity,
+    activity: Activity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(data, scaleTime)
-      : this.positionInResourceAxis(data, scaleBand);
+      ? this.positionInTimeAxis(activity, scaleTime)
+      : this.positionInResourceAxis(activity, scaleBand);
   }
 
-  private positionInResourceAxis(data: Activity, scaleBand: BandScale): number {
-    return scaleBand(data.series);
+  private positionInResourceAxis(
+    activity: Activity,
+    scaleBand: BandScale
+  ): number {
+    return scaleBand(activity.series);
   }
 
-  private positionInTimeAxis(data: Activity, scaleTime: TimeScale): number {
-    return scaleTime(data.start);
+  private positionInTimeAxis(activity: Activity, scaleTime: TimeScale): number {
+    return scaleTime(activity.start);
   }
 
-  private rectTimeBreadth(data: Activity, scaleTime: TimeScale): number {
-    return scaleTime(data.finish) - scaleTime(data.start);
+  private rectTimeBreadth(activity: Activity, scaleTime: TimeScale): number {
+    return scaleTime(activity.finish) - scaleTime(activity.start);
   }
 
   private rectResourceBreadth(scaleBand: BandScale): number {

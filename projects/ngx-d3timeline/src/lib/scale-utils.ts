@@ -16,12 +16,16 @@ export function getInverseBandScale(scale: BandScale): InverseBandScale {
 }
 
 export function rescaleTime(
-  data: Activity[],
+  activities: Activity[],
   view: TimelineView,
   timeOrientation: Orientation,
   event: any
 ): TimeScale {
-  const unscaledTimeScale = configureTimeScale(data, view, timeOrientation);
+  const unscaledTimeScale = configureTimeScale(
+    activities,
+    view,
+    timeOrientation
+  );
 
   return event
     ? timeOrientation === Orientation.Vertical
@@ -31,31 +35,34 @@ export function rescaleTime(
 }
 
 export function configureBandScale(
-  data: Activity[],
+  activities: Activity[],
   view: TimelineView,
   orientation: Orientation
 ): BandScale {
   return scaleBand()
-    .domain(getBandScaleDomain(data))
+    .domain(getBandScaleDomain(activities))
     .range(getRange(view, orientation));
 }
 
 export function configureTimeScale(
-  data: Activity[],
+  activities: Activity[],
   view: TimelineView,
   orientation: Orientation
 ): TimeScale {
   return scaleTime()
-    .domain(getTimeScaleDomain(data))
+    .domain(getTimeScaleDomain(activities))
     .range(getRange(view, orientation));
 }
 
-function getBandScaleDomain(data: Activity[]): string[] {
-  return [...new Set(data.map(d => d.series))];
+function getBandScaleDomain(activities: Activity[]): string[] {
+  return [...new Set(activities.map(activity => activity.series))];
 }
 
-function getTimeScaleDomain(data: Activity[]): [Date, Date] {
-  return [min(data, d => d.start), max(data, d => d.finish)];
+function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
+  return [
+    min(activities, activity => activity.start),
+    max(activities, activity => activity.finish)
+  ];
 }
 
 function getRange(
