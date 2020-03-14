@@ -12,30 +12,63 @@ import { ResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tic
 import { TimeAxisTickMarkRenderer } from './time-axis/time-axis-tick-mark-renderer';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { flipOrientation } from '../orientation-utils';
+import { createSelector } from '../selector/create-selector';
+import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
+import {
+  selectTimeOrientation,
+  selectResourceOrientation,
+  selectView
+} from '../store/state';
+
+const tempSelectResourceAxis = createSelector(
+  selectBandScale,
+  selectResourceOrientation,
+  selectView,
+  (bandScale, orientation, view) => ({
+    bandScale,
+    orientation,
+    view
+  })
+);
+
+const tempSelectTimeAxis = createSelector(
+  selectTimeScale,
+  selectTimeOrientation,
+  selectView,
+  (timeScale, orientation, view) => ({
+    timeScale,
+    orientation,
+    view
+  })
+);
 
 @Injectable({ providedIn: 'root' })
 export class AxisService {
-  resourceAxis$ = this.store.state$.pipe(
-    map(state =>
-      this.createAxis(
-        new ResourceAxisTickMarkRenderer(),
-        state.bandScale,
-        state.axisOrientations.resource,
-        state.view
+  resourceAxis$ = this.store
+    .select(tempSelectResourceAxis)
+    .pipe(
+      map(resourceAxisArgs =>
+        this.createAxis(
+          new ResourceAxisTickMarkRenderer(),
+          resourceAxisArgs.bandScale,
+          resourceAxisArgs.orientation,
+          resourceAxisArgs.view
+        )
       )
-    )
-  );
+    );
 
-  timeAxis$ = this.store.state$.pipe(
-    map(state =>
-      this.createAxis(
-        new TimeAxisTickMarkRenderer(),
-        state.timeScale,
-        state.axisOrientations.time,
-        state.view
+  timeAxis$ = this.store
+    .select(tempSelectTimeAxis)
+    .pipe(
+      map(timeAxisArgs =>
+        this.createAxis(
+          new TimeAxisTickMarkRenderer(),
+          timeAxisArgs.timeScale,
+          timeAxisArgs.orientation,
+          timeAxisArgs.view
+        )
       )
-    )
-  );
+    );
 
   constructor(private store: Store, private optionsService: OptionsService) {}
 

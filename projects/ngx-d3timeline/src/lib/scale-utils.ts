@@ -23,9 +23,11 @@ export function rescaleTime(
 ): TimeScale {
   const unscaledTimeScale = configureTimeScale(data, view, timeOrientation);
 
-  return timeOrientation === Orientation.Vertical
-    ? event.transform.rescaleY(unscaledTimeScale)
-    : event.transform.rescaleX(unscaledTimeScale);
+  return event
+    ? timeOrientation === Orientation.Vertical
+      ? event.transform.rescaleY(unscaledTimeScale)
+      : event.transform.rescaleX(unscaledTimeScale)
+    : unscaledTimeScale;
 }
 
 export function configureBandScale(
