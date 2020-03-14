@@ -12,15 +12,15 @@ export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
     return scale.tickFormat()(tickValue);
   }
 
+  getTickLabelSpacing(): number {
+    return this.tickLineOffset + tickLabelSpacing;
+  }
+
   getTransform(scale: TimeScale, tickValue: any): number {
     return scale(tickValue);
   }
 
   getTickLineOffset(): number {
     return this.tickLineOffset;
-  }
-
-  getTickLabelSpacing(): number {
-    return this.tickLineOffset + tickLabelSpacing;
   }
 }

@@ -13,16 +13,16 @@ export class ResourceAxisTickMarkRenderer
     return tickValue;
   }
 
+  getTickLabelSpacing(): number {
+    return this.tickLineOffset + tickLabelSpacing;
+  }
+
   getTransform(scale: BandScale, tickValue: any): number {
     return this.getBandMidPoint(scale, tickValue);
   }
 
   getTickLineOffset(): number {
     return this.tickLineOffset;
-  }
-
-  getTickLabelSpacing(): number {
-    return this.tickLineOffset + tickLabelSpacing;
   }
 
   private getBandMidPoint(scale: BandScale, tickValue: string): number {
