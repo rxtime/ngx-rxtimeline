@@ -1,7 +1,7 @@
 import { Activity } from '../activity';
 import { Orientation } from '../orientation';
 import { identifier } from '../types';
-import { EventRectangle } from '../content/event-rectangle';
+import { ActivityRectangle } from '../content/activity-rectangle';
 
 export interface Action {
   type: string;
@@ -40,12 +40,16 @@ export class ZoomedAction implements Action {
 
 export class TimelineDragStartedAction implements Action {
   readonly type = ActionType.TimelineDragStarted;
-  constructor(public payload: { eventRectangle: EventRectangle; event: any }) {}
+  constructor(
+    public payload: { activityRectangle: ActivityRectangle; event: any }
+  ) {}
 }
 
 export class TimelineDraggingAction implements Action {
   readonly type = ActionType.TimelineDragging;
-  constructor(public payload: { eventRectangle: EventRectangle; event: any }) {}
+  constructor(
+    public payload: { activityRectangle: ActivityRectangle; event: any }
+  ) {}
 }
 
 export class TimelineDragEndedAction implements Action {

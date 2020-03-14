@@ -3,7 +3,7 @@ import { Store } from '../store/store';
 import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { Activity } from '../activity';
-import { EventRectangle } from './event-rectangle';
+import { ActivityRectangle } from './activity-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
@@ -11,8 +11,8 @@ import { getDraggingActivity, getDropActivity } from '../drag-utils';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  eventRectangles$ = this.store.state$.pipe(
-    map(state => this.createEventRectangles(state))
+  activityRectangles$ = this.store.state$.pipe(
+    map(state => this.createActivityRectangles(state))
   );
 
   draggingRectangle$ = this.store.state$.pipe(
@@ -32,35 +32,38 @@ export class ContentService {
   private createFromRectangle(state: State) {
     const draggingActivity = getDraggingActivity(state);
     return (
-      draggingActivity && this.activityToEventRectangle(draggingActivity, state)
+      draggingActivity &&
+      this.activityToActivityRectangle(draggingActivity, state)
     );
   }
 
-  private createEventRectangles(state: State): EventRectangle[] {
+  private createActivityRectangles(state: State): ActivityRectangle[] {
     return state.data
       .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
-      .map(data => this.activityToEventRectangle(data, state));
+      .map(data => this.activityToActivityRectangle(data, state));
   }
 
-  private createDraggingRectangle(state: State): EventRectangle {
+  private createDraggingRectangle(state: State): ActivityRectangle {
     const draggingActivity = getDraggingActivity(state);
     return (
       draggingActivity &&
-      this.activityToEventRectangle(draggingActivity, state, state.dragEvent)
+      this.activityToActivityRectangle(draggingActivity, state, state.dragEvent)
     );
   }
 
-  private createDropRectangle(state: State): EventRectangle {
+  private createDropRectangle(state: State): ActivityRectangle {
     const dropActivity = getDropActivity(state);
 
-    return dropActivity && this.activityToEventRectangle(dropActivity, state);
+    return (
+      dropActivity && this.activityToActivityRectangle(dropActivity, state)
+    );
   }
 
-  private activityToEventRectangle(
+  private activityToActivityRectangle(
     activity: Activity,
     state: State,
     dragEvent?: TimelineDragEvent
-  ): EventRectangle {
+  ): ActivityRectangle {
     return {
       id: activity.id,
       title: activity.type,

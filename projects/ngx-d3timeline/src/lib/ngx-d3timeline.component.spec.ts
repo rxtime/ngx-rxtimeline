@@ -6,7 +6,7 @@ import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
 import { Component, Input } from '@angular/core';
 import { Line } from './axis/line';
-import { EventRectangleComponent } from './content/event-rectangle.component';
+import { ActivityRectangleComponent } from './content/activity-rectangle.component';
 import { Store } from './store/store';
 import { initialState } from './store/state';
 import { of } from 'rxjs';
@@ -34,7 +34,7 @@ describe('NgxD3timelineComponent', () => {
         TimeAxisComponent,
         ContentComponent,
         FakeLineComponent,
-        EventRectangleComponent
+        ActivityRectangleComponent
       ],
       providers: [
         {

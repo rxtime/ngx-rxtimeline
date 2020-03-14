@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContentComponent eventRectangles null should not render 1`] = `
+exports[`ContentComponent activityRectangles null should not render 1`] = `
 <div
   id="root0"
   ngx-d3timeline-content=""
@@ -9,7 +9,7 @@ exports[`ContentComponent eventRectangles null should not render 1`] = `
 </div>
 `;
 
-exports[`ContentComponent eventRectangles null should not render when draggingRectangle set 1`] = `
+exports[`ContentComponent activityRectangles null should not render when draggingRectangle set 1`] = `
 <div
   id="root1"
   ngx-d3timeline-content=""
@@ -18,7 +18,7 @@ exports[`ContentComponent eventRectangles null should not render when draggingRe
 </div>
 `;
 
-exports[`ContentComponent eventRectangles null should not render when dropRectangle set 1`] = `
+exports[`ContentComponent activityRectangles null should not render when dropRectangle set 1`] = `
 <div
   id="root2"
   ngx-d3timeline-content=""
@@ -27,7 +27,7 @@ exports[`ContentComponent eventRectangles null should not render when dropRectan
 </div>
 `;
 
-exports[`ContentComponent eventRectangles null should not render when fromRectangle set 1`] = `
+exports[`ContentComponent activityRectangles null should not render when fromRectangle set 1`] = `
 <div
   id="root3"
   ngx-d3timeline-content=""
@@ -36,7 +36,7 @@ exports[`ContentComponent eventRectangles null should not render when fromRectan
 </div>
 `;
 
-exports[`ContentComponent eventRectangles set should render 1`] = `
+exports[`ContentComponent activityRectangles set should render 1`] = `
 <div
   id="root4"
   ngx-d3timeline-content=""
@@ -47,32 +47,32 @@ exports[`ContentComponent eventRectangles set should render 1`] = `
   >
     
     <g
-      ngx-d3timeline-event-rectangle=""
+      ngx-d3timeline-activity-rectangle=""
     >
       <g />
     </g>
     <g
-      ngx-d3timeline-event-rectangle=""
-    >
-      <g />
-    </g>
-    
-    <g
-      class="from-event-rectangle"
-      ngx-d3timeline-event-rectangle=""
+      ngx-d3timeline-activity-rectangle=""
     >
       <g />
     </g>
     
     <g
-      class="drop-event-rectangle"
-      ngx-d3timeline-event-rectangle=""
+      class="from-activity-rectangle"
+      ngx-d3timeline-activity-rectangle=""
     >
       <g />
     </g>
     
     <g
-      ngx-d3timeline-event-rectangle=""
+      class="drop-activity-rectangle"
+      ngx-d3timeline-activity-rectangle=""
+    >
+      <g />
+    </g>
+    
+    <g
+      ngx-d3timeline-activity-rectangle=""
     >
       <g />
     </g>
