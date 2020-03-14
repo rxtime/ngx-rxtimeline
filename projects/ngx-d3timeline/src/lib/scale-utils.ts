@@ -55,11 +55,14 @@ export function configureTimeScale(
 }
 
 function getBandScaleDomain(activities: Activity[]): string[] {
-  return [...new Set(activities.map(d => d.series))];
+  return [...new Set(activities.map(activity => activity.series))];
 }
 
 function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
-  return [min(activities, d => d.start), max(activities, d => d.finish)];
+  return [
+    min(activities, activity => activity.start),
+    max(activities, activity => activity.finish)
+  ];
 }
 
 function getRange(

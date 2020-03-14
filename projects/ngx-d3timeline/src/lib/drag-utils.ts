@@ -17,7 +17,8 @@ export function getDropActivity(state: State) {
 
 export function getDraggingActivity(state: State): Activity {
   return (
-    state.dragEvent && state.activities.find(d => d.id === state.dragEvent.id)
+    state.dragEvent &&
+    state.activities.find(activity => activity.id === state.dragEvent.id)
   );
 }
 
