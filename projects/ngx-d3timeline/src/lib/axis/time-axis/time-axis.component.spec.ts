@@ -4,6 +4,8 @@ import { AxisService } from '../axis.service';
 import { of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
+import { createLine } from '../line';
+import { Orientation } from '../../orientation';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -37,17 +39,19 @@ describe('TimeAxisComponent', () => {
   });
 
   it('should render correctly', () => {
+    const line = createLine(0, 0, 10, Orientation.Vertical);
+
     axisService.timeAxis$ = of({
       ticks: [
         {
           label: 'tick 1',
           transform: 'translate(0, 10)',
-          lineEnd: { x: -5, y: 0 }
+          line
         },
         {
           label: 'tick 2',
           transform: 'translate(0, 20)',
-          lineEnd: { x: -5, y: 0 }
+          line
         }
       ],
       line: { x1: 0, x2: 10, y1: 1, y2: 0 }

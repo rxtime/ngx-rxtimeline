@@ -19,18 +19,34 @@ exports[`ResourcesAxisComponent should render correctly 1`] = `
     class="resources-axis-group"
   >
     
-    <text
-      dy="-2"
+    <g
       transform="translate(0, 10)"
     >
-       tick 1 
-    </text>
-    <text
-      dy="-2"
+      <text
+        dy="-2"
+      >
+         tick 1 
+      </text>
+      <g
+        ngx-d3timeline-line=""
+      >
+        <g />
+      </g>
+    </g>
+    <g
       transform="translate(0, 20)"
     >
-       tick 2 
-    </text>
+      <text
+        dy="-2"
+      >
+         tick 2 
+      </text>
+      <g
+        ngx-d3timeline-line=""
+      >
+        <g />
+      </g>
+    </g>
     <g
       ngx-d3timeline-line=""
     >
