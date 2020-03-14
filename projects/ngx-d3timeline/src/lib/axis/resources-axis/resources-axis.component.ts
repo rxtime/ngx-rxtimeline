@@ -8,11 +8,17 @@ import { AxisService } from '../axis.service';
       class="resources-axis-group"
       *ngIf="axisService.resourceAxis$ | async as axis"
     >
-      <svg:g *ngFor="let tick of axis.ticks" [attr.transform]="tick.transform">
-        <text dy="-2">
-          {{ tick.label }}
+      <svg:g
+        *ngFor="let tickMark of axis.tickMarks"
+        [attr.transform]="tickMark.transform"
+      >
+        <text
+          [attr.dx]="tickMark.labelOffset.x"
+          [attr.dy]="tickMark.labelOffset.y"
+        >
+          {{ tickMark.label }}
         </text>
-        <svg:g ngx-d3timeline-line [line]="tick.line"></svg:g>
+        <svg:g ngx-d3timeline-line [line]="tickMark.line"></svg:g>
       </svg:g>
       <svg:g ngx-d3timeline-line [line]="axis.line"></svg:g>
     </svg:g>

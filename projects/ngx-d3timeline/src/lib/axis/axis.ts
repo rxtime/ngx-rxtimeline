@@ -1,7 +1,7 @@
-import { Tick } from './tick';
+import { TickMark } from './tick-mark';
 import { Line } from './line';
 
 export interface Axis {
-  ticks: Tick[];
+  tickMarks: TickMark[];
   line: Line;
 }

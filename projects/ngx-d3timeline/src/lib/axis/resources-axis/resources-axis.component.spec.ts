@@ -2,11 +2,10 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ResourcesAxisComponent } from './resources-axis.component';
 import { AxisService } from '../axis.service';
 import { of } from 'rxjs';
-import { LineComponent } from '../../line.component';
 import { Input, Component } from '@angular/core';
 import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
 import { createLine } from '../line';
-import { Orientation } from '../../orientation';
+import { origin } from '../../point';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -40,17 +39,19 @@ describe('ResourcesAxisComponent', () => {
   });
 
   it('should render correctly', () => {
-    const line = createLine(0, 0, 10, Orientation.Vertical);
+    const line = createLine(origin, { x: 10, y: 10 });
 
     axisService.resourceAxis$ = of({
-      ticks: [
+      tickMarks: [
         {
           label: 'tick 1',
+          labelOffset: { x: 0, y: 1 },
           transform: 'translate(0, 10)',
           line
         },
         {
           label: 'tick 2',
+          labelOffset: { x: 0, y: 2 },
           transform: 'translate(0, 20)',
           line
         }
