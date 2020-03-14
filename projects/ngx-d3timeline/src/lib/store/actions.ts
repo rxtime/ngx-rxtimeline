@@ -1,4 +1,4 @@
-import { TimelineEvent } from '../timeline-event';
+import { Activity } from '../activity';
 import { Orientation } from '../orientation';
 import { identifier } from '../types';
 import { EventRectangle } from '../content/event-rectangle';
@@ -20,7 +20,7 @@ export enum ActionType {
 
 export class DataChangedAction implements Action {
   readonly type = ActionType.DataChanged;
-  constructor(public payload: TimelineEvent[]) {}
+  constructor(public payload: Activity[]) {}
 }
 
 export class OrientationChangedAction implements Action {
