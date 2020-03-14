@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
 import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
 import { createLine } from '../line';
 import { origin } from '../../point';
+import { TickMark } from '../tick-mark';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -17,13 +18,27 @@ class FakeLineComponent {
   @Input() line: Line;
 }
 
+@Component({
+  selector: '[ngx-d3timeline-axis-tick-mark]',
+  template: `
+    <svg:g class="axis-tick-mark"></svg:g>
+  `
+})
+class FakeAxisTickMarkComponent {
+  @Input() tickMark: TickMark;
+}
+
 describe('TimeAxisComponent', () => {
   let fixture: ComponentFixture<TimeAxisComponent>;
   let axisService: AxisService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TimeAxisComponent, FakeLineComponent],
+      declarations: [
+        TimeAxisComponent,
+        FakeLineComponent,
+        FakeAxisTickMarkComponent
+      ],
       providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
     });
 
