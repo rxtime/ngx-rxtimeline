@@ -40,14 +40,14 @@ export class AxisService {
   constructor(private store: Store, private optionsService: OptionsService) {}
 
   private createAxis<TScale extends Scale>(
-    tickRenderer: TickMarkRenderer<TScale>,
+    tickMarkRenderer: TickMarkRenderer<TScale>,
     scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
     return {
       tickMarks: this.getTickMarks(
-        tickRenderer,
+        tickMarkRenderer,
         scale,
         orientation,
         timelineView
@@ -57,20 +57,20 @@ export class AxisService {
   }
 
   private getTickMarks<TScale extends Scale>(
-    tickRenderer: TickMarkRenderer<TScale>,
+    tickMarkRenderer: TickMarkRenderer<TScale>,
     scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): TickMark[] {
-    return tickRenderer.getTickValues(scale).map(value => ({
-      label: tickRenderer.getTickLabel(scale, value),
+    return tickMarkRenderer.getTickValues(scale).map(value => ({
+      label: tickMarkRenderer.getTickLabel(scale, value),
       transform: this.optionsService.getTranslation(
-        tickRenderer.getTransform(scale, value),
+        tickMarkRenderer.getTransform(scale, value),
         orientation,
         timelineView
       ),
       line: this.optionsService.getTickLine(
-        tickRenderer.getTickLineOffset(),
+        tickMarkRenderer.getTickLineOffset(),
         flipOrientation(orientation)
       )
     }));
