@@ -3,42 +3,42 @@ import { ContentService } from './content.service';
 import { of } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { Component, Input } from '@angular/core';
-import { EventRectangle } from './event-rectangle';
+import { ActivityRectangle } from './activity-rectangle';
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let contentService: ContentService;
-  let mockEventRectangles: EventRectangle[];
+  let mockActivityRectangles: ActivityRectangle[];
 
   @Component({
-    selector: '[ngx-d3timeline-event-rectangle]',
+    selector: '[ngx-d3timeline-activity-rectangle]',
     template: `
       <svg:g></svg:g>
     `
   })
-  class FakeEventRectangleComponent {
-    @Input() eventRectangle: EventRectangle;
+  class FakeActivityRectangleComponent {
+    @Input() activityRectangle: ActivityRectangle;
   }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContentComponent, FakeEventRectangleComponent],
+      declarations: [ContentComponent, FakeActivityRectangleComponent],
       providers: [{ provide: ContentService, useValue: jest.fn() }]
     });
 
     fixture = TestBed.createComponent(ContentComponent);
     contentService = TestBed.inject(ContentService);
-    mockEventRectangles = [
+    mockActivityRectangles = [
       {
         id: 1,
-        title: 'Event 1',
+        title: 'Activity 1',
         transform: 'translate(50,0)',
         width: 50,
         height: 80
       },
       {
         id: 2,
-        title: 'Event 2',
+        title: 'Activity 2',
         transform: 'translate(130,0)',
         width: 60,
         height: 90
@@ -46,9 +46,9 @@ describe('ContentComponent', () => {
     ];
   });
 
-  describe('eventRectangles null', () => {
+  describe('activityRectangles null', () => {
     beforeEach(() => {
-      contentService.eventRectangles$ = of(null);
+      contentService.activityRectangles$ = of(null);
     });
 
     it('should not render', () => {
@@ -58,7 +58,7 @@ describe('ContentComponent', () => {
     });
 
     it('should not render when draggingRectangle set', () => {
-      contentService.draggingRectangle$ = of(mockEventRectangles[0]);
+      contentService.draggingRectangle$ = of(mockActivityRectangles[0]);
 
       fixture.detectChanges();
 
@@ -66,7 +66,7 @@ describe('ContentComponent', () => {
     });
 
     it('should not render when dropRectangle set', () => {
-      contentService.dropRectangle$ = of(mockEventRectangles[0]);
+      contentService.dropRectangle$ = of(mockActivityRectangles[0]);
 
       fixture.detectChanges();
 
@@ -74,7 +74,7 @@ describe('ContentComponent', () => {
     });
 
     it('should not render when fromRectangle set', () => {
-      contentService.fromRectangle$ = of(mockEventRectangles[0]);
+      contentService.fromRectangle$ = of(mockActivityRectangles[0]);
 
       fixture.detectChanges();
 
@@ -82,12 +82,12 @@ describe('ContentComponent', () => {
     });
   });
 
-  describe('eventRectangles set', () => {
+  describe('activityRectangles set', () => {
     it('should render', () => {
-      contentService.eventRectangles$ = of(mockEventRectangles);
-      contentService.draggingRectangle$ = of(mockEventRectangles[0]);
-      contentService.dropRectangle$ = of(mockEventRectangles[0]);
-      contentService.fromRectangle$ = of(mockEventRectangles[0]);
+      contentService.activityRectangles$ = of(mockActivityRectangles);
+      contentService.draggingRectangle$ = of(mockActivityRectangles[0]);
+      contentService.dropRectangle$ = of(mockActivityRectangles[0]);
+      contentService.fromRectangle$ = of(mockActivityRectangles[0]);
 
       fixture.detectChanges();
 

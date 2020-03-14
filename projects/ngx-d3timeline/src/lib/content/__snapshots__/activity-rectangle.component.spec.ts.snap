@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityRectangleComponent should not render if activityRectangle is null 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-activity-rectangle=""
+>
+  
+</div>
+`;
+
+exports[`ActivityRectangleComponent should render correctly 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-activity-rectangle=""
+>
+  
+  <g
+    class="activity-rectangle"
+    transform="translate(50,0)"
+  >
+    <rect
+      height="80"
+      width="50"
+    />
+    <text
+      dy="1em"
+    >
+      Activity 1
+    </text>
+  </g>
+</div>
+`;
