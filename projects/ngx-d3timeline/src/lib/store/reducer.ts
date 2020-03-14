@@ -58,7 +58,9 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const activities = dropActivityOnDragEnd(state);
+      const activities = state.activities.map(activity =>
+        activity.id === action.payload.id ? action.payload : activity
+      );
       return { ...state, activities, dragEvent: null };
     }
 
@@ -66,13 +68,6 @@ export function reducer(state: State, action: Actions): State {
       return state;
     }
   }
-}
-
-function dropActivityOnDragEnd(state: State): Activity[] {
-  const dropActivity = getDropActivity(state);
-  return state.activities.map(activity =>
-    activity.id === dropActivity.id ? dropActivity : activity
-  );
 }
 
 function patchStateAndUpdateScales(state: State, patch: Partial<State>) {

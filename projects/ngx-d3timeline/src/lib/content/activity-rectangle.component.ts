@@ -11,6 +11,7 @@ import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 import { Store } from '../store/store';
 import * as fromActions from '../store/actions';
+import { ActivityDragService } from './activity-drag.service';
 
 @Component({
   selector: '[ngx-d3timeline-activity-rectangle]',
@@ -35,7 +36,10 @@ export class ActivityRectangleComponent implements AfterViewInit {
 
   @ViewChild('activityRectangleEl') activityRectangleEl: ElementRef;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private activityDragService: ActivityDragService
+  ) {}
 
   ngAfterViewInit() {
     this.setupDrag();
@@ -71,8 +75,6 @@ export class ActivityRectangleComponent implements AfterViewInit {
   }
 
   private onDragEnded() {
-    this.store.dispatch(
-      new fromActions.TimelineDragEndedAction(this.activityRectangle.id)
-    );
+    this.activityDragService.onDragEnd();
   }
 }

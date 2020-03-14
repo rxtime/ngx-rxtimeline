@@ -54,7 +54,7 @@ export class TimelineDraggingAction implements Action {
 
 export class TimelineDragEndedAction implements Action {
   readonly type = ActionType.TimelineDragEnded;
-  constructor(public payload: identifier) {}
+  constructor(public payload: Activity) {}
 }
 
 export type Actions =
