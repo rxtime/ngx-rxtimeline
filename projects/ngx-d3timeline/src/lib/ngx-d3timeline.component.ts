@@ -34,8 +34,8 @@ import * as fromActions from './store/actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxD3timelineComponent implements AfterViewInit {
-  @Input() set data(value: Activity[]) {
-    this.store.dispatch(new fromActions.DataChangedAction(value));
+  @Input() set activities(value: Activity[]) {
+    this.store.dispatch(new fromActions.ActivitiesChangedAction(value));
   }
 
   @Input() set view([width, height]: [number, number]) {
