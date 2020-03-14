@@ -4,7 +4,11 @@ import { BehaviorSubject } from 'rxjs';
 import { Store } from '../store/store';
 import { withLatestFrom } from 'rxjs/operators';
 import { getDropActivity } from '../drag-utils';
-import { TimelineDragEndedAction } from '../store/actions';
+import { drag } from 'd3-drag';
+import { select, event } from 'd3-selection';
+
+import * as fromActions from '../store/actions';
+import { ActivityRectangle } from './activity-rectangle';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityDragService {
@@ -25,12 +29,41 @@ export class ActivityDragService {
       );
 
       if (dropActivity) {
-        this.store.dispatch(new TimelineDragEndedAction(dropActivity));
+        this.store.dispatch(
+          new fromActions.TimelineDragEndedAction(dropActivity)
+        );
       }
     });
   }
 
-  onDragEnd() {
+  setupDrag(activityRectangle: ActivityRectangle, nativeElement: HTMLElement) {
+    const onDrag = drag()
+      .on('start', () => this.onDragStarted(activityRectangle))
+      .on('drag', () => this.onDragging(activityRectangle))
+      .on('end', this.onDragEnded.bind(this));
+
+    onDrag(select(nativeElement));
+  }
+
+  private onDragStarted(activityRectangle: ActivityRectangle) {
+    this.store.dispatch(
+      new fromActions.TimelineDragStartedAction({
+        activityRectangle,
+        event
+      })
+    );
+  }
+
+  private onDragging(activityRectangle: ActivityRectangle) {
+    this.store.dispatch(
+      new fromActions.TimelineDraggingAction({
+        activityRectangle,
+        event
+      })
+    );
+  }
+
+  private onDragEnded() {
     this.dragEndSubject.next(null);
   }
 }
