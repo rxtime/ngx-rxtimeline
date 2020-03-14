@@ -1,4 +1,4 @@
-import { TimelineEvent } from '../timeline-event';
+import { Activity } from '../activity';
 import { TimelineView } from '../view/timeline-view';
 import { TimeScale, BandScale } from '../scale-types';
 import { AxisOrientations } from '../axis-orientations';
@@ -8,7 +8,7 @@ import { createSliceSelector } from '../selector/slice-selector';
 export interface State {
   view: TimelineView;
   axisOrientations: AxisOrientations;
-  data: TimelineEvent[];
+  data: Activity[];
   timeScale: TimeScale;
   bandScale: BandScale;
   dragEvent: TimelineDragEvent;

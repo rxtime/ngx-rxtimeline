@@ -1,4 +1,4 @@
-export interface TimelineEvent {
+export interface Activity {
   id: number;
   start: Date;
   finish: Date;
