@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Orientation } from './orientation';
 import { TimelineView } from './view/timeline-view';
-import { createAxisAlignedLine } from './axis/line';
+import { createOrientedLine } from './axis/line';
 import { origin } from './point';
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +17,6 @@ export class OptionsService {
   }
 
   getTickLine(lineOffset: number, orientation: Orientation) {
-    return lineOffset && createAxisAlignedLine(origin, lineOffset, orientation);
+    return lineOffset && createOrientedLine(origin, lineOffset, orientation);
   }
 }

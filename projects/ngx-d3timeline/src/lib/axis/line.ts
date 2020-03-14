@@ -8,7 +8,7 @@ export interface Line {
   y2: number;
 }
 
-export function createAxisAlignedLine(
+export function createOrientedLine(
   point: Point,
   length: number,
   orientation: Orientation
