@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AxisTickMarkComponent should not render line when tickMark.line is falsy 1`] = `
+<div
+  id="root0"
+  ngx-d3timeline-axis-tick-mark=""
+>
+  <g
+    transform="translate(10,10)"
+  >
+    <text
+      dx="0"
+      dy="1"
+    >
+       tickMark label 
+    </text>
+    
+  </g>
+</div>
+`;
+
+exports[`AxisTickMarkComponent should render line when tickMark.line is truthy 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-axis-tick-mark=""
+>
+  <g
+    transform="translate(10,10)"
+  >
+    <text
+      dx="0"
+      dy="2"
+    >
+       tickMark label 
+    </text>
+    
+    <g
+      ngx-d3timeline-line=""
+    >
+      <g />
+    </g>
+  </g>
+</div>
+`;

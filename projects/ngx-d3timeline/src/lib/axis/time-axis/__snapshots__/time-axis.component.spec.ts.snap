@@ -20,34 +20,18 @@ exports[`TimeAxisComponent should render correctly 1`] = `
   >
     
     <g
-      transform="translate(0, 10)"
+      ngx-d3timeline-axis-tick-mark=""
     >
-      <text
-        dx="1"
-        dy="0"
-      >
-         tick 1 
-      </text>
       <g
-        ngx-d3timeline-line=""
-      >
-        <g />
-      </g>
+        class="axis-tick-mark"
+      />
     </g>
     <g
-      transform="translate(0, 20)"
+      ngx-d3timeline-axis-tick-mark=""
     >
-      <text
-        dx="1"
-        dy="0"
-      >
-         tick 2 
-      </text>
       <g
-        ngx-d3timeline-line=""
-      >
-        <g />
-      </g>
+        class="axis-tick-mark"
+      />
     </g>
     <g
       ngx-d3timeline-line=""
