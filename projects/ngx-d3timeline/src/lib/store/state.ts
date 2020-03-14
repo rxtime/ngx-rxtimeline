@@ -11,7 +11,7 @@ export interface State {
   data: Activity[];
   timeScale: TimeScale;
   bandScale: BandScale;
-  dragActivity: TimelineDragEvent;
+  dragEvent: TimelineDragEvent;
   zoomEvent: any;
 }
 
@@ -24,7 +24,7 @@ export const initialState: State = {
   data: [],
   timeScale: null,
   bandScale: null,
-  dragActivity: null,
+  dragEvent: null,
   zoomEvent: null
 };
 

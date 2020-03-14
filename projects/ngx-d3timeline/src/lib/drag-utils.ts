@@ -16,17 +16,14 @@ export function getDropActivity(state: State) {
 }
 
 export function getDraggingActivity(state: State): Activity {
-  return (
-    state.dragActivity && state.data.find(d => d.id === state.dragActivity.id)
-  );
+  return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
 }
 
 function getDropActivitySeries(state: State) {
   const invert = getInverseBandScale(state.bandScale);
-  return state.dragActivity &&
-    state.axisOrientations.time === Orientation.Vertical
-    ? invert(state.dragActivity.x)
-    : invert(state.dragActivity.y);
+  return state.dragEvent && state.axisOrientations.time === Orientation.Vertical
+    ? invert(state.dragEvent.x)
+    : invert(state.dragEvent.y);
 }
 
 function shiftedTimesForDraggingActivity(
@@ -48,6 +45,6 @@ function shiftedTimesForDraggingActivity(
 
 function getDeltaTime(state: State) {
   return state.axisOrientations.time === Orientation.Vertical
-    ? state.dragActivity.dy
-    : state.dragActivity.dx;
+    ? state.dragEvent.dy
+    : state.dragEvent.dx;
 }

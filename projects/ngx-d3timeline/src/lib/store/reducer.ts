@@ -49,8 +49,8 @@ export function reducer(state: State, action: Actions): State {
     case ActionType.TimelineDragging: {
       return {
         ...state,
-        dragActivity: setDragEvent(
-          state.dragActivity,
+        dragEvent: setDragEvent(
+          state.dragEvent,
           action.payload.eventRectangle,
           action.payload.event
         )
@@ -59,7 +59,7 @@ export function reducer(state: State, action: Actions): State {
 
     case ActionType.TimelineDragEnded: {
       const data = dropActivityOnDragEnd(state);
-      return { ...state, data, dragActivity: null };
+      return { ...state, data, dragEvent: null };
     }
 
     default: {
@@ -69,8 +69,10 @@ export function reducer(state: State, action: Actions): State {
 }
 
 function dropActivityOnDragEnd(state: State): Activity[] {
-  const dropEvent = getDropActivity(state);
-  return state.data.map(data => (data.id === dropEvent.id ? dropEvent : data));
+  const dropActivity = getDropActivity(state);
+  return state.data.map(data =>
+    data.id === dropActivity.id ? dropActivity : data
+  );
 }
 
 function patchStateAndUpdateScales(state: State, patch: Partial<State>) {

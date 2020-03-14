@@ -38,7 +38,7 @@ export class ContentService {
 
   private createEventRectangles(state: State): EventRectangle[] {
     return state.data
-      .filter(data => data.id !== (state.dragActivity && state.dragActivity.id))
+      .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
       .map(data => this.activityToEventRectangle(data, state));
   }
 
@@ -46,7 +46,7 @@ export class ContentService {
     const draggingActivity = getDraggingActivity(state);
     return (
       draggingActivity &&
-      this.activityToEventRectangle(draggingActivity, state, state.dragActivity)
+      this.activityToEventRectangle(draggingActivity, state, state.dragEvent)
     );
   }
 
