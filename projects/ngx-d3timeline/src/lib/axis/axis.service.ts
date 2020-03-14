@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { TickMark } from './tick-mark';
 import { Line } from './line';
 import { Store } from '../store/store';
-import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { Scale } from '../scale-types';
 import { ResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tick-mark-renderer';
@@ -19,6 +18,7 @@ import {
   selectResourceOrientation,
   selectView
 } from '../store/state';
+import * as fromTickMarkUtils from '../tick-mark-utils';
 
 const tempSelectResourceAxis = createSelector(
   selectBandScale,
@@ -70,7 +70,7 @@ export class AxisService {
       )
     );
 
-  constructor(private store: Store, private optionsService: OptionsService) {}
+  constructor(private store: Store) {}
 
   private createAxis<TScale extends Scale>(
     tickMarkRenderer: TickMarkRenderer<TScale>,
@@ -97,16 +97,16 @@ export class AxisService {
   ): TickMark[] {
     return tickMarkRenderer.getTickValues(scale).map(value => ({
       label: tickMarkRenderer.getTickLabel(scale, value),
-      labelOffset: this.optionsService.getTickLabelOffset(
+      labelOffset: fromTickMarkUtils.getTickLabelOffset(
         tickMarkRenderer.getTickLabelSpacing(),
         flipOrientation(orientation)
       ),
-      transform: this.optionsService.getTranslation(
+      transform: fromTickMarkUtils.getTranslation(
         tickMarkRenderer.getTransform(scale, value),
         orientation,
         timelineView
       ),
-      line: this.optionsService.getTickLine(
+      line: fromTickMarkUtils.getTickLine(
         tickMarkRenderer.getTickLineOffset(),
         flipOrientation(orientation)
       )
