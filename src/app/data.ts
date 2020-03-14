@@ -1,6 +1,6 @@
-import { TimelineEvent } from 'ngx-d3timeline';
+import { Activity } from 'ngx-d3timeline';
 
-export const deliveryData: TimelineEvent[] = [
+export const deliveryData: Activity[] = [
   {
     id: 1,
     start: new Date('2017-09-23T08:45:00'),
