@@ -1,13 +1,6 @@
 import { State } from './state';
 import { Actions, ActionType } from './actions';
 import { TimelineView } from '../view/timeline-view';
-import {
-  rescaleTime,
-  configureBandScale,
-  configureTimeScale
-} from '../scale-utils';
-import { Activity } from '../activity';
-import { getDropActivity } from '../drag-utils';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { ActivityRectangle } from '../content/activity-rectangle';
 import { Orientation } from '../orientation';
@@ -17,31 +10,24 @@ import { flipOrientation } from '../orientation-utils';
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionType.ActivitiesChanged: {
-      return patchStateAndUpdateScales(state, { activities: action.payload });
+      return { ...state, activities: action.payload };
     }
 
     case ActionType.OrientationChanged: {
-      return patchStateAndUpdateScales(state, {
+      return {
+        ...state,
         axisOrientations: setAxisOrientations(action.payload)
-      });
+      };
     }
 
     case ActionType.ViewChanged: {
-      return patchStateAndUpdateScales(state, {
-        view: new TimelineView(action.payload)
-      });
+      return { ...state, view: new TimelineView(action.payload) };
     }
 
     case ActionType.Zoomed: {
       return {
         ...state,
-        zoomEvent: action.payload,
-        timeScale: rescaleTime(
-          state.activities,
-          state.view,
-          state.axisOrientations.time,
-          action.payload
-        )
+        zoomEvent: action.payload
       };
     }
 
@@ -68,23 +54,6 @@ export function reducer(state: State, action: Actions): State {
       return state;
     }
   }
-}
-
-function patchStateAndUpdateScales(state: State, patch: Partial<State>) {
-  const patchedState = { ...state, ...patch };
-  return {
-    ...patchedState,
-    timeScale: configureTimeScale(
-      patchedState.activities,
-      patchedState.view,
-      patchedState.axisOrientations.time
-    ),
-    bandScale: configureBandScale(
-      patchedState.activities,
-      patchedState.view,
-      patchedState.axisOrientations.resource
-    )
-  };
 }
 
 function setDragEvent(

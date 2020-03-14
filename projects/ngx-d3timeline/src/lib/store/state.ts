@@ -9,8 +9,6 @@ export interface State {
   view: TimelineView;
   axisOrientations: AxisOrientations;
   activities: Activity[];
-  timeScale: TimeScale;
-  bandScale: BandScale;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
 }
@@ -22,8 +20,6 @@ export const initialState: State = {
   view: initialView,
   axisOrientations: initialAxisOrientations,
   activities: [],
-  timeScale: null,
-  bandScale: null,
   dragEvent: null,
   zoomEvent: null
 };
