@@ -2,15 +2,15 @@ import { Axis } from './axis';
 import { Orientation } from '../orientation';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Tick } from './tick';
+import { TickMark } from './tick';
 import { Line } from './line';
 import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { Scale } from '../scale-types';
-import { ResourceAxisTickRenderer } from './resources-axis/resource-axis-tick-renderer';
-import { TimeAxisTickRenderer } from './time-axis/time-axis-tick-renderer';
-import { TickRenderer } from './tick-renderer';
+import { ResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tick-renderer';
+import { TimeAxisTickMarkRenderer } from './time-axis/time-axis-tick-renderer';
+import { TickMarkRenderer } from './tick-renderer';
 import { flipOrientation } from '../orientation-utils';
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +18,7 @@ export class AxisService {
   resourceAxis$ = this.store.state$.pipe(
     map(state =>
       this.createAxis(
-        new ResourceAxisTickRenderer(),
+        new ResourceAxisTickMarkRenderer(),
         state.bandScale,
         state.axisOrientations.resource,
         state.view
@@ -29,7 +29,7 @@ export class AxisService {
   timeAxis$ = this.store.state$.pipe(
     map(state =>
       this.createAxis(
-        new TimeAxisTickRenderer(),
+        new TimeAxisTickMarkRenderer(),
         state.timeScale,
         state.axisOrientations.time,
         state.view
@@ -40,25 +40,30 @@ export class AxisService {
   constructor(private store: Store, private optionsService: OptionsService) {}
 
   private createAxis<TScale extends Scale>(
-    tickRenderer: TickRenderer<TScale>,
+    tickRenderer: TickMarkRenderer<TScale>,
     scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
   ): Axis {
     return {
-      ticks: this.getTicks(tickRenderer, scale, orientation, timelineView),
+      tickMarks: this.getTickMarks(
+        tickRenderer,
+        scale,
+        orientation,
+        timelineView
+      ),
       line: this.getLine(scale, orientation, timelineView)
     };
   }
 
-  private getTicks<TScale extends Scale>(
-    tickRenderer: TickRenderer<TScale>,
+  private getTickMarks<TScale extends Scale>(
+    tickRenderer: TickMarkRenderer<TScale>,
     scale: TScale,
     orientation: Orientation,
     timelineView: TimelineView
-  ): Tick[] {
+  ): TickMark[] {
     return tickRenderer.getTickValues(scale).map(value => ({
-      label: tickRenderer.getLabel(scale, value),
+      label: tickRenderer.getTickLabel(scale, value),
       transform: this.optionsService.getTranslation(
         tickRenderer.getTransform(scale, value),
         orientation,

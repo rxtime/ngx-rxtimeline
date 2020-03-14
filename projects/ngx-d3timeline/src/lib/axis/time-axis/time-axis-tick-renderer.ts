@@ -1,17 +1,17 @@
 import { TimeScale } from '../../scale-types';
-import { TickRenderer } from '../tick-renderer';
+import { TickMarkRenderer } from '../tick-renderer';
 
-export class TimeAxisTickRenderer implements TickRenderer<TimeScale> {
+export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
   getTickValues(scale: TimeScale): Date[] {
     return scale.ticks();
   }
 
-  getLabel(scale: TimeScale, tick: any): string {
-    return scale.tickFormat()(tick);
+  getTickLabel(scale: TimeScale, tickValue: any): string {
+    return scale.tickFormat()(tickValue);
   }
 
-  getTransform(scale: TimeScale, tick: any): number {
-    return scale(tick);
+  getTransform(scale: TimeScale, tickValue: any): number {
+    return scale(tickValue);
   }
 
   getTickLineOffset(): number {

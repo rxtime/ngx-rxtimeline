@@ -1,24 +1,25 @@
 import { BandScale } from '../../scale-types';
-import { TickRenderer } from '../tick-renderer';
+import { TickMarkRenderer } from '../tick-renderer';
 
-export class ResourceAxisTickRenderer implements TickRenderer<BandScale> {
+export class ResourceAxisTickMarkRenderer
+  implements TickMarkRenderer<BandScale> {
   getTickValues(scale: BandScale): string[] {
     return scale.domain();
   }
 
-  getLabel(_: BandScale, tick: any): string {
-    return tick;
+  getTickLabel(_: BandScale, tickValue: any): string {
+    return tickValue;
   }
 
-  getTransform(scale: BandScale, tick: any): number {
-    return this.getBandMidPoint(scale, tick);
-  }
-
-  private getBandMidPoint(scale: BandScale, tick: string): number {
-    return scale(tick) + scale.bandwidth() / 2;
+  getTransform(scale: BandScale, tickValue: any): number {
+    return this.getBandMidPoint(scale, tickValue);
   }
 
   getTickLineOffset(): number {
     return 0;
+  }
+
+  private getBandMidPoint(scale: BandScale, tickValue: string): number {
+    return scale(tickValue) + scale.bandwidth() / 2;
   }
 }

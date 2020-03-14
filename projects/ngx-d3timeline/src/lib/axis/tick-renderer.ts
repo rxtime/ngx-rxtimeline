@@ -1,8 +1,8 @@
 import { Scale } from '../scale-types';
 
-export interface TickRenderer<TScale extends Scale> {
+export interface TickMarkRenderer<TScale extends Scale> {
   getTickValues(scale: TScale): any[];
-  getLabel(scale: TScale, tick: any): string;
-  getTransform(scale: TScale, tick: any): number;
+  getTickLabel(scale: TScale, tickValue: any): string;
+  getTransform(scale: TScale, tickValue: any): number;
   getTickLineOffset(): number;
 }
