@@ -10,7 +10,7 @@ export function getDropActivity(state: State) {
     draggingTimelineActivity && {
       ...draggingTimelineActivity,
       series: getDropActivitySeries(state),
-      ...shiftedTimesForDraggingTimelineEvent(draggingTimelineActivity, state)
+      ...shiftedTimesForDraggingActivity(draggingTimelineActivity, state)
     }
   );
 }
@@ -29,7 +29,7 @@ function getDropActivitySeries(state: State) {
     : invert(state.dragActivity.y);
 }
 
-function shiftedTimesForDraggingTimelineEvent(
+function shiftedTimesForDraggingActivity(
   draggingActivity: Activity,
   state: State
 ) {
