@@ -93,13 +93,23 @@ export class ContentService {
     scaleTime: TimeScale,
     dragEvent?: TimelineDragEvent
   ) {
-    const eventX = this.getActivityX(data, orientation, scaleBand, scaleTime);
+    const activityX = this.getActivityX(
+      data,
+      orientation,
+      scaleBand,
+      scaleTime
+    );
     const dx = (dragEvent && dragEvent.dx) || 0;
 
-    const eventY = this.getActivityY(data, orientation, scaleBand, scaleTime);
+    const activityY = this.getActivityY(
+      data,
+      orientation,
+      scaleBand,
+      scaleTime
+    );
     const dy = (dragEvent && dragEvent.dy) || 0;
 
-    return `translate(${eventX + dx}, ${eventY + dy})`;
+    return `translate(${activityX + dx}, ${activityY + dy})`;
   }
 
   private rectHeight(
