@@ -2,16 +2,16 @@ import { State } from '../store/state';
 import { Selector } from './selector';
 import { Projector } from './types';
 
-export class MemoizedSelector {
+export class MemoizedSelector<TResult> {
   lastArgs: any[];
-  lastResult: any;
+  lastResult: TResult;
 
   constructor(
-    private inputSelectors: Selector[],
-    private projector: Projector
+    private inputSelectors: Selector<any>[],
+    private projector: Projector<TResult>
   ) {}
 
-  execute(state: State) {
+  execute(state: State): TResult {
     const args = this.inputSelectors.map(selector => selector.execute(state));
 
     if (!this.argumentsSameAsLastTime(args)) {
@@ -30,11 +30,4 @@ export class MemoizedSelector {
       !args.find((arg, index) => arg !== this.lastArgs[index])
     );
   }
-}
-
-export function createSelector(
-  inputSelectors: Selector[],
-  projector: Projector
-) {
-  return new MemoizedSelector(inputSelectors, projector);
 }

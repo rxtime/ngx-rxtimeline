@@ -1,4 +1,4 @@
-import { createSelector } from '../selector/memoized-selector';
+import { createSelector } from '../selector/create-selector';
 import {
   selectData,
   selectView,
@@ -9,11 +9,16 @@ import {
 import { configureBandScale, rescaleTime } from '../scale-utils';
 
 export const selectBandScale = createSelector(
-  [selectData, selectView, selectResourceOrientation],
+  selectData,
+  selectView,
+  selectResourceOrientation,
   configureBandScale
 );
 
 export const selectTimeScale = createSelector(
-  [selectData, selectView, selectTimeOrientation, selectZoomEvent],
+  selectData,
+  selectView,
+  selectTimeOrientation,
+  selectZoomEvent,
   rescaleTime
 );
