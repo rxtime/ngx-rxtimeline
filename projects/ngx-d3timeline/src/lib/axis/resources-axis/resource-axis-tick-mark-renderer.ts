@@ -1,5 +1,5 @@
 import { BandScale } from '../../scale-types';
-import { TickMarkRenderer } from '../tick-renderer';
+import { TickMarkRenderer } from '../tick-mark-renderer';
 
 export class ResourceAxisTickMarkRenderer
   implements TickMarkRenderer<BandScale> {

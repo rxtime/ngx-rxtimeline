@@ -1,5 +1,5 @@
 import { TimeScale } from '../../scale-types';
-import { TickMarkRenderer } from '../tick-renderer';
+import { TickMarkRenderer } from '../tick-mark-renderer';
 
 export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
   getTickValues(scale: TimeScale): Date[] {

@@ -2,15 +2,15 @@ import { Axis } from './axis';
 import { Orientation } from '../orientation';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { TickMark } from './tick';
+import { TickMark } from './tick-mark';
 import { Line } from './line';
 import { Store } from '../store/store';
 import { OptionsService } from '../options.service';
 import { TimelineView } from '../view/timeline-view';
 import { Scale } from '../scale-types';
-import { ResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tick-renderer';
-import { TimeAxisTickMarkRenderer } from './time-axis/time-axis-tick-renderer';
-import { TickMarkRenderer } from './tick-renderer';
+import { ResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tick-mark-renderer';
+import { TimeAxisTickMarkRenderer } from './time-axis/time-axis-tick-mark-renderer';
+import { TickMarkRenderer } from './tick-mark-renderer';
 import { flipOrientation } from '../orientation-utils';
 
 @Injectable({ providedIn: 'root' })
