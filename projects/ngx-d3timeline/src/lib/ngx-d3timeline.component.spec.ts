@@ -30,7 +30,7 @@ describe('NgxD3timelineComponent', () => {
       providers: [
         {
           provide: Store,
-          useValue: { state$: jest.fn() }
+          useValue: { state$: jest.fn(), select: jest.fn() }
         }
       ]
     }).compileComponents();
@@ -39,6 +39,7 @@ describe('NgxD3timelineComponent', () => {
   beforeEach(() => {
     store = TestBed.inject(Store);
     store.state$ = of(initialState);
+    store.select = () => of(null);
     fixture = TestBed.createComponent(NgxD3timelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
