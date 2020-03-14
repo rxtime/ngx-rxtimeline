@@ -7,7 +7,7 @@ import { deliveryData } from './data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data = deliveryData;
+  activities = deliveryData;
   orientation = 'Vertical';
 
   width = 400;

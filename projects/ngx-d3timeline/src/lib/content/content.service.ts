@@ -38,7 +38,7 @@ export class ContentService {
   }
 
   private createActivityRectangles(state: State): ActivityRectangle[] {
-    return state.data
+    return state.activities
       .filter(data => data.id !== (state.dragEvent && state.dragEvent.id))
       .map(data => this.activityToActivityRectangle(data, state));
   }

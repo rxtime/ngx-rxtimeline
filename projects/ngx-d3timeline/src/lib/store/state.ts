@@ -8,7 +8,7 @@ import { createSliceSelector } from '../selector/slice-selector';
 export interface State {
   view: TimelineView;
   axisOrientations: AxisOrientations;
-  data: Activity[];
+  activities: Activity[];
   timeScale: TimeScale;
   bandScale: BandScale;
   dragEvent: TimelineDragEvent;
@@ -21,7 +21,7 @@ const initialView = new TimelineView([null, null]);
 export const initialState: State = {
   view: initialView,
   axisOrientations: initialAxisOrientations,
-  data: [],
+  activities: [],
   timeScale: null,
   bandScale: null,
   dragEvent: null,
@@ -35,7 +35,9 @@ export const selectResourceOrientation = createSliceSelector(
   (state: State) => state.axisOrientations.resource
 );
 export const selectView = createSliceSelector((state: State) => state.view);
-export const selectData = createSliceSelector((state: State) => state.data);
+export const selectActivities = createSliceSelector(
+  (state: State) => state.activities
+);
 export const selectZoomEvent = createSliceSelector(
   (state: State) => state.zoomEvent
 );
