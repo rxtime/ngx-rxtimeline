@@ -1,7 +1,9 @@
 import { Line } from './line';
+import { Point } from '../point';
 
-export interface Tick {
+export interface TickMark {
   label: string;
+  labelOffset: Point;
   transform: string;
   line: Line;
 }
