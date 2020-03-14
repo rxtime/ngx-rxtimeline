@@ -6,8 +6,8 @@ import {
   configureBandScale,
   configureTimeScale
 } from '../scale-utils';
-import { TimelineEvent } from '../timeline-event';
-import { getDropTimelineEvent } from '../drag-utils';
+import { Activity } from '../activity';
+import { getDropActivity } from '../drag-utils';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { EventRectangle } from '../content/event-rectangle';
 import { Orientation } from '../orientation';
@@ -58,7 +58,7 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const data = dropTimelineEventOnDragEnd(state);
+      const data = dropActivityOnDragEnd(state);
       return { ...state, data, dragEvent: null };
     }
 
@@ -68,9 +68,11 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-function dropTimelineEventOnDragEnd(state: State): TimelineEvent[] {
-  const dropEvent = getDropTimelineEvent(state);
-  return state.data.map(data => (data.id === dropEvent.id ? dropEvent : data));
+function dropActivityOnDragEnd(state: State): Activity[] {
+  const dropActivity = getDropActivity(state);
+  return state.data.map(data =>
+    data.id === dropActivity.id ? dropActivity : data
+  );
 }
 
 function patchStateAndUpdateScales(state: State, patch: Partial<State>) {

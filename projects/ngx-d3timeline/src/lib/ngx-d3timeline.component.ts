@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { TimelineEvent } from './timeline-event';
+import { Activity } from './activity';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { Orientation } from './orientation';
@@ -34,7 +34,7 @@ import * as fromActions from './store/actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxD3timelineComponent implements AfterViewInit {
-  @Input() set data(value: TimelineEvent[]) {
+  @Input() set data(value: Activity[]) {
     this.store.dispatch(new fromActions.DataChangedAction(value));
   }
 
