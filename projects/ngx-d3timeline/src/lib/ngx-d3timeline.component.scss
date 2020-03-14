@@ -9,7 +9,11 @@
     font-size: 10px;
   }
 
-  .event-rectangle {
+  .tick-line {
+    stroke: #000;
+  }
+
+  .activity-rectangle {
     rect {
       fill: #fff;
       stroke: #000;
@@ -20,14 +24,14 @@
     }
   }
 
-  .drop-event-rectangle {
+  .drop-activity-rectangle {
     fill: none;
     rect {
       stroke: #0f0;
     }
   }
 
-  .from-event-rectangle {
+  .from-activity-rectangle {
     fill: none;
     rect {
       stroke: #f00;

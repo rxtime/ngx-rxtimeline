@@ -6,32 +6,32 @@ import { ContentService } from './content.service';
   template: `
     <svg:g
       class="content-group"
-      *ngIf="contentService.eventRectangles$ | async as eventRectangles"
+      *ngIf="contentService.activityRectangles$ | async as activityRectangles"
     >
       <svg:g
-        *ngFor="let eventRectangle of eventRectangles"
-        ngx-d3timeline-event-rectangle
-        [eventRectangle]="eventRectangle"
+        *ngFor="let activityRectangle of activityRectangles"
+        ngx-d3timeline-activity-rectangle
+        [activityRectangle]="activityRectangle"
       ></svg:g>
 
       <svg:g
         *ngIf="contentService.fromRectangle$ | async as fromRectangle"
-        ngx-d3timeline-event-rectangle
-        [eventRectangle]="fromRectangle"
-        class="from-event-rectangle"
+        ngx-d3timeline-activity-rectangle
+        [activityRectangle]="fromRectangle"
+        class="from-activity-rectangle"
       ></svg:g>
 
       <svg:g
         *ngIf="contentService.dropRectangle$ | async as dropRectangle"
-        ngx-d3timeline-event-rectangle
-        [eventRectangle]="dropRectangle"
-        class="drop-event-rectangle"
+        ngx-d3timeline-activity-rectangle
+        [activityRectangle]="dropRectangle"
+        class="drop-activity-rectangle"
       ></svg:g>
 
       <svg:g
         *ngIf="contentService.draggingRectangle$ | async as draggingRectangle"
-        ngx-d3timeline-event-rectangle
-        [eventRectangle]="draggingRectangle"
+        ngx-d3timeline-activity-rectangle
+        [activityRectangle]="draggingRectangle"
       ></svg:g>
     </svg:g>
   `,
