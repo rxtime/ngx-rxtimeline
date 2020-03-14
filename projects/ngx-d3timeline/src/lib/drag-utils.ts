@@ -4,13 +4,13 @@ import { Orientation } from './orientation';
 import { Activity } from './activity';
 
 export function getDropActivity(state: State) {
-  const draggingTimelineActivity = getDraggingActivity(state);
+  const draggingActivity = getDraggingActivity(state);
 
   return (
-    draggingTimelineActivity && {
-      ...draggingTimelineActivity,
+    draggingActivity && {
+      ...draggingActivity,
       series: getDropActivitySeries(state),
-      ...shiftedTimesForDraggingActivity(draggingTimelineActivity, state)
+      ...shiftedTimesForDraggingActivity(draggingActivity, state)
     }
   );
 }
