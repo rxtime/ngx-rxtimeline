@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
 import { createLine } from '../line';
-import { Orientation } from '../../orientation';
+import { origin } from '../../point';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -39,7 +39,7 @@ describe('TimeAxisComponent', () => {
   });
 
   it('should render correctly', () => {
-    const line = createLine(0, 0, 10, Orientation.Vertical);
+    const line = createLine(origin, { x: 10, y: 10 });
 
     axisService.timeAxis$ = of({
       ticks: [

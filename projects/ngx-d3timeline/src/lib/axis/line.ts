@@ -1,4 +1,5 @@
 import { Orientation } from '../orientation';
+import { Point, translatePoint } from '../point';
 
 export interface Line {
   x1: number;
@@ -7,31 +8,21 @@ export interface Line {
   y2: number;
 }
 
-export function createLine(
-  x1: number,
-  y1: number,
+export function createOrientedLine(
+  point: Point,
   length: number,
   orientation: Orientation
 ) {
-  return orientation === Orientation.Vertical
-    ? createVerticalLine(x1, y1, length)
-    : createHorizontalLine(x1, y1, length);
+  const to = translatePoint(point, length, orientation);
+
+  return createLine(point, to);
 }
 
-export function createVerticalLine(x1: number, y1: number, length: number) {
+export function createLine(from: Point, to: Point) {
   return {
-    x1,
-    y1,
-    x2: x1,
-    y2: y1 + length
-  };
-}
-
-export function createHorizontalLine(x1: number, y1: number, length: number) {
-  return {
-    x1,
-    y1,
-    x2: x1 + length,
-    y2: y1
+    x1: from.x,
+    y1: from.y,
+    x2: to.x,
+    y2: to.y
   };
 }
