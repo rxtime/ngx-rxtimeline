@@ -9,7 +9,7 @@ import {
 import { Activity } from '../activity';
 import { getDropActivity } from '../drag-utils';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
-import { EventRectangle } from '../content/event-rectangle';
+import { ActivityRectangle } from '../content/activity-rectangle';
 import { Orientation } from '../orientation';
 import { AxisOrientations } from '../axis-orientations';
 import { flipOrientation } from '../orientation-utils';
@@ -51,7 +51,7 @@ export function reducer(state: State, action: Actions): State {
         ...state,
         dragEvent: setDragEvent(
           state.dragEvent,
-          action.payload.eventRectangle,
+          action.payload.activityRectangle,
           action.payload.event
         )
       };
@@ -94,12 +94,12 @@ function patchStateAndUpdateScales(state: State, patch: Partial<State>) {
 
 function setDragEvent(
   dragEvent: TimelineDragEvent,
-  eventRectangle: EventRectangle,
+  activityRectangle: ActivityRectangle,
   event: any
 ) {
   return {
     ...dragEvent,
-    id: eventRectangle.id,
+    id: activityRectangle.id,
     dx: dragEvent && dragEvent.dx + event.dx,
     dy: dragEvent && dragEvent.dy + event.dy,
     x: event.x,

@@ -1,6 +1,6 @@
 import { identifier } from '../types';
 
-export interface EventRectangle {
+export interface ActivityRectangle {
   id: identifier;
   title: string;
   transform: string;

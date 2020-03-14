@@ -6,34 +6,34 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { EventRectangle } from './event-rectangle';
+import { ActivityRectangle } from './activity-rectangle';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 import { Store } from '../store/store';
 import * as fromActions from '../store/actions';
 
 @Component({
-  selector: '[ngx-d3timeline-event-rectangle]',
+  selector: '[ngx-d3timeline-activity-rectangle]',
   template: `
     <svg:g
-      class="event-rectangle"
-      [attr.transform]="eventRectangle.transform"
-      *ngIf="eventRectangle"
-      #eventRectangleEl
+      class="activity-rectangle"
+      [attr.transform]="activityRectangle.transform"
+      *ngIf="activityRectangle"
+      #activityRectangleEl
     >
       <svg:rect
-        [attr.height]="eventRectangle.height"
-        [attr.width]="eventRectangle.width"
+        [attr.height]="activityRectangle.height"
+        [attr.width]="activityRectangle.width"
       ></svg:rect>
-      <svg:text dy="1em">{{ eventRectangle.title }}</svg:text>
+      <svg:text dy="1em">{{ activityRectangle.title }}</svg:text>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EventRectangleComponent implements AfterViewInit {
-  @Input() eventRectangle: EventRectangle;
+export class ActivityRectangleComponent implements AfterViewInit {
+  @Input() activityRectangle: ActivityRectangle;
 
-  @ViewChild('eventRectangleEl') eventRectangleEl: ElementRef;
+  @ViewChild('activityRectangleEl') activityRectangleEl: ElementRef;
 
   constructor(private store: Store) {}
 
@@ -42,20 +42,20 @@ export class EventRectangleComponent implements AfterViewInit {
   }
 
   private setupDrag() {
-    if (this.eventRectangleEl) {
+    if (this.activityRectangleEl) {
       const onDrag = drag()
         .on('start', this.onDragStarted.bind(this))
         .on('drag', this.onDragging.bind(this))
         .on('end', this.onDragEnded.bind(this));
 
-      onDrag(select(this.eventRectangleEl.nativeElement));
+      onDrag(select(this.activityRectangleEl.nativeElement));
     }
   }
 
   private onDragStarted() {
     this.store.dispatch(
       new fromActions.TimelineDragStartedAction({
-        eventRectangle: this.eventRectangle,
+        activityRectangle: this.activityRectangle,
         event
       })
     );
@@ -64,7 +64,7 @@ export class EventRectangleComponent implements AfterViewInit {
   private onDragging() {
     this.store.dispatch(
       new fromActions.TimelineDraggingAction({
-        eventRectangle: this.eventRectangle,
+        activityRectangle: this.activityRectangle,
         event
       })
     );
@@ -72,7 +72,7 @@ export class EventRectangleComponent implements AfterViewInit {
 
   private onDragEnded() {
     this.store.dispatch(
-      new fromActions.TimelineDragEndedAction(this.eventRectangle.id)
+      new fromActions.TimelineDragEndedAction(this.activityRectangle.id)
     );
   }
 }
