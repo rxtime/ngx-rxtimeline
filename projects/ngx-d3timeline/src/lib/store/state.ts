@@ -41,3 +41,6 @@ export const selectActivities = createSliceSelector(
 export const selectZoomEvent = createSliceSelector(
   (state: State) => state.zoomEvent
 );
+export const selectDragEvent = createSliceSelector(
+  (state: State) => state.dragEvent
+);
