@@ -1,6 +1,6 @@
 import { Line } from './line';
 
-export interface Tick {
+export interface TickMark {
   label: string;
   transform: string;
   line: Line;

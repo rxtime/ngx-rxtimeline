@@ -42,7 +42,7 @@ describe('TimeAxisComponent', () => {
     const line = createLine(origin, { x: 10, y: 10 });
 
     axisService.timeAxis$ = of({
-      ticks: [
+      tickMarks: [
         {
           label: 'tick 1',
           transform: 'translate(0, 10)',

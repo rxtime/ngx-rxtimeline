@@ -42,7 +42,7 @@ describe('ResourcesAxisComponent', () => {
     const line = createLine(origin, { x: 10, y: 10 });
 
     axisService.resourceAxis$ = of({
-      ticks: [
+      tickMarks: [
         {
           label: 'tick 1',
           transform: 'translate(0, 10)',
