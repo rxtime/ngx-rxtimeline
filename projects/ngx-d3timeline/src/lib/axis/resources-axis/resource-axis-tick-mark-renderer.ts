@@ -1,8 +1,10 @@
 import { BandScale } from '../../scale-types';
-import { TickMarkRenderer } from '../tick-mark-renderer';
+import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
 
 export class ResourceAxisTickMarkRenderer
   implements TickMarkRenderer<BandScale> {
+  private readonly tickLineOffset = 0;
+
   getTickValues(scale: BandScale): string[] {
     return scale.domain();
   }
@@ -11,12 +13,16 @@ export class ResourceAxisTickMarkRenderer
     return tickValue;
   }
 
+  getTickLabelSpacing(): number {
+    return this.tickLineOffset + tickLabelSpacing;
+  }
+
   getTransform(scale: BandScale, tickValue: any): number {
     return this.getBandMidPoint(scale, tickValue);
   }
 
   getTickLineOffset(): number {
-    return 0;
+    return this.tickLineOffset;
   }
 
   private getBandMidPoint(scale: BandScale, tickValue: string): number {

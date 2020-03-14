@@ -23,7 +23,8 @@ exports[`ResourcesAxisComponent should render correctly 1`] = `
       transform="translate(0, 10)"
     >
       <text
-        dy="-2"
+        dx="0"
+        dy="1"
       >
          tick 1 
       </text>
@@ -37,7 +38,8 @@ exports[`ResourcesAxisComponent should render correctly 1`] = `
       transform="translate(0, 20)"
     >
       <text
-        dy="-2"
+        dx="0"
+        dy="2"
       >
          tick 2 
       </text>

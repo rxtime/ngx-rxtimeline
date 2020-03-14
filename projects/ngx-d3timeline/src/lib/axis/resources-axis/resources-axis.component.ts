@@ -12,7 +12,10 @@ import { AxisService } from '../axis.service';
         *ngFor="let tickMark of axis.tickMarks"
         [attr.transform]="tickMark.transform"
       >
-        <text dy="-2">
+        <text
+          [attr.dx]="tickMark.labelOffset.x"
+          [attr.dy]="tickMark.labelOffset.y"
+        >
           {{ tickMark.label }}
         </text>
         <svg:g ngx-d3timeline-line [line]="tickMark.line"></svg:g>

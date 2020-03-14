@@ -45,11 +45,13 @@ describe('ResourcesAxisComponent', () => {
       tickMarks: [
         {
           label: 'tick 1',
+          labelOffset: { x: 0, y: 1 },
           transform: 'translate(0, 10)',
           line
         },
         {
           label: 'tick 2',
+          labelOffset: { x: 0, y: 2 },
           transform: 'translate(0, 20)',
           line
         }

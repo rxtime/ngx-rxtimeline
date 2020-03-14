@@ -64,6 +64,10 @@ export class AxisService {
   ): TickMark[] {
     return tickMarkRenderer.getTickValues(scale).map(value => ({
       label: tickMarkRenderer.getTickLabel(scale, value),
+      labelOffset: this.optionsService.getTickLabelOffset(
+        tickMarkRenderer.getTickLabelSpacing(),
+        flipOrientation(orientation)
+      ),
       transform: this.optionsService.getTranslation(
         tickMarkRenderer.getTransform(scale, value),
         orientation,

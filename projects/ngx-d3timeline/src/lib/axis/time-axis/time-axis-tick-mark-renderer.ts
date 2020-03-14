@@ -1,7 +1,9 @@
 import { TimeScale } from '../../scale-types';
-import { TickMarkRenderer } from '../tick-mark-renderer';
+import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
 
 export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
+  private readonly tickLineOffset = -5;
+
   getTickValues(scale: TimeScale): Date[] {
     return scale.ticks();
   }
@@ -10,11 +12,15 @@ export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
     return scale.tickFormat()(tickValue);
   }
 
+  getTickLabelSpacing(): number {
+    return this.tickLineOffset + tickLabelSpacing;
+  }
+
   getTransform(scale: TimeScale, tickValue: any): number {
     return scale(tickValue);
   }
 
   getTickLineOffset(): number {
-    return -5;
+    return this.tickLineOffset;
   }
 }
