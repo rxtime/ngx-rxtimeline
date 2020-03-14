@@ -27,11 +27,11 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       >
          tick 1 
       </text>
-      <line
-        class="tick-line"
-        x2="-5"
-        y2="0"
-      />
+      <g
+        ngx-d3timeline-line=""
+      >
+        <g />
+      </g>
     </g>
     <g
       transform="translate(0, 20)"
@@ -41,11 +41,11 @@ exports[`TimeAxisComponent should render correctly 1`] = `
       >
          tick 2 
       </text>
-      <line
-        class="tick-line"
-        x2="-5"
-        y2="0"
-      />
+      <g
+        ngx-d3timeline-line=""
+      >
+        <g />
+      </g>
     </g>
     <g
       ngx-d3timeline-line=""
