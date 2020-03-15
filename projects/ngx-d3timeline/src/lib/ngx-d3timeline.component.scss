@@ -1,9 +1,9 @@
 .ngx-d3timeline {
-  .resources-axis-group {
+  .resources-axis .axis-group {
     text-anchor: middle;
   }
 
-  .time-axis-group {
+  .time-axis .axis-group {
     text-anchor: end;
     dominant-baseline: central;
     font-size: 10px;
