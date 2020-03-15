@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../store/store';
-import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { Activity } from '../activity';
 import { ActivityRectangle } from './activity-rectangle';
@@ -8,62 +7,157 @@ import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
 import { getDraggingActivity, getDropActivity } from '../drag-utils';
+import { tempStateSelector } from '../store/timeline-selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  activityRectangles$ = this.store.state$.pipe(
-    map(state => this.createActivityRectangles(state))
-  );
+  activityRectangles$ = this.store
+    .select(tempStateSelector)
+    .pipe(
+      map(tempStateArgs =>
+        this.createActivityRectangles(
+          tempStateArgs.activities,
+          tempStateArgs.dragEvent,
+          tempStateArgs.timeOrientation,
+          tempStateArgs.bandScale,
+          tempStateArgs.timeScale
+        )
+      )
+    );
 
-  draggingRectangle$ = this.store.state$.pipe(
-    map(state => this.createDraggingRectangle(state))
-  );
+  draggingRectangle$ = this.store
+    .select(tempStateSelector)
+    .pipe(
+      map(tempStateArgs =>
+        this.createDraggingRectangle(
+          tempStateArgs.activities,
+          tempStateArgs.dragEvent,
+          tempStateArgs.timeOrientation,
+          tempStateArgs.bandScale,
+          tempStateArgs.timeScale
+        )
+      )
+    );
 
-  dropRectangle$ = this.store.state$.pipe(
-    map(state => this.createDropRectangle(state))
-  );
+  dropRectangle$ = this.store
+    .select(tempStateSelector)
+    .pipe(
+      map(tempStateArgs =>
+        this.createDropRectangle(
+          tempStateArgs.bandScale,
+          tempStateArgs.timeScale,
+          tempStateArgs.activities,
+          tempStateArgs.dragEvent,
+          tempStateArgs.timeOrientation
+        )
+      )
+    );
 
-  fromRectangle$ = this.store.state$.pipe(
-    map(state => this.createFromRectangle(state))
-  );
+  fromRectangle$ = this.store
+    .select(tempStateSelector)
+    .pipe(
+      map(tempStateArgs =>
+        this.createFromRectangle(
+          tempStateArgs.activities,
+          tempStateArgs.dragEvent,
+          tempStateArgs.timeOrientation,
+          tempStateArgs.bandScale,
+          tempStateArgs.timeScale
+        )
+      )
+    );
 
   constructor(private store: Store) {}
 
-  private createFromRectangle(state: State) {
-    const draggingActivity = getDraggingActivity(state);
+  private createFromRectangle(
+    activities: Activity[],
+    dragEvent: TimelineDragEvent,
+    timeOrientation: Orientation,
+    bandScale: BandScale,
+    timeScale: TimeScale
+  ) {
+    const draggingActivity = getDraggingActivity(activities, dragEvent);
     return (
       draggingActivity &&
-      this.activityToActivityRectangle(draggingActivity, state)
-    );
-  }
-
-  private createActivityRectangles(state: State): ActivityRectangle[] {
-    return state.activities
-      .filter(
-        activity => activity.id !== (state.dragEvent && state.dragEvent.id)
+      this.activityToActivityRectangle(
+        draggingActivity,
+        timeOrientation,
+        bandScale,
+        timeScale
       )
-      .map(activity => this.activityToActivityRectangle(activity, state));
-  }
-
-  private createDraggingRectangle(state: State): ActivityRectangle {
-    const draggingActivity = getDraggingActivity(state);
-    return (
-      draggingActivity &&
-      this.activityToActivityRectangle(draggingActivity, state, state.dragEvent)
     );
   }
 
-  private createDropRectangle(state: State): ActivityRectangle {
-    const dropActivity = getDropActivity(state);
+  private createActivityRectangles(
+    activities: Activity[],
+    dragEvent: TimelineDragEvent,
+    timeOrientation: Orientation,
+    bandScale: BandScale,
+    timeScale: TimeScale
+  ): ActivityRectangle[] {
+    return activities
+      .filter(activity => activity.id !== (dragEvent && dragEvent.id))
+      .map(activity =>
+        this.activityToActivityRectangle(
+          activity,
+          timeOrientation,
+          bandScale,
+          timeScale
+        )
+      );
+  }
+
+  private createDraggingRectangle(
+    activities: Activity[],
+    dragEvent: TimelineDragEvent,
+    timeOrientation: Orientation,
+    bandScale: BandScale,
+    timeScale: TimeScale
+  ): ActivityRectangle {
+    const draggingActivity = getDraggingActivity(activities, dragEvent);
+    return (
+      draggingActivity &&
+      this.activityToActivityRectangle(
+        draggingActivity,
+        timeOrientation,
+        bandScale,
+        timeScale,
+        dragEvent
+      )
+    );
+  }
+
+  private createDropRectangle(
+    bandScale: BandScale,
+    timeScale: TimeScale,
+    activities: Activity[],
+    dragEvent: TimelineDragEvent,
+    timeOrientation: Orientation
+  ): ActivityRectangle {
+    const dropActivity = getDropActivity(
+      bandScale,
+      timeScale,
+      activities,
+      dragEvent,
+      timeOrientation
+    );
 
     return (
-      dropActivity && this.activityToActivityRectangle(dropActivity, state)
+      dropActivity &&
+      this.activityToActivityRectangle(
+        dropActivity,
+        timeOrientation,
+        bandScale,
+        timeScale
+      )
     );
   }
 
   private activityToActivityRectangle(
     activity: Activity,
-    state: State,
+    timeOrientation: Orientation,
+    bandScale: BandScale,
+    timeScale: TimeScale,
     dragEvent?: TimelineDragEvent
   ): ActivityRectangle {
     return {
@@ -71,23 +165,13 @@ export class ContentService {
       title: activity.type,
       transform: this.activityTransform(
         activity,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale,
+        timeOrientation,
+        bandScale,
+        timeScale,
         dragEvent
       ),
-      width: this.rectWidth(
-        activity,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale
-      ),
-      height: this.rectHeight(
-        activity,
-        state.axisOrientations.time,
-        state.bandScale,
-        state.timeScale
-      )
+      width: this.rectWidth(activity, timeOrientation, bandScale, timeScale),
+      height: this.rectHeight(activity, timeOrientation, bandScale, timeScale)
     };
   }
 

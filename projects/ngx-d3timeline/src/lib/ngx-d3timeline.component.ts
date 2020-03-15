@@ -8,24 +8,31 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Activity } from './activity';
-import { zoom } from 'd3-zoom';
-import { select, event } from 'd3-selection';
+
 import { Orientation } from './orientation';
-import { Store } from './store/store';
-import * as fromActions from './store/actions';
+
+import { NgxD3TimelineService } from './ngx-d3timeline.service';
 
 @Component({
   selector: 'ngx-d3timeline',
   template: `
     <svg
       #svgEl
-      *ngIf="(store.state$ | async).view as view"
+      *ngIf="timeline.view$ | async as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
       class="ngx-d3timeline"
     >
-      <g ngx-d3timeline-resources-axis></g>
-      <g ngx-d3timeline-time-axis></g>
+      <g
+        ngx-d3timeline-axis
+        class="resources-axis"
+        [axis]="timeline.resourceAxis$ | async"
+      ></g>
+      <g
+        ngx-d3timeline-axis
+        class="time-axis"
+        [axis]="timeline.timeAxis$ | async"
+      ></g>
       <g ngx-d3timeline-content></g>
     </svg>
   `,
@@ -35,27 +42,22 @@ import * as fromActions from './store/actions';
 })
 export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set activities(value: Activity[]) {
-    this.store.dispatch(new fromActions.ActivitiesChangedAction(value));
+    this.timeline.setActivities(value);
   }
 
   @Input() set view([width, height]: [number, number]) {
-    this.store.dispatch(new fromActions.ViewChangedAction([width, height]));
+    this.timeline.setView([width, height]);
   }
 
   @Input() set orientation(value: Orientation) {
-    this.store.dispatch(new fromActions.OrientationChangedAction(value));
+    this.timeline.setTimeOrientation(value);
   }
 
-  @ViewChild('svgEl') svgEl: ElementRef;
+  @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  constructor(public store: Store) {}
+  constructor(public timeline: NgxD3TimelineService) {}
 
   ngAfterViewInit(): void {
-    if (this.svgEl) {
-      const onZoom = zoom().on('zoom', () =>
-        this.store.dispatch(new fromActions.ZoomedAction(event))
-      );
-      onZoom(select(this.svgEl.nativeElement));
-    }
+    this.timeline.setupZoom(this.svgEl);
   }
 }

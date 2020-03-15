@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
-import { ResourcesAxisComponent } from './axis/resources-axis/resources-axis.component';
-import { TimeAxisComponent } from './axis/time-axis/time-axis.component';
 import { ContentComponent } from './content/content.component';
 import { ActivityRectangleComponent } from './content/activity-rectangle.component';
 import { Store } from './store/store';
@@ -10,6 +8,7 @@ import { initialState } from './store/state';
 import { of } from 'rxjs';
 import { LineComponent } from './line.component';
 import { AxisTickMarkComponent } from './axis/axis-tick-mark.component';
+import { AxisComponent } from './axis/axis-component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
@@ -20,12 +19,11 @@ describe('NgxD3timelineComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         NgxD3timelineComponent,
-        ResourcesAxisComponent,
-        TimeAxisComponent,
         ContentComponent,
         LineComponent,
         ActivityRectangleComponent,
-        AxisTickMarkComponent
+        AxisTickMarkComponent,
+        AxisComponent
       ],
       providers: [
         {
