@@ -1,4 +1,5 @@
 import { Activity } from './activity';
+import { Actions } from './store/actions';
 
 export interface PositionedActivity extends Activity {
   updatedStart: Date;
@@ -6,14 +7,18 @@ export interface PositionedActivity extends Activity {
   updatedSeries: string;
 }
 
-const initialPosition: Omit<PositionedActivity, keyof Activity> = {
-  updatedStart: null,
-  updatedFinish: null,
-  updatedSeries: null
-};
+function initialPosition(
+  activity: Activity
+): Omit<PositionedActivity, keyof Activity> {
+  return {
+    updatedStart: activity.start,
+    updatedFinish: activity.finish,
+    updatedSeries: activity.series
+  };
+}
 
 export function initialisePositionedActivity(
   activity: Activity
 ): PositionedActivity {
-  return { ...activity, ...initialPosition };
+  return { ...activity, ...initialPosition(activity) };
 }

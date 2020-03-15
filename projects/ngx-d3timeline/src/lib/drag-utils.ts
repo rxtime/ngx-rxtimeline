@@ -10,13 +10,17 @@ export function getDropActivity(
   positionedActivities: PositionedActivity[],
   dragEvent: TimelineDragEvent,
   timeOrientation: Orientation
-) {
+): PositionedActivity {
   const draggingActivity = getDraggingActivity(positionedActivities, dragEvent);
 
   return (
     draggingActivity && {
       ...draggingActivity,
-      series: getDropActivitySeries(bandScale, dragEvent, timeOrientation),
+      updatedSeries: getDropActivitySeries(
+        bandScale,
+        dragEvent,
+        timeOrientation
+      ),
       ...shiftedTimesForDraggingActivity(
         draggingActivity,
         timeOrientation,
@@ -56,13 +60,14 @@ function shiftedTimesForDraggingActivity(
 ) {
   const deltaTime = getDeltaTime(timeOrientation, dragEvent);
 
-  const shiftedActivityStart = timeScale(positionedActivity.start) + deltaTime;
+  const shiftedActivityStart =
+    timeScale(positionedActivity.updatedStart) + deltaTime;
   const shiftedActivityFinish =
-    timeScale(positionedActivity.finish) + deltaTime;
+    timeScale(positionedActivity.updatedFinish) + deltaTime;
 
   return {
-    start: timeScale.invert(shiftedActivityStart),
-    finish: timeScale.invert(shiftedActivityFinish)
+    updatedStart: timeScale.invert(shiftedActivityStart),
+    updatedFinish: timeScale.invert(shiftedActivityFinish)
   };
 }
 
