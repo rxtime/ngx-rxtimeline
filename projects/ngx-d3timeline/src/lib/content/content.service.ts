@@ -8,6 +8,8 @@ import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
 import { getDraggingActivity, getDropActivity } from '../drag-utils';
 import { tempStateSelector } from '../store/timeline-selectors';
+import { Point } from '../point';
+import { pointToTransform } from '../transform-utils';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -214,7 +216,9 @@ export class ContentService {
     );
     const dy = (dragEvent && dragEvent.dy) || 0;
 
-    return `translate(${activityX + dx}, ${activityY + dy})`;
+    const activityTopLeft: Point = { x: activityX + dx, y: activityY + dy };
+
+    return pointToTransform(activityTopLeft);
   }
 
   private rectHeight(
