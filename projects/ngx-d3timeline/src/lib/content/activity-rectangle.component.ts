@@ -23,7 +23,7 @@ import { ActivityDragService } from './activity-drag.service';
         [attr.width]="activityRectangle.width"
       ></svg:rect>
       <svg:g *ngIf="showLabel">
-        <svg:text dy="1em">
+        <svg:text dominant-baseline="hanging" dx="2" dy="2">
           {{ activityRectangle.title }}
         </svg:text>
       </svg:g>
@@ -33,7 +33,8 @@ import { ActivityDragService } from './activity-drag.service';
 })
 export class ActivityRectangleComponent implements AfterViewInit {
   labelFontHeight = 10;
-  minHeightToShowLabel = this.labelFontHeight + 2;
+  labelPaddingEachSide = 1;
+  minHeightToShowLabel = this.labelFontHeight + this.labelPaddingEachSide * 2;
 
   @Input() activityRectangle: ActivityRectangle;
 
@@ -46,7 +47,7 @@ export class ActivityRectangleComponent implements AfterViewInit {
   }
 
   get showLabel(): boolean {
-    return this.activityRectangle.height >= this.minHeightToShowLabel;
+    return this.activityRectangle.height >= this.minHeightToShowLabel; // TODO consider orientation
   }
 
   private setupDrag() {
