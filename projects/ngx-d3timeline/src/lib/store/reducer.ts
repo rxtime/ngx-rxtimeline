@@ -2,7 +2,7 @@ import { State } from './state';
 import { Actions, ActionType } from './actions';
 import { TimelineView } from '../view/timeline-view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
-import { ActivityRectangle } from '../content/activity-rectangle';
+import { identifier } from '../types';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -28,15 +28,16 @@ export function reducer(state: State, action: Actions): State {
       };
     }
 
-    case ActionType.TimelineDragStarted:
+    case ActionType.TimelineDragStarted: {
+      return {
+        ...state,
+        dragEvent: createDragEvent(action.payload.id, action.payload.event)
+      };
+    }
     case ActionType.TimelineDragging: {
       return {
         ...state,
-        dragEvent: setDragEvent(
-          state.dragEvent,
-          action.payload.activityRectangle,
-          action.payload.event
-        )
+        dragEvent: updateDragEvent(state.dragEvent, action.payload)
       };
     }
 
@@ -53,14 +54,22 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-function setDragEvent(
-  dragEvent: TimelineDragEvent,
-  activityRectangle: ActivityRectangle,
-  event: any
-) {
+export function createDragEvent(
+  id: identifier,
+  dragEvent: any
+): TimelineDragEvent {
+  return {
+    id,
+    dx: dragEvent.dx,
+    dy: dragEvent.dy,
+    x: dragEvent.x,
+    y: dragEvent.y
+  };
+}
+
+function updateDragEvent(dragEvent: TimelineDragEvent, event: any) {
   return {
     ...dragEvent,
-    id: activityRectangle.id,
     dx: dragEvent.dx + event.dx,
     dy: dragEvent.dy + event.dy,
     x: event.x,

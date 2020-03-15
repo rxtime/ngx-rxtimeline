@@ -47,19 +47,14 @@ export class ActivityDragService {
   private onDragStarted(activityRectangle: ActivityRectangle) {
     this.store.dispatch(
       new fromActions.TimelineDragStartedAction({
-        activityRectangle,
+        id: activityRectangle.id,
         event
       })
     );
   }
 
   private onDragging(activityRectangle: ActivityRectangle) {
-    this.store.dispatch(
-      new fromActions.TimelineDraggingAction({
-        activityRectangle,
-        event
-      })
-    );
+    this.store.dispatch(new fromActions.TimelineDraggingAction(event));
   }
 
   private onDragEnded() {
