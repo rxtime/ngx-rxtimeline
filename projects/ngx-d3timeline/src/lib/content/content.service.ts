@@ -264,14 +264,14 @@ export class ContentService {
     positionedActivity: PositionedActivity,
     scaleBand: BandScale
   ): number {
-    return scaleBand(positionedActivity.series);
+    return scaleBand(positionedActivity.updatedSeries);
   }
 
   private positionInTimeAxis(
     positionedActivity: PositionedActivity,
     scaleTime: TimeScale
   ): number {
-    return scaleTime(positionedActivity.start);
+    return scaleTime(positionedActivity.updatedStart);
   }
 
   private rectTimeBreadth(
