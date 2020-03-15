@@ -18,7 +18,11 @@ import {
   selectResourceOrientation,
   selectView
 } from '../store/state';
-import * as fromTickMarkUtils from '../tick-mark-utils';
+import {
+  getTickLabelOffset,
+  getTickMarkTranslation,
+  getTickLine
+} from '../tick-mark-utils';
 
 const tempSelectResourceAxis = createSelector(
   selectBandScale,
@@ -97,16 +101,16 @@ export class AxisService {
   ): TickMark[] {
     return tickMarkRenderer.getTickValues(scale).map(value => ({
       label: tickMarkRenderer.getTickLabel(scale, value),
-      labelOffset: fromTickMarkUtils.getTickLabelOffset(
+      labelOffset: getTickLabelOffset(
         tickMarkRenderer.getTickLabelSpacing(),
         flipOrientation(orientation)
       ),
-      transform: fromTickMarkUtils.getTranslation(
+      transform: getTickMarkTranslation(
         tickMarkRenderer.getTransform(scale, value),
         orientation,
         timelineView
       ),
-      line: fromTickMarkUtils.getTickLine(
+      line: getTickLine(
         tickMarkRenderer.getTickLineOffset(),
         flipOrientation(orientation)
       )

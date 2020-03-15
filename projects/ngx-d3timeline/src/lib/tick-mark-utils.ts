@@ -3,7 +3,7 @@ import { TimelineView } from './view/timeline-view';
 import { createOrientedLine } from './axis/line';
 import { origin, Point } from './point';
 
-export function getTranslation(
+export function getTickMarkTranslation(
   range: number,
   orientation: Orientation,
   timelineView: TimelineView
