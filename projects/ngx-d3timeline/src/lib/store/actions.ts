@@ -9,7 +9,7 @@ export interface Action {
 }
 
 export enum ActionType {
-  DataChanged = 'Data Changed',
+  ActivitiesChanged = 'Activities Changed',
   OrientationChanged = 'Orientation Changed',
   ViewChanged = 'View Changed',
   Zoomed = 'Zoomed',
@@ -18,8 +18,8 @@ export enum ActionType {
   TimelineDragEnded = 'Timeline Drag Ended'
 }
 
-export class DataChangedAction implements Action {
-  readonly type = ActionType.DataChanged;
+export class ActivitiesChangedAction implements Action {
+  readonly type = ActionType.ActivitiesChanged;
   constructor(public payload: Activity[]) {}
 }
 
@@ -54,11 +54,11 @@ export class TimelineDraggingAction implements Action {
 
 export class TimelineDragEndedAction implements Action {
   readonly type = ActionType.TimelineDragEnded;
-  constructor(public payload: identifier) {}
+  constructor(public payload: Activity) {}
 }
 
 export type Actions =
-  | DataChangedAction
+  | ActivitiesChangedAction
   | OrientationChangedAction
   | ViewChangedAction
   | ZoomedAction

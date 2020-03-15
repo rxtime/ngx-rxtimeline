@@ -1,22 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResourcesAxisComponent should not render if view model is null 1`] = `
+exports[`AxisComponent should render correctly 1`] = `
 <div
   id="root0"
-  ngx-d3timeline-resources-axis=""
+  ngx-d3timeline-axis=""
 >
-  
-</div>
-`;
-
-exports[`ResourcesAxisComponent should render correctly 1`] = `
-<div
-  id="root1"
-  ngx-d3timeline-resources-axis=""
->
-  
   <g
-    class="resources-axis-group"
+    class="axis-group"
   >
     
     <g
