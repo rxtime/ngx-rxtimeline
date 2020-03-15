@@ -3,7 +3,7 @@ import { Selector } from './selector';
 import { Projector } from './types';
 
 export class MemoizedSelector<TResult> {
-  lastArgs: any[];
+  lastArgs: any[] = null;
   lastResult: TResult;
 
   constructor(
@@ -22,12 +22,23 @@ export class MemoizedSelector<TResult> {
     return this.lastResult;
   }
 
-  private argumentsSameAsLastTime(args: any[]) {
-    return (
-      args && // TODO refine
-      this.lastArgs &&
-      args.length === this.lastArgs.length &&
-      !args.find((arg, index) => arg !== this.lastArgs[index])
-    );
+  private argumentsSameAsLastTime(next: any[]) {
+    if (
+      this.lastArgs === null ||
+      next === null ||
+      this.lastArgs.length !== next.length
+    ) {
+      return false;
+    }
+
+    // Do this in a for loop (and not a `forEach` or an `every`) so we can determine equality as fast as possible.
+    const length = this.lastArgs.length;
+    for (let i = 0; i < length; i++) {
+      if (this.lastArgs[i] !== next[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
