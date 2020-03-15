@@ -1,34 +1,33 @@
 import { Activity } from '../activity';
 import { TimelineView } from '../view/timeline-view';
-import { TimeScale, BandScale } from '../scale-types';
-import { AxisOrientations } from '../axis-orientations';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
+import { Orientation } from '../orientation';
+import { flipOrientation } from '../orientation-utils';
 
 export interface State {
   view: TimelineView;
-  axisOrientations: AxisOrientations;
+  timeOrientation: Orientation;
   activities: Activity[];
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
 }
 
-const initialAxisOrientations = { time: null, resource: null };
 const initialView = new TimelineView([null, null]);
 
 export const initialState: State = {
   view: initialView,
-  axisOrientations: initialAxisOrientations,
+  timeOrientation: null,
   activities: [],
   dragEvent: null,
   zoomEvent: null
 };
 
 export const selectTimeOrientation = createSliceSelector(
-  (state: State) => state.axisOrientations.time
+  (state: State) => state.timeOrientation
 );
-export const selectResourceOrientation = createSliceSelector(
-  (state: State) => state.axisOrientations.resource
+export const selectResourceOrientation = createSliceSelector((state: State) =>
+  flipOrientation(state.timeOrientation)
 );
 export const selectView = createSliceSelector((state: State) => state.view);
 export const selectActivities = createSliceSelector(

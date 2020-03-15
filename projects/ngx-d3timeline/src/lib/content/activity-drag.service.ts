@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { tempStateSelector } from '../store/timeline-selectors';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '../store/store';
-import { withLatestFrom } from 'rxjs/operators';
+import { withLatestFrom, filter } from 'rxjs/operators';
 import { getDropActivity } from '../drag-utils';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
@@ -15,6 +15,7 @@ export class ActivityDragService {
   private dragEndSubject = new BehaviorSubject(null);
 
   drop$ = this.dragEndSubject.pipe(
+    filter(() => !!event),
     withLatestFrom(this.store.select(tempStateSelector))
   );
 
@@ -28,11 +29,9 @@ export class ActivityDragService {
         tempState.timeOrientation
       );
 
-      if (dropActivity) {
-        this.store.dispatch(
-          new fromActions.TimelineDragEndedAction(dropActivity)
-        );
-      }
+      this.store.dispatch(
+        new fromActions.TimelineDragEndedAction(dropActivity)
+      );
     });
   }
 
