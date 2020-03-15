@@ -1,6 +1,6 @@
 import { createSelector } from '../selector/create-selector';
 import {
-  selectActivities,
+  selectPositionedActivities,
   selectView,
   selectResourceOrientation,
   selectTimeOrientation,
@@ -10,14 +10,14 @@ import {
 import { configureBandScale, rescaleTime } from '../scale-utils';
 
 export const selectBandScale = createSelector(
-  selectActivities,
+  selectPositionedActivities,
   selectView,
   selectResourceOrientation,
   configureBandScale
 );
 
 export const selectTimeScale = createSelector(
-  selectActivities,
+  selectPositionedActivities,
   selectView,
   selectTimeOrientation,
   selectZoomEvent,
@@ -27,7 +27,7 @@ export const selectTimeScale = createSelector(
 export const tempStateSelector = createSelector(
   selectTimeScale,
   selectBandScale,
-  selectActivities,
+  selectPositionedActivities,
   selectDragEvent,
   selectTimeOrientation,
   (timeScale, bandScale, activities, dragEvent, timeOrientation) => ({

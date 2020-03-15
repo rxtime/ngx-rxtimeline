@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../store/store';
 import { map } from 'rxjs/operators';
-import { Activity } from '../activity';
+import { PositionedActivity } from '../positioned-activity';
 import { ActivityRectangle } from './activity-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
@@ -70,13 +70,16 @@ export class ContentService {
   constructor(private store: Store) {}
 
   private createFromRectangle(
-    activities: Activity[],
+    positionedActivities: PositionedActivity[],
     dragEvent: TimelineDragEvent,
     timeOrientation: Orientation,
     bandScale: BandScale,
     timeScale: TimeScale
   ) {
-    const draggingActivity = getDraggingActivity(activities, dragEvent);
+    const draggingActivity = getDraggingActivity(
+      positionedActivities,
+      dragEvent
+    );
     return (
       draggingActivity &&
       this.activityToActivityRectangle(
@@ -89,13 +92,13 @@ export class ContentService {
   }
 
   private createActivityRectangles(
-    activities: Activity[],
+    positionedActivities: PositionedActivity[],
     dragEvent: TimelineDragEvent,
     timeOrientation: Orientation,
     bandScale: BandScale,
     timeScale: TimeScale
   ): ActivityRectangle[] {
-    return activities
+    return positionedActivities
       .filter(activity => activity.id !== (dragEvent && dragEvent.id))
       .map(activity =>
         this.activityToActivityRectangle(
@@ -108,13 +111,16 @@ export class ContentService {
   }
 
   private createDraggingRectangle(
-    activities: Activity[],
+    positionedActivities: PositionedActivity[],
     dragEvent: TimelineDragEvent,
     timeOrientation: Orientation,
     bandScale: BandScale,
     timeScale: TimeScale
   ): ActivityRectangle {
-    const draggingActivity = getDraggingActivity(activities, dragEvent);
+    const draggingActivity = getDraggingActivity(
+      positionedActivities,
+      dragEvent
+    );
     return (
       draggingActivity &&
       this.activityToActivityRectangle(
@@ -130,14 +136,14 @@ export class ContentService {
   private createDropRectangle(
     bandScale: BandScale,
     timeScale: TimeScale,
-    activities: Activity[],
+    positionedActivities: PositionedActivity[],
     dragEvent: TimelineDragEvent,
     timeOrientation: Orientation
   ): ActivityRectangle {
     const dropActivity = getDropActivity(
       bandScale,
       timeScale,
-      activities,
+      positionedActivities,
       dragEvent,
       timeOrientation
     );
@@ -154,36 +160,46 @@ export class ContentService {
   }
 
   private activityToActivityRectangle(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     timeOrientation: Orientation,
     bandScale: BandScale,
     timeScale: TimeScale,
     dragEvent?: TimelineDragEvent
   ): ActivityRectangle {
     return {
-      id: activity.id,
-      title: activity.type,
+      id: positionedActivity.id,
+      title: positionedActivity.type,
       transform: this.activityTransform(
-        activity,
+        positionedActivity,
         timeOrientation,
         bandScale,
         timeScale,
         dragEvent
       ),
-      width: this.rectWidth(activity, timeOrientation, bandScale, timeScale),
-      height: this.rectHeight(activity, timeOrientation, bandScale, timeScale)
+      width: this.rectWidth(
+        positionedActivity,
+        timeOrientation,
+        bandScale,
+        timeScale
+      ),
+      height: this.rectHeight(
+        positionedActivity,
+        timeOrientation,
+        bandScale,
+        timeScale
+      )
     };
   }
 
   private activityTransform(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale,
     dragEvent?: TimelineDragEvent
   ) {
     const activityX = this.getActivityX(
-      activity,
+      positionedActivity,
       orientation,
       scaleBand,
       scaleTime
@@ -191,7 +207,7 @@ export class ContentService {
     const dx = (dragEvent && dragEvent.dx) || 0;
 
     const activityY = this.getActivityY(
-      activity,
+      positionedActivity,
       orientation,
       scaleBand,
       scaleTime
@@ -202,61 +218,69 @@ export class ContentService {
   }
 
   private rectHeight(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.rectTimeBreadth(activity, scaleTime)
+      ? this.rectTimeBreadth(positionedActivity, scaleTime)
       : this.rectResourceBreadth(scaleBand);
   }
 
   private rectWidth(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
       ? this.rectResourceBreadth(scaleBand)
-      : this.rectTimeBreadth(activity, scaleTime);
+      : this.rectTimeBreadth(positionedActivity, scaleTime);
   }
   private getActivityX(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInResourceAxis(activity, scaleBand)
-      : this.positionInTimeAxis(activity, scaleTime);
+      ? this.positionInResourceAxis(positionedActivity, scaleBand)
+      : this.positionInTimeAxis(positionedActivity, scaleTime);
   }
 
   private getActivityY(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     orientation: Orientation,
     scaleBand: BandScale,
     scaleTime: TimeScale
   ) {
     return orientation === Orientation.Vertical
-      ? this.positionInTimeAxis(activity, scaleTime)
-      : this.positionInResourceAxis(activity, scaleBand);
+      ? this.positionInTimeAxis(positionedActivity, scaleTime)
+      : this.positionInResourceAxis(positionedActivity, scaleBand);
   }
 
   private positionInResourceAxis(
-    activity: Activity,
+    positionedActivity: PositionedActivity,
     scaleBand: BandScale
   ): number {
-    return scaleBand(activity.series);
+    return scaleBand(positionedActivity.series);
   }
 
-  private positionInTimeAxis(activity: Activity, scaleTime: TimeScale): number {
-    return scaleTime(activity.start);
+  private positionInTimeAxis(
+    positionedActivity: PositionedActivity,
+    scaleTime: TimeScale
+  ): number {
+    return scaleTime(positionedActivity.start);
   }
 
-  private rectTimeBreadth(activity: Activity, scaleTime: TimeScale): number {
-    return scaleTime(activity.finish) - scaleTime(activity.start);
+  private rectTimeBreadth(
+    positionedActivity: PositionedActivity,
+    scaleTime: TimeScale
+  ): number {
+    return (
+      scaleTime(positionedActivity.finish) - scaleTime(positionedActivity.start)
+    );
   }
 
   private rectResourceBreadth(scaleBand: BandScale): number {

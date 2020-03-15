@@ -1,4 +1,5 @@
 import { Activity } from '../activity';
+import { PositionedActivity } from '../positioned-activity';
 import { Orientation } from '../orientation';
 import { identifier } from '../types';
 
@@ -49,7 +50,7 @@ export class TimelineDraggingAction implements Action {
 
 export class TimelineDragEndedAction implements Action {
   readonly type = ActionType.TimelineDragEnded;
-  constructor(public payload: Activity) {}
+  constructor(public payload: PositionedActivity) {}
 }
 
 export type Actions =
