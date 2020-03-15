@@ -44,7 +44,7 @@ export function createSelector<
   selector2: Selector<S2Result>,
   selector3: Selector<S3Result>,
   selector4: Selector<S4Result>,
-  selector5: Selector<S4Result>,
+  selector5: Selector<S5Result>,
   projector: (
     res1: S1Result,
     res2: S2Result,

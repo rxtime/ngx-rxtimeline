@@ -1,50 +1,70 @@
 import { getInverseBandScale } from './scale-utils';
-import { State } from './store/state';
 import { Orientation } from './orientation';
 import { Activity } from './activity';
+import { BandScale, TimeScale } from './scale-types';
+import { TimelineDragEvent } from './content/timeline-drag-event';
 
-export function getDropActivity(state: State) {
-  const draggingActivity = getDraggingActivity(state);
+export function getDropActivity(
+  bandScale: BandScale,
+  timeScale: TimeScale,
+  activities: Activity[],
+  dragEvent: TimelineDragEvent,
+  timeOrientation: Orientation
+) {
+  const draggingActivity = getDraggingActivity(activities, dragEvent);
 
   return (
     draggingActivity && {
       ...draggingActivity,
-      series: getDropActivitySeries(state),
-      ...shiftedTimesForDraggingActivity(draggingActivity, state)
+      series: getDropActivitySeries(bandScale, dragEvent, timeOrientation),
+      ...shiftedTimesForDraggingActivity(
+        draggingActivity,
+        timeOrientation,
+        dragEvent,
+        timeScale
+      )
     }
   );
 }
 
-export function getDraggingActivity(state: State): Activity {
-  return state.dragEvent && state.data.find(d => d.id === state.dragEvent.id);
+export function getDraggingActivity(
+  activities: Activity[],
+  dragEvent: TimelineDragEvent
+): Activity {
+  return dragEvent && activities.find(activity => activity.id === dragEvent.id);
 }
 
-function getDropActivitySeries(state: State) {
-  const invert = getInverseBandScale(state.bandScale);
-  return state.dragEvent && state.axisOrientations.time === Orientation.Vertical
-    ? invert(state.dragEvent.x)
-    : invert(state.dragEvent.y);
+function getDropActivitySeries(
+  bandScale: BandScale,
+  dragEvent: TimelineDragEvent,
+  timeOrientation: Orientation
+) {
+  const invert = getInverseBandScale(bandScale);
+  return dragEvent && timeOrientation === Orientation.Vertical
+    ? invert(dragEvent.x)
+    : invert(dragEvent.y);
 }
 
 function shiftedTimesForDraggingActivity(
   draggingActivity: Activity,
-  state: State
+  timeOrientation: Orientation,
+  dragEvent: TimelineDragEvent,
+  timeScale: TimeScale
 ) {
-  const deltaTime = getDeltaTime(state);
+  const deltaTime = getDeltaTime(timeOrientation, dragEvent);
 
-  const shiftedActivityStart =
-    state.timeScale(draggingActivity.start) + deltaTime;
-  const shiftedActivityFinish =
-    state.timeScale(draggingActivity.finish) + deltaTime;
+  const shiftedActivityStart = timeScale(draggingActivity.start) + deltaTime;
+  const shiftedActivityFinish = timeScale(draggingActivity.finish) + deltaTime;
 
   return {
-    start: state.timeScale.invert(shiftedActivityStart),
-    finish: state.timeScale.invert(shiftedActivityFinish)
+    start: timeScale.invert(shiftedActivityStart),
+    finish: timeScale.invert(shiftedActivityFinish)
   };
 }
 
-function getDeltaTime(state: State) {
-  return state.axisOrientations.time === Orientation.Vertical
-    ? state.dragEvent.dy
-    : state.dragEvent.dx;
+function getDeltaTime(
+  timeOrientation: Orientation,
+  dragEvent: TimelineDragEvent
+) {
+  return timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
 }
