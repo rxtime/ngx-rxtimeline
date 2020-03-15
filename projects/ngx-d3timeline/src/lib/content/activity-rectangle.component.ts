@@ -25,12 +25,19 @@ import * as fromActions from '../store/actions';
         [attr.height]="activityRectangle.height"
         [attr.width]="activityRectangle.width"
       ></svg:rect>
-      <svg:text dy="1em">{{ activityRectangle.title }}</svg:text>
+      <svg:g *ngIf="showLabel">
+        <svg:text dy="1em">
+          {{ activityRectangle.title }}
+        </svg:text>
+      </svg:g>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityRectangleComponent implements AfterViewInit {
+  labelFontHeight = 10;
+  minHeightToShowLabel = this.labelFontHeight + 2;
+
   @Input() activityRectangle: ActivityRectangle;
 
   @ViewChild('activityRectangleEl') activityRectangleEl: ElementRef;
@@ -39,6 +46,10 @@ export class ActivityRectangleComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.setupDrag();
+  }
+
+  get showLabel(): boolean {
+    return this.activityRectangle.height >= this.minHeightToShowLabel;
   }
 
   private setupDrag() {
