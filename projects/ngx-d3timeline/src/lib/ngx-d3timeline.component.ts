@@ -23,8 +23,16 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
       [attr.height]="view.height"
       class="ngx-d3timeline"
     >
-      <g ngx-d3timeline-axis [axis]="timeline.resourceAxis$ | async"></g>
-      <g ngx-d3timeline-axis [axis]="timeline.timeAxis$ | async"></g>
+      <g
+        ngx-d3timeline-axis
+        class="resources-axis"
+        [axis]="timeline.resourceAxis$ | async"
+      ></g>
+      <g
+        ngx-d3timeline-axis
+        class="time-axis"
+        [axis]="timeline.timeAxis$ | async"
+      ></g>
       <g ngx-d3timeline-content></g>
     </svg>
   `,
