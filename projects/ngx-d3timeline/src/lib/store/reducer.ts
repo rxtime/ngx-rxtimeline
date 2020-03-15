@@ -3,11 +3,15 @@ import { Actions, ActionType } from './actions';
 import { TimelineView } from '../view/timeline-view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { identifier } from '../types';
+import { initialisePositionedActivity } from '../positioned-activity';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionType.ActivitiesChanged: {
-      return { ...state, activities: action.payload };
+      return {
+        ...state,
+        positionedActivities: action.payload.map(initialisePositionedActivity)
+      };
     }
 
     case ActionType.OrientationChanged: {
@@ -42,10 +46,10 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const activities = state.activities.map(activity =>
+      const activities = state.positionedActivities.map(activity =>
         activity.id === action.payload.id ? action.payload : activity
       );
-      return { ...state, activities, dragEvent: null };
+      return { ...state, positionedActivities: activities, dragEvent: null };
     }
 
     default: {
