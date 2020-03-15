@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../store/store';
-import { State } from '../store/state';
 import { map } from 'rxjs/operators';
 import { Activity } from '../activity';
 import { ActivityRectangle } from './activity-rectangle';

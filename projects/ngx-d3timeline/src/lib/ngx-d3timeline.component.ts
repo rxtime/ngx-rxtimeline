@@ -18,13 +18,13 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
   template: `
     <svg
       #svgEl
-      *ngIf="timelineService.view$ | async as view"
+      *ngIf="timeline.view$ | async as view"
       [attr.width]="view.width"
       [attr.height]="view.height"
       class="ngx-d3timeline"
     >
-      <g ngx-d3timeline-resources-axis></g>
-      <g ngx-d3timeline-time-axis></g>
+      <g ngx-d3timeline-axis [axis]="timeline.resourceAxis$ | async"></g>
+      <g ngx-d3timeline-axis [axis]="timeline.timeAxis$ | async"></g>
       <g ngx-d3timeline-content></g>
     </svg>
   `,
@@ -34,22 +34,22 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
 })
 export class NgxD3timelineComponent implements AfterViewInit {
   @Input() set activities(value: Activity[]) {
-    this.timelineService.setActivities(value);
+    this.timeline.setActivities(value);
   }
 
   @Input() set view([width, height]: [number, number]) {
-    this.timelineService.setView([width, height]);
+    this.timeline.setView([width, height]);
   }
 
   @Input() set orientation(value: Orientation) {
-    this.timelineService.setTimeOrientation(value);
+    this.timeline.setTimeOrientation(value);
   }
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  constructor(public timelineService: NgxD3TimelineService) {}
+  constructor(public timeline: NgxD3TimelineService) {}
 
   ngAfterViewInit(): void {
-    this.timelineService.setupZoom(this.svgEl);
+    this.timeline.setupZoom(this.svgEl);
   }
 }

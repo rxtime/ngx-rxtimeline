@@ -1,12 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ResourcesAxisComponent } from './resources-axis.component';
-import { AxisService } from '../axis.service';
-import { of } from 'rxjs';
-import { Input, Component } from '@angular/core';
-import { Line } from 'dist/ngx-d3timeline/lib/axis/line';
-import { createLine } from '../line';
-import { origin } from '../../point';
-import { TickMark } from '../tick-mark';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AxisComponent } from './axis-component';
+import { createLine, Line } from './line';
+import { origin } from '../point';
+import { Component, Input } from '@angular/core';
+import { TickMark } from './tick-mark';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -28,35 +25,24 @@ class FakeAxisTickMarkComponent {
   @Input() tickMark: TickMark;
 }
 
-describe('ResourcesAxisComponent', () => {
-  let fixture: ComponentFixture<ResourcesAxisComponent>;
-  let axisService: AxisService;
+describe('AxisComponent', () => {
+  let fixture: ComponentFixture<AxisComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ResourcesAxisComponent,
+        AxisComponent,
         FakeLineComponent,
         FakeAxisTickMarkComponent
-      ],
-      providers: [{ provide: AxisService, useValue: { vm$: jest.fn() } }]
+      ]
     });
 
-    fixture = TestBed.createComponent(ResourcesAxisComponent);
-    axisService = TestBed.inject(AxisService);
-  });
-
-  it('should not render if view model is null', () => {
-    axisService.resourceAxis$ = of(null);
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement).toMatchSnapshot();
+    fixture = TestBed.createComponent(AxisComponent);
   });
 
   it('should render correctly', () => {
     const line = createLine(origin, { x: 10, y: 10 });
-
-    axisService.resourceAxis$ = of({
+    fixture.componentInstance.axis = {
       tickMarks: [
         {
           label: 'tick 1',
@@ -72,7 +58,7 @@ describe('ResourcesAxisComponent', () => {
         }
       ],
       line: { x1: 0, x2: 10, y1: 1, y2: 0 }
-    });
+    };
 
     fixture.detectChanges();
 
