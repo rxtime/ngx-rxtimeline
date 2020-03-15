@@ -23,11 +23,16 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
       height="80"
       width="50"
     />
-    <text
-      dy="1em"
-    >
-      Activity 1
-    </text>
+    
+    <g>
+      <text
+        dominant-baseline="hanging"
+        dx="2"
+        dy="2"
+      >
+         Activity 1 
+      </text>
+    </g>
   </g>
 </div>
 `;
