@@ -6,26 +6,15 @@ import { ActivityRectangle } from './activity-rectangle';
 import { Orientation } from '../orientation';
 import { TimeScale, BandScale } from '../scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { getDraggingActivity, getDropActivity } from '../drag-utils';
+import { getCurrentlyDraggedActivity, getDropActivity } from '../drag-utils';
 import { tempStateSelector } from '../store/timeline-selectors';
 import { Point } from '../point';
 import { pointToTransform } from '../transform-utils';
+import { selectNonDraggedActivityRectangles } from './activity-rectangle.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
-  activityRectangles$ = this.store
-    .select(tempStateSelector)
-    .pipe(
-      map(tempStateArgs =>
-        this.createActivityRectangles(
-          tempStateArgs.activities,
-          tempStateArgs.dragEvent,
-          tempStateArgs.timeOrientation,
-          tempStateArgs.bandScale,
-          tempStateArgs.timeScale
-        )
-      )
-    );
+  activityRectangles$ = this.store.select(selectNonDraggedActivityRectangles);
 
   draggingRectangle$ = this.store
     .select(tempStateSelector)
@@ -78,7 +67,7 @@ export class ContentService {
     bandScale: BandScale,
     timeScale: TimeScale
   ) {
-    const draggingActivity = getDraggingActivity(
+    const draggingActivity = getCurrentlyDraggedActivity(
       positionedActivities,
       dragEvent
     );
@@ -93,25 +82,6 @@ export class ContentService {
     );
   }
 
-  private createActivityRectangles(
-    positionedActivities: PositionedActivity[],
-    dragEvent: TimelineDragEvent,
-    timeOrientation: Orientation,
-    bandScale: BandScale,
-    timeScale: TimeScale
-  ): ActivityRectangle[] {
-    return positionedActivities
-      .filter(activity => activity.id !== (dragEvent && dragEvent.id))
-      .map(activity =>
-        this.activityToActivityRectangle(
-          activity,
-          timeOrientation,
-          bandScale,
-          timeScale
-        )
-      );
-  }
-
   private createDraggingRectangle(
     positionedActivities: PositionedActivity[],
     dragEvent: TimelineDragEvent,
@@ -119,7 +89,7 @@ export class ContentService {
     bandScale: BandScale,
     timeScale: TimeScale
   ): ActivityRectangle {
-    const draggingActivity = getDraggingActivity(
+    const draggingActivity = getCurrentlyDraggedActivity(
       positionedActivities,
       dragEvent
     );

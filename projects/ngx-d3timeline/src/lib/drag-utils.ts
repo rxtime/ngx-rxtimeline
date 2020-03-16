@@ -11,7 +11,10 @@ export function getDropActivity(
   dragEvent: TimelineDragEvent,
   timeOrientation: Orientation
 ): PositionedActivity {
-  const draggingActivity = getDraggingActivity(positionedActivities, dragEvent);
+  const draggingActivity = getCurrentlyDraggedActivity(
+    positionedActivities,
+    dragEvent
+  );
 
   return (
     draggingActivity && {
@@ -31,7 +34,7 @@ export function getDropActivity(
   );
 }
 
-export function getDraggingActivity(
+export function getCurrentlyDraggedActivity(
   positionedActivities: PositionedActivity[],
   dragEvent: TimelineDragEvent
 ): PositionedActivity {
