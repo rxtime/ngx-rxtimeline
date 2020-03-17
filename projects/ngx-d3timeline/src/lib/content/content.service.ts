@@ -12,7 +12,8 @@ import { Point } from '../point';
 import { pointToTransform } from '../transform-utils';
 import {
   selectNonDraggedActivityRectangles,
-  selectDraggingActivityRectangle
+  selectDraggingActivityRectangle,
+  selectDraggedFromRectangle
 } from './activity-rectangle.selectors';
 
 @Injectable({ providedIn: 'root' })
@@ -35,42 +36,9 @@ export class ContentService {
       )
     );
 
-  fromRectangle$ = this.store
-    .select(tempStateSelector)
-    .pipe(
-      map(tempStateArgs =>
-        this.createFromRectangle(
-          tempStateArgs.activities,
-          tempStateArgs.dragEvent,
-          tempStateArgs.timeOrientation,
-          tempStateArgs.bandScale,
-          tempStateArgs.timeScale
-        )
-      )
-    );
+  fromRectangle$ = this.store.select(selectDraggedFromRectangle);
 
   constructor(private store: Store) {}
-
-  private createFromRectangle(
-    positionedActivities: PositionedActivity[],
-    dragEvent: TimelineDragEvent,
-    timeOrientation: Orientation,
-    bandScale: BandScale,
-    timeScale: TimeScale
-  ) {
-    const draggingActivity =
-      dragEvent &&
-      getCurrentlyDraggedActivity(positionedActivities, dragEvent.id);
-    return (
-      draggingActivity &&
-      this.activityToActivityRectangle(
-        draggingActivity,
-        timeOrientation,
-        bandScale,
-        timeScale
-      )
-    );
-  }
 
   private createDropRectangle(
     bandScale: BandScale,
