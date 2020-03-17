@@ -99,7 +99,7 @@ export function getRectWidth(
     : rectBreathInTimeAxis(positionedActivity);
 }
 
-export function getActivityRectangle(
+export function createActivityRectangle(
   transform: ActivityTransform,
   width: PositionInAxis,
   height: PositionInAxis,

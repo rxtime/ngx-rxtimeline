@@ -1,10 +1,10 @@
 import { getInverseBandScale } from './scale-utils';
 import { Orientation } from './orientation';
-import { BandScale, TimeScale } from './scale-types';
+import { BandScale, TimeScale, InverseBandScale } from './scale-types';
 import { TimelineDragEvent } from './content/timeline-drag-event';
 import { PositionedActivity } from './positioned-activity';
 import { identifier } from './types';
-import { Point } from './point';
+import { Point, origin } from './point';
 
 export function getDropActivity(
   bandScale: BandScale,
@@ -84,4 +84,55 @@ function getDeltaTime(
 
 export function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
   return dragEvent && { x: dragEvent.dx, y: dragEvent.dy };
+}
+
+export function getDragEventOffsetTime(
+  dragEvent: TimelineDragEvent,
+  timeOrientation: Orientation
+): Point {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical
+      ? { ...origin, y: dragEvent.dy }
+      : { ...origin, x: dragEvent.dx })
+  );
+}
+
+export function getDragPointInResourceAxis(
+  timeOrientation: Orientation,
+  dragEvent: TimelineDragEvent
+) {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical ? dragEvent.x : dragEvent.y)
+  );
+}
+
+export function valueToSeries(
+  value: number,
+  inverseBandScale: InverseBandScale
+) {
+  return inverseBandScale(value);
+}
+
+export function getNonDraggedActivities(
+  activities: PositionedActivity[],
+  dragEventId: identifier
+): PositionedActivity[] {
+  return dragEventId
+    ? activities.filter(activity => activity.id !== dragEventId)
+    : activities;
+}
+
+export function getDragEventId(dragEvent: TimelineDragEvent) {
+  return dragEvent && dragEvent.id;
+}
+
+export function getCurrentlyDraggedActivityWithDraggedToSeries(
+  currentlyDraggedActivity: PositionedActivity,
+  updatedSeries: string
+) {
+  return (
+    currentlyDraggedActivity && { ...currentlyDraggedActivity, updatedSeries }
+  );
 }

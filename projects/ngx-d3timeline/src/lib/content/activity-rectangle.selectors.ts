@@ -3,7 +3,8 @@ import { selectTimeScale, selectBandScale } from '../store/timeline-selectors';
 import { selectTimeOrientation, selectDragEvent } from '../store/state';
 import {
   selectNonDraggedActivities,
-  selectCurrentlyDraggedActivity
+  selectCurrentlyDraggedActivity,
+  selectCurrentlyDraggedActivityWithDraggedToSeries
 } from './activity.selectors';
 import {
   getPositionInTimeAxis,
@@ -15,15 +16,15 @@ import {
   getRectHeight,
   getRectWidth,
   getActivityTransform,
-  getActivityRectangle,
+  createActivityRectangle,
   getOffsetActivityTopLeft,
   PointInAxis,
   ActivityTransform
 } from './content-utils';
-import { getDragEventOffset } from '../drag-utils';
+import { getDragEventOffset, getDragEventOffsetTime } from '../drag-utils';
 import { MemoizedSelector } from '../selector/memoized-selector';
-import { Activity } from '../activity';
-import { Point } from '../point';
+import { PositionedActivity } from '../positioned-activity';
+import { ActivityRectangle } from './activity-rectangle';
 
 const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>
   getPositionInTimeAxis.bind(null, timeScale)
@@ -106,9 +107,21 @@ const selectDragEventOffset = createSelector(
   getDragEventOffset
 );
 
+const selectDragEventOffsetTime = createSelector(
+  selectDragEvent,
+  selectTimeOrientation,
+  getDragEventOffsetTime
+);
+
 const selectOffsetActivityTopLeft = createSelector(
   selectPositionedActivityTopLeft,
   selectDragEventOffset,
+  (topLeft, offset) => getOffsetActivityTopLeft.bind(null, topLeft, offset)
+);
+
+const selectOffsetTimeActivityTopLeft = createSelector(
+  selectPositionedActivityTopLeft,
+  selectDragEventOffsetTime,
   (topLeft, offset) => getOffsetActivityTopLeft.bind(null, topLeft, offset)
 );
 
@@ -117,30 +130,27 @@ const createSelectTransform = (selectTopLeft: MemoizedSelector<PointInAxis>) =>
     getActivityTransform.bind(null, topLeft)
   );
 
-const selectPositionedActivityTransform = createSelectTransform(
-  selectPositionedActivityTopLeft
-);
-const selectOffsetActivityTransform = createSelectTransform(
-  selectOffsetActivityTopLeft
-);
-
 const createSelectRectangle = (
-  selectTransform: MemoizedSelector<ActivityTransform>
+  selectTransform: MemoizedSelector<PointInAxis>
 ) =>
   createSelector(
-    selectTransform,
+    createSelectTransform(selectTransform),
     selectRectWidth,
     selectRectHeight,
     (transform, width, height) =>
-      getActivityRectangle.bind(null, transform, width, height)
+      createActivityRectangle.bind(null, transform, width, height)
   );
 
 const selectActivityRectangle = createSelectRectangle(
-  selectPositionedActivityTransform
+  selectPositionedActivityTopLeft
 );
 
 const selectOffsetAcivityRectangle = createSelectRectangle(
-  selectOffsetActivityTransform
+  selectOffsetActivityTopLeft
+);
+
+const selectOffsetTimeActivityRectangle = createSelectRectangle(
+  selectOffsetTimeActivityTopLeft
 );
 
 export const selectNonDraggedActivityRectangles = createSelector(
@@ -153,13 +163,24 @@ export const selectNonDraggedActivityRectangles = createSelector(
 export const selectDraggingActivityRectangle = createSelector(
   selectCurrentlyDraggedActivity,
   selectOffsetAcivityRectangle,
-  (draggedActivity, activityToRectangle) =>
-    draggedActivity && activityToRectangle(draggedActivity)
+  activityToRectangle
 );
 
 export const selectDraggedFromRectangle = createSelector(
   selectCurrentlyDraggedActivity,
   selectActivityRectangle,
-  (draggedActivity, activityToRectangle) =>
-    draggedActivity && activityToRectangle(draggedActivity)
+  activityToRectangle
 );
+
+export const selectDraggedToRectangle = createSelector(
+  selectCurrentlyDraggedActivityWithDraggedToSeries,
+  selectOffsetTimeActivityRectangle,
+  activityToRectangle
+);
+
+function activityToRectangle(
+  activity: PositionedActivity,
+  getActivityRectangle: (a: PositionedActivity) => ActivityRectangle
+) {
+  return activity && getActivityRectangle(activity);
+}
