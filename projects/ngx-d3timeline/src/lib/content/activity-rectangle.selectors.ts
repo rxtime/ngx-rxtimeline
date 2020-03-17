@@ -156,3 +156,10 @@ export const selectDraggingActivityRectangle = createSelector(
   (draggedActivity, activityToRectangle) =>
     draggedActivity && activityToRectangle(draggedActivity)
 );
+
+export const selectDraggedFromRectangle = createSelector(
+  selectCurrentlyDraggedActivity,
+  selectActivityRectangle,
+  (draggedActivity, activityToRectangle) =>
+    draggedActivity && activityToRectangle(draggedActivity)
+);
