@@ -1,13 +1,13 @@
 import { PositionedActivity } from '../positioned-activity';
 import { TimeScale, BandScale } from '../scale-types';
 import { Orientation } from '../orientation';
-import { Point } from '../point';
+import { Point, translatePoint } from '../point';
 import { ActivityRectangle } from './activity-rectangle';
 import { pointToTransform } from '../transform-utils';
 
 type PositionInAxis = (p: PositionedActivity) => number;
-type PointInAxis = (p: PositionedActivity) => Point;
-type ActivityTransform = (p: PositionedActivity) => string;
+export type PointInAxis = (p: PositionedActivity) => Point;
+export type ActivityTransform = (p: PositionedActivity) => string;
 
 export function getPositionInResourceAxis(
   bandScale: BandScale,
@@ -51,6 +51,14 @@ export function getActivityTopLeft(
   positionedActivity: PositionedActivity
 ): Point {
   return { x: x(positionedActivity), y: y(positionedActivity) };
+}
+
+export function getOffsetActivityTopLeft(
+  activityTopLeft: PointInAxis,
+  offset: Point,
+  positionedActivity: PositionedActivity
+): Point {
+  return translatePoint(activityTopLeft(positionedActivity), offset);
 }
 
 export function getActivityTransform(

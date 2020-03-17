@@ -10,25 +10,16 @@ import { getCurrentlyDraggedActivity, getDropActivity } from '../drag-utils';
 import { tempStateSelector } from '../store/timeline-selectors';
 import { Point } from '../point';
 import { pointToTransform } from '../transform-utils';
-import { selectNonDraggedActivityRectangles } from './activity-rectangle.selectors';
+import {
+  selectNonDraggedActivityRectangles,
+  selectDraggingActivityRectangle
+} from './activity-rectangle.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   activityRectangles$ = this.store.select(selectNonDraggedActivityRectangles);
 
-  draggingRectangle$ = this.store
-    .select(tempStateSelector)
-    .pipe(
-      map(tempStateArgs =>
-        this.createDraggingRectangle(
-          tempStateArgs.activities,
-          tempStateArgs.dragEvent,
-          tempStateArgs.timeOrientation,
-          tempStateArgs.bandScale,
-          tempStateArgs.timeScale
-        )
-      )
-    );
+  draggingRectangle$ = this.store.select(selectDraggingActivityRectangle);
 
   dropRectangle$ = this.store
     .select(tempStateSelector)
@@ -67,10 +58,9 @@ export class ContentService {
     bandScale: BandScale,
     timeScale: TimeScale
   ) {
-    const draggingActivity = getCurrentlyDraggedActivity(
-      positionedActivities,
-      dragEvent
-    );
+    const draggingActivity =
+      dragEvent &&
+      getCurrentlyDraggedActivity(positionedActivities, dragEvent.id);
     return (
       draggingActivity &&
       this.activityToActivityRectangle(
@@ -78,29 +68,6 @@ export class ContentService {
         timeOrientation,
         bandScale,
         timeScale
-      )
-    );
-  }
-
-  private createDraggingRectangle(
-    positionedActivities: PositionedActivity[],
-    dragEvent: TimelineDragEvent,
-    timeOrientation: Orientation,
-    bandScale: BandScale,
-    timeScale: TimeScale
-  ): ActivityRectangle {
-    const draggingActivity = getCurrentlyDraggedActivity(
-      positionedActivities,
-      dragEvent
-    );
-    return (
-      draggingActivity &&
-      this.activityToActivityRectangle(
-        draggingActivity,
-        timeOrientation,
-        bandScale,
-        timeScale,
-        dragEvent
       )
     );
   }
