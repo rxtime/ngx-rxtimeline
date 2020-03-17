@@ -1,5 +1,5 @@
 import { Orientation } from '../orientation';
-import { Point, translatePoint } from '../point';
+import { Point, translatePointInOrientation } from '../point';
 
 export interface Line {
   x1: number;
@@ -13,7 +13,7 @@ export function createOrientedLine(
   length: number,
   orientation: Orientation
 ) {
-  const to = translatePoint(point, length, orientation);
+  const to = translatePointInOrientation(point, length, orientation);
 
   return createLine(point, to);
 }

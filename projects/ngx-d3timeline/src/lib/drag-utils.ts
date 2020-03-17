@@ -3,6 +3,8 @@ import { Orientation } from './orientation';
 import { BandScale, TimeScale } from './scale-types';
 import { TimelineDragEvent } from './content/timeline-drag-event';
 import { PositionedActivity } from './positioned-activity';
+import { identifier } from './types';
+import { Point } from './point';
 
 export function getDropActivity(
   bandScale: BandScale,
@@ -11,10 +13,9 @@ export function getDropActivity(
   dragEvent: TimelineDragEvent,
   timeOrientation: Orientation
 ): PositionedActivity {
-  const draggingActivity = getCurrentlyDraggedActivity(
-    positionedActivities,
-    dragEvent
-  );
+  const draggingActivity =
+    dragEvent &&
+    getCurrentlyDraggedActivity(positionedActivities, dragEvent.id);
 
   return (
     draggingActivity && {
@@ -36,11 +37,11 @@ export function getDropActivity(
 
 export function getCurrentlyDraggedActivity(
   positionedActivities: PositionedActivity[],
-  dragEvent: TimelineDragEvent
+  dragEventId: identifier
 ): PositionedActivity {
   return (
-    dragEvent &&
-    positionedActivities.find(activity => activity.id === dragEvent.id)
+    dragEventId &&
+    positionedActivities.find(activity => activity.id === dragEventId)
   );
 }
 
@@ -79,4 +80,8 @@ function getDeltaTime(
   dragEvent: TimelineDragEvent
 ) {
   return timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
+}
+
+export function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
+  return dragEvent && { x: dragEvent.dx, y: dragEvent.dy };
 }
