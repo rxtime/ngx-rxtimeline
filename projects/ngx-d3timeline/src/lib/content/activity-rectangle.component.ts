@@ -53,7 +53,7 @@ export class ActivityRectangleComponent implements AfterViewInit {
   private setupDrag() {
     if (this.activityRectangleEl) {
       this.activityDragService.setupDrag(
-        this.activityRectangle,
+        this.activityRectangle.id,
         this.activityRectangleEl.nativeElement
       );
     }
