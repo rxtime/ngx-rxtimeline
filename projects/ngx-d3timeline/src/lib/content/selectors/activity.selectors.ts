@@ -10,10 +10,17 @@ import {
   valueToSeries,
   getNonDraggedActivities,
   getDragEventId,
-  getCurrentlyDraggedActivityWithDraggedToSeries
+  getCurrentlyDraggedActivityWithDraggedToSeries,
+  getDeltaTime,
+  shiftUpdatedTimes,
+  shiftTimeByRangeValue
 } from '../../drag-utils';
-import { selectBandScale } from '../../store/timeline-selectors';
+import {
+  selectBandScale,
+  selectTimeScale
+} from '../../store/timeline-selectors';
 import { getInverseBandScale } from '../../scale-utils';
+import { MemoizedSelector } from '../../selector/memoized-selector';
 
 const selectDragEventId = createSelector(selectDragEvent, getDragEventId);
 
@@ -46,8 +53,39 @@ const selectDraggedToSeries = createSelector(
   valueToSeries
 );
 
+const selectDeltaTime = createSelector(
+  selectTimeOrientation,
+  selectDragEvent,
+  getDeltaTime
+);
+
+const selectCurrentlyDraggedUpdatedStart = createSelector(
+  selectCurrentlyDraggedActivity,
+  activity => activity && activity.updatedStart
+);
+
+const selectCurrentlyDraggedUpdatedFinish = createSelector(
+  selectCurrentlyDraggedActivity,
+  activity => activity && activity.updatedFinish
+);
+
+const selectShiftedByDeltaTime = (selectTime: MemoizedSelector<Date>) =>
+  createSelector(
+    selectTime,
+    selectTimeScale,
+    selectDeltaTime,
+    shiftTimeByRangeValue
+  );
+
 export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
   selectCurrentlyDraggedActivity,
   selectDraggedToSeries,
   getCurrentlyDraggedActivityWithDraggedToSeries
+);
+
+export const selectDraggedToActivity = createSelector(
+  selectCurrentlyDraggedActivityWithDraggedToSeries,
+  selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedStart),
+  selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedFinish),
+  shiftUpdatedTimes
 );
