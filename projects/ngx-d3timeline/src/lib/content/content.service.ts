@@ -5,7 +5,7 @@ import {
   selectDraggingActivityRectangle,
   selectDraggedFromRectangle,
   selectDraggedToRectangle
-} from './activity-rectangle.selectors';
+} from './selectors/activity-rectangle.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {

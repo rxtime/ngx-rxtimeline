@@ -2,8 +2,8 @@ import {
   selectDragEvent,
   selectPositionedActivities,
   selectTimeOrientation
-} from '../store/state';
-import { createSelector } from '../selector/create-selector';
+} from '../../store/state';
+import { createSelector } from '../../selector/create-selector';
 import {
   getCurrentlyDraggedActivity,
   getDragPointInResourceAxis,
@@ -11,9 +11,9 @@ import {
   getNonDraggedActivities,
   getDragEventId,
   getCurrentlyDraggedActivityWithDraggedToSeries
-} from '../drag-utils';
-import { selectBandScale } from '../store/timeline-selectors';
-import { getInverseBandScale } from '../scale-utils';
+} from '../../drag-utils';
+import { selectBandScale } from '../../store/timeline-selectors';
+import { getInverseBandScale } from '../../scale-utils';
 
 const selectDragEventId = createSelector(selectDragEvent, getDragEventId);
 
