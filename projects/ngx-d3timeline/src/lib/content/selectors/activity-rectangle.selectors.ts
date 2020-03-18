@@ -1,6 +1,9 @@
-import { createSelector } from '../selector/create-selector';
-import { selectTimeScale, selectBandScale } from '../store/timeline-selectors';
-import { selectTimeOrientation, selectDragEvent } from '../store/state';
+import { createSelector } from '../../selector/create-selector';
+import {
+  selectTimeScale,
+  selectBandScale
+} from '../../store/timeline-selectors';
+import { selectTimeOrientation, selectDragEvent } from '../../store/state';
 import {
   selectNonDraggedActivities,
   selectCurrentlyDraggedActivity,
@@ -18,12 +21,12 @@ import {
   getActivityTransform,
   createActivityRectangle,
   getOffsetActivityTopLeft
-} from './content-utils';
-import { getDragEventOffset, getDragEventOffsetTime } from '../drag-utils';
-import { MemoizedSelector } from '../selector/memoized-selector';
-import { PositionedActivity } from '../positioned-activity';
-import { ActivityRectangle } from './activity-rectangle';
-import { Point } from '../point';
+} from '../content-utils';
+import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
+import { MemoizedSelector } from '../../selector/memoized-selector';
+import { PositionedActivity } from '../../positioned-activity';
+import { ActivityRectangle } from '../activity-rectangle';
+import { Point } from '../../point';
 
 const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>
   getPositionInTimeAxis.bind(null, timeScale)
