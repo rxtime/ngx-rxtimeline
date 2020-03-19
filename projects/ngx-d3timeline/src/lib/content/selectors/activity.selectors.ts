@@ -11,7 +11,7 @@ import {
   getNonDraggedActivities,
   getDragEventId,
   getCurrentlyDraggedActivityWithDraggedToSeries,
-  getDeltaTime,
+  getDeltaTimeForDrag,
   updateActivityForDrag,
   shiftTimeByRangeValue
 } from '../../drag-utils';
@@ -56,7 +56,7 @@ const selectDraggedToSeries = createSelector(
 const selectDeltaTime = createSelector(
   selectTimeOrientation,
   selectDragEvent,
-  getDeltaTime
+  getDeltaTimeForDrag
 );
 
 const selectCurrentlyDraggedUpdatedStart = createSelector(

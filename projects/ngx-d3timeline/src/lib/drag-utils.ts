@@ -39,7 +39,7 @@ export function shiftTimeByRangeValue(
   return timeScale.invert(timeScale(time) + rangeValue);
 }
 
-export function getDeltaTime(
+export function getDeltaTimeForDrag(
   timeOrientation: Orientation,
   dragEvent: TimelineDragEvent
 ) {
