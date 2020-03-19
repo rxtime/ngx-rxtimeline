@@ -1,11 +1,12 @@
 import {
   selectDragEvent,
   selectPositionedActivities,
-  selectTimeOrientation
+  selectTimeOrientation,
+  selectLastDraggedActivityId
 } from '../../store/state';
 import { createSelector } from '../../selector/create-selector';
 import {
-  getCurrentlyDraggedActivity,
+  findActivity,
   getDragPointInResourceAxis,
   valueToSeries,
   getNonDraggedActivities,
@@ -33,7 +34,7 @@ export const selectNonDraggedActivities = createSelector(
 export const selectCurrentlyDraggedActivity = createSelector(
   selectPositionedActivities,
   selectDragEventId,
-  getCurrentlyDraggedActivity
+  findActivity
 );
 
 const selectInverseBandScale = createSelector(
@@ -89,4 +90,10 @@ export const selectActivityUpdatedForDrag = createSelector(
   selectTimeShiftedForDragEvent(selectCurrentlyDraggedUpdatedFinish),
   selectDraggedToSeries,
   updateActivityForDrag
+);
+
+export const selectLastDraggedActivity = createSelector(
+  selectPositionedActivities,
+  selectLastDraggedActivityId,
+  findActivity
 );

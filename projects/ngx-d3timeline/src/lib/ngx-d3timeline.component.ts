@@ -5,7 +5,10 @@ import {
   ViewChild,
   ElementRef,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnInit,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { Activity } from './activity';
 
@@ -40,7 +43,7 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NgxD3timelineComponent implements AfterViewInit {
+export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -53,9 +56,17 @@ export class NgxD3timelineComponent implements AfterViewInit {
     this.timeline.setTimeOrientation(value);
   }
 
+  @Output() dropped = new EventEmitter<Activity>();
+
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
   constructor(public timeline: NgxD3TimelineService) {}
+
+  ngOnInit(): void {
+    this.timeline.lastDraggedActivity$.subscribe(activity =>
+      this.dropped.emit(activity)
+    );
+  }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);

@@ -1,5 +1,4 @@
 import { Activity } from './activity';
-import { Actions } from './store/actions';
 
 export interface PositionedActivity extends Activity {
   updatedStart: Date;

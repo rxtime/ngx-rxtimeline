@@ -49,7 +49,12 @@ export function reducer(state: State, action: Actions): State {
       const activities = state.positionedActivities.map(activity =>
         activity.id === action.payload.id ? action.payload : activity
       );
-      return { ...state, positionedActivities: activities, dragEvent: null };
+      return {
+        ...state,
+        positionedActivities: activities,
+        dragEvent: null,
+        lastDraggedActivityId: action.payload.id
+      };
     }
 
     default: {
