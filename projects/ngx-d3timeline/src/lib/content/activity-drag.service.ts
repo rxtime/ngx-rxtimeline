@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '../store/store';
-import { withLatestFrom, filter } from 'rxjs/operators';
+import { withLatestFrom, filter, map } from 'rxjs/operators';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 
@@ -13,13 +13,14 @@ import { selectDraggedToActivity } from './selectors/activity.selectors';
 export class ActivityDragService {
   private dragEndSubject = new BehaviorSubject(null);
 
-  drop$ = this.dragEndSubject.pipe(
+  private draggedToActivity$ = this.dragEndSubject.pipe(
     filter(() => !!event),
-    withLatestFrom(this.store.select(selectDraggedToActivity))
+    withLatestFrom(this.store.select(selectDraggedToActivity)),
+    map(([, draggedToActivity]) => draggedToActivity)
   );
 
   constructor(private store: Store) {
-    this.drop$.subscribe(([, draggedToActivity]) => {
+    this.draggedToActivity$.subscribe(draggedToActivity => {
       this.store.dispatch(
         new fromActions.TimelineDragEndedAction(draggedToActivity)
       );
