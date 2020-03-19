@@ -53,7 +53,7 @@ const selectDraggedToSeries = createSelector(
   valueToSeries
 );
 
-const selectDeltaTime = createSelector(
+const selectDeltaTimeForDrag = createSelector(
   selectTimeOrientation,
   selectDragEvent,
   getDeltaTimeForDrag
@@ -73,7 +73,7 @@ const selectShiftedByDeltaTime = (selectTime: MemoizedSelector<Date>) =>
   createSelector(
     selectTime,
     selectTimeScale,
-    selectDeltaTime,
+    selectDeltaTimeForDrag,
     shiftTimeByRangeValue
   );
 
