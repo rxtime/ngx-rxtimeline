@@ -1,37 +1,28 @@
 import { Injectable } from '@angular/core';
-import { tempStateSelector } from '../store/timeline-selectors';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '../store/store';
-import { withLatestFrom, filter } from 'rxjs/operators';
-import { getDropActivity } from '../drag-utils';
+import { withLatestFrom, filter, map } from 'rxjs/operators';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 
 import * as fromActions from '../store/actions';
-import { ActivityRectangle } from './activity-rectangle';
 import { identifier } from '../types';
+import { selectActivityUpdatedForDrag } from './selectors/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityDragService {
   private dragEndSubject = new BehaviorSubject(null);
 
-  drop$ = this.dragEndSubject.pipe(
+  private activityUpdatedForDrag = this.dragEndSubject.pipe(
     filter(() => !!event),
-    withLatestFrom(this.store.select(tempStateSelector))
+    withLatestFrom(this.store.select(selectActivityUpdatedForDrag)),
+    map(([, draggedToActivity]) => draggedToActivity)
   );
 
   constructor(private store: Store) {
-    this.drop$.subscribe(([, tempState]) => {
-      const dropActivity = getDropActivity(
-        tempState.bandScale,
-        tempState.timeScale,
-        tempState.activities,
-        tempState.dragEvent,
-        tempState.timeOrientation
-      );
-
+    this.activityUpdatedForDrag.subscribe(activityUpdatedForDrag => {
       this.store.dispatch(
-        new fromActions.TimelineDragEndedAction(dropActivity)
+        new fromActions.TimelineDragEndedAction(activityUpdatedForDrag)
       );
     });
   }
