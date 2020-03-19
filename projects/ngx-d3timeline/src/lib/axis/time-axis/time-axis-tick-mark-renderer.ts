@@ -1,26 +1,19 @@
 import { TimeScale } from '../../scale-types';
 import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
+import { Orientation } from '../../orientation';
 
-export class TimeAxisTickMarkRenderer implements TickMarkRenderer<TimeScale> {
-  private readonly tickLineOffset = -5;
+export function getTimeAxisTickMarkRenderer(
+  scale: TimeScale,
+  orientation: Orientation
+): TickMarkRenderer {
+  const tickLineOffset = -5;
 
-  getTickValues(scale: TimeScale): Date[] {
-    return scale.ticks();
-  }
-
-  getTickLabel(scale: TimeScale, tickValue: any): string {
-    return scale.tickFormat()(tickValue);
-  }
-
-  getTickLabelSpacing(): number {
-    return this.tickLineOffset + tickLabelSpacing;
-  }
-
-  getTransform(scale: TimeScale, tickValue: any): number {
-    return scale(tickValue);
-  }
-
-  getTickLineOffset(): number {
-    return this.tickLineOffset;
-  }
+  return {
+    tickLineOffset,
+    orientation,
+    getTickValues: () => scale.ticks(),
+    getTickLabel: (value: Date) => scale.tickFormat()(value),
+    mapTickValueToPositionInScale: (value: Date) => scale(value),
+    getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing
+  };
 }
