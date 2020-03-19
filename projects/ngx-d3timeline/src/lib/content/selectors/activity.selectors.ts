@@ -12,7 +12,7 @@ import {
   getDragEventId,
   getCurrentlyDraggedActivityWithDraggedToSeries,
   getDeltaTime,
-  shiftUpdatedTimes,
+  updateActivityForDrag,
   shiftTimeByRangeValue
 } from '../../drag-utils';
 import {
@@ -84,8 +84,9 @@ export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
 );
 
 export const selectDraggedToActivity = createSelector(
-  selectCurrentlyDraggedActivityWithDraggedToSeries,
+  selectCurrentlyDraggedActivity,
   selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedStart),
   selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedFinish),
-  shiftUpdatedTimes
+  selectDraggedToSeries,
+  updateActivityForDrag
 );

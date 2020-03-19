@@ -15,16 +15,18 @@ export function getCurrentlyDraggedActivity(
   );
 }
 
-export function shiftUpdatedTimes(
+export function updateActivityForDrag(
   positionedActivity: PositionedActivity,
   updatedStart: Date,
-  updatedFinish: Date
+  updatedFinish: Date,
+  updatedSeries: string
 ) {
   return (
     positionedActivity && {
       ...positionedActivity,
       updatedStart,
-      updatedFinish
+      updatedFinish,
+      updatedSeries
     }
   );
 }
