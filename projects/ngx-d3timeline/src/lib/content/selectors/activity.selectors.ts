@@ -83,7 +83,7 @@ export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
   getCurrentlyDraggedActivityWithDraggedToSeries
 );
 
-export const selectDraggedToActivity = createSelector(
+export const selectActivityUpdatedForDrag = createSelector(
   selectCurrentlyDraggedActivity,
   selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedStart),
   selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedFinish),

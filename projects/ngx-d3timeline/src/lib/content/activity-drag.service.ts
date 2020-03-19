@@ -7,22 +7,22 @@ import { select, event } from 'd3-selection';
 
 import * as fromActions from '../store/actions';
 import { identifier } from '../types';
-import { selectDraggedToActivity } from './selectors/activity.selectors';
+import { selectActivityUpdatedForDrag } from './selectors/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityDragService {
   private dragEndSubject = new BehaviorSubject(null);
 
-  private draggedToActivity$ = this.dragEndSubject.pipe(
+  private activityUpdatedForDrag = this.dragEndSubject.pipe(
     filter(() => !!event),
-    withLatestFrom(this.store.select(selectDraggedToActivity)),
+    withLatestFrom(this.store.select(selectActivityUpdatedForDrag)),
     map(([, draggedToActivity]) => draggedToActivity)
   );
 
   constructor(private store: Store) {
-    this.draggedToActivity$.subscribe(draggedToActivity => {
+    this.activityUpdatedForDrag.subscribe(activityUpdatedForDrag => {
       this.store.dispatch(
-        new fromActions.TimelineDragEndedAction(draggedToActivity)
+        new fromActions.TimelineDragEndedAction(activityUpdatedForDrag)
       );
     });
   }
