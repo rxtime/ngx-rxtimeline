@@ -1,31 +1,24 @@
 import { BandScale } from '../../scale-types';
 import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
+import { Orientation } from '../../orientation';
 
-export class ResourceAxisTickMarkRenderer
-  implements TickMarkRenderer<BandScale> {
-  private readonly tickLineOffset = 0;
+export function getResourceAxisTickMarkRenderer(
+  scale: BandScale,
+  orientation: Orientation
+): TickMarkRenderer {
+  const tickLineOffset = 0;
 
-  getTickValues(scale: BandScale): string[] {
-    return scale.domain();
-  }
-
-  getTickLabel(_: BandScale, tickValue: any): string {
-    return tickValue;
-  }
-
-  getTickLabelSpacing(): number {
-    return this.tickLineOffset + tickLabelSpacing;
-  }
-
-  getTransform(scale: BandScale, tickValue: any): number {
-    return this.getBandMidPoint(scale, tickValue);
-  }
-
-  getTickLineOffset(): number {
-    return this.tickLineOffset;
-  }
-
-  private getBandMidPoint(scale: BandScale, tickValue: string): number {
+  function getBandMidPoint(tickValue: string): number {
     return scale(tickValue) + scale.bandwidth() / 2;
   }
+
+  return {
+    getTickLabel: (tickValue: string) => tickValue,
+    getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing,
+    getTickValues: () => scale.domain(),
+    mapTickValueToPositionInScale: (tickValue: string) =>
+      getBandMidPoint(tickValue),
+    tickLineOffset,
+    orientation
+  };
 }

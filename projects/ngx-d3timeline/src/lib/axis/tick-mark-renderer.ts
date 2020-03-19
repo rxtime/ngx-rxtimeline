@@ -1,11 +1,12 @@
-import { Scale } from '../scale-types';
+import { Orientation } from '../orientation';
 
-export interface TickMarkRenderer<TScale extends Scale> {
-  getTickValues(scale: TScale): any[];
-  getTickLabel(scale: TScale, tickValue: any): string;
+export interface TickMarkRenderer {
+  tickLineOffset: number;
+  orientation: Orientation;
+  getTickValues(): any[];
+  getTickLabel(tickValue: any): string;
   getTickLabelSpacing(): number;
-  getTransform(scale: TScale, tickValue: any): number;
-  getTickLineOffset(): number;
+  mapTickValueToPositionInScale(tickValue: any): number;
 }
 
 export const tickLabelSpacing = -2;
