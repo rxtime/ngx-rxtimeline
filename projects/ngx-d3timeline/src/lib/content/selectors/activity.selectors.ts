@@ -69,7 +69,7 @@ const selectCurrentlyDraggedUpdatedFinish = createSelector(
   activity => activity && activity.updatedFinish
 );
 
-const selectShiftedByDeltaTime = (selectTime: MemoizedSelector<Date>) =>
+const selectTimeShiftedForDragEvent = (selectTime: MemoizedSelector<Date>) =>
   createSelector(
     selectTime,
     selectTimeScale,
@@ -85,8 +85,8 @@ export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
 
 export const selectActivityUpdatedForDrag = createSelector(
   selectCurrentlyDraggedActivity,
-  selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedStart),
-  selectShiftedByDeltaTime(selectCurrentlyDraggedUpdatedFinish),
+  selectTimeShiftedForDragEvent(selectCurrentlyDraggedUpdatedStart),
+  selectTimeShiftedForDragEvent(selectCurrentlyDraggedUpdatedFinish),
   selectDraggedToSeries,
   updateActivityForDrag
 );
