@@ -1,9 +1,9 @@
 import {
   selectDragEvent,
   selectPositionedActivities,
-  selectTimeOrientation,
   selectLastDraggedActivityId
 } from '../../store/state';
+import { selectTimeOrientation } from '../../options.selectors';
 import { createSelector } from '../../selector/create-selector';
 import {
   findActivity,

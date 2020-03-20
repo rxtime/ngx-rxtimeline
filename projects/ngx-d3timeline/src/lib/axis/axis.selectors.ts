@@ -2,7 +2,7 @@ import { createSelector } from '../selector/create-selector';
 import {
   selectResourceOrientation,
   selectTimeOrientation
-} from '../store/state';
+} from '../options.selectors';
 import { getAxis } from './axis-utils';
 import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
 import { getResourceAxisTickMarkRenderer } from './resources-axis/resource-axis-tick-mark-renderer';

@@ -3,7 +3,7 @@ import {
   selectTimeScale,
   selectBandScale
 } from '../../store/timeline-selectors';
-import { selectTimeOrientation } from '../../store/state';
+import { selectTimeOrientation } from '../../options.selectors';
 import {
   getRectBreadthInTimeAxis,
   getRectHeight,

@@ -2,11 +2,13 @@ import { createSelector } from '../selector/create-selector';
 import {
   selectPositionedActivities,
   selectView,
-  selectResourceOrientation,
-  selectTimeOrientation,
   selectZoomEvent
 } from './state'; // TODO use barelling?
 import { configureBandScale, rescaleTime } from '../scale-utils';
+import {
+  selectResourceOrientation,
+  selectTimeOrientation
+} from '../options.selectors';
 
 export const selectBandScale = createSelector(
   selectPositionedActivities,

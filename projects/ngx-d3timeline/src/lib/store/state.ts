@@ -1,14 +1,13 @@
 import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
-import { Orientation } from '../orientation';
-import { flipOrientation } from '../orientation-utils';
 import { PositionedActivity } from '../positioned-activity';
 import { identifier } from '../types';
+import { Options } from '../options';
 
 export interface State {
   view: View;
-  timeOrientation: Orientation;
+  options: Options;
   positionedActivities: PositionedActivity[];
   lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;
@@ -19,18 +18,15 @@ const initialView = new View([null, null]);
 
 export const initialState: State = {
   view: initialView,
-  timeOrientation: null,
+  options: null,
   positionedActivities: [],
   lastDraggedActivityId: null,
   dragEvent: null,
   zoomEvent: null
 };
 
-export const selectTimeOrientation = createSliceSelector(
-  (state: State) => state.timeOrientation
-);
-export const selectResourceOrientation = createSliceSelector((state: State) =>
-  flipOrientation(state.timeOrientation)
+export const selectOptions = createSliceSelector(
+  (state: State) => state.options
 );
 export const selectView = createSliceSelector((state: State) => state.view);
 export const selectPositionedActivities = createSliceSelector(
