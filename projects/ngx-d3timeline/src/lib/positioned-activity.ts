@@ -3,7 +3,7 @@ import { Activity } from './activity';
 export interface PositionedActivity extends Activity {
   updatedStart: Date;
   updatedFinish: Date;
-  updatedSeries: string;
+  updatedResource: string;
 }
 
 function initialPosition(
@@ -12,7 +12,7 @@ function initialPosition(
   return {
     updatedStart: activity.start,
     updatedFinish: activity.finish,
-    updatedSeries: activity.series
+    updatedResource: activity.resource
   };
 }
 

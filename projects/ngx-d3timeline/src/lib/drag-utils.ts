@@ -19,14 +19,14 @@ export function updateActivityForDrag(
   positionedActivity: PositionedActivity,
   updatedStart: Date,
   updatedFinish: Date,
-  updatedSeries: string
+  updatedResource: string
 ): PositionedActivity {
   return (
     positionedActivity && {
       ...positionedActivity,
       updatedStart,
       updatedFinish,
-      updatedSeries
+      updatedResource
     }
   );
 }
@@ -42,7 +42,7 @@ export function shiftTimeByRangeValue(
 export function getDeltaTimeForDrag(
   timeOrientation: Orientation,
   dragEvent: TimelineDragEvent
-) {
+): number {
   return (
     dragEvent &&
     (timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx)
@@ -68,17 +68,17 @@ export function getDragEventOffsetTime(
 export function getDragPointInResourceAxis(
   timeOrientation: Orientation,
   dragEvent: TimelineDragEvent
-) {
+): number {
   return (
     dragEvent &&
     (timeOrientation === Orientation.Vertical ? dragEvent.x : dragEvent.y)
   );
 }
 
-export function valueToSeries(
+export function valueToResource(
   value: number,
   inverseBandScale: InverseBandScale
-) {
+): string {
   return inverseBandScale(value);
 }
 
@@ -91,15 +91,18 @@ export function getNonDraggedActivities(
     : activities;
 }
 
-export function getDragEventId(dragEvent: TimelineDragEvent) {
+export function getDragEventId(dragEvent: TimelineDragEvent): identifier {
   return dragEvent && dragEvent.id;
 }
 
-export function getCurrentlyDraggedActivityWithDraggedToSeries(
+export function getCurrentlyDraggedActivityWithDraggedToResource(
   currentlyDraggedActivity: PositionedActivity,
-  updatedSeries: string
-) {
+  updatedResource: string
+): PositionedActivity {
   return (
-    currentlyDraggedActivity && { ...currentlyDraggedActivity, updatedSeries }
+    currentlyDraggedActivity && {
+      ...currentlyDraggedActivity,
+      updatedResource
+    }
   );
 }

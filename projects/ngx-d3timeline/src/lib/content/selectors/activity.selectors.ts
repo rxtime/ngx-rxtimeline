@@ -8,10 +8,10 @@ import { createSelector } from '../../selector/create-selector';
 import {
   findActivity,
   getDragPointInResourceAxis,
-  valueToSeries,
+  valueToResource,
   getNonDraggedActivities,
   getDragEventId,
-  getCurrentlyDraggedActivityWithDraggedToSeries,
+  getCurrentlyDraggedActivityWithDraggedToResource,
   getDeltaTimeForDrag,
   updateActivityForDrag,
   shiftTimeByRangeValue
@@ -48,10 +48,10 @@ const selectDragPointInResourceAxis = createSelector(
   getDragPointInResourceAxis
 );
 
-const selectDraggedToSeries = createSelector(
+const selectDraggedToResource = createSelector(
   selectDragPointInResourceAxis,
   selectInverseBandScale,
-  valueToSeries
+  valueToResource
 );
 
 const selectDeltaTimeForDrag = createSelector(
@@ -78,17 +78,17 @@ const selectTimeShiftedForDragEvent = (selectTime: MemoizedSelector<Date>) =>
     shiftTimeByRangeValue
   );
 
-export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
+export const selectCurrentlyDraggedActivityWithDraggedToResource = createSelector(
   selectCurrentlyDraggedActivity,
-  selectDraggedToSeries,
-  getCurrentlyDraggedActivityWithDraggedToSeries
+  selectDraggedToResource,
+  getCurrentlyDraggedActivityWithDraggedToResource
 );
 
 export const selectActivityUpdatedForDrag = createSelector(
   selectCurrentlyDraggedActivity,
   selectTimeShiftedForDragEvent(selectUpdatedStartForCurrentlyDraggedActivity),
   selectTimeShiftedForDragEvent(selectUpdatedFinishForCurrentlyDraggedActivity),
-  selectDraggedToSeries,
+  selectDraggedToResource,
   updateActivityForDrag
 );
 

@@ -55,7 +55,7 @@ export function configureTimeScale(
 }
 
 function getBandScaleDomain(activities: Activity[]): string[] {
-  return [...new Set(activities.map(activity => activity.series))];
+  return [...new Set(activities.map(activity => activity.resource))];
 }
 
 function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
