@@ -10,7 +10,6 @@ import { Options } from 'ngx-d3timeline';
 })
 export class AppComponent {
   activities = deliveryData;
-  orientation = 'Vertical';
 
   options: Options = {
     activityFontSize: 10,
@@ -22,5 +21,13 @@ export class AppComponent {
 
   onDropped(activity: Activity) {
     console.log(activity);
+  }
+
+  flipOrientation() {
+    this.options = {
+      ...this.options,
+      orientation:
+        this.options.orientation === 'Vertical' ? 'Horizontal' : 'Vertical'
+    };
   }
 }

@@ -3,7 +3,7 @@ import { Store } from './store/store';
 import { selectView } from './store/state';
 import { Activity, getActivityFromPositionedActivity } from './activity';
 import * as fromActions from './store/actions';
-import { Orientation } from './orientation';
+import { Options } from './options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
@@ -32,10 +32,8 @@ export class NgxD3TimelineService {
     this.store.dispatch(new fromActions.ViewChangedAction([width, height]));
   }
 
-  setTimeOrientation(timeOrientation: Orientation) {
-    this.store.dispatch(
-      new fromActions.OrientationChangedAction(timeOrientation)
-    );
+  setOptions(options: Options) {
+    this.store.dispatch(new fromActions.OptionsChangedAction(options));
   }
 
   setupZoom(svgEl: ElementRef<SVGElement>) {

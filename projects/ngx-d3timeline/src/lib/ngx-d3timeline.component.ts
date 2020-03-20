@@ -57,11 +57,9 @@ export class NgxD3timelineComponent
     this.timeline.setView([width, height]);
   }
 
-  @Input() set orientation(value: Orientation) {
-    this.timeline.setTimeOrientation(value);
+  @Input() set options(options: Options) {
+    this.timeline.setOptions(options);
   }
-
-  @Input() options: Options;
 
   @Output() activityDropped = new EventEmitter<Activity>();
 
