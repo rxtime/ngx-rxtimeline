@@ -103,13 +103,24 @@ export function createActivityRectangle(
   transform: ActivityTransform,
   width: PositionInAxis,
   height: PositionInAxis,
+  fontSize: number,
   positionedActivity: PositionedActivity
 ): ActivityRectangle {
+  const rectWidth = width(positionedActivity);
+  const rectHeight = height(positionedActivity);
   return {
     id: positionedActivity.id,
     title: positionedActivity.type,
+    showTitle: shouldShowActivityTitle(rectHeight, fontSize),
     transform: transform(positionedActivity),
-    width: width(positionedActivity),
-    height: height(positionedActivity)
+    width: rectWidth,
+    height: rectHeight
   };
+}
+
+function shouldShowActivityTitle(height: number, fontSize: number): boolean {
+  const labelPaddingEachSide = 1;
+  const minHeightToShowLabel = fontSize + labelPaddingEachSide * 2;
+
+  return height >= minHeightToShowLabel; // TODO consider orientation
 }

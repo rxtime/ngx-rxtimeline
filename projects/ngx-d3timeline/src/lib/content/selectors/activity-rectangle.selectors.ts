@@ -16,7 +16,10 @@ import {
   selectRectWidth,
   selectRectHeight
 } from './activity-rectangle-size.selectors';
-import { selectTimeOrientation } from '../../options.selectors';
+import {
+  selectTimeOrientation,
+  selectActivityFontSize
+} from '../../options.selectors';
 
 const selectDragEventOffset = createSelector(
   selectDragEvent,
@@ -34,8 +37,9 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectTransform(selectOffset),
     selectRectWidth,
     selectRectHeight,
-    (transform, width, height) =>
-      createActivityRectangle.bind(null, transform, width, height)
+    selectActivityFontSize,
+    (transform, width, height, fontSize) =>
+      createActivityRectangle.bind(null, transform, width, height, fontSize)
   );
 
 export const selectNonDraggedActivityRectangles = createSelector(
