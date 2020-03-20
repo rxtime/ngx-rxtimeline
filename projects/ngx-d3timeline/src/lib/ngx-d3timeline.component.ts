@@ -56,7 +56,7 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
     this.timeline.setTimeOrientation(value);
   }
 
-  @Output() dropped = new EventEmitter<Activity>();
+  @Output() activityDropped = new EventEmitter<Activity>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
@@ -64,7 +64,7 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.timeline.lastDraggedActivity$.subscribe(activity =>
-      this.dropped.emit(activity)
+      this.activityDropped.emit(activity)
     );
   }
 
