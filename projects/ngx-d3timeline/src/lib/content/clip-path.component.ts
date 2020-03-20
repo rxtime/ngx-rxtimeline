@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Rectangle } from '../rectangle';
 
 @Component({
@@ -12,7 +12,8 @@ import { Rectangle } from '../rectangle';
         [attr.height]="clipRect.height"
       ></svg:rect>
     </svg:clipPath>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClipPathComponent {
   @Input() clipRect: Rectangle;
