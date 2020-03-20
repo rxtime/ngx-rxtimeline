@@ -3,7 +3,7 @@ import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
 import { PositionedActivity } from '../positioned-activity';
 import { identifier } from '../types';
-import { Options } from '../options';
+import { Options, defaultOptions } from '../options';
 
 export interface State {
   view: View;
@@ -18,7 +18,7 @@ const initialView = new View([null, null]);
 
 export const initialState: State = {
   view: initialView,
-  options: null,
+  options: defaultOptions,
   positionedActivities: [],
   lastDraggedActivityId: null,
   dragEvent: null,

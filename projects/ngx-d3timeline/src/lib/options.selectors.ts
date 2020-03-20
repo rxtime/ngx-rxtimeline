@@ -10,3 +10,8 @@ export const selectResourceOrientation = createSelector(
   selectTimeOrientation,
   flipOrientation
 );
+
+export const selectActivityFontSize = createSelector(
+  selectOptions,
+  options => options && options.activityFontSize
+);
