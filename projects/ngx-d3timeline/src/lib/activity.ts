@@ -16,7 +16,7 @@ const positionedActivityToActivityMap = {
   updatedStart: 'start'
 };
 
-export function getAcivityFromPositionedActivity(
+export function getActivityFromPositionedActivity(
   positionedActivity: PositionedActivity
 ): Activity {
   const activity: Activity = { ...positionedActivity };
