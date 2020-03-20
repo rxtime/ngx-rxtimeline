@@ -1,3 +1,5 @@
+import { PositionedActivity } from './positioned-activity';
+
 export interface Activity {
   id: number;
   start: Date;
@@ -6,4 +8,23 @@ export interface Activity {
   series?: string;
   title?: string;
   sequence?: number;
+}
+
+const positionedActivityToActivityMap = {
+  updatedSeries: 'series',
+  updatedFinish: 'finish',
+  updatedStart: 'start'
+};
+
+export function getActivityFromPositionedActivity(
+  positionedActivity: PositionedActivity
+): Activity {
+  const activity: Activity = { ...positionedActivity };
+
+  Object.keys(positionedActivityToActivityMap).forEach(k => {
+    activity[positionedActivityToActivityMap[k]] = positionedActivity[k];
+    delete activity[k];
+  });
+
+  return activity;
 }

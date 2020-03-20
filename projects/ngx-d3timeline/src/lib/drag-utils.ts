@@ -5,7 +5,7 @@ import { PositionedActivity } from './positioned-activity';
 import { identifier } from './types';
 import { Point, origin } from './point';
 
-export function getCurrentlyDraggedActivity(
+export function findActivity(
   positionedActivities: PositionedActivity[],
   dragEventId: identifier
 ): PositionedActivity {
@@ -20,7 +20,7 @@ export function updateActivityForDrag(
   updatedStart: Date,
   updatedFinish: Date,
   updatedSeries: string
-) {
+): PositionedActivity {
   return (
     positionedActivity && {
       ...positionedActivity,
