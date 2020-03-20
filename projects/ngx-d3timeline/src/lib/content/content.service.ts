@@ -6,6 +6,7 @@ import {
   selectDraggedFromRectangle,
   selectDraggedToRectangle
 } from './selectors/activity-rectangle.selectors';
+import { selectViewClipRectangle } from '../view/view.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -13,6 +14,7 @@ export class ContentService {
   draggingRectangle$ = this.store.select(selectDraggingActivityRectangle);
   dropRectangle$ = this.store.select(selectDraggedToRectangle);
   fromRectangle$ = this.store.select(selectDraggedFromRectangle);
+  clipRect$ = this.store.select(selectViewClipRectangle);
 
   constructor(private store: Store) {}
 }

@@ -5,7 +5,16 @@ exports[`ContentComponent activityRectangles null should not render 1`] = `
   id="root0"
   ngx-d3timeline-content=""
 >
-  
+  <defs
+    ngx-d3timeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
 </div>
 `;
 
@@ -14,7 +23,16 @@ exports[`ContentComponent activityRectangles null should not render when draggin
   id="root1"
   ngx-d3timeline-content=""
 >
-  
+  <defs
+    ngx-d3timeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
 </div>
 `;
 
@@ -23,7 +41,16 @@ exports[`ContentComponent activityRectangles null should not render when dropRec
   id="root2"
   ngx-d3timeline-content=""
 >
-  
+  <defs
+    ngx-d3timeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
 </div>
 `;
 
@@ -32,7 +59,16 @@ exports[`ContentComponent activityRectangles null should not render when fromRec
   id="root3"
   ngx-d3timeline-content=""
 >
-  
+  <defs
+    ngx-d3timeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
 </div>
 `;
 
@@ -41,40 +77,49 @@ exports[`ContentComponent activityRectangles set should render 1`] = `
   id="root4"
   ngx-d3timeline-content=""
 >
-  
+  <defs
+    ngx-d3timeline-clip-path=""
+  >
+    <g />
+  </defs>
   <g
-    class="content-group"
+    clip-path="url(#clipRect)"
   >
     
     <g
-      ngx-d3timeline-activity-rectangle=""
+      class="content-group"
     >
-      <g />
-    </g>
-    <g
-      ngx-d3timeline-activity-rectangle=""
-    >
-      <g />
-    </g>
-    
-    <g
-      class="from-activity-rectangle"
-      ngx-d3timeline-activity-rectangle=""
-    >
-      <g />
-    </g>
-    
-    <g
-      class="drop-activity-rectangle"
-      ngx-d3timeline-activity-rectangle=""
-    >
-      <g />
-    </g>
-    
-    <g
-      ngx-d3timeline-activity-rectangle=""
-    >
-      <g />
+      
+      <g
+        ngx-d3timeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      <g
+        ngx-d3timeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        class="from-activity-rectangle"
+        ngx-d3timeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        class="drop-activity-rectangle"
+        ngx-d3timeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        ngx-d3timeline-activity-rectangle=""
+      >
+        <g />
+      </g>
     </g>
   </g>
 </div>

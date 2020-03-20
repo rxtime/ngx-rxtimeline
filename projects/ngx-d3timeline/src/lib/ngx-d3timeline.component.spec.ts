@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { LineComponent } from './line.component';
 import { AxisTickMarkComponent } from './axis/axis-tick-mark.component';
 import { AxisComponent } from './axis/axis-component';
+import { ClipPathComponent } from './content/clip-path.component';
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
@@ -23,7 +24,8 @@ describe('NgxD3timelineComponent', () => {
         LineComponent,
         ActivityRectangleComponent,
         AxisTickMarkComponent,
-        AxisComponent
+        AxisComponent,
+        ClipPathComponent
       ],
       providers: [
         {
