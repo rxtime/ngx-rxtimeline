@@ -13,14 +13,14 @@ import { selectActivityUpdatedForDrag } from './selectors/activity.selectors';
 export class ActivityDragService {
   private dragEndSubject = new BehaviorSubject(null);
 
-  private activityUpdatedForDrag = this.dragEndSubject.pipe(
+  private activityUpdatedForDrag$ = this.dragEndSubject.pipe(
     filter(() => !!event),
     withLatestFrom(this.store.select(selectActivityUpdatedForDrag)),
     map(([, draggedToActivity]) => draggedToActivity)
   );
 
   constructor(private store: Store) {
-    this.activityUpdatedForDrag.subscribe(activityUpdatedForDrag => {
+    this.activityUpdatedForDrag$.subscribe(activityUpdatedForDrag => {
       this.store.dispatch(
         new fromActions.TimelineDragEndedAction(activityUpdatedForDrag)
       );
