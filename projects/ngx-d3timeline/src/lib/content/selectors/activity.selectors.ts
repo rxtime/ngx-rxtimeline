@@ -60,12 +60,12 @@ const selectDeltaTimeForDrag = createSelector(
   getDeltaTimeForDrag
 );
 
-const selectCurrentlyDraggedUpdatedStart = createSelector(
+const selectUpdatedStartForCurrentlyDraggedActivity = createSelector(
   selectCurrentlyDraggedActivity,
   activity => activity && activity.updatedStart
 );
 
-const selectCurrentlyDraggedUpdatedFinish = createSelector(
+const selectUpdatedFinishForCurrentlyDraggedActivity = createSelector(
   selectCurrentlyDraggedActivity,
   activity => activity && activity.updatedFinish
 );
@@ -86,8 +86,8 @@ export const selectCurrentlyDraggedActivityWithDraggedToSeries = createSelector(
 
 export const selectActivityUpdatedForDrag = createSelector(
   selectCurrentlyDraggedActivity,
-  selectTimeShiftedForDragEvent(selectCurrentlyDraggedUpdatedStart),
-  selectTimeShiftedForDragEvent(selectCurrentlyDraggedUpdatedFinish),
+  selectTimeShiftedForDragEvent(selectUpdatedStartForCurrentlyDraggedActivity),
+  selectTimeShiftedForDragEvent(selectUpdatedFinishForCurrentlyDraggedActivity),
   selectDraggedToSeries,
   updateActivityForDrag
 );
