@@ -1,7 +1,6 @@
 <ngx-d3timeline
   [activities]="activities"
   [view]="[width, height]"
-  [orientation]="orientation"
   [options]="options"
   (activityDropped)="onDropped($event)"
 ></ngx-d3timeline>
@@ -16,5 +15,5 @@
   <input [(ngModel)]="height" />
 </div>
 
-<button (click)="orientation = 'Vertical'">Vertical</button>
-<button (click)="orientation = 'Horizontal'">Horizontal</button>
+<button (click)="flipOrientation()">Flip Orientation</button>
+<span>{{ options.orientation }}</span>

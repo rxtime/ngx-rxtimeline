@@ -1,6 +1,6 @@
 import { Activity } from '../activity';
 import { PositionedActivity } from '../positioned-activity';
-import { Orientation } from '../orientation';
+import { Options } from '../options';
 import { identifier } from '../types';
 
 export interface Action {
@@ -10,7 +10,7 @@ export interface Action {
 
 export enum ActionType {
   ActivitiesChanged = 'Activities Changed',
-  OrientationChanged = 'Orientation Changed',
+  OptionsChanged = 'Options Changed',
   ViewChanged = 'View Changed',
   Zoomed = 'Zoomed',
   TimelineDragStarted = 'Timeline Drag Started',
@@ -23,9 +23,9 @@ export class ActivitiesChangedAction implements Action {
   constructor(public payload: Activity[]) {}
 }
 
-export class OrientationChangedAction implements Action {
-  readonly type = ActionType.OrientationChanged;
-  constructor(public payload: Orientation) {}
+export class OptionsChangedAction implements Action {
+  readonly type = ActionType.OptionsChanged;
+  constructor(public payload: Options) {}
 }
 
 export class ViewChangedAction implements Action {
@@ -55,7 +55,7 @@ export class TimelineDragEndedAction implements Action {
 
 export type Actions =
   | ActivitiesChangedAction
-  | OrientationChangedAction
+  | OptionsChangedAction
   | ViewChangedAction
   | ZoomedAction
   | TimelineDragStartedAction
