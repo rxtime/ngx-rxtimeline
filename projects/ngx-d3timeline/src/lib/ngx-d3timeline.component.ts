@@ -8,13 +8,16 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { Activity } from './activity';
 
 import { Orientation } from './orientation';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -43,7 +46,8 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NgxD3timelineComponent implements OnInit, AfterViewInit {
+export class NgxD3timelineComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -60,15 +64,21 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
+  destroy$ = new Subject<boolean>();
+
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.timeline.lastDraggedActivity$.subscribe(activity =>
-      this.activityDropped.emit(activity)
-    );
+    this.timeline.lastDraggedActivity$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(activity => this.activityDropped.emit(activity));
   }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 }
