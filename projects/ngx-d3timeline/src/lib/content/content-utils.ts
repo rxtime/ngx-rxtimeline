@@ -13,7 +13,7 @@ export function getPositionInResourceAxis(
   bandScale: BandScale,
   positionedActivity: PositionedActivity
 ): number {
-  return bandScale(positionedActivity.updatedSeries);
+  return bandScale(positionedActivity.updatedResource);
 }
 
 export function getPositionInTimeAxis(

@@ -5,13 +5,13 @@ export interface Activity {
   start: Date;
   finish: Date;
   type?: string;
-  series?: string;
+  resource?: string;
   title?: string;
   sequence?: number;
 }
 
 const positionedActivityToActivityMap = {
-  updatedSeries: 'series',
+  updatedResource: 'resource',
   updatedFinish: 'finish',
   updatedStart: 'start'
 };

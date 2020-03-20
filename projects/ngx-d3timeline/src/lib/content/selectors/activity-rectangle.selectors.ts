@@ -3,7 +3,7 @@ import { selectTimeOrientation, selectDragEvent } from '../../store/state';
 import {
   selectNonDraggedActivities,
   selectCurrentlyDraggedActivity,
-  selectCurrentlyDraggedActivityWithDraggedToSeries
+  selectCurrentlyDraggedActivityWithDraggedToResource
 } from './activity.selectors';
 import { createActivityRectangle } from '../content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
@@ -57,7 +57,7 @@ export const selectDraggedFromRectangle = createSelector(
 );
 
 export const selectDraggedToRectangle = createSelector(
-  selectCurrentlyDraggedActivityWithDraggedToSeries,
+  selectCurrentlyDraggedActivityWithDraggedToResource,
   selectRectangle(selectDragEventOffsetTime),
   activityToRectangle
 );
