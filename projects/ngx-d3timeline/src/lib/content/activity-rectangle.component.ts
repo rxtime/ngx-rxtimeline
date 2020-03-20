@@ -23,7 +23,12 @@ import { ActivityRectangleService } from './activity-rectangle.service';
         [attr.width]="activityRectangle.width"
       ></svg:rect>
       <svg:g *ngIf="facade.showLabel(activityRectangle)">
-        <svg:text dominant-baseline="hanging" dx="2" dy="2">
+        <svg:text
+          dominant-baseline="hanging"
+          dx="2"
+          dy="2"
+          [attr.font-size]="facade.fontSize$ | async"
+        >
           {{ activityRectangle.title }}
         </svg:text>
       </svg:g>
