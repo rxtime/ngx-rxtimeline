@@ -4,6 +4,7 @@ import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { identifier } from '../types';
 import { initialisePositionedActivity } from '../positioned-activity';
+import { Options } from '../options';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -15,9 +16,14 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.OrientationChanged: {
+      const options: Options = {
+        ...state.options,
+        orientation: action.payload
+      };
+
       return {
         ...state,
-        timeOrientation: action.payload
+        options
       };
     }
 

@@ -1,5 +1,5 @@
 import { createSelector } from '../../selector/create-selector';
-import { selectTimeOrientation, selectDragEvent } from '../../store/state';
+import { selectDragEvent } from '../../store/state';
 import {
   selectNonDraggedActivities,
   selectCurrentlyDraggedActivity,
@@ -16,6 +16,7 @@ import {
   selectRectWidth,
   selectRectHeight
 } from './activity-rectangle-size.selectors';
+import { selectTimeOrientation } from '../../options.selectors';
 
 const selectDragEventOffset = createSelector(
   selectDragEvent,
