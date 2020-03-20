@@ -1,4 +1,4 @@
-export class TimelineView {
+export class View {
   readonly width: number;
   readonly height: number;
   readonly margin = 50;
