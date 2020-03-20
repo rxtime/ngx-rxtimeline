@@ -1,6 +1,6 @@
 import { State } from './state';
 import { Actions, ActionType } from './actions';
-import { TimelineView } from '../view/timeline-view';
+import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { identifier } from '../types';
 import { initialisePositionedActivity } from '../positioned-activity';
@@ -22,7 +22,7 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.ViewChanged: {
-      return { ...state, view: new TimelineView(action.payload) };
+      return { ...state, view: new View(action.payload) };
     }
 
     case ActionType.Zoomed: {

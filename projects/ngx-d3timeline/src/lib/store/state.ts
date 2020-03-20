@@ -1,4 +1,4 @@
-import { TimelineView } from '../view/timeline-view';
+import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
 import { Orientation } from '../orientation';
@@ -7,7 +7,7 @@ import { PositionedActivity } from '../positioned-activity';
 import { identifier } from '../types';
 
 export interface State {
-  view: TimelineView;
+  view: View;
   timeOrientation: Orientation;
   positionedActivities: PositionedActivity[];
   lastDraggedActivityId: identifier;
@@ -15,7 +15,7 @@ export interface State {
   zoomEvent: any;
 }
 
-const initialView = new TimelineView([null, null]);
+const initialView = new View([null, null]);
 
 export const initialState: State = {
   view: initialView,

@@ -3,7 +3,7 @@ import { Orientation } from './orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { Activity } from './activity';
 import { min, max } from 'd3-array';
-import { TimelineView } from './view/timeline-view';
+import { View } from './view/view';
 
 export function getInverseBandScale(scale: BandScale): InverseBandScale {
   const domain = scale.domain();
@@ -17,7 +17,7 @@ export function getInverseBandScale(scale: BandScale): InverseBandScale {
 
 export function rescaleTime(
   activities: Activity[],
-  view: TimelineView,
+  view: View,
   timeOrientation: Orientation,
   event: any
 ): TimeScale {
@@ -36,7 +36,7 @@ export function rescaleTime(
 
 export function configureBandScale(
   activities: Activity[],
-  view: TimelineView,
+  view: View,
   orientation: Orientation
 ): BandScale {
   return scaleBand()
@@ -46,7 +46,7 @@ export function configureBandScale(
 
 export function configureTimeScale(
   activities: Activity[],
-  view: TimelineView,
+  view: View,
   orientation: Orientation
 ): TimeScale {
   return scaleTime()
@@ -65,10 +65,7 @@ function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
   ];
 }
 
-function getRange(
-  view: TimelineView,
-  orientation: Orientation
-): [number, number] {
+function getRange(view: View, orientation: Orientation): [number, number] {
   return orientation === Orientation.Vertical
     ? [view.top, view.bottom]
     : [view.left, view.right];
