@@ -14,7 +14,7 @@ export class AppComponent {
   width = 400;
   height = 400;
 
-  onDropped(event: Activity) {
-    console.log(event);
+  onDropped(activity: Activity) {
+    console.log(activity);
   }
 }
