@@ -1,11 +1,9 @@
-import { Orientation } from './orientation';
-
 export interface Options {
-  orientation: Orientation;
+  orientation: 'Vertical' | 'Horizontal';
   activityFontSize: number;
 }
 
 export const defaultOptions: Options = {
-  orientation: Orientation.Vertical,
+  orientation: 'Vertical',
   activityFontSize: 10
 };

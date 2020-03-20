@@ -18,6 +18,7 @@ import { Orientation } from './orientation';
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Options } from './options';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -59,6 +60,8 @@ export class NgxD3timelineComponent
   @Input() set orientation(value: Orientation) {
     this.timeline.setTimeOrientation(value);
   }
+
+  @Input() options: Options;
 
   @Output() activityDropped = new EventEmitter<Activity>();
 

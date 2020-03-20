@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { deliveryData } from './data';
 import { Activity } from 'ngx-d3timeline';
+import { Options } from 'ngx-d3timeline';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,11 @@ import { Activity } from 'ngx-d3timeline';
 export class AppComponent {
   activities = deliveryData;
   orientation = 'Vertical';
+
+  options: Options = {
+    activityFontSize: 10,
+    orientation: 'Vertical'
+  };
 
   width = 400;
   height = 400;

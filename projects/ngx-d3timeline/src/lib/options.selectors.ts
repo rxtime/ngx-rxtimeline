@@ -1,10 +1,10 @@
 import { createSelector } from './selector/create-selector';
 import { selectOptions } from './store/state';
-import { flipOrientation } from './orientation-utils';
+import { flipOrientation, getTimeOrientation } from './orientation-utils';
 
 export const selectTimeOrientation = createSelector(
   selectOptions,
-  options => options && options.orientation
+  getTimeOrientation
 );
 export const selectResourceOrientation = createSelector(
   selectTimeOrientation,
