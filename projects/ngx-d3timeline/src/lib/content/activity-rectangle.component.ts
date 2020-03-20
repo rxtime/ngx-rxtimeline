@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { ActivityRectangle } from './activity-rectangle';
-import { ActivityDragService } from './activity-drag.service';
+import { ActivityRectangleService } from './activity-rectangle.service';
 
 @Component({
   selector: '[ngx-d3timeline-activity-rectangle]',
@@ -22,7 +22,7 @@ import { ActivityDragService } from './activity-drag.service';
         [attr.height]="activityRectangle.height"
         [attr.width]="activityRectangle.width"
       ></svg:rect>
-      <svg:g *ngIf="showLabel">
+      <svg:g *ngIf="facade.showLabel(activityRectangle)">
         <svg:text dominant-baseline="hanging" dx="2" dy="2">
           {{ activityRectangle.title }}
         </svg:text>
@@ -32,30 +32,13 @@ import { ActivityDragService } from './activity-drag.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityRectangleComponent implements AfterViewInit {
-  labelFontHeight = 10;
-  labelPaddingEachSide = 1;
-  minHeightToShowLabel = this.labelFontHeight + this.labelPaddingEachSide * 2;
-
   @Input() activityRectangle: ActivityRectangle;
 
   @ViewChild('activityRectangleEl') activityRectangleEl: ElementRef;
 
-  constructor(private activityDragService: ActivityDragService) {}
+  constructor(public facade: ActivityRectangleService) {}
 
   ngAfterViewInit() {
-    this.setupDrag();
-  }
-
-  get showLabel(): boolean {
-    return this.activityRectangle.height >= this.minHeightToShowLabel; // TODO consider orientation
-  }
-
-  private setupDrag() {
-    if (this.activityRectangleEl) {
-      this.activityDragService.setupDrag(
-        this.activityRectangle.id,
-        this.activityRectangleEl.nativeElement
-      );
-    }
+    this.facade.setupDrag(this.activityRectangle, this.activityRectangleEl);
   }
 }
