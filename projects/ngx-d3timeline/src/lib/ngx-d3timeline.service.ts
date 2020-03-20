@@ -7,7 +7,7 @@ import { Orientation } from './orientation';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, tap, distinctUntilChanged } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './content/selectors/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
