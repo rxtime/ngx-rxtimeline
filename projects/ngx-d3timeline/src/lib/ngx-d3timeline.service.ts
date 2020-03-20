@@ -1,7 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Store } from './store/store';
 import { selectView } from './store/state';
-import { Activity, getAcivityFromPositionedActivity } from './activity';
+import { Activity, getActivityFromPositionedActivity } from './activity';
 import * as fromActions from './store/actions';
 import { Orientation } from './orientation';
 import { zoom } from 'd3-zoom';
@@ -19,7 +19,7 @@ export class NgxD3TimelineService {
   lastDraggedActivity$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),
     distinctUntilChanged(),
-    map(getAcivityFromPositionedActivity)
+    map(getActivityFromPositionedActivity)
   );
 
   constructor(private store: Store, private axisService: AxisService) {}
