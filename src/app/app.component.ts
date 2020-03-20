@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { deliveryData } from './data';
+import { Activity } from 'ngx-d3timeline';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,8 @@ export class AppComponent {
 
   width = 400;
   height = 400;
+
+  onDropped(activity: Activity) {
+    console.log(activity);
+  }
 }

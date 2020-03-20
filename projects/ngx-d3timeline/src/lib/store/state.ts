@@ -1,41 +1,44 @@
-import { Activity } from '../activity';
-import { TimelineView } from '../view/timeline-view';
+import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
-import { Orientation } from '../orientation';
-import { flipOrientation } from '../orientation-utils';
+import { PositionedActivity } from '../positioned-activity';
+import { identifier } from '../types';
+import { Options } from '../options';
 
 export interface State {
-  view: TimelineView;
-  timeOrientation: Orientation;
-  activities: Activity[];
+  view: View;
+  options: Options;
+  positionedActivities: PositionedActivity[];
+  lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
 }
 
-const initialView = new TimelineView([null, null]);
+const initialView = new View([null, null]);
 
 export const initialState: State = {
   view: initialView,
-  timeOrientation: null,
-  activities: [],
+  options: null,
+  positionedActivities: [],
+  lastDraggedActivityId: null,
   dragEvent: null,
   zoomEvent: null
 };
 
-export const selectTimeOrientation = createSliceSelector(
-  (state: State) => state.timeOrientation
-);
-export const selectResourceOrientation = createSliceSelector((state: State) =>
-  flipOrientation(state.timeOrientation)
+export const selectOptions = createSliceSelector(
+  (state: State) => state.options
 );
 export const selectView = createSliceSelector((state: State) => state.view);
-export const selectActivities = createSliceSelector(
-  (state: State) => state.activities
+export const selectPositionedActivities = createSliceSelector(
+  (state: State) => state.positionedActivities
 );
 export const selectZoomEvent = createSliceSelector(
   (state: State) => state.zoomEvent
 );
 export const selectDragEvent = createSliceSelector(
   (state: State) => state.dragEvent
+);
+
+export const selectLastDraggedActivityId = createSliceSelector(
+  (state: State) => state.lastDraggedActivityId
 );

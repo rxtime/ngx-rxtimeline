@@ -4,25 +4,40 @@ import { of } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { Component, Input } from '@angular/core';
 import { ActivityRectangle } from './activity-rectangle';
+import { Rectangle } from '../rectangle';
+
+@Component({
+  selector: '[ngx-d3timeline-clip-path]',
+  template: `
+    <svg:g></svg:g>
+  `
+})
+class FakeClipPathComponent {
+  @Input() clipRect: Rectangle;
+}
+
+@Component({
+  selector: '[ngx-d3timeline-activity-rectangle]',
+  template: `
+    <svg:g></svg:g>
+  `
+})
+class FakeActivityRectangleComponent {
+  @Input() activityRectangle: ActivityRectangle;
+}
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let contentService: ContentService;
   let mockActivityRectangles: ActivityRectangle[];
 
-  @Component({
-    selector: '[ngx-d3timeline-activity-rectangle]',
-    template: `
-      <svg:g></svg:g>
-    `
-  })
-  class FakeActivityRectangleComponent {
-    @Input() activityRectangle: ActivityRectangle;
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContentComponent, FakeActivityRectangleComponent],
+      declarations: [
+        ContentComponent,
+        FakeActivityRectangleComponent,
+        FakeClipPathComponent
+      ],
       providers: [{ provide: ContentService, useValue: jest.fn() }]
     });
 
@@ -88,6 +103,7 @@ describe('ContentComponent', () => {
       contentService.draggingRectangle$ = of(mockActivityRectangles[0]);
       contentService.dropRectangle$ = of(mockActivityRectangles[0]);
       contentService.fromRectangle$ = of(mockActivityRectangles[0]);
+      contentService.clipRect$ = of({ x: 0, y: 0, width: 10, height: 10 });
 
       fixture.detectChanges();
 

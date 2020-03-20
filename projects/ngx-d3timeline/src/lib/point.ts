@@ -10,7 +10,11 @@ export const origin: Point = {
   y: 0
 };
 
-export function translatePoint(
+export function translatePoint(point: Point, offset: Point): Point {
+  return { x: point.x + offset.x, y: point.y + offset.y };
+}
+
+export function translatePointInOrientation(
   point: Point,
   distance: number,
   orientation: Orientation

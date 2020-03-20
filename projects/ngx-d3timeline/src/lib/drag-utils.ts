@@ -1,70 +1,108 @@
-import { getInverseBandScale } from './scale-utils';
 import { Orientation } from './orientation';
-import { Activity } from './activity';
-import { BandScale, TimeScale } from './scale-types';
+import { TimeScale, InverseBandScale } from './scale-types';
 import { TimelineDragEvent } from './content/timeline-drag-event';
+import { PositionedActivity } from './positioned-activity';
+import { identifier } from './types';
+import { Point, origin } from './point';
 
-export function getDropActivity(
-  bandScale: BandScale,
-  timeScale: TimeScale,
-  activities: Activity[],
-  dragEvent: TimelineDragEvent,
-  timeOrientation: Orientation
-) {
-  const draggingActivity = getDraggingActivity(activities, dragEvent);
-
+export function findActivity(
+  positionedActivities: PositionedActivity[],
+  dragEventId: identifier
+): PositionedActivity {
   return (
-    draggingActivity && {
-      ...draggingActivity,
-      series: getDropActivitySeries(bandScale, dragEvent, timeOrientation),
-      ...shiftedTimesForDraggingActivity(
-        draggingActivity,
-        timeOrientation,
-        dragEvent,
-        timeScale
-      )
+    dragEventId &&
+    positionedActivities.find(activity => activity.id === dragEventId)
+  );
+}
+
+export function updateActivityForDrag(
+  positionedActivity: PositionedActivity,
+  updatedStart: Date,
+  updatedFinish: Date,
+  updatedResource: string
+): PositionedActivity {
+  return (
+    positionedActivity && {
+      ...positionedActivity,
+      updatedStart,
+      updatedFinish,
+      updatedResource
     }
   );
 }
 
-export function getDraggingActivity(
-  activities: Activity[],
-  dragEvent: TimelineDragEvent
-): Activity {
-  return dragEvent && activities.find(activity => activity.id === dragEvent.id);
+export function shiftTimeByRangeValue(
+  time: Date,
+  timeScale: TimeScale,
+  rangeValue: number
+): Date {
+  return timeScale.invert(timeScale(time) + rangeValue);
 }
 
-function getDropActivitySeries(
-  bandScale: BandScale,
+export function getDeltaTimeForDrag(
+  timeOrientation: Orientation,
+  dragEvent: TimelineDragEvent
+): number {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx)
+  );
+}
+
+export function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
+  return dragEvent && { x: dragEvent.dx, y: dragEvent.dy };
+}
+
+export function getDragEventOffsetTime(
   dragEvent: TimelineDragEvent,
   timeOrientation: Orientation
-) {
-  const invert = getInverseBandScale(bandScale);
-  return dragEvent && timeOrientation === Orientation.Vertical
-    ? invert(dragEvent.x)
-    : invert(dragEvent.y);
+): Point {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical
+      ? { ...origin, y: dragEvent.dy }
+      : { ...origin, x: dragEvent.dx })
+  );
 }
 
-function shiftedTimesForDraggingActivity(
-  draggingActivity: Activity,
-  timeOrientation: Orientation,
-  dragEvent: TimelineDragEvent,
-  timeScale: TimeScale
-) {
-  const deltaTime = getDeltaTime(timeOrientation, dragEvent);
-
-  const shiftedActivityStart = timeScale(draggingActivity.start) + deltaTime;
-  const shiftedActivityFinish = timeScale(draggingActivity.finish) + deltaTime;
-
-  return {
-    start: timeScale.invert(shiftedActivityStart),
-    finish: timeScale.invert(shiftedActivityFinish)
-  };
-}
-
-function getDeltaTime(
+export function getDragPointInResourceAxis(
   timeOrientation: Orientation,
   dragEvent: TimelineDragEvent
-) {
-  return timeOrientation === Orientation.Vertical ? dragEvent.dy : dragEvent.dx;
+): number {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical ? dragEvent.x : dragEvent.y)
+  );
+}
+
+export function valueToResource(
+  value: number,
+  inverseBandScale: InverseBandScale
+): string {
+  return inverseBandScale(value);
+}
+
+export function getNonDraggedActivities(
+  activities: PositionedActivity[],
+  dragEventId: identifier
+): PositionedActivity[] {
+  return dragEventId
+    ? activities.filter(activity => activity.id !== dragEventId)
+    : activities;
+}
+
+export function getDragEventId(dragEvent: TimelineDragEvent): identifier {
+  return dragEvent && dragEvent.id;
+}
+
+export function getCurrentlyDraggedActivityWithDraggedToResource(
+  currentlyDraggedActivity: PositionedActivity,
+  updatedResource: string
+): PositionedActivity {
+  return (
+    currentlyDraggedActivity && {
+      ...currentlyDraggedActivity,
+      updatedResource
+    }
+  );
 }
