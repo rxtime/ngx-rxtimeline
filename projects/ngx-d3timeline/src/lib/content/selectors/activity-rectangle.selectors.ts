@@ -80,7 +80,7 @@ export const selectNonDraggedActivityRectangles = createSelector(
   selectNonDraggedActivities,
   selectRectangle(),
   (activities, positionedActivityToRectangle) =>
-    activities.map(positionedActivityToRectangle)
+    activities.map(positionedActivityToRectangle.call)
 );
 
 export const selectDraggingActivityRectangle = createSelector(
