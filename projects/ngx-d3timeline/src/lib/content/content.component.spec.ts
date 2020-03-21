@@ -49,14 +49,18 @@ describe('ContentComponent', () => {
         title: 'Activity 1',
         transform: 'translate(50,0)',
         width: 50,
-        height: 80
+        height: 80,
+        fontSize: 10,
+        showTitle: true
       },
       {
         id: 2,
         title: 'Activity 2',
         transform: 'translate(130,0)',
         width: 60,
-        height: 90
+        height: 90,
+        fontSize: 10,
+        showTitle: true
       }
     ];
   });

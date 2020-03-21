@@ -5,7 +5,11 @@ import {
   selectCurrentlyDraggedActivity,
   selectCurrentlyDraggedActivityWithDraggedToResource
 } from './activity.selectors';
-import { createActivityRectangle } from '../content-utils';
+import {
+  createActivityRectangle,
+  getMinHeightToShowLabel,
+  getShowTitle
+} from '../content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
 import { MemoizedSelector } from '../../selector/memoized-selector';
 import { PositionedActivity } from '../../positioned-activity';
@@ -14,9 +18,25 @@ import { Point } from '../../point';
 import { selectTransform } from './activity-rectangle-position.selectors';
 import {
   selectRectWidth,
-  selectRectHeight
+  selectRectHeight,
+  selectRectBreadthInTimeAxis
 } from './activity-rectangle-size.selectors';
-import { selectTimeOrientation } from '../../options.selectors';
+import {
+  selectTimeOrientation,
+  selectActivityFontSize
+} from '../../options.selectors';
+
+const selectMinHeightToShowLabel = createSelector(
+  selectActivityFontSize,
+  getMinHeightToShowLabel
+);
+
+const selectShowTitle = createSelector(
+  selectRectBreadthInTimeAxis,
+  selectMinHeightToShowLabel,
+  (rectBreadthInTimeAxis, minHeightToShowLabel) =>
+    getShowTitle.bind(null, rectBreadthInTimeAxis, minHeightToShowLabel)
+);
 
 const selectDragEventOffset = createSelector(
   selectDragEvent,
@@ -34,8 +54,17 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectTransform(selectOffset),
     selectRectWidth,
     selectRectHeight,
-    (transform, width, height) =>
-      createActivityRectangle.bind(null, transform, width, height)
+    selectActivityFontSize,
+    selectShowTitle,
+    (transform, width, height, fontSize, showTitle) =>
+      createActivityRectangle.bind(
+        null,
+        transform,
+        width,
+        height,
+        fontSize,
+        showTitle
+      )
   );
 
 export const selectNonDraggedActivityRectangles = createSelector(

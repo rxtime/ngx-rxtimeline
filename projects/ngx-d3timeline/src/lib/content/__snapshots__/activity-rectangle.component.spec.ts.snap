@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ActivityRectangleComponent should hide title when showTitle false 1`] = `
+<div
+  id="root2"
+  ngx-d3timeline-activity-rectangle=""
+>
+  
+  <g
+    class="activity-rectangle"
+    transform="translate(50,0)"
+  >
+    <rect
+      height="80"
+      width="50"
+    />
+    
+  </g>
+</div>
+`;
+
 exports[`ActivityRectangleComponent should not render if activityRectangle is null 1`] = `
 <div
   id="root0"
@@ -29,6 +48,7 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
         dominant-baseline="hanging"
         dx="2"
         dy="2"
+        font-size="10"
       >
          Activity 1 
       </text>
