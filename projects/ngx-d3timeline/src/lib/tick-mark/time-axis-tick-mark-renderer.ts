@@ -1,4 +1,4 @@
-import { TimeScale } from '../scale-types';
+import { TimeScale } from '../scales/scale-types';
 import { TickMarkRenderer, tickLabelSpacing } from './tick-mark-renderer';
 import { Orientation } from '../core/orientation';
 

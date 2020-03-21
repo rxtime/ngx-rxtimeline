@@ -1,9 +1,9 @@
 import { TimeScale, BandScale, InverseBandScale } from './scale-types';
-import { Orientation } from './core/orientation';
+import { Orientation } from '../core/orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
-import { Activity } from './activity/activity';
+import { Activity } from '../activity/activity';
 import { min, max } from 'd3-array';
-import { View } from './view/view';
+import { View } from '../view/view';
 
 export function getInverseBandScale(scale: BandScale): InverseBandScale {
   const domain = scale.domain();

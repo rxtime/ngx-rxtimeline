@@ -11,7 +11,10 @@ import {
   getShowTitle,
   getActivityTitleBreadthInTimeAxis
 } from '../../content/content-utils';
-import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
+import {
+  getDragEventOffset,
+  getDragEventOffsetTime
+} from '../../drag/drag-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { ActivityRectangle } from '../activity-rectangle';

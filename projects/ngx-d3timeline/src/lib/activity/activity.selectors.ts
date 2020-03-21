@@ -15,9 +15,9 @@ import {
   getDeltaTimeForDrag,
   updateActivityForDrag,
   shiftTimeByRangeValue
-} from '../drag-utils';
-import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
-import { getInverseBandScale } from '../scale-utils';
+} from '../drag/drag-utils';
+import { selectBandScale, selectTimeScale } from '../scales/scale-selectors';
+import { getInverseBandScale } from '../scales/scale-utils';
 import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
 
 const selectDragEventId = createSelector(selectDragEvent, getDragEventId);

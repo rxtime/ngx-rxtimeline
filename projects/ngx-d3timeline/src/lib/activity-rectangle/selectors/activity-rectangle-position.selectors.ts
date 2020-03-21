@@ -1,8 +1,5 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
-import {
-  selectTimeScale,
-  selectBandScale
-} from '../../store/timeline-selectors';
+import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import { selectTimeOrientation } from '../../options/options.selectors';
 import {
   getPositionInTimeAxis,
