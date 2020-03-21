@@ -1,6 +1,9 @@
-import { BandScale } from '../../scale-types';
-import { TickMarkRenderer, tickLabelSpacing } from '../tick-mark-renderer';
-import { Orientation } from '../../orientation';
+import { BandScale } from '../scale-types';
+import {
+  TickMarkRenderer,
+  tickLabelSpacing
+} from '../tick-mark/tick-mark-renderer';
+import { Orientation } from '../orientation';
 
 export function getResourceAxisTickMarkRenderer(
   scale: BandScale,

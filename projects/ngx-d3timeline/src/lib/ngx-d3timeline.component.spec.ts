@@ -1,14 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
-import { ContentComponent } from './content/content.component';
-import { ActivityRectangleComponent } from './content/activity-rectangle.component';
-import { Store } from './store-lib/store';
-import { initialState } from './store/state';
 import { of } from 'rxjs';
-import { LineComponent } from './line.component';
-import { AxisTickMarkComponent } from './axis/axis-tick-mark.component';
-import { ClipPathComponent } from './content/clip-path.component';
 import { Component, Input } from '@angular/core';
 import { Axis } from './axis/axis';
 import { NgxD3TimelineService } from './ngx-d3timeline.service';

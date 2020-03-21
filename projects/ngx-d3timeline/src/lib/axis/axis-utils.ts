@@ -3,8 +3,8 @@ import { Scale } from '../scale-types';
 import { Orientation } from '../orientation';
 import { createLine, Line } from './line';
 import { Axis } from './axis';
-import { TickMarkRenderer } from './tick-mark-renderer';
-import { getTickMarks } from '../tick-mark-utils';
+import { TickMarkRenderer } from '../tick-mark/tick-mark-renderer';
+import { getTickMarks } from '../tick-mark/tick-mark-utils';
 
 function getRangeLimit(scale: Scale): number {
   return scale.range()[1];

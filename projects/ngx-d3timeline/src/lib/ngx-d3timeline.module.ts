@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content/content.component';
 import { LineComponent } from './line.component';
 import { ActivityRectangleComponent } from './content/activity-rectangle.component';
-import { AxisTickMarkComponent } from './axis/axis-tick-mark.component';
+import { AxisTickMarkComponent } from './tick-mark/axis-tick-mark.component';
 import { AxisComponent } from './axis/axis-component';
 import { ClipPathComponent } from './content/clip-path.component';
 

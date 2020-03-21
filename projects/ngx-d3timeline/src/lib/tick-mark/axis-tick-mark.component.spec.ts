@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AxisTickMarkComponent } from './axis-tick-mark.component';
-import { createLine, Line } from './line';
+import { createLine, Line } from '../axis/line';
 import { Component, Input } from '@angular/core';
 
 @Component({
