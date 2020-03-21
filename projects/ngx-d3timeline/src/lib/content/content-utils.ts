@@ -1,10 +1,9 @@
 import { PositionedActivity } from '../positioned-activity';
 import { TimeScale, BandScale } from '../scale-types';
-import { Orientation } from '../orientation';
-import { Point, translatePoint } from '../point';
+import { Orientation } from '../core/orientation';
+import { Point, translatePoint, pointToTransform } from '../core/point';
 import { ActivityRectangle } from './activity-rectangle';
-import { pointToTransform } from '../transform-utils';
-import { getTextWidth } from '../text-utils';
+import { getTextWidth } from '../core/text-utils';
 
 type PositionInAxis = (p: PositionedActivity) => number;
 export type PointInAxis = (p: PositionedActivity) => Point;

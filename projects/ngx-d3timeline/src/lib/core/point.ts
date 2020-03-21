@@ -23,3 +23,7 @@ export function translatePointInOrientation(
     ? { ...point, y: point.y + distance }
     : { ...point, x: point.x + distance };
 }
+
+export function pointToTransform(point: Point): string {
+  return `translate(${point.x}, ${point.y})`;
+}

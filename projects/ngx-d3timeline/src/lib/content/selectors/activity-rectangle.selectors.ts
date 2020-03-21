@@ -15,7 +15,7 @@ import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../positioned-activity';
 import { ActivityRectangle } from '../activity-rectangle';
-import { Point } from '../../point';
+import { Point } from '../../core/point';
 import { selectTransform } from './activity-rectangle-position.selectors';
 import {
   selectRectWidth,

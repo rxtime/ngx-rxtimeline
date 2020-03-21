@@ -1,10 +1,10 @@
-import { Orientation } from '../orientation';
-import { createOrientedLine } from '../axis/line';
-import { origin, Point } from '../point';
-import { pointToTransform } from '../transform-utils';
+import { Orientation } from '../core/orientation';
+import { createOrientedLine } from '../core/line';
+import { origin, Point } from '../core/point';
+import { pointToTransform } from '../core/point';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
-import { flipOrientation } from '../orientation-utils';
+import { flipOrientation } from '../core/orientation';
 
 function getTickLine(lineOffset: number, orientation: Orientation) {
   return lineOffset && createOrientedLine(origin, lineOffset, orientation);
