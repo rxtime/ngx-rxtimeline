@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '../store/store';
+import { Store } from '../store-lib/store';
 import { selectTimeAxis, selectResourceAxis } from './axis.selectors';
 
 @Injectable({ providedIn: 'root' })

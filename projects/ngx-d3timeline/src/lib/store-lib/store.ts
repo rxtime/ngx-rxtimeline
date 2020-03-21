@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, Observable } from 'rxjs';
 import { shareReplay, scan, map } from 'rxjs/operators';
-import { initialState } from './state';
-import { Actions } from './actions';
-import { reducer } from './reducer';
-import { Selector } from '../selector/selector';
+import { initialState } from '../store/state';
+import { Actions } from '../store/actions';
+import { reducer } from '../store/reducer';
+import { Selector } from './selector/selector';
 
 @Injectable({ providedIn: 'root' })
 export class Store {

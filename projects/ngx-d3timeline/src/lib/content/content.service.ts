@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '../store/store';
+import { Store } from '../store-lib/store';
 import {
   selectNonDraggedActivityRectangles,
   selectDraggingActivityRectangle,

@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { Store } from './store/store';
+import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import { Activity, getActivityFromPositionedActivity } from './activity';
 import * as fromActions from './store/actions';

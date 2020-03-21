@@ -1,4 +1,4 @@
-import { createSelector } from './selector/create-selector';
+import { createSelector } from './store-lib/selector/create-selector';
 import { selectOptions } from './store/state';
 import { flipOrientation, getTimeOrientation } from './orientation-utils';
 

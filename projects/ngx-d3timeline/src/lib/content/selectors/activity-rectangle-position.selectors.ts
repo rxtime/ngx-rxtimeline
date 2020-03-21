@@ -1,4 +1,4 @@
-import { createSelector } from '../../selector/create-selector';
+import { createSelector } from '../../store-lib/selector/create-selector';
 import {
   selectTimeScale,
   selectBandScale
@@ -13,7 +13,7 @@ import {
   getActivityTransform,
   getOffsetActivityTopLeft
 } from '../content-utils';
-import { MemoizedSelector } from '../../selector/memoized-selector';
+import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point } from '../../point';
 
 const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>

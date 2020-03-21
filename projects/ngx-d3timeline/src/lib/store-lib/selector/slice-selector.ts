@@ -1,4 +1,4 @@
-import { State } from '../store/state';
+import { State } from '../../store/state';
 import { SliceProjector } from './types';
 
 export class SliceSelector<TResult> {
