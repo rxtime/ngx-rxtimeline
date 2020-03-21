@@ -6,7 +6,7 @@ import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 
 import * as fromActions from '../store/actions';
-import { identifier } from '../types';
+import { identifier } from '../core/types';
 import { selectActivityUpdatedForDrag } from './selectors/activity.selectors';
 
 @Injectable({ providedIn: 'root' })

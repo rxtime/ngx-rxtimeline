@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Activity } from './activity';
 
-import { Orientation } from './orientation';
+import { Orientation } from './core/orientation';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Subject } from 'rxjs';

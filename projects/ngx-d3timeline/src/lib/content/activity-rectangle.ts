@@ -1,4 +1,4 @@
-import { identifier } from '../types';
+import { identifier } from '../core/types';
 
 export interface ActivityRectangle {
   id: identifier;

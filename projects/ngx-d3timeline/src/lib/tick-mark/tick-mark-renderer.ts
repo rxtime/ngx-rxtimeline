@@ -1,4 +1,4 @@
-import { Orientation } from '../orientation';
+import { Orientation } from '../core/orientation';
 
 export interface TickMarkRenderer {
   tickLineOffset: number;

@@ -1,5 +1,5 @@
-import { Line } from '../axis/line';
-import { Point } from '../point';
+import { Line } from '../core/line';
+import { Point } from '../core/point';
 
 export interface TickMark {
   label: string;

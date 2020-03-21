@@ -1,7 +1,7 @@
 import { Activity } from '../activity';
 import { PositionedActivity } from '../positioned-activity';
 import { Options } from '../options';
-import { identifier } from '../types';
+import { identifier } from '../core/types';
 import { Action } from '../store-lib/action';
 
 export enum ActionType {

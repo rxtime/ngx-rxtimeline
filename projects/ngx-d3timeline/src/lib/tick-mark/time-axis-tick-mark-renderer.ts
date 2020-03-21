@@ -1,6 +1,6 @@
 import { TimeScale } from '../scale-types';
 import { TickMarkRenderer, tickLabelSpacing } from './tick-mark-renderer';
-import { Orientation } from '../orientation';
+import { Orientation } from '../core/orientation';
 
 export function getTimeAxisTickMarkRenderer(
   scale: TimeScale,

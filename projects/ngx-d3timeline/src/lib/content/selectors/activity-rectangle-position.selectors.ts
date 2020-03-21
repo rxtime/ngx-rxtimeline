@@ -14,7 +14,7 @@ import {
   getOffsetActivityTopLeft
 } from '../content-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
-import { Point } from '../../point';
+import { Point } from '../../core/point';
 
 const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>
   getPositionInTimeAxis.bind(null, timeScale)

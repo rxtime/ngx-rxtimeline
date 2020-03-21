@@ -1,5 +1,5 @@
 import { TickMark } from '../tick-mark/tick-mark';
-import { Line } from './line';
+import { Line } from '../core/line';
 
 export interface Axis {
   tickMarks: TickMark[];

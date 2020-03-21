@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AxisComponent } from './axis-component';
-import { createLine, Line } from './line';
-import { origin } from '../point';
+import { createLine, Line } from '../core/line';
+import { origin } from '../core/point';
 import { Component, Input } from '@angular/core';
 import { TickMark } from '../tick-mark/tick-mark';
 

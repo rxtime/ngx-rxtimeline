@@ -1,5 +1,5 @@
 import { TimeScale, BandScale, InverseBandScale } from './scale-types';
-import { Orientation } from './orientation';
+import { Orientation } from './core/orientation';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { Activity } from './activity';
 import { min, max } from 'd3-array';

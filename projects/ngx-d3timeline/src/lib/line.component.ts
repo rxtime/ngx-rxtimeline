@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Line } from './axis/line';
+import { Line } from './core/line';
 @Component({
   selector: '[ngx-d3timeline-line]',
   template: `

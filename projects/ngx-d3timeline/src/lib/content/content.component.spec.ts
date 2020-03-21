@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { Component, Input } from '@angular/core';
 import { ActivityRectangle } from './activity-rectangle';
-import { Rectangle } from '../rectangle';
+import { Rectangle } from '../core/rectangle';
 
 @Component({
   selector: '[ngx-d3timeline-clip-path]',

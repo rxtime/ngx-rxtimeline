@@ -1,6 +1,6 @@
 import { View } from './view';
-import { Point } from '../point';
-import { Rectangle } from '../rectangle';
+import { Point } from '../core/point';
+import { Rectangle } from '../core/rectangle';
 
 export function getViewTopLeft(view: View): Point {
   return { x: view.left, y: view.top };

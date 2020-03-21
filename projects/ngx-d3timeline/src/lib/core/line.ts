@@ -1,5 +1,5 @@
-import { Orientation } from '../orientation';
-import { Point, translatePointInOrientation } from '../point';
+import { Orientation } from './orientation';
+import { Point, translatePointInOrientation } from './point';
 
 export interface Line {
   x1: number;
