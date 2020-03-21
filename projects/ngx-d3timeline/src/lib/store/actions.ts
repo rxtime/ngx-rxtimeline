@@ -2,11 +2,7 @@ import { Activity } from '../activity';
 import { PositionedActivity } from '../positioned-activity';
 import { Options } from '../options';
 import { identifier } from '../types';
-
-export interface Action {
-  type: string;
-  payload?: any;
-}
+import { Action } from '../store-lib/action';
 
 export enum ActionType {
   ActivitiesChanged = 'Activities Changed',
