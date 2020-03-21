@@ -26,7 +26,9 @@ describe('ActivityRectangleComponent', () => {
       title: 'Activity 1',
       transform: 'translate(50,0)',
       width: 50,
-      height: 80
+      height: 80,
+      showTitle: true,
+      fontSize: 10
     };
 
     fixture.detectChanges();
