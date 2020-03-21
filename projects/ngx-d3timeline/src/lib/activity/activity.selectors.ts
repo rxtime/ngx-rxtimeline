@@ -3,7 +3,7 @@ import {
   selectPositionedActivities,
   selectLastDraggedActivityId
 } from '../store/state';
-import { selectTimeOrientation } from '../options.selectors';
+import { selectTimeOrientation } from '../options/options.selectors';
 import { createSelector } from '../store-lib/selector/create-selector';
 import {
   findActivity,

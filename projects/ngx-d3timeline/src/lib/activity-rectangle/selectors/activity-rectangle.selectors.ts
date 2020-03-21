@@ -25,7 +25,7 @@ import {
 import {
   selectTimeOrientation,
   selectActivityFontSize
-} from '../../options.selectors';
+} from '../../options/options.selectors';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
   selectTimeOrientation,
