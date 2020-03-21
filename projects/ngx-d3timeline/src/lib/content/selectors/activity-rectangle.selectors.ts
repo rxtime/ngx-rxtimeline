@@ -7,8 +7,9 @@ import {
 } from './activity.selectors';
 import {
   createActivityRectangle,
-  getMinHeightToShowLabel,
-  getShowTitle
+  getMinBreadthToShowTitle,
+  getShowTitle,
+  getActivityTitleBreadthInTimeAxis
 } from '../content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
@@ -26,16 +27,24 @@ import {
   selectActivityFontSize
 } from '../../options.selectors';
 
-const selectMinHeightToShowLabel = createSelector(
+const selectActivityTitleBreadthInTimeline = createSelector(
+  selectTimeOrientation,
   selectActivityFontSize,
-  getMinHeightToShowLabel
+  (timeOrientation, fontSize) =>
+    getActivityTitleBreadthInTimeAxis.bind(null, timeOrientation, fontSize)
+);
+
+const selectMinBreadthToShowLabel = createSelector(
+  selectActivityTitleBreadthInTimeline,
+  activityTitleBreadthInTimeline =>
+    getMinBreadthToShowTitle.bind(null, activityTitleBreadthInTimeline)
 );
 
 const selectShowTitle = createSelector(
   selectRectBreadthInTimeAxis,
-  selectMinHeightToShowLabel,
-  (rectBreadthInTimeAxis, minHeightToShowLabel) =>
-    getShowTitle.bind(null, rectBreadthInTimeAxis, minHeightToShowLabel)
+  selectMinBreadthToShowLabel,
+  (rectBreadthInTimeAxis, minBreadthToShowLabel) =>
+    getShowTitle.bind(null, rectBreadthInTimeAxis, minBreadthToShowLabel)
 );
 
 const selectDragEventOffset = createSelector(
