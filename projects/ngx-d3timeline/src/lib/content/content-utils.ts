@@ -4,6 +4,7 @@ import { Orientation } from '../orientation';
 import { Point, translatePoint } from '../point';
 import { ActivityRectangle } from './activity-rectangle';
 import { pointToTransform } from '../transform-utils';
+import { getTextWidth } from '../text-utils';
 
 type PositionInAxis = (p: PositionedActivity) => number;
 export type PointInAxis = (p: PositionedActivity) => Point;
@@ -79,16 +80,34 @@ export function getRectBreadthInTimeAxis(
   );
 }
 
-export function getMinHeightToShowLabel(fontSize: number) {
-  return fontSize + activityTitlePadding;
+export function getActivityTitleBreadthInTimeAxis(
+  timeOrientation: Orientation,
+  fontSize: number,
+  positionedActivity: PositionedActivity
+): number {
+  return timeOrientation === Orientation.Vertical
+    ? fontSize
+    : getTextWidth(positionedActivity.type, fontSize);
+}
+
+export function getMinBreadthToShowTitle(
+  activityTitleBreadthInTimeAxis: PositionInAxis,
+  positionedActivity: PositionedActivity
+) {
+  return (
+    activityTitleBreadthInTimeAxis(positionedActivity) + activityTitlePadding
+  );
 }
 
 export function getShowTitle(
   rectBreadthInTimeAxis: PositionInAxis,
-  minHeightToShowTitle: number,
+  minBreadthToShowTitle: PositionInAxis,
   positionedActivity: PositionedActivity
 ): boolean {
-  return rectBreadthInTimeAxis(positionedActivity) > minHeightToShowTitle;
+  return (
+    rectBreadthInTimeAxis(positionedActivity) >
+    minBreadthToShowTitle(positionedActivity)
+  );
 }
 
 export function getRectHeight(
