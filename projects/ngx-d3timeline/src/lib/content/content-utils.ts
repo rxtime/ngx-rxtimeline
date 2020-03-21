@@ -77,6 +77,19 @@ export function getRectBreadthInTimeAxis(
   );
 }
 
+export function getMinHeightToShowLabel(fontSize: number) {
+  const labelPaddingEachSide = 1; // TODO #299
+  return fontSize + labelPaddingEachSide * 2;
+}
+
+export function getShowTitle(
+  rectBreadthInTimeAxis: PositionInAxis,
+  minHeightToShowTitle: number,
+  positionedActivity: PositionedActivity
+): boolean {
+  return rectBreadthInTimeAxis(positionedActivity) > minHeightToShowTitle;
+}
+
 export function getRectHeight(
   timeOrientation: Orientation,
   rectBreathInTimeAxis: PositionInAxis,
@@ -103,6 +116,8 @@ export function createActivityRectangle(
   transform: ActivityTransform,
   width: PositionInAxis,
   height: PositionInAxis,
+  fontSize: number,
+  showTitle: (p: PositionedActivity) => boolean,
   positionedActivity: PositionedActivity
 ): ActivityRectangle {
   return {
@@ -110,6 +125,8 @@ export function createActivityRectangle(
     title: positionedActivity.type,
     transform: transform(positionedActivity),
     width: width(positionedActivity),
-    height: height(positionedActivity)
+    height: height(positionedActivity),
+    fontSize,
+    showTitle: showTitle(positionedActivity)
   };
 }

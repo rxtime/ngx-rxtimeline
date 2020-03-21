@@ -10,8 +10,9 @@ import {
   getRectWidth
 } from '../content-utils';
 
-const selectRectBreadthInTimeAxis = createSelector(selectTimeScale, timeScale =>
-  getRectBreadthInTimeAxis.bind(null, timeScale)
+export const selectRectBreadthInTimeAxis = createSelector(
+  selectTimeScale,
+  timeScale => getRectBreadthInTimeAxis.bind(null, timeScale)
 );
 
 const selectRectBreadthInResourceAxis = createSelector(
