@@ -3,7 +3,7 @@ import { ContentService } from './content.service';
 import { of } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { Component, Input } from '@angular/core';
-import { ActivityRectangle } from './activity-rectangle';
+import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
 import { Rectangle } from '../core/rectangle';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Orientation } from './core/orientation';
 import { TimeScale, InverseBandScale } from './scale-types';
-import { TimelineDragEvent } from './content/timeline-drag-event';
+import { TimelineDragEvent } from './timeline-drag-event';
 import { PositionedActivity } from './activity/positioned-activity';
 import { identifier } from './core/types';
 import { Point, origin } from './core/point';

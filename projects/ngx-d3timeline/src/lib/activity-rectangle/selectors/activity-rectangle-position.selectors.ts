@@ -12,7 +12,7 @@ import {
   getActivityTopLeft,
   getActivityTransform,
   getOffsetActivityTopLeft
-} from '../content-utils';
+} from '../../content/content-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point } from '../../core/point';
 

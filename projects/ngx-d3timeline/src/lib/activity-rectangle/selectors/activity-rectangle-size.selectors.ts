@@ -8,7 +8,7 @@ import {
   getRectBreadthInTimeAxis,
   getRectHeight,
   getRectWidth
-} from '../content-utils';
+} from '../../content/content-utils';
 
 export const selectRectBreadthInTimeAxis = createSelector(
   selectTimeScale,
