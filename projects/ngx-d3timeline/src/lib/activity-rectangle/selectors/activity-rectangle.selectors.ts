@@ -10,7 +10,7 @@ import {
   getMinBreadthToShowTitle,
   getShowTitle,
   getActivityTitleBreadthInTimeAxis
-} from '../content-utils';
+} from '../../content/content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ActivityRectangle } from './activity-rectangle';
 import { ActivityRectangleService } from './activity-rectangle.service';
-import { activityTitlePadding } from './content-utils';
+import { activityTitlePadding } from '../content/content-utils';
 
 @Component({
   selector: '[ngx-d3timeline-activity-rectangle]',

@@ -5,7 +5,7 @@ import {
   selectDraggingActivityRectangle,
   selectDraggedFromRectangle,
   selectDraggedToRectangle
-} from './selectors/activity-rectangle.selectors';
+} from '../activity-rectangle/selectors/activity-rectangle.selectors';
 import { selectViewClipRectangle } from '../view/view.selectors';
 
 @Injectable({ providedIn: 'root' })
