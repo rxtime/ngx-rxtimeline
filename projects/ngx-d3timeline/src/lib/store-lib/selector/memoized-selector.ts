@@ -1,4 +1,4 @@
-import { State } from '../store/state';
+import { State } from '../../store/state';
 import { Selector } from './selector';
 import { Projector } from './types';
 

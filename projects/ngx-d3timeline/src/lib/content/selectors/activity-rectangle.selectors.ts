@@ -1,4 +1,4 @@
-import { createSelector } from '../../selector/create-selector';
+import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectDragEvent } from '../../store/state';
 import {
   selectNonDraggedActivities,
@@ -11,7 +11,7 @@ import {
   getShowTitle
 } from '../content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
-import { MemoizedSelector } from '../../selector/memoized-selector';
+import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../positioned-activity';
 import { ActivityRectangle } from '../activity-rectangle';
 import { Point } from '../../point';

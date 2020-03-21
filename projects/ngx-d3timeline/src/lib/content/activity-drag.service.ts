@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Store } from '../store/store';
+import { Store } from '../store-lib/store';
 import { withLatestFrom, filter, map } from 'rxjs/operators';
 import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
