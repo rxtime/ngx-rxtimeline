@@ -1,5 +1,5 @@
 import { View } from '../view/view';
-import { TimelineDragEvent } from '../timeline-drag-event';
+import { TimelineDragEvent } from '../drag/timeline-drag-event';
 import { createSliceSelector } from '../store-lib/selector/slice-selector';
 import { PositionedActivity } from '../activity/positioned-activity';
 import { identifier } from '../core/types';

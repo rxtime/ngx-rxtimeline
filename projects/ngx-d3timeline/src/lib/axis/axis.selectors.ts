@@ -4,7 +4,7 @@ import {
   selectTimeOrientation
 } from '../options/options.selectors';
 import { getAxis } from './axis-utils';
-import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
+import { selectBandScale, selectTimeScale } from '../scales/scale-selectors';
 import { getResourceAxisTickMarkRenderer } from '../tick-mark/resource-axis-tick-mark-renderer';
 import { getTimeAxisTickMarkRenderer } from '../tick-mark/time-axis-tick-mark-renderer';
 import { selectViewTopLeft } from '../view/view.selectors';

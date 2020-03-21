@@ -1,4 +1,4 @@
-import { Line } from './core/line';
+import { Line } from '../core/line';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { LineComponent } from './line.component';
 

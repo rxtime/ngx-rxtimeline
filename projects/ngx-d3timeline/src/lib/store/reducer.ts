@@ -1,7 +1,7 @@
 import { State, initialState } from './state';
 import { Actions, ActionType } from './actions';
 import { View } from '../view/view';
-import { TimelineDragEvent } from '../timeline-drag-event';
+import { TimelineDragEvent } from '../drag/timeline-drag-event';
 import { identifier } from '../core/types';
 import { initialisePositionedActivity } from '../activity/positioned-activity';
 import { defaultOptions, CompleteOptions } from '../options/options';

@@ -1,9 +1,9 @@
-import { Orientation } from './core/orientation';
-import { TimeScale, InverseBandScale } from './scale-types';
+import { Orientation } from '../core/orientation';
+import { TimeScale, InverseBandScale } from '../scales/scale-types';
 import { TimelineDragEvent } from './timeline-drag-event';
-import { PositionedActivity } from './activity/positioned-activity';
-import { identifier } from './core/types';
-import { Point, origin } from './core/point';
+import { PositionedActivity } from '../activity/positioned-activity';
+import { identifier } from '../core/types';
+import { Point, origin } from '../core/point';
 
 export function findActivity(
   positionedActivities: PositionedActivity[],

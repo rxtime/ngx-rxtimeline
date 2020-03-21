@@ -1,4 +1,4 @@
-import { BandScale } from '../scale-types';
+import { BandScale } from '../scales/scale-types';
 import {
   TickMarkRenderer,
   tickLabelSpacing

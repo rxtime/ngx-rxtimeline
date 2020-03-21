@@ -3,8 +3,8 @@ import {
   selectPositionedActivities,
   selectView,
   selectZoomEvent
-} from './state'; // TODO use barelling?
-import { configureBandScale, rescaleTime } from '../scale-utils';
+} from '../store/state'; // TODO use barelling?
+import { configureBandScale, rescaleTime } from './scale-utils';
 import {
   selectResourceOrientation,
   selectTimeOrientation

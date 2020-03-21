@@ -1,5 +1,5 @@
 import { Point } from '../core/point';
-import { Scale } from '../scale-types';
+import { Scale } from '../scales/scale-types';
 import { Orientation } from '../core/orientation';
 import { createLine, Line } from '../core/line';
 import { Axis } from './axis';

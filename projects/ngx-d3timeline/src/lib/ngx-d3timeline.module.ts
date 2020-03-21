@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgxD3timelineComponent } from './ngx-d3timeline.component';
 import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content/content.component';
-import { LineComponent } from './line.component';
+import { LineComponent } from './line/line.component';
 import { ActivityRectangleComponent } from './activity-rectangle/activity-rectangle.component';
 import { AxisTickMarkComponent } from './tick-mark/axis-tick-mark.component';
 import { AxisComponent } from './axis/axis-component';
