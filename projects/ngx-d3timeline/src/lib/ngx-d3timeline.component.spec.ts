@@ -8,44 +8,80 @@ import { initialState } from './store/state';
 import { of } from 'rxjs';
 import { LineComponent } from './line.component';
 import { AxisTickMarkComponent } from './axis/axis-tick-mark.component';
-import { AxisComponent } from './axis/axis-component';
 import { ClipPathComponent } from './content/clip-path.component';
+import { Component, Input } from '@angular/core';
+import { Axis } from './axis/axis';
+import { NgxD3TimelineService } from './ngx-d3timeline.service';
+import { View } from './view/view';
+
+@Component({
+  selector: '[ngx-d3timeline-axis]',
+  template: `
+    <svg:g class="axis-group"></svg:g>
+  `
+})
+class FakeAxisComponent {
+  @Input() axis: Axis;
+}
+
+@Component({
+  selector: '[ngx-d3timeline-content]',
+  template: `
+    <svg:g class="content"></svg:g>
+  `
+})
+class FakeContentComponent {}
 
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
   let fixture: ComponentFixture<NgxD3timelineComponent>;
-  let store: Store;
+  let timeline: NgxD3TimelineService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         NgxD3timelineComponent,
-        ContentComponent,
-        LineComponent,
-        ActivityRectangleComponent,
-        AxisTickMarkComponent,
-        AxisComponent,
-        ClipPathComponent
+        FakeContentComponent,
+        FakeAxisComponent
       ],
       providers: [
         {
-          provide: Store,
-          useValue: { state$: jest.fn(), select: jest.fn() }
+          provide: NgxD3TimelineService,
+          useValue: {
+            timeAxis$: jest.fn(),
+            resourceAxis$: jest.fn(),
+            content$: jest.fn(),
+            lastDraggedActivity$: jest.fn(),
+            setupZoom: jest.fn()
+          }
         }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    store = TestBed.inject(Store);
-    store.state$ = of(initialState);
-    store.select = () => of(null);
     fixture = TestBed.createComponent(NgxD3timelineComponent);
+    timeline = TestBed.inject(NgxD3TimelineService);
+    timeline.lastDraggedActivity$ = of(null);
+
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should not render if view null', () => {
+    timeline.view$ = of(null);
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
+
+  it('should render correctly', () => {
+    timeline.view$ = of(new View([800, 600]));
+    timeline.resourceAxis$ = of(null);
+    timeline.timeAxis$ = of(null);
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
   });
 });

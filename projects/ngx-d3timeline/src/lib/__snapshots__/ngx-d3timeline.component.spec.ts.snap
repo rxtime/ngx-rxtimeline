@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxD3timelineComponent should not render if view null 1`] = `
+<div
+  id="root0"
+>
+  
+</div>
+`;
+
+exports[`NgxD3timelineComponent should render correctly 1`] = `
+<div
+  id="root1"
+>
+  
+  <svg
+    class="ngx-d3timeline"
+    height="600"
+    width="800"
+  >
+    <g
+      class="resources-axis"
+      ngx-d3timeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    <g
+      class="time-axis"
+      ngx-d3timeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    <g
+      ngx-d3timeline-content=""
+    >
+      <g
+        class="content"
+      />
+    </g>
+  </svg>
+</div>
+`;
