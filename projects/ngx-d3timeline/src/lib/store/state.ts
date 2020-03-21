@@ -3,7 +3,7 @@ import { TimelineDragEvent } from '../timeline-drag-event';
 import { createSliceSelector } from '../store-lib/selector/slice-selector';
 import { PositionedActivity } from '../activity/positioned-activity';
 import { identifier } from '../core/types';
-import { defaultOptions, CompleteOptions } from '../options';
+import { defaultOptions, CompleteOptions } from '../options/options';
 
 export interface State {
   view: View;

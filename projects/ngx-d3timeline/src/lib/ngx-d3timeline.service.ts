@@ -6,7 +6,7 @@ import {
   getActivityFromPositionedActivity
 } from './activity/activity';
 import * as fromActions from './store/actions';
-import { Options } from './options';
+import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';

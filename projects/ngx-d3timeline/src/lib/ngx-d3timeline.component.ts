@@ -18,7 +18,7 @@ import { Orientation } from './core/orientation';
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Options } from './options';
+import { Options } from './options/options';
 
 @Component({
   selector: 'ngx-d3timeline',
