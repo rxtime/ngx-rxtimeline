@@ -9,6 +9,8 @@ type PositionInAxis = (p: PositionedActivity) => number;
 export type PointInAxis = (p: PositionedActivity) => Point;
 export type ActivityTransform = (p: PositionedActivity) => string;
 
+export const activityTitlePadding = 2;
+
 export function getPositionInResourceAxis(
   bandScale: BandScale,
   positionedActivity: PositionedActivity
@@ -78,8 +80,7 @@ export function getRectBreadthInTimeAxis(
 }
 
 export function getMinHeightToShowLabel(fontSize: number) {
-  const labelPaddingEachSide = 1; // TODO #299
-  return fontSize + labelPaddingEachSide * 2;
+  return fontSize + activityTitlePadding;
 }
 
 export function getShowTitle(
