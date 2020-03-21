@@ -7,7 +7,6 @@ import { initialisePositionedActivity } from '../positioned-activity';
 import { defaultOptions, CompleteOptions } from '../options';
 
 export function reducer(state: State = initialState, action: Actions): State {
-  console.log({ state, action });
   switch (action.type) {
     case ActionType.ActivitiesChanged: {
       return {
