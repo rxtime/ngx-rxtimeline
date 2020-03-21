@@ -4,5 +4,5 @@
 
 export * from './lib/ngx-d3timeline.component';
 export * from './lib/ngx-d3timeline.module';
-export * from './lib/activity';
+export * from './lib/activity/activity';
 export * from './lib/options';

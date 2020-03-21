@@ -4,7 +4,7 @@ import {
   selectNonDraggedActivities,
   selectCurrentlyDraggedActivity,
   selectCurrentlyDraggedActivityWithDraggedToResource
-} from './activity.selectors';
+} from '../../activity/activity.selectors';
 import {
   createActivityRectangle,
   getMinBreadthToShowTitle,
@@ -13,7 +13,7 @@ import {
 } from '../content-utils';
 import { getDragEventOffset, getDragEventOffsetTime } from '../../drag-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
-import { PositionedActivity } from '../../positioned-activity';
+import { PositionedActivity } from '../../activity/positioned-activity';
 import { ActivityRectangle } from '../activity-rectangle';
 import { Point } from '../../core/point';
 import { selectTransform } from './activity-rectangle-position.selectors';

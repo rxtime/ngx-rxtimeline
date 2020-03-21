@@ -2,9 +2,9 @@ import {
   selectDragEvent,
   selectPositionedActivities,
   selectLastDraggedActivityId
-} from '../../store/state';
-import { selectTimeOrientation } from '../../options.selectors';
-import { createSelector } from '../../store-lib/selector/create-selector';
+} from '../store/state';
+import { selectTimeOrientation } from '../options.selectors';
+import { createSelector } from '../store-lib/selector/create-selector';
 import {
   findActivity,
   getDragPointInResourceAxis,
@@ -15,13 +15,10 @@ import {
   getDeltaTimeForDrag,
   updateActivityForDrag,
   shiftTimeByRangeValue
-} from '../../drag-utils';
-import {
-  selectBandScale,
-  selectTimeScale
-} from '../../store/timeline-selectors';
-import { getInverseBandScale } from '../../scale-utils';
-import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
+} from '../drag-utils';
+import { selectBandScale, selectTimeScale } from '../store/timeline-selectors';
+import { getInverseBandScale } from '../scale-utils';
+import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
 
 const selectDragEventId = createSelector(selectDragEvent, getDragEventId);
 

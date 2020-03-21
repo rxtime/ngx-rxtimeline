@@ -7,7 +7,7 @@ import { select, event } from 'd3-selection';
 
 import * as fromActions from '../store/actions';
 import { identifier } from '../core/types';
-import { selectActivityUpdatedForDrag } from './selectors/activity.selectors';
+import { selectActivityUpdatedForDrag } from '../activity/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class ActivityDragService {
