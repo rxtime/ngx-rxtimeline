@@ -3,7 +3,7 @@ import { AxisComponent } from './axis-component';
 import { createLine, Line } from './line';
 import { origin } from '../point';
 import { Component, Input } from '@angular/core';
-import { TickMark } from './tick-mark';
+import { TickMark } from '../tick-mark/tick-mark';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
