@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, Observable } from 'rxjs';
 import { shareReplay, scan, map } from 'rxjs/operators';
-import { initialState } from '../store/state';
-import { Actions } from '../store/actions';
+import { Action } from './action';
 import { reducer } from '../store/reducer';
 import { Selector } from './selector/selector';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private readonly replayBufferSize = 100;
-  private actionsSubject = new ReplaySubject<Actions>(this.replayBufferSize);
+  private actionsSubject = new ReplaySubject<Action>(this.replayBufferSize);
 
-  state$ = this.actionsSubject.pipe(scan(reducer, initialState), shareReplay());
+  state$ = this.actionsSubject.pipe(scan(reducer, undefined), shareReplay());
 
-  dispatch(action: Actions): void {
+  dispatch(action: Action): void {
     this.actionsSubject.next(action);
   }
 
