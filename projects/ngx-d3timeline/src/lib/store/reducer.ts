@@ -3,7 +3,7 @@ import { Actions, ActionType } from './actions';
 import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { identifier } from '../core/types';
-import { initialisePositionedActivity } from '../positioned-activity';
+import { initialisePositionedActivity } from '../activity/positioned-activity';
 import { defaultOptions, CompleteOptions } from '../options';
 
 export function reducer(state: State = initialState, action: Actions): State {

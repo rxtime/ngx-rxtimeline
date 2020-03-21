@@ -1,7 +1,7 @@
 import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../store-lib/selector/slice-selector';
-import { PositionedActivity } from '../positioned-activity';
+import { PositionedActivity } from '../activity/positioned-activity';
 import { identifier } from '../core/types';
 import { defaultOptions, CompleteOptions } from '../options';
 

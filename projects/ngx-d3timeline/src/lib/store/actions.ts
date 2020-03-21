@@ -1,5 +1,5 @@
-import { Activity } from '../activity';
-import { PositionedActivity } from '../positioned-activity';
+import { Activity } from '../activity/activity';
+import { PositionedActivity } from '../activity/positioned-activity';
 import { Options } from '../options';
 import { identifier } from '../core/types';
 import { Action } from '../store-lib/action';

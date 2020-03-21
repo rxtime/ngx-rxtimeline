@@ -11,7 +11,7 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
-import { Activity } from './activity';
+import { Activity } from './activity/activity';
 
 import { Orientation } from './core/orientation';
 

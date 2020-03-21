@@ -1,14 +1,17 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
-import { Activity, getActivityFromPositionedActivity } from './activity';
+import {
+  Activity,
+  getActivityFromPositionedActivity
+} from './activity/activity';
 import * as fromActions from './store/actions';
 import { Options } from './options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
 import { map, filter, distinctUntilChanged } from 'rxjs/operators';
-import { selectLastDraggedActivity } from './content/selectors/activity.selectors';
+import { selectLastDraggedActivity } from './activity/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {

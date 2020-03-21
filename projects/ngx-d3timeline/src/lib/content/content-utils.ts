@@ -1,4 +1,4 @@
-import { PositionedActivity } from '../positioned-activity';
+import { PositionedActivity } from '../activity/positioned-activity';
 import { TimeScale, BandScale } from '../scale-types';
 import { Orientation } from '../core/orientation';
 import { Point, translatePoint, pointToTransform } from '../core/point';
