@@ -35,4 +35,20 @@ describe('ActivityRectangleComponent', () => {
 
     expect(fixture.nativeElement).toMatchSnapshot();
   });
+
+  it('should hide title when showTitle false', () => {
+    fixture.componentInstance.activityRectangle = {
+      id: 1,
+      title: 'Activity 1',
+      transform: 'translate(50,0)',
+      width: 50,
+      height: 80,
+      showTitle: false,
+      fontSize: 10
+    };
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
 });
