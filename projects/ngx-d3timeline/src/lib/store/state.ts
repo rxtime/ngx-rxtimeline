@@ -3,11 +3,11 @@ import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { createSliceSelector } from '../selector/slice-selector';
 import { PositionedActivity } from '../positioned-activity';
 import { identifier } from '../types';
-import { Options, defaultOptions } from '../options';
+import { defaultOptions, CompleteOptions } from '../options';
 
 export interface State {
   view: View;
-  options: Options;
+  options: CompleteOptions;
   positionedActivities: PositionedActivity[];
   lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;

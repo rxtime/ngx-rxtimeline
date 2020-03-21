@@ -1,9 +1,11 @@
-export interface Options {
+export interface CompleteOptions {
   orientation: 'Vertical' | 'Horizontal';
   activityFontSize: number;
 }
 
-export const defaultOptions: Options = {
+export type Options = Partial<CompleteOptions>;
+
+export const defaultOptions: CompleteOptions = {
   orientation: 'Vertical',
   activityFontSize: 10
 };

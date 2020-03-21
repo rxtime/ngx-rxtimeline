@@ -4,6 +4,7 @@ import { View } from '../view/view';
 import { TimelineDragEvent } from '../content/timeline-drag-event';
 import { identifier } from '../types';
 import { initialisePositionedActivity } from '../positioned-activity';
+import { defaultOptions, CompleteOptions } from '../options';
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -15,9 +16,11 @@ export function reducer(state: State, action: Actions): State {
     }
 
     case ActionType.OptionsChanged: {
+      const options: CompleteOptions = { ...defaultOptions, ...action.payload };
+
       return {
         ...state,
-        options: action.payload
+        options
       };
     }
 
