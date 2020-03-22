@@ -23,7 +23,15 @@ exports[`AxisComponent should render correctly 1`] = `
         class="axis-tick-mark"
       />
     </g>
+    
     <g
+      class="grid-line"
+      ngx-d3timeline-line=""
+    >
+      <g />
+    </g>
+    <g
+      class="axis-line"
       ngx-d3timeline-line=""
     >
       <g />

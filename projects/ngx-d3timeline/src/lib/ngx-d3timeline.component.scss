@@ -9,6 +9,19 @@
     font-size: 10px;
   }
 
+  .tick-mark-line {
+    stroke: #000;
+  }
+
+  .axis-line {
+    stroke: #000;
+  }
+
+  .grid-line {
+    stroke: #c7cacc;
+    stroke-dasharray: 4 2;
+  }
+
   .activity-rectangle {
     rect {
       fill: #fff;

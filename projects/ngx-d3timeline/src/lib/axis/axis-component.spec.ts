@@ -57,7 +57,8 @@ describe('AxisComponent', () => {
           line
         }
       ],
-      line: { x1: 0, x2: 10, y1: 1, y2: 0 }
+      line: { x1: 0, x2: 10, y1: 1, y2: 0 },
+      gridLines: [line]
     };
 
     fixture.detectChanges();

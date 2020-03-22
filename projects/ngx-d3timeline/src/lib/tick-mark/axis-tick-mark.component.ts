@@ -12,6 +12,7 @@ import { TickMark } from './tick-mark';
         {{ tickMark.label }}
       </svg:text>
       <svg:g
+        class="tick-mark-line"
         ngx-d3timeline-line
         *ngIf="tickMark.line"
         [line]="tickMark.line"
