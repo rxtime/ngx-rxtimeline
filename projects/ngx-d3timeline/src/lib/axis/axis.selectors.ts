@@ -1,32 +1,46 @@
 import { createSelector } from '../store-lib/selector/create-selector';
-import {
-  selectResourceOrientation,
-  selectTimeOrientation
-} from '../options/options.selectors';
 import { getAxis, getAxisLine } from './axis-utils';
-import { selectBandScale, selectTimeScale } from '../scales/scale-selectors';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
   selectResourceAxisTickMarks,
-  selectTimeAxisTickMarks
+  selectTimeAxisTickMarks,
+  selectResourceAxisTickMarkRenderer,
+  selectTimeAxisTickMarkRenderer
 } from '../tick-mark/tick-mark.selector';
+import { TickMarkRenderer } from '../tick-mark/tick-mark-renderer';
+import { Line } from '../core/line';
 
-export const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
+const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
   getAxisLine.bind(null, viewTopLeft)
 );
 
-export const selectResourceAxis = createSelector(
-  selectResourceAxisTickMarks,
-  selectBandScale,
-  selectResourceOrientation,
+export const selectResourceAxisLine = createSelector(
+  selectResourceAxisTickMarkRenderer,
   selectAxisLine,
+  axisLineFromTickMarkRenderer
+);
+
+export const selectTimeAxisLine = createSelector(
+  selectTimeAxisTickMarkRenderer,
+  selectAxisLine,
+  axisLineFromTickMarkRenderer
+);
+
+export const selectResourceAxis = createSelector(
+  selectResourceAxisLine,
+  selectResourceAxisTickMarks,
   getAxis
 );
 
 export const selectTimeAxis = createSelector(
+  selectTimeAxisLine,
   selectTimeAxisTickMarks,
-  selectTimeScale,
-  selectTimeOrientation,
-  selectAxisLine,
   getAxis
 );
+
+function axisLineFromTickMarkRenderer(
+  tickMarkRenderer: TickMarkRenderer,
+  line: (t: TickMarkRenderer) => Line
+) {
+  return line(tickMarkRenderer);
+}

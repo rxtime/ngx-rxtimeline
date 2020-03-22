@@ -16,12 +16,13 @@ export function getResourceAxisTickMarkRenderer(
   }
 
   return {
+    tickLineOffset,
+    orientation,
+    scale,
     getTickLabel: (tickValue: string) => tickValue,
     getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing,
     getTickValues: () => scale.domain(),
     mapTickValueToPositionInScale: (tickValue: string) =>
-      getBandMidPoint(tickValue),
-    tickLineOffset,
-    orientation
+      getBandMidPoint(tickValue)
   };
 }
