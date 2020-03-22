@@ -16,28 +16,27 @@ function getTickLabelOffset(labelSpacing: number, orientation: Orientation) {
     : { ...origin, x: labelSpacing };
 }
 
-function getTickMarkTopLeft(
-  range: number,
+export function getTickMarkTopLeft(
+  viewTopLeft: Point,
   orientation: Orientation,
-  viewTopLeft: Point
+  range: number
 ): Point {
   return orientation === Orientation.Vertical
     ? { ...viewTopLeft, y: range }
     : { ...viewTopLeft, x: range };
 }
 
-function getTickMark(
-  viewTopLeft: Point,
+export function getTickMark(
+  tickMarkTopLeft: (o: Orientation, range: number) => Point,
   tickValue: any,
   tickMarkRenderer: TickMarkRenderer
 ): TickMark {
   return {
     label: tickMarkRenderer.getTickLabel(tickValue),
     transform: pointToTransform(
-      getTickMarkTopLeft(
-        tickMarkRenderer.mapTickValueToPositionInScale(tickValue),
+      tickMarkTopLeft(
         tickMarkRenderer.orientation,
-        viewTopLeft
+        tickMarkRenderer.mapTickValueToPositionInScale(tickValue)
       )
     ),
     labelOffset: getTickLabelOffset(
@@ -52,10 +51,10 @@ function getTickMark(
 }
 
 export function getTickMarks(
-  viewTopLeft: Point,
+  tickMark: (value: any, tickMarkRenderer: TickMarkRenderer) => TickMark,
   tickMarkRenderer: TickMarkRenderer
 ): TickMark[] {
   return tickMarkRenderer
     .getTickValues()
-    .map(value => getTickMark(viewTopLeft, value, tickMarkRenderer));
+    .map(value => tickMark(value, tickMarkRenderer));
 }
