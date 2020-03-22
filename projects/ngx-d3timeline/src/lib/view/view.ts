@@ -1,11 +1,11 @@
-export const margin = 50;
-
 export class View {
+  static margin = 50;
+
   readonly width: number;
   readonly height: number;
 
-  readonly left = margin;
-  readonly top = margin;
+  readonly left = View.margin;
+  readonly top = View.margin;
   readonly right: number;
   readonly bottom: number;
 
@@ -13,7 +13,7 @@ export class View {
     this.width = width;
     this.height = height;
 
-    this.bottom = height - margin;
-    this.right = width - margin;
+    this.bottom = height - View.margin;
+    this.right = width - View.margin;
   }
 }
