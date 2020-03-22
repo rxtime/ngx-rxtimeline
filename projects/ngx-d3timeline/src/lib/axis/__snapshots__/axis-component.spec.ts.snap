@@ -24,11 +24,14 @@ exports[`AxisComponent should render correctly 1`] = `
       />
     </g>
     
-    <g
-      class="grid-line"
-      ngx-d3timeline-line=""
-    >
-      <g />
+    <g>
+      
+      <g
+        class="grid-line"
+        ngx-d3timeline-line=""
+      >
+        <g />
+      </g>
     </g>
     <g
       class="axis-line"
