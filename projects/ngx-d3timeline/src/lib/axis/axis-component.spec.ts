@@ -58,6 +58,7 @@ describe('AxisComponent', () => {
         }
       ],
       line: { x1: 0, x2: 10, y1: 1, y2: 0 },
+      showGridLines: true,
       gridLines: [line]
     };
 

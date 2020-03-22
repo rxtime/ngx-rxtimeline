@@ -4,5 +4,6 @@ import { Line } from '../core/line';
 export interface Axis {
   tickMarks: TickMark[];
   line: Line;
+  showGridLines: boolean;
   gridLines: Line[];
 }
