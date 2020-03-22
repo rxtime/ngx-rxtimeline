@@ -19,7 +19,6 @@ export function getResourceAxisTickMarkRenderer(
     orientation: orientedScale.orientation,
     getTickLabel: (tickValue: string) => tickValue,
     getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing,
-    getTickValues: () => orientedScale.scale.domain(),
     mapTickValueToPositionInScale: (tickValue: string) =>
       getBandMidPoint(tickValue)
   };
