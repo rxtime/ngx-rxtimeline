@@ -16,3 +16,13 @@ export const selectActivityFontSize = createSelector(
   selectOptions,
   options => options && options.activityFontSize
 );
+
+export const selectTimeAxisOptions = createSelector(
+  selectOptions,
+  options => options.timeAxis
+);
+
+export const selectResourceAxisOptions = createSelector(
+  selectOptions,
+  options => options.resourceAxis
+);
