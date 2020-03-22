@@ -5,6 +5,7 @@ import { createLine, Line, createOrientedLine } from '../core/line';
 import { Axis } from './axis';
 import { OrientedScale } from '../scales/oriented-scale';
 import { TickMark } from '../tick-mark/tick-mark';
+import { View } from '../view/view';
 
 function getRangeLimit(scale: Scale): number {
   return scale.range()[1];
@@ -26,6 +27,10 @@ export function getAxisLine(
   return createLine(viewTopLeft, getAxisEndPoint(viewTopLeft, orientedScale));
 }
 
+export function getGridLineLength(orientedScale: OrientedScale<Scale>) {
+  return getRangeLimit(orientedScale.scale) - View.margin;
+}
+
 export function getTickGridLine(
   tickMarkPosition: (o: Orientation, range: number) => Point,
   orientedScale: OrientedScale<Scale>,
@@ -34,7 +39,7 @@ export function getTickGridLine(
 ): Line {
   return createOrientedLine(
     tickMarkPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
-    otherOrientedScale.scale.range()[1],
+    getGridLineLength(otherOrientedScale),
     flipOrientation(orientedScale.orientation)
   );
 }

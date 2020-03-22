@@ -8,8 +8,8 @@ export function getViewTopLeft(view: View): Point {
 
 export function getViewClipRectangle(view: View): Rectangle {
   return {
-    width: view.width - 2 * view.margin,
-    height: view.height - 2 * view.margin,
+    width: view.width - 2 * View.margin,
+    height: view.height - 2 * View.margin,
     x: view.left,
     y: view.top
   };
