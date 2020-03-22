@@ -3,25 +3,23 @@ import {
   TickMarkRenderer,
   tickLabelSpacing
 } from '../tick-mark/tick-mark-renderer';
-import { Orientation } from '../core/orientation';
+import { OrientedScale } from '../scales/oriented-scale';
 
 export function getResourceAxisTickMarkRenderer(
-  scale: BandScale,
-  orientation: Orientation
+  orientedScale: OrientedScale<BandScale>
 ): TickMarkRenderer {
   const tickLineOffset = 0;
 
   function getBandMidPoint(tickValue: string): number {
-    return scale(tickValue) + scale.bandwidth() / 2;
+    return orientedScale.scale(tickValue) + orientedScale.scale.bandwidth() / 2;
   }
 
   return {
     tickLineOffset,
-    orientation,
-    scale,
+    orientation: orientedScale.orientation,
     getTickLabel: (tickValue: string) => tickValue,
     getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing,
-    getTickValues: () => scale.domain(),
+    getTickValues: () => orientedScale.scale.domain(),
     mapTickValueToPositionInScale: (tickValue: string) =>
       getBandMidPoint(tickValue)
   };

@@ -3,27 +3,30 @@ import { getAxis, getAxisLine } from './axis-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
   selectResourceAxisTickMarks,
-  selectTimeAxisTickMarks,
-  selectResourceAxisTickMarkRenderer,
-  selectTimeAxisTickMarkRenderer
+  selectTimeAxisTickMarks
 } from '../tick-mark/tick-mark.selector';
-import { TickMarkRenderer } from '../tick-mark/tick-mark-renderer';
 import { Line } from '../core/line';
+import {
+  selectOrientedBandScale,
+  selectOrientedTimeScale
+} from '../scales/scale-selectors';
+import { OrientedScale } from '../scales/oriented-scale';
+import { Scale } from '../scales/scale-types';
 
 const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
   getAxisLine.bind(null, viewTopLeft)
 );
 
 export const selectResourceAxisLine = createSelector(
-  selectResourceAxisTickMarkRenderer,
+  selectOrientedBandScale,
   selectAxisLine,
-  axisLineFromTickMarkRenderer
+  axisLineFromOrientedScale
 );
 
 export const selectTimeAxisLine = createSelector(
-  selectTimeAxisTickMarkRenderer,
+  selectOrientedTimeScale,
   selectAxisLine,
-  axisLineFromTickMarkRenderer
+  axisLineFromOrientedScale
 );
 
 export const selectResourceAxis = createSelector(
@@ -38,9 +41,9 @@ export const selectTimeAxis = createSelector(
   getAxis
 );
 
-function axisLineFromTickMarkRenderer(
-  tickMarkRenderer: TickMarkRenderer,
-  line: (t: TickMarkRenderer) => Line
+function axisLineFromOrientedScale(
+  orientedScale: OrientedScale<Scale>,
+  line: (o: OrientedScale<Scale>) => Line
 ) {
-  return line(tickMarkRenderer);
+  return line(orientedScale);
 }

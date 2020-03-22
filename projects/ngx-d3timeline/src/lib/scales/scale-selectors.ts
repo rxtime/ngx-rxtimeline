@@ -9,6 +9,7 @@ import {
   selectResourceOrientation,
   selectTimeOrientation
 } from '../options/options.selectors';
+import { getOrientedScale } from './oriented-scale';
 
 export const selectBandScale = createSelector(
   selectPositionedActivities,
@@ -23,4 +24,16 @@ export const selectTimeScale = createSelector(
   selectTimeOrientation,
   selectZoomEvent,
   rescaleTime
+);
+
+export const selectOrientedTimeScale = createSelector(
+  selectTimeScale,
+  selectTimeOrientation,
+  getOrientedScale
+);
+
+export const selectOrientedBandScale = createSelector(
+  selectBandScale,
+  selectResourceOrientation,
+  getOrientedScale
 );
