@@ -26,3 +26,13 @@ export const selectResourceAxisOptions = createSelector(
   selectOptions,
   options => options.resourceAxis
 );
+
+export const selectResourceAxisShowGridLines = createSelector(
+  selectResourceAxisOptions,
+  axisOptions => axisOptions.showGridLines
+);
+
+export const selectTimeAxisShowGridLines = createSelector(
+  selectTimeAxisOptions,
+  axisOptions => axisOptions.showGridLines
+);

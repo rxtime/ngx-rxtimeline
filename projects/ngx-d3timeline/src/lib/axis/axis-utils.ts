@@ -42,11 +42,13 @@ export function getTickGridLine(
 export function getAxis(
   line: Line,
   tickMarks: TickMark[],
+  showGridLines: boolean,
   gridLines: Line[]
 ): Axis {
   return {
     line,
     tickMarks,
+    showGridLines,
     gridLines
   };
 }
