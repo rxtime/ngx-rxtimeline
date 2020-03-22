@@ -20,7 +20,7 @@ function getAxisEndPoint(
     : { ...viewTopLeft, x: getRangeLimit(scale) };
 }
 
-function getAxisLine(
+export function getAxisLine(
   viewTopLeft: Point,
   orientation: Orientation,
   scale: Scale
@@ -38,10 +38,11 @@ export function getAxis(
   ) => TickMarkRenderer,
   scale: Scale,
   orientation: Orientation,
-  viewTopLeft: Point
+  viewTopLeft: Point,
+  line: (o: Orientation, s: Scale) => Line
 ): Axis {
   return {
-    line: getAxisLine(viewTopLeft, orientation, scale),
+    line: line(orientation, scale),
     tickMarks: getTickMarks(
       viewTopLeft,
       getTickMarkRenderer(scale, orientation)
