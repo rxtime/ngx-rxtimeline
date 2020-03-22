@@ -6,7 +6,6 @@ exports[`LineComponent should render correctly 1`] = `
   ngx-d3timeline-line=""
 >
   <line
-    stroke="#000"
     x1="0"
     x2="50"
     y1="0"
