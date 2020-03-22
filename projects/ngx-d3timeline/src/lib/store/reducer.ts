@@ -60,6 +60,14 @@ export function reducer(state: State = initialState, action: Actions): State {
       };
     }
 
+    case ActionType.ActivityHovered:
+    case ActionType.ActivityUnhovered: {
+      return {
+        ...state,
+        hoveredEvent: action.payload
+      };
+    }
+
     default: {
       return state;
     }
