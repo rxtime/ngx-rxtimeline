@@ -35,6 +35,7 @@ exports[`AxisTickMarkComponent should render line when tickMark.line is truthy 1
     </text>
     
     <g
+      class="tick-mark-line"
       ngx-d3timeline-line=""
     >
       <g />
