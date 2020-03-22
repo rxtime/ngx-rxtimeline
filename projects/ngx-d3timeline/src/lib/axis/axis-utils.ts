@@ -3,7 +3,7 @@ import { Scale } from '../scales/scale-types';
 import { Orientation } from '../core/orientation';
 import { createLine, Line } from '../core/line';
 import { Axis } from './axis';
-import { TickMarkRenderer } from '../tick-mark/tick-mark-renderer';
+import { OrientedScale } from '../scales/oriented-scale';
 import { TickMark } from '../tick-mark/tick-mark';
 
 function getRangeLimit(scale: Scale): number {
@@ -11,27 +11,19 @@ function getRangeLimit(scale: Scale): number {
 }
 
 function getAxisEndPoint(
-  orientation: Orientation,
-  scale: Scale,
+  orientedScale: OrientedScale<Scale>,
   viewTopLeft: Point
 ): Point {
-  return orientation === Orientation.Vertical
-    ? { ...viewTopLeft, y: getRangeLimit(scale) }
-    : { ...viewTopLeft, x: getRangeLimit(scale) };
+  return orientedScale.orientation === Orientation.Vertical
+    ? { ...viewTopLeft, y: getRangeLimit(orientedScale.scale) }
+    : { ...viewTopLeft, x: getRangeLimit(orientedScale.scale) };
 }
 
 export function getAxisLine(
   viewTopLeft: Point,
-  tickMarkRenderer: TickMarkRenderer
+  orientedScale: OrientedScale<Scale>
 ): Line {
-  return createLine(
-    viewTopLeft,
-    getAxisEndPoint(
-      tickMarkRenderer.orientation,
-      tickMarkRenderer.scale,
-      viewTopLeft
-    )
-  );
+  return createLine(viewTopLeft, getAxisEndPoint(orientedScale, viewTopLeft));
 }
 
 export function getAxis(line: Line, tickMarks: TickMark[]): Axis {

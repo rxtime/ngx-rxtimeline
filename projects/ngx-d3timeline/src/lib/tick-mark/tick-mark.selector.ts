@@ -6,10 +6,9 @@ import {
   getTickMarks
 } from './tick-mark-utils';
 import {
-  selectResourceOrientation,
-  selectTimeOrientation
-} from '../options/options.selectors';
-import { selectBandScale, selectTimeScale } from '../scales/scale-selectors';
+  selectOrientedTimeScale,
+  selectOrientedBandScale
+} from '../scales/scale-selectors';
 import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
 import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
 
@@ -22,14 +21,12 @@ const selectTickMark = createSelector(selectTickMarkTopLeft, tickMarkTopLeft =>
 );
 
 export const selectResourceAxisTickMarkRenderer = createSelector(
-  selectBandScale,
-  selectResourceOrientation,
+  selectOrientedBandScale,
   getResourceAxisTickMarkRenderer
 );
 
 export const selectTimeAxisTickMarkRenderer = createSelector(
-  selectTimeScale,
-  selectTimeOrientation,
+  selectOrientedTimeScale,
   getTimeAxisTickMarkRenderer
 );
 
