@@ -3,11 +3,15 @@ import { selectViewTopLeft } from '../view/view.selectors';
 import {
   getTickMarkTopLeft,
   getTickMark,
-  getTickMarks
+  getTickMarks,
+  getTimeAxisTickValues,
+  getResourceAxisTickValues
 } from './tick-mark-utils';
 import {
   selectOrientedTimeScale,
-  selectOrientedBandScale
+  selectOrientedBandScale,
+  selectTimeScale,
+  selectBandScale
 } from '../scales/scale-selectors';
 import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
 import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
@@ -16,28 +20,48 @@ const selectTickMarkTopLeft = createSelector(selectViewTopLeft, viewTopLeft =>
   getTickMarkTopLeft.bind(null, viewTopLeft)
 );
 
-const selectTickMark = createSelector(selectTickMarkTopLeft, tickMarkTopLeft =>
-  getTickMark.bind(null, tickMarkTopLeft)
-);
-
-export const selectResourceAxisTickMarkRenderer = createSelector(
+const selectResourceAxisTickMarkRenderer = createSelector(
   selectOrientedBandScale,
   getResourceAxisTickMarkRenderer
 );
 
-export const selectTimeAxisTickMarkRenderer = createSelector(
+const selectTimeAxisTickMarkRenderer = createSelector(
   selectOrientedTimeScale,
   getTimeAxisTickMarkRenderer
 );
 
-export const selectResourceAxisTickMarks = createSelector(
-  selectTickMark,
+const selectResourceAxisTickMark = createSelector(
+  selectTickMarkTopLeft,
   selectResourceAxisTickMarkRenderer,
+  (tickMarkTopLeft, renderer) =>
+    getTickMark.bind(null, tickMarkTopLeft, renderer)
+);
+
+const selectTimeAxisTickMark = createSelector(
+  selectTickMarkTopLeft,
+  selectTimeAxisTickMarkRenderer,
+  (tickMarkTopLeft, renderer) =>
+    getTickMark.bind(null, tickMarkTopLeft, renderer)
+);
+
+const selectResourceAxisTickValues = createSelector(
+  selectBandScale,
+  getResourceAxisTickValues
+);
+
+const selectTimeAxisTickValues = createSelector(
+  selectTimeScale,
+  getTimeAxisTickValues
+);
+
+export const selectResourceAxisTickMarks = createSelector(
+  selectResourceAxisTickValues,
+  selectResourceAxisTickMark,
   getTickMarks
 );
 
 export const selectTimeAxisTickMarks = createSelector(
-  selectTickMark,
-  selectTimeAxisTickMarkRenderer,
+  selectTimeAxisTickValues,
+  selectTimeAxisTickMark,
   getTickMarks
 );

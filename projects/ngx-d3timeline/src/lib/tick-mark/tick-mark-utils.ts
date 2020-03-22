@@ -5,6 +5,7 @@ import { pointToTransform } from '../core/point';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { flipOrientation } from '../core/orientation';
+import { BandScale, TimeScale } from '../scales/scale-types';
 
 function getTickLine(lineOffset: number, orientation: Orientation) {
   return lineOffset && createOrientedLine(origin, lineOffset, orientation);
@@ -28,8 +29,8 @@ export function getTickMarkTopLeft(
 
 export function getTickMark(
   tickMarkTopLeft: (o: Orientation, range: number) => Point,
-  tickValue: any,
-  tickMarkRenderer: TickMarkRenderer
+  tickMarkRenderer: TickMarkRenderer,
+  tickValue: any
 ): TickMark {
   return {
     label: tickMarkRenderer.getTickLabel(tickValue),
@@ -50,11 +51,17 @@ export function getTickMark(
   };
 }
 
+export function getResourceAxisTickValues(scale: BandScale) {
+  return scale.domain();
+}
+
+export function getTimeAxisTickValues(scale: TimeScale) {
+  return scale.ticks();
+}
+
 export function getTickMarks(
-  tickMark: (value: any, tickMarkRenderer: TickMarkRenderer) => TickMark,
-  tickMarkRenderer: TickMarkRenderer
+  tickValues: any[],
+  tickMark: (value: any) => TickMark
 ): TickMark[] {
-  return tickMarkRenderer
-    .getTickValues()
-    .map(value => tickMark(value, tickMarkRenderer));
+  return tickValues.map(tickMark);
 }

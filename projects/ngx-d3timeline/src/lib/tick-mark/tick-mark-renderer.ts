@@ -3,7 +3,6 @@ import { Orientation } from '../core/orientation';
 export interface TickMarkRenderer {
   tickLineOffset: number;
   orientation: Orientation;
-  getTickValues(): any[];
   getTickLabel(tickValue: any): string;
   getTickLabelSpacing(): number;
   mapTickValueToPositionInScale(tickValue: any): number;

@@ -10,7 +10,6 @@ export function getTimeAxisTickMarkRenderer(
   return {
     tickLineOffset,
     orientation: orientedScale.orientation,
-    getTickValues: () => orientedScale.scale.ticks(),
     getTickLabel: (value: Date) => orientedScale.scale.tickFormat()(value),
     mapTickValueToPositionInScale: (value: Date) => orientedScale.scale(value),
     getTickLabelSpacing: () => tickLineOffset + tickLabelSpacing
