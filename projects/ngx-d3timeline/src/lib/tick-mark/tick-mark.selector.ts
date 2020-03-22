@@ -15,6 +15,10 @@ import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
 import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
 import { mapValues } from '../core/transform-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
+import {
+  selectResourceAxisOptions,
+  selectTimeAxisOptions
+} from '../options/options.selectors';
 
 export const selectTickMarkTopLeftFunc = createSelector(
   selectViewTopLeft,
@@ -23,11 +27,13 @@ export const selectTickMarkTopLeftFunc = createSelector(
 
 const selectResourceAxisTickMarkRenderer = createSelector(
   selectOrientedBandScale,
+  selectResourceAxisOptions,
   getResourceAxisTickMarkRenderer
 );
 
 const selectTimeAxisTickMarkRenderer = createSelector(
   selectOrientedTimeScale,
+  selectTimeAxisOptions,
   getTimeAxisTickMarkRenderer
 );
 

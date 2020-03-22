@@ -4,11 +4,13 @@ import {
   tickLabelSpacing
 } from '../tick-mark/tick-mark-renderer';
 import { OrientedScale } from '../scales/oriented-scale';
+import { AxisOptions } from '../options/options';
 
 export function getResourceAxisTickMarkRenderer(
-  orientedScale: OrientedScale<BandScale>
+  orientedScale: OrientedScale<BandScale>,
+  axisOptions: AxisOptions
 ): TickMarkRenderer {
-  const tickLineOffset = 0;
+  const tickLineOffset = axisOptions.tickLineLength * -1;
 
   function getBandMidPoint(tickValue: string): number {
     return orientedScale.scale(tickValue) + orientedScale.scale.bandwidth() / 2;

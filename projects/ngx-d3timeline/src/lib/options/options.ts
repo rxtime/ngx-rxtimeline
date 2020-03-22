@@ -1,5 +1,5 @@
 export interface AxisOptions {
-  tickMarkLength: number;
+  tickLineLength: number;
   showGridLines: boolean;
 }
 
@@ -16,11 +16,11 @@ export const defaultOptions: CompleteOptions = {
   orientation: 'Vertical',
   activityFontSize: 10,
   timeAxis: {
-    tickMarkLength: 5,
+    tickLineLength: 5,
     showGridLines: true
   },
   resourceAxis: {
-    tickMarkLength: 0,
+    tickLineLength: 0,
     showGridLines: true
   }
 };
