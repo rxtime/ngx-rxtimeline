@@ -10,14 +10,14 @@ import { Axis } from './axis';
         ngx-d3timeline-axis-tick-mark
         [tickMark]="tickMark"
       ></svg:g>
-      <svg:g *ngIf="axis.showGridLines">
+      <ng-container *ngIf="axis.showGridLines">
         <svg:g
           *ngFor="let gridLine of axis.gridLines"
           class="grid-line"
           ngx-d3timeline-line
           [line]="gridLine"
         ></svg:g>
-      </svg:g>
+      </ng-container>
       <svg:g class="axis-line" ngx-d3timeline-line [line]="axis.line"></svg:g>
     </svg:g>
   `
