@@ -6,10 +6,9 @@ import {
 import { OrientedScale } from '../scales/oriented-scale';
 
 export function getResourceAxisTickMarkRenderer(
-  orientedScale: OrientedScale<BandScale>
+  orientedScale: OrientedScale<BandScale>,
+  tickLineOffset: number
 ): TickMarkRenderer {
-  const tickLineOffset = 0;
-
   function getBandMidPoint(tickValue: string): number {
     return orientedScale.scale(tickValue) + orientedScale.scale.bandwidth() / 2;
   }

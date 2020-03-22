@@ -1,12 +1,12 @@
 import { TimeScale } from '../scales/scale-types';
 import { TickMarkRenderer, tickLabelSpacing } from './tick-mark-renderer';
 import { OrientedScale } from '../scales/oriented-scale';
+import { AxisOptions } from '../options/options';
 
 export function getTimeAxisTickMarkRenderer(
-  orientedScale: OrientedScale<TimeScale>
+  orientedScale: OrientedScale<TimeScale>,
+  tickLineOffset: number
 ): TickMarkRenderer {
-  const tickLineOffset = -5;
-
   return {
     tickLineOffset,
     orientation: orientedScale.orientation,
