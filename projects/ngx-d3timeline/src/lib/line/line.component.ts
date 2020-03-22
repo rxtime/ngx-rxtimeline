@@ -8,7 +8,6 @@ import { Line } from '../core/line';
       [attr.x2]="line.x2"
       [attr.y1]="line.y1"
       [attr.y2]="line.y2"
-      stroke="#000"
     ></svg:line>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

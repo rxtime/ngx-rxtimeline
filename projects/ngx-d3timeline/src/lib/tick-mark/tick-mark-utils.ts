@@ -58,10 +58,3 @@ export function getResourceAxisTickValues(scale: BandScale) {
 export function getTimeAxisTickValues(scale: TimeScale) {
   return scale.ticks();
 }
-
-export function getTickMarks(
-  tickValues: any[],
-  tickMark: (value: any) => TickMark
-): TickMark[] {
-  return tickValues.map(tickMark);
-}
