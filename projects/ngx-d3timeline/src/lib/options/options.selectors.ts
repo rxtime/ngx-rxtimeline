@@ -1,7 +1,7 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 import { selectOptions } from '../store/state';
 import { flipOrientation } from '../core/orientation';
-import { getTimeOrientation } from './options-utils';
+import { getTimeOrientation, getShowGridLines } from './options-utils';
 import { AxisOptions } from './options';
 
 export const selectTimeOrientation = createSelector(
@@ -27,9 +27,6 @@ export const selectResourceAxisOptions = createSelector(
   selectOptions,
   options => options.resourceAxis
 );
-
-const getShowGridLines = (axisOptions: AxisOptions) =>
-  axisOptions.showGridLines;
 
 export const selectResourceAxisShowGridLines = createSelector(
   selectResourceAxisOptions,
