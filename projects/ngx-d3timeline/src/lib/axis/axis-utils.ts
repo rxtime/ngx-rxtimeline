@@ -27,7 +27,7 @@ export function getAxisLine(
   return createLine(viewTopLeft, getAxisEndPoint(viewTopLeft, orientedScale));
 }
 
-export function getGridLineWidth(orientedScale: OrientedScale<Scale>) {
+export function getGridLineLength(orientedScale: OrientedScale<Scale>) {
   return getRangeLimit(orientedScale.scale) - margin;
 }
 
@@ -39,7 +39,7 @@ export function getTickGridLine(
 ): Line {
   return createOrientedLine(
     tickMarkPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
-    getGridLineWidth(otherOrientedScale),
+    getGridLineLength(otherOrientedScale),
     flipOrientation(orientedScale.orientation)
   );
 }
