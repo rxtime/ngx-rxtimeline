@@ -21,13 +21,13 @@ const selectTickMark = createSelector(selectTickMarkTopLeft, tickMarkTopLeft =>
   getTickMark.bind(null, tickMarkTopLeft)
 );
 
-const selectResourceAxisTickMarkRenderer = createSelector(
+export const selectResourceAxisTickMarkRenderer = createSelector(
   selectBandScale,
   selectResourceOrientation,
   getResourceAxisTickMarkRenderer
 );
 
-const selectTimeAxisTickMarkRenderer = createSelector(
+export const selectTimeAxisTickMarkRenderer = createSelector(
   selectTimeScale,
   selectTimeOrientation,
   getTimeAxisTickMarkRenderer

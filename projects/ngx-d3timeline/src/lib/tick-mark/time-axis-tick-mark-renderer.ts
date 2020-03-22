@@ -11,6 +11,7 @@ export function getTimeAxisTickMarkRenderer(
   return {
     tickLineOffset,
     orientation,
+    scale,
     getTickValues: () => scale.ticks(),
     getTickLabel: (value: Date) => scale.tickFormat()(value),
     mapTickValueToPositionInScale: (value: Date) => scale(value),

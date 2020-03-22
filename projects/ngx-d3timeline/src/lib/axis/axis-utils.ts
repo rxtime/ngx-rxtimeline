@@ -4,7 +4,6 @@ import { Orientation } from '../core/orientation';
 import { createLine, Line } from '../core/line';
 import { Axis } from './axis';
 import { TickMarkRenderer } from '../tick-mark/tick-mark-renderer';
-import { getTickMarks } from '../tick-mark/tick-mark-utils';
 import { TickMark } from '../tick-mark/tick-mark';
 
 function getRangeLimit(scale: Scale): number {
@@ -23,23 +22,21 @@ function getAxisEndPoint(
 
 export function getAxisLine(
   viewTopLeft: Point,
-  orientation: Orientation,
-  scale: Scale
+  tickMarkRenderer: TickMarkRenderer
 ): Line {
   return createLine(
     viewTopLeft,
-    getAxisEndPoint(orientation, scale, viewTopLeft)
+    getAxisEndPoint(
+      tickMarkRenderer.orientation,
+      tickMarkRenderer.scale,
+      viewTopLeft
+    )
   );
 }
 
-export function getAxis(
-  tickMarks: TickMark[],
-  scale: Scale,
-  orientation: Orientation,
-  line: (o: Orientation, s: Scale) => Line
-): Axis {
+export function getAxis(line: Line, tickMarks: TickMark[]): Axis {
   return {
-    line: line(orientation, scale),
+    line,
     tickMarks
   };
 }
