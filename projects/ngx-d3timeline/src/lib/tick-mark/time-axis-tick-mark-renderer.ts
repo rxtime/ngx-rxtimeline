@@ -5,10 +5,8 @@ import { AxisOptions } from '../options/options';
 
 export function getTimeAxisTickMarkRenderer(
   orientedScale: OrientedScale<TimeScale>,
-  axisOptions: AxisOptions
+  tickLineOffset: number
 ): TickMarkRenderer {
-  const tickLineOffset = axisOptions.tickLineLength * -1;
-
   return {
     tickLineOffset,
     orientation: orientedScale.orientation,

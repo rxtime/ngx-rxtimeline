@@ -6,6 +6,7 @@ import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { flipOrientation } from '../core/orientation';
 import { BandScale, TimeScale } from '../scales/scale-types';
+import { AxisOptions } from '../options/options';
 
 function getTickLine(lineOffset: number, orientation: Orientation) {
   return lineOffset && createOrientedLine(origin, lineOffset, orientation);
@@ -57,4 +58,8 @@ export function getResourceAxisTickValues(scale: BandScale) {
 
 export function getTimeAxisTickValues(scale: TimeScale) {
   return scale.ticks();
+}
+
+export function getTickLineOffset(axisOptions: AxisOptions): number {
+  return axisOptions.tickLineLength * -1;
 }
