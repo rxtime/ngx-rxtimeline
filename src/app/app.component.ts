@@ -30,4 +30,12 @@ export class AppComponent {
         this.options.orientation === 'Vertical' ? 'Horizontal' : 'Vertical'
     };
   }
+
+  onHovered(event: any) {
+    console.log('hovered ', event);
+  }
+
+  onUnhovered(event: any) {
+    console.log('unhovered ', event);
+  }
 }
