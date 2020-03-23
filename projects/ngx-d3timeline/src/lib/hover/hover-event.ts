@@ -5,24 +5,24 @@ import {
 } from '../activity/activity';
 import { PositionedActivity } from '../activity/positioned-activity';
 
-export enum HoverType {
+export enum HoverAction {
   Hovered = 'Hovered',
   Unhovered = 'Unhovered'
 }
 
 export interface HoverEvent {
   id: identifier;
-  type: HoverType;
+  action: HoverAction;
 }
 
 export function getHoveredActivityByType(
   hoverEvent: HoverEvent,
   hoveredPositionedActivity: PositionedActivity,
-  type: HoverType
+  action: HoverAction
 ): Activity {
   return (
     hoverEvent &&
-    (hoverEvent.type === type
+    (hoverEvent.action === action
       ? getActivityFromPositionedActivity(hoveredPositionedActivity)
       : null)
   );

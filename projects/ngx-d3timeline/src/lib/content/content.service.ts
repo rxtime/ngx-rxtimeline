@@ -12,7 +12,7 @@ import {
   ActivityHoveredAction,
   ActivityUnhoveredAction
 } from '../store/actions';
-import { HoverType } from '../hover/hover-event';
+import { HoverAction } from '../hover/hover-event';
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
@@ -26,13 +26,13 @@ export class ContentService {
 
   hovered(id: identifier) {
     this.store.dispatch(
-      new ActivityHoveredAction({ id, type: HoverType.Hovered })
+      new ActivityHoveredAction({ id, action: HoverAction.Hovered })
     );
   }
 
   unhovered(id: identifier) {
     this.store.dispatch(
-      new ActivityUnhoveredAction({ id, type: HoverType.Unhovered })
+      new ActivityUnhoveredAction({ id, action: HoverAction.Unhovered })
     );
   }
 }

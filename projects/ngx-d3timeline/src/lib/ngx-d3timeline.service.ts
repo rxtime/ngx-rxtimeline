@@ -13,7 +13,7 @@ import { AxisService } from './axis/axis.service';
 import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
-import { HoverType } from './hover/hover-event';
+import { HoverAction } from './hover/hover-event';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {
@@ -28,11 +28,11 @@ export class NgxD3TimelineService {
   );
 
   hoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverType.Hovered))
+    .select(selectHoveredActivity(HoverAction.Hovered))
     .pipe(filter(activity => !!activity));
 
   unhoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverType.Unhovered))
+    .select(selectHoveredActivity(HoverAction.Unhovered))
     .pipe(filter(activity => !!activity));
 
   constructor(private store: Store, private axisService: AxisService) {}

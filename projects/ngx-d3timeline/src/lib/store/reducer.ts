@@ -64,7 +64,7 @@ export function reducer(state: State = initialState, action: Actions): State {
     case ActionType.ActivityUnhovered: {
       return {
         ...state,
-        hoveredEvent: action.payload
+        hoverEvent: action.payload
       };
     }
 

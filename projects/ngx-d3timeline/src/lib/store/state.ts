@@ -13,7 +13,7 @@ export interface State {
   lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
-  hoveredEvent: HoverEvent;
+  hoverEvent: HoverEvent;
 }
 
 const initialView = new View([null, null]);
@@ -25,7 +25,7 @@ export const initialState: State = {
   lastDraggedActivityId: null,
   dragEvent: null,
   zoomEvent: null,
-  hoveredEvent: null
+  hoverEvent: null
 };
 
 export const selectOptions = createSliceSelector(
@@ -47,5 +47,5 @@ export const selectLastDraggedActivityId = createSliceSelector(
 );
 
 export const selectHoveredEvent = createSliceSelector(
-  (state: State) => state.hoveredEvent
+  (state: State) => state.hoverEvent
 );
