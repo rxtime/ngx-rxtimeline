@@ -7,7 +7,8 @@ import {
 import { configureBandScale, rescaleTime } from './scale-utils';
 import {
   selectResourceOrientation,
-  selectTimeOrientation
+  selectTimeOrientation,
+  selectActivitiesLateralPadding
 } from '../options/options.selectors';
 import { getOrientedScale } from './oriented-scale';
 
@@ -15,6 +16,7 @@ export const selectBandScale = createSelector(
   selectPositionedActivities,
   selectView,
   selectResourceOrientation,
+  selectActivitiesLateralPadding,
   configureBandScale
 );
 
