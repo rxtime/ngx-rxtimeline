@@ -1,26 +1,86 @@
-<ngx-d3timeline
-  [activities]="activities"
-  [view]="[width, height]"
-  [options]="options"
-  (activityDropped)="onDropped($event)"
-  (hovered)="onHovered($event)"
-  (unhovered)="onUnhovered($event)"
-></ngx-d3timeline>
+<ng-container *ngIf="options$ | async as options">
+  <ngx-d3timeline
+    [activities]="activities"
+    [view]="[width, height]"
+    [options]="options"
+    (activityDropped)="onDropped($event)"
+    (hovered)="onHovered($event)"
+    (unhovered)="onUnhovered($event)"
+  ></ngx-d3timeline>
 
-<div>
-  <label>Width</label>
-  <input [(ngModel)]="width" />
-</div>
+  <div>
+    <label>Width</label>
+    <input [(ngModel)]="width" />
+  </div>
 
-<div>
-  <label>Height</label>
-  <input [(ngModel)]="height" />
-</div>
+  <div>
+    <label>Height</label>
+    <input [(ngModel)]="height" />
+  </div>
 
-<div>
-  <label>Resource Gap (0-1)</label>
-  <input [(ngModel)]="resourceGap" />
-</div>
+  <div>
+    <label>Resource Gap (0-1)</label>
+    <input
+      [value]="options.resource.gap"
+      (keyup)="update('resource', {}, { gap: $event.target.value })"
+    />
+  </div>
 
-<button (click)="flipOrientation()">Flip Orientation</button>
-<span>{{ options.orientation }}</span>
+  <button (click)="flipOrientation()">Flip Orientation</button>
+  <span>{{ options.orientation }}</span>
+  <button (click)="flipOrientation(options)">Flip Orientation</button>
+  <span>{{ options.orientation }}</span>
+
+  <div>
+    <span>Resource Axis options</span>
+    <div>
+      <input
+        type="checkbox"
+        [checked]="options.resourceAxis.showGridLines"
+        (change)="
+          update('resourceAxis', options.resourceAxis, {
+            showGridLines: !options.resourceAxis.showGridLines
+          })
+        "
+      />
+      <label>Show grid lines</label><br />
+    </div>
+    <div>
+      <input
+        [value]="options.resourceAxis.tickLineLength"
+        (keyup)="
+          update('resourceAxis', options.resourceAxis, {
+            tickLineLength: +$event.target.value
+          })
+        "
+      />
+      <label>Tick line length</label><br />
+    </div>
+  </div>
+  <div>
+    <span>Time Axis options</span>
+    <div>
+      <input
+        type="checkbox"
+        [checked]="options.timeAxis.showGridLines"
+        (change)="
+          update('timeAxis', options.timeAxis, {
+            showGridLines: !options.timeAxis.showGridLines
+          })
+        "
+      />
+      <label>Show grid lines</label><br />
+    </div>
+    <div>
+      <input
+        [value]="options.timeAxis.tickLineLength"
+        (keyup)="
+          update('timeAxis', options.timeAxis, {
+            tickLineLength: +$event.target.value
+          })
+        "
+      />
+      <label>Tick line length</label><br />
+    </div>
+  </div>
+</ng-container>
