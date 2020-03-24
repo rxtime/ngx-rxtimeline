@@ -27,14 +27,21 @@ import {
 } from './activity-rectangle-size.selectors';
 import {
   selectTimeOrientation,
+  selectActivityFontFace,
   selectActivityFontSize
 } from '../../options/options.selectors';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
   selectTimeOrientation,
+  selectActivityFontFace,
   selectActivityFontSize,
-  (timeOrientation, fontSize) =>
-    getActivityTitleBreadthInTimeAxis.bind(null, timeOrientation, fontSize)
+  (timeOrientation, fontFace, fontSize) =>
+    getActivityTitleBreadthInTimeAxis.bind(
+      null,
+      timeOrientation,
+      fontFace,
+      fontSize
+    )
 );
 
 const selectMinBreadthToShowLabel = createSelector(
@@ -66,14 +73,16 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectTransform(selectOffset),
     selectRectWidth,
     selectRectHeight,
+    selectActivityFontFace,
     selectActivityFontSize,
     selectShowTitle,
-    (transform, width, height, fontSize, showTitle) =>
+    (transform, width, height, fontFace, fontSize, showTitle) =>
       createActivityRectangle.bind(
         null,
         transform,
         width,
         height,
+        fontFace,
         fontSize,
         showTitle
       )

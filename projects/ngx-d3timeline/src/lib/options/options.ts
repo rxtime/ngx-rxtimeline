@@ -7,19 +7,23 @@ export interface ResourceOptions {
   gap: number;
 }
 
+export interface ActivityOptions {
+  fontFace: string;
+  fontSize: number;
+}
+
 export interface CompleteOptions {
   orientation: 'Vertical' | 'Horizontal';
-  activityFontSize: number;
   timeAxis: AxisOptions;
   resourceAxis: AxisOptions;
   resource: ResourceOptions;
+  activity: ActivityOptions;
 }
 
 export type Options = Partial<CompleteOptions>;
 
 export const defaultOptions: CompleteOptions = {
   orientation: 'Vertical',
-  activityFontSize: 10,
   timeAxis: {
     tickLineLength: 5,
     showGridLines: true
@@ -30,5 +34,9 @@ export const defaultOptions: CompleteOptions = {
   },
   resource: {
     gap: 0.25
+  },
+  activity: {
+    fontFace: 'Arial',
+    fontSize: 10
   }
 };

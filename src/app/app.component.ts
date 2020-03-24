@@ -12,10 +12,13 @@ export class AppComponent {
   activities = deliveryData;
 
   options: Options = {
-    activityFontSize: 10,
     orientation: 'Vertical',
     resource: {
       gap: 0.25
+    },
+    activity: {
+      fontFace: 'Arial',
+      fontSize: 10
     }
   };
 

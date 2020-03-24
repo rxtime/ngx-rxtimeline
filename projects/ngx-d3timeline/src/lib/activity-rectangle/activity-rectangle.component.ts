@@ -28,6 +28,7 @@ import { activityTitlePadding } from '../content/content-utils';
           dominant-baseline="hanging"
           [attr.dx]="activityTitlePadding"
           [attr.dy]="activityTitlePadding"
+          [attr.font-family]="activityRectangle.fontFace"
           [attr.font-size]="activityRectangle.fontSize"
         >
           {{ activityRectangle.title }}
