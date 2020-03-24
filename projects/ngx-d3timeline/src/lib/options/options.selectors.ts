@@ -27,9 +27,9 @@ export const selectResourceAxisOptions = createSelector(
   options => options.resourceAxis
 );
 
-export const selectActivitiesOptions = createSelector(
+export const selectResourceOptions = createSelector(
   selectOptions,
-  options => options.activities
+  options => options.resource
 );
 
 export const selectResourceAxisShowGridLines = createSelector(
@@ -42,7 +42,7 @@ export const selectTimeAxisShowGridLines = createSelector(
   getShowGridLines
 );
 
-export const selectActivitiesLateralPadding = createSelector(
-  selectActivitiesOptions,
-  activitiesOptions => activitiesOptions.lateralPadding
+export const selectResourceGap = createSelector(
+  selectResourceOptions,
+  resourceOptions => resourceOptions.gap
 );

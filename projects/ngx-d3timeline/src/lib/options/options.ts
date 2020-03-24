@@ -3,8 +3,8 @@ export interface AxisOptions {
   showGridLines: boolean;
 }
 
-export interface ActivitiesOptions {
-  lateralPadding: number;
+export interface ResourceOptions {
+  gap: number;
 }
 
 export interface CompleteOptions {
@@ -12,7 +12,7 @@ export interface CompleteOptions {
   activityFontSize: number;
   timeAxis: AxisOptions;
   resourceAxis: AxisOptions;
-  activities: ActivitiesOptions;
+  resource: ResourceOptions;
 }
 
 export type Options = Partial<CompleteOptions>;
@@ -28,7 +28,7 @@ export const defaultOptions: CompleteOptions = {
     tickLineLength: 0,
     showGridLines: true
   },
-  activities: {
-    lateralPadding: 0.25
+  resource: {
+    gap: 0.25
   }
 };

@@ -38,14 +38,12 @@ export function configureBandScale(
   activities: Activity[],
   view: View,
   orientation: Orientation,
-  lateralPadding: number
+  resourceGap: number
 ): BandScale {
   return scaleBand()
     .domain(getBandScaleDomain(activities))
     .range(getRange(view, orientation))
-    .paddingInner(lateralPadding)
-    .paddingOuter(lateralPadding)
-    .align(0.5);
+    .paddingInner(resourceGap);
 }
 
 export function configureTimeScale(
