@@ -37,11 +37,13 @@ export function rescaleTime(
 export function configureBandScale(
   activities: Activity[],
   view: View,
-  orientation: Orientation
+  orientation: Orientation,
+  resourceGap: number
 ): BandScale {
   return scaleBand()
     .domain(getBandScaleDomain(activities))
-    .range(getRange(view, orientation));
+    .range(getRange(view, orientation))
+    .paddingInner(resourceGap);
 }
 
 export function configureTimeScale(

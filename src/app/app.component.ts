@@ -13,11 +13,21 @@ export class AppComponent {
 
   options: Options = {
     activityFontSize: 10,
-    orientation: 'Vertical'
+    orientation: 'Vertical',
+    resource: {
+      gap: 0.25
+    }
   };
 
   width = 400;
   height = 400;
+
+  set resourceGap(value: number) {
+    this.options = { ...this.options, resource: { gap: value } };
+  }
+  get resourceGap() {
+    return this.options.resource.gap;
+  }
 
   onDropped(activity: Activity) {
     console.log(activity);
