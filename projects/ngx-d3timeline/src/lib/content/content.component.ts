@@ -18,6 +18,8 @@ import { ContentService } from './content.service';
           *ngFor="let activityRectangle of activityRectangles"
           ngx-d3timeline-activity-rectangle
           [activityRectangle]="activityRectangle"
+          (mouseenter)="contentService.hovered(activityRectangle.id)"
+          (mouseleave)="contentService.unhovered(activityRectangle.id)"
         ></svg:g>
 
         <svg:g

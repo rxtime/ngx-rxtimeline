@@ -3,6 +3,8 @@
   [view]="[width, height]"
   [options]="options"
   (activityDropped)="onDropped($event)"
+  (hovered)="onHovered($event)"
+  (unhovered)="onUnhovered($event)"
 ></ngx-d3timeline>
 
 <div>

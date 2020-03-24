@@ -3,6 +3,7 @@ import { PositionedActivity } from '../activity/positioned-activity';
 import { Options } from '../options/options';
 import { identifier } from '../core/types';
 import { Action } from '../store-lib/action';
+import { HoverEvent } from '../hover/hover-event';
 
 export enum ActionType {
   ActivitiesChanged = 'Activities Changed',
@@ -11,7 +12,9 @@ export enum ActionType {
   Zoomed = 'Zoomed',
   TimelineDragStarted = 'Timeline Drag Started',
   TimelineDragging = 'Timeline Dragging',
-  TimelineDragEnded = 'Timeline Drag Ended'
+  TimelineDragEnded = 'Timeline Drag Ended',
+  ActivityHovered = 'Activity Hovered',
+  ActivityUnhovered = 'Activity Unhovered'
 }
 
 export class ActivitiesChangedAction implements Action {
@@ -49,6 +52,16 @@ export class TimelineDragEndedAction implements Action {
   constructor(public payload: PositionedActivity) {}
 }
 
+export class ActivityHoveredAction implements Action {
+  readonly type = ActionType.ActivityHovered;
+  constructor(public payload: HoverEvent) {}
+}
+
+export class ActivityUnhoveredAction implements Action {
+  readonly type = ActionType.ActivityUnhovered;
+  constructor(public payload: HoverEvent) {}
+}
+
 export type Actions =
   | ActivitiesChangedAction
   | OptionsChangedAction
@@ -56,4 +69,6 @@ export type Actions =
   | ZoomedAction
   | TimelineDragStartedAction
   | TimelineDraggingAction
-  | TimelineDragEndedAction;
+  | TimelineDragEndedAction
+  | ActivityHoveredAction
+  | ActivityUnhoveredAction;

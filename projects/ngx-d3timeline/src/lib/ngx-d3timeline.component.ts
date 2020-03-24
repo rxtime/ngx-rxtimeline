@@ -13,8 +13,6 @@ import {
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
-import { Orientation } from './core/orientation';
-
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -62,6 +60,8 @@ export class NgxD3timelineComponent
   }
 
   @Output() activityDropped = new EventEmitter<Activity>();
+  @Output() hovered = new EventEmitter<Activity>();
+  @Output() unhovered = new EventEmitter<Activity>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
@@ -73,6 +73,14 @@ export class NgxD3timelineComponent
     this.timeline.lastDraggedActivity$
       .pipe(takeUntil(this.destroy$))
       .subscribe(activity => this.activityDropped.emit(activity));
+
+    this.timeline.hoveredActivity$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(activity => this.hovered.emit(activity));
+
+    this.timeline.unhoveredActivity$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(activity => this.unhovered.emit(activity));
   }
 
   ngAfterViewInit(): void {
