@@ -52,7 +52,7 @@ export class AppComponent {
     });
   }
 
-  update(key: string, orig: AxisOptions, value: any) {
+  update(key: string, orig: any, value: any) {
     this.optionUpdateSubject.next({
       [key]: { ...orig, ...value }
     });
