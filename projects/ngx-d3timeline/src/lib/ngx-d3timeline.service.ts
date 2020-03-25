@@ -14,6 +14,7 @@ import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
+import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {
@@ -34,6 +35,8 @@ export class NgxD3TimelineService {
   unhoveredActivity$ = this.store
     .select(selectHoveredActivity(HoverAction.Unhovered))
     .pipe(filter(activity => !!activity));
+
+  resourceRectangles$ = this.store.select(selectResourceRectangles);
 
   constructor(private store: Store, private axisService: AxisService) {}
 

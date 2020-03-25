@@ -12,7 +12,7 @@ export const selectRectBreadthInTimeAxis = createSelector(
   timeScale => getRectBreadthInTimeAxis.bind(null, timeScale)
 );
 
-const selectRectBreadthInResourceAxis = createSelector(
+export const selectRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   bandScale => bandScale.bandwidth()
 );
