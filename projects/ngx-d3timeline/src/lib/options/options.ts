@@ -4,8 +4,8 @@ export interface AxisOptions {
   tickLineLength?: number;
   showGridLines?: boolean;
   showAxisLine?: boolean;
-  fontFace: string;
-  fontSize: number;
+  fontFace?: string;
+  fontSize?: number;
 }
 
 export interface ResourceOptions {
