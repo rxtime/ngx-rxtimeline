@@ -1,0 +1,51 @@
+.ngx-d3timeline {
+  .activity-rectangle {
+    rect {
+      rx: 5px;
+    }
+
+    &.Driving rect {
+      rx: 0;
+      fill: #dadee0;
+      stroke: #4e585e;
+    }
+
+    &.Waiting rect {
+      fill: #bcd1d7;
+      stroke: #76858d;
+    }
+
+    &.DriveBreak rect {
+      fill: #bcd1d7;
+      stroke: #76858d;
+    }
+
+    &.Handling rect {
+      fill: #00a1c5;
+      stroke: #006176;
+    }
+
+    &.Resting rect {
+      fill: #bcd1d7;
+      stroke: #76858d;
+    }
+  }
+
+  .from-activity-rectangle .activity-rectangle {
+    fill: none;
+    rect {
+      stroke: #f00;
+      stroke-width: 3px;
+      fill: none;
+    }
+  }
+
+  .drop-activity-rectangle .activity-rectangle {
+    fill: none;
+    rect {
+      stroke: #0f0;
+      stroke-width: 3px;
+      fill: none;
+    }
+  }
+}
