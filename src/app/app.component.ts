@@ -38,8 +38,6 @@ export class AppComponent {
     type: {
       Driving: {
         activity: {
-          fontFace: 'Arial',
-          fontSize: 10,
           padding: 10
         }
       }
