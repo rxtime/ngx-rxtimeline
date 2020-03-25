@@ -51,7 +51,8 @@ describe('ContentComponent', () => {
         width: 50,
         height: 80,
         fontSize: 10,
-        showTitle: true
+        showTitle: true,
+        fontFace: 'Arial'
       },
       {
         id: 2,
@@ -60,7 +61,8 @@ describe('ContentComponent', () => {
         width: 60,
         height: 90,
         fontSize: 10,
-        showTitle: true
+        showTitle: true,
+        fontFace: 'Arial'
       }
     ];
   });

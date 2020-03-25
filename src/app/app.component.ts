@@ -16,11 +16,14 @@ export class AppComponent {
   optionUpdateSubject = new BehaviorSubject<{ [key: string]: any }>(null);
 
   initialOptions: Options = {
-    activityFontSize: 10,
     orientation: 'Vertical',
     resource: {
       gap: 0,
       padding: 5
+    },
+    activity: {
+      fontFace: 'Arial',
+      fontSize: 10
     },
     resourceAxis: {
       showGridLines: true,

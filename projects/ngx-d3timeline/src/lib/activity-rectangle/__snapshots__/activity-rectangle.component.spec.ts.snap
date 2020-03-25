@@ -48,6 +48,7 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
         dominant-baseline="hanging"
         dx="2"
         dy="2"
+        font-family="Arial"
         font-size="10"
       >
          Activity 1 

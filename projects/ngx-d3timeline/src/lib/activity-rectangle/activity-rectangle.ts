@@ -7,5 +7,6 @@ export interface ActivityRectangle {
   transform: string;
   width: number;
   height: number;
+  fontFace: string;
   fontSize: number;
 }
