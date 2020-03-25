@@ -29,7 +29,9 @@ describe('AxisTickMarkComponent', () => {
       label: 'tickMark label',
       labelOffset: { x: 0, y: 1 },
       line: null,
-      transform: 'translate(10,10)'
+      transform: 'translate(10,10)',
+      fontFace: 'arial',
+      fontSize: 10
     };
 
     fixture.detectChanges();
@@ -42,7 +44,9 @@ describe('AxisTickMarkComponent', () => {
       label: 'tickMark label',
       labelOffset: { x: 0, y: 2 },
       line: createLine({ x: 0, y: 0 }, { x: 10, y: 10 }),
-      transform: 'translate(10,10)'
+      transform: 'translate(10,10)',
+      fontFace: 'arial',
+      fontSize: 10
     };
 
     fixture.detectChanges();

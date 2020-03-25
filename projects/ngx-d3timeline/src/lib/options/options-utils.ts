@@ -57,3 +57,11 @@ export function getTickLineOffset(axisOptions: AxisOptions): number {
 export function getShowAxisLine(axisOptions: AxisOptions): boolean {
   return axisOptions.showAxisLine;
 }
+
+export function getFontFace(axisOptions: AxisOptions): string {
+  return axisOptions.fontFace;
+}
+
+export function getFontSize(axisOptions: AxisOptions): number {
+  return axisOptions.fontSize;
+}

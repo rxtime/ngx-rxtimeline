@@ -6,7 +6,6 @@ import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { flipOrientation } from '../core/orientation';
 import { BandScale, TimeScale } from '../scales/scale-types';
-import { AxisOptions } from '../options/options';
 
 function getTickLine(lineOffset: number, orientation: Orientation) {
   return lineOffset && createOrientedLine(origin, lineOffset, orientation);
@@ -31,6 +30,8 @@ export function getTickMarkTopLeft(
 export function getTickMark(
   tickMarkTopLeft: (o: Orientation, range: number) => Point,
   tickMarkRenderer: TickMarkRenderer,
+  fontFace: string,
+  fontSize: number,
   tickValue: any
 ): TickMark {
   return {
@@ -48,7 +49,9 @@ export function getTickMark(
     line: getTickLine(
       tickMarkRenderer.tickLineOffset,
       flipOrientation(tickMarkRenderer.orientation)
-    )
+    ),
+    fontFace,
+    fontSize
   };
 }
 

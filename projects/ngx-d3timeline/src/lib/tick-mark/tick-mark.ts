@@ -6,4 +6,6 @@ export interface TickMark {
   labelOffset: Point;
   transform: string;
   line: Line;
+  fontFace: string;
+  fontSize: number;
 }

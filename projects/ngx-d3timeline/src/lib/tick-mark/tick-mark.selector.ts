@@ -17,7 +17,11 @@ import { mapValues } from '../core/transform-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
   selectResourceAxisTickLineOffset,
-  selectTimeAxisTickLineOffset
+  selectTimeAxisTickLineOffset,
+  selectResourceAxisFontFace,
+  selectResourceAxisFontSize,
+  selectTimeAxisFontFace,
+  selectTimeAxisFontSize
 } from '../options/axis-options.selectors';
 
 export const selectTickMarkTopLeftFunc = createSelector(
@@ -40,15 +44,19 @@ const selectTimeAxisTickMarkRenderer = createSelector(
 const selectResourceAxisTickMarkFunc = createSelector(
   selectTickMarkTopLeftFunc,
   selectResourceAxisTickMarkRenderer,
-  (tickMarkTopLeft, renderer) =>
-    getTickMark.bind(null, tickMarkTopLeft, renderer)
+  selectResourceAxisFontFace,
+  selectResourceAxisFontSize,
+  (tickMarkTopLeft, renderer, fontFace, fontSize) =>
+    getTickMark.bind(null, tickMarkTopLeft, renderer, fontFace, fontSize)
 );
 
 const selectTimeAxisTickMarkFunc = createSelector(
   selectTickMarkTopLeftFunc,
   selectTimeAxisTickMarkRenderer,
-  (tickMarkTopLeft, renderer) =>
-    getTickMark.bind(null, tickMarkTopLeft, renderer)
+  selectTimeAxisFontFace,
+  selectTimeAxisFontSize,
+  (tickMarkTopLeft, renderer, fontFace, fontSize) =>
+    getTickMark.bind(null, tickMarkTopLeft, renderer, fontFace, fontSize)
 );
 
 export const selectResourceAxisTickValues = createSelector(

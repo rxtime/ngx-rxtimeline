@@ -3,7 +3,9 @@ import { createSelector } from '../store-lib/selector/create-selector';
 import {
   getShowGridLines,
   getTickLineOffset,
-  getShowAxisLine
+  getShowAxisLine,
+  getFontFace,
+  getFontSize
 } from './options-utils';
 
 export const selectResourceAxisOptions = createSelector(
@@ -44,4 +46,24 @@ export const selectResourceAxisTickLineOffset = createSelector(
 export const selectTimeAxisTickLineOffset = createSelector(
   selectTimeAxisOptions,
   getTickLineOffset
+);
+
+export const selectResourceAxisFontFace = createSelector(
+  selectResourceAxisOptions,
+  getFontFace
+);
+
+export const selectTimeAxisFontFace = createSelector(
+  selectTimeAxisOptions,
+  getFontFace
+);
+
+export const selectResourceAxisFontSize = createSelector(
+  selectResourceAxisOptions,
+  getFontSize
+);
+
+export const selectTimeAxisFontSize = createSelector(
+  selectTimeAxisOptions,
+  getFontSize
 );
