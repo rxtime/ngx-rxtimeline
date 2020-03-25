@@ -2,9 +2,9 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectResourcePadding,
   selectAcivityPadding
 } from '../../options/options.selectors';
+import { selectResourcePadding } from '../../options/resource-options.selectors';
 import {
   getRectBreadthInTimeAxis,
   getRectHeight,

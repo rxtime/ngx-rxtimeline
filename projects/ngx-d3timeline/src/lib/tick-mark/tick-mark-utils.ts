@@ -59,7 +59,3 @@ export function getResourceAxisTickValues(scale: BandScale) {
 export function getTimeAxisTickValues(scale: TimeScale) {
   return scale.ticks();
 }
-
-export function getTickLineOffset(axisOptions: AxisOptions): number {
-  return axisOptions.tickLineLength * -1;
-}
