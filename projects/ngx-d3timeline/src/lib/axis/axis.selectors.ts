@@ -1,10 +1,5 @@
 import { createSelector } from '../store-lib/selector/create-selector';
-import {
-  getAxis,
-  getAxisLine,
-  getAxisEndPoint,
-  getTickGridLine
-} from './axis-utils';
+import { getAxis, getAxisLine, getTickGridLine } from './axis-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
   selectResourceAxisTickMarks,
@@ -26,7 +21,7 @@ import {
   selectTimeAxisShowGridLines,
   selectTimeAxisShowAxisLines,
   selectResourceAxisShowAxisLine
-} from '../options/options.selectors';
+} from '../options/axis-options.selectors';
 
 const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
   getAxisLine.bind(null, viewTopLeft)

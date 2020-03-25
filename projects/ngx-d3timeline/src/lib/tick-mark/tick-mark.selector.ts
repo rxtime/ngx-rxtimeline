@@ -3,8 +3,7 @@ import {
   getTickMark,
   getTimeAxisTickValues,
   getResourceAxisTickValues,
-  getTickMarkTopLeft,
-  getTickLineOffset
+  getTickMarkTopLeft
 } from './tick-mark-utils';
 import {
   selectOrientedTimeScale,
@@ -17,19 +16,9 @@ import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-rende
 import { mapValues } from '../core/transform-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
-  selectResourceAxisOptions,
-  selectTimeAxisOptions
-} from '../options/options.selectors';
-
-export const selectTimeAxisTickLineOffset = createSelector(
-  selectTimeAxisOptions,
-  getTickLineOffset
-);
-
-export const selectResourceAxisTickLineOffset = createSelector(
-  selectResourceAxisOptions,
-  getTickLineOffset
-);
+  selectResourceAxisTickLineOffset,
+  selectTimeAxisTickLineOffset
+} from '../options/axis-options.selectors';
 
 export const selectTickMarkTopLeftFunc = createSelector(
   selectViewTopLeft,

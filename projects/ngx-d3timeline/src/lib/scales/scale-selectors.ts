@@ -7,9 +7,9 @@ import {
 import { configureBandScale, rescaleTime } from './scale-utils';
 import {
   selectResourceOrientation,
-  selectTimeOrientation,
-  selectResourceGap
+  selectTimeOrientation
 } from '../options/options.selectors';
+import { selectResourceGap } from '../options/resource-options.selectors';
 import { getOrientedScale } from './oriented-scale';
 
 export const selectBandScale = createSelector(

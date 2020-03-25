@@ -49,3 +49,11 @@ export function getActivityPadding(
 ) {
   return typeActivityPadding(type) || activityOptionsPadding;
 }
+
+export function getTickLineOffset(axisOptions: AxisOptions): number {
+  return axisOptions.tickLineLength * -1;
+}
+
+export function getShowAxisLine(axisOptions: AxisOptions): boolean {
+  return axisOptions.showAxisLine;
+}

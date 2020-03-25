@@ -19,49 +19,9 @@ export const selectResourceOrientation = createSelector(
   flipOrientation
 );
 
-export const selectTimeAxisOptions = createSelector(
-  selectOptions,
-  options => options.timeAxis
-);
-
-export const selectResourceAxisOptions = createSelector(
-  selectOptions,
-  options => options.resourceAxis
-);
-
 export const selectActivityOptions = createSelector(
   selectOptions,
   options => options.activity
-);
-
-export const selectResourceOptions = createSelector(
-  selectOptions,
-  options => options.resource
-);
-
-export const selectResourceAxisShowGridLines = createSelector(
-  selectResourceAxisOptions,
-  getShowGridLines
-);
-
-export const selectResourceAxisShowAxisLine = createSelector(
-  selectResourceAxisOptions,
-  options => options.showAxisLine
-);
-
-export const selectTimeAxisShowGridLines = createSelector(
-  selectTimeAxisOptions,
-  getShowGridLines
-);
-
-export const selectTimeAxisShowAxisLines = createSelector(
-  selectTimeAxisOptions,
-  options => options.showAxisLine
-);
-
-export const selectResourceGap = createSelector(
-  selectResourceOptions,
-  resourceOptions => resourceOptions.gap
 );
 
 export const selectActivityFontFace = createSelector(
@@ -77,11 +37,6 @@ export const selectActivityFontSize = createSelector(
 const selectActivityOptionsPadding = createSelector(
   selectActivityOptions,
   activityOptions => activityOptions.padding
-);
-
-export const selectResourcePadding = createSelector(
-  selectResourceOptions,
-  resourceOptions => resourceOptions.padding
 );
 
 export const selectTypeOptions = createSelector(selectOptions, options =>
