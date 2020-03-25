@@ -4,7 +4,6 @@ import { Activity } from 'ngx-d3timeline';
 import { Options } from 'ngx-d3timeline';
 import { BehaviorSubject } from 'rxjs';
 import { scan, tap } from 'rxjs/operators';
-import { AxisOptions } from 'projects/ngx-d3timeline/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +19,7 @@ export class AppComponent {
     activityFontSize: 10,
     orientation: 'Vertical',
     resource: {
-      gap: 0.25
+      gap: 0
     },
     resourceAxis: {
       showGridLines: true,

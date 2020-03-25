@@ -29,6 +29,6 @@ export const defaultOptions: CompleteOptions = {
     showGridLines: true
   },
   resource: {
-    gap: 0.25
+    gap: 0
   }
 };

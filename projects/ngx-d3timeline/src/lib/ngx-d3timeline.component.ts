@@ -39,6 +39,11 @@ import { Options } from './options/options';
         [axis]="timeline.timeAxis$ | async"
       ></g>
       <g ngx-d3timeline-content></g>
+      <g
+        ngx-d3timeline-resource-rectangle
+        *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
+        [resourceRectangle]="resourceRectangle"
+      ></g>
     </svg>
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],

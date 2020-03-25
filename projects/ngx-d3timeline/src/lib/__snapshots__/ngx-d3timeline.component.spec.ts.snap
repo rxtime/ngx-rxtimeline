@@ -41,6 +41,17 @@ exports[`NgxD3timelineComponent should render correctly 1`] = `
         class="content"
       />
     </g>
+    
+    <g
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
   </svg>
 </div>
 `;

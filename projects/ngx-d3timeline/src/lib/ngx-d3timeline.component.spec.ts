@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
 import { Axis } from './axis/axis';
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { View } from './view/view';
+import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
 
 @Component({
   selector: '[ngx-d3timeline-axis]',
@@ -24,6 +25,16 @@ class FakeAxisComponent {
 })
 class FakeContentComponent {}
 
+@Component({
+  selector: '[ngx-d3timeline-resource-rectangle]',
+  template: `
+    <svg:rect></svg:rect>
+  `
+})
+class FakeResourceRectangleComponent {
+  @Input() resourceRectangle: ResourceRectangle;
+}
+
 describe('NgxD3timelineComponent', () => {
   let component: NgxD3timelineComponent;
   let fixture: ComponentFixture<NgxD3timelineComponent>;
@@ -34,7 +45,8 @@ describe('NgxD3timelineComponent', () => {
       declarations: [
         NgxD3timelineComponent,
         FakeContentComponent,
-        FakeAxisComponent
+        FakeAxisComponent,
+        FakeResourceRectangleComponent
       ],
       providers: [
         {
@@ -46,6 +58,7 @@ describe('NgxD3timelineComponent', () => {
             lastDraggedActivity$: jest.fn(),
             hoveredActivity$: jest.fn(),
             unhoveredActivity$: jest.fn(),
+            resourceRectangles$: jest.fn(),
             setupZoom: jest.fn()
           }
         }
@@ -75,6 +88,10 @@ describe('NgxD3timelineComponent', () => {
     timeline.view$ = of(new View([800, 600]));
     timeline.resourceAxis$ = of(null);
     timeline.timeAxis$ = of(null);
+    timeline.resourceRectangles$ = of([
+      { id: 'resource1', width: 10, height: 10, transform: 'translate(50,50' },
+      { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
+    ]);
 
     fixture.detectChanges();
 
