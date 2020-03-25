@@ -66,4 +66,32 @@ describe('AxisComponent', () => {
 
     expect(fixture.nativeElement).toMatchSnapshot();
   });
+
+  it('should not display axis line when axis.line is falsy', () => {
+    const line = createLine(origin, { x: 10, y: 10 });
+    fixture.componentInstance.axis = {
+      tickMarks: [],
+      line: null,
+      showGridLines: true,
+      gridLines: [line]
+    };
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
+
+  it('should not show gridlines when axis.showGridLines is false', () => {
+    const line = createLine(origin, { x: 10, y: 10 });
+    fixture.componentInstance.axis = {
+      tickMarks: [],
+      line,
+      showGridLines: false,
+      gridLines: [line]
+    };
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
 });

@@ -44,9 +44,19 @@ export const selectResourceAxisShowGridLines = createSelector(
   getShowGridLines
 );
 
+export const selectResourceAxisShowAxisLine = createSelector(
+  selectResourceAxisOptions,
+  options => options.showAxisLine
+);
+
 export const selectTimeAxisShowGridLines = createSelector(
   selectTimeAxisOptions,
   getShowGridLines
+);
+
+export const selectTimeAxisShowAxisLines = createSelector(
+  selectTimeAxisOptions,
+  options => options.showAxisLine
 );
 
 export const selectResourceGap = createSelector(

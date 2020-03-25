@@ -56,6 +56,18 @@
     </div>
     <div>
       <input
+        type="checkbox"
+        [checked]="options.resourceAxis.showAxisLine"
+        (change)="
+          update('resourceAxis', options.resourceAxis, {
+            showAxisLine: !options.resourceAxis.showAxisLine
+          })
+        "
+      />
+      <label>Show axis lines</label><br />
+    </div>
+    <div>
+      <input
         [value]="options.resourceAxis.tickLineLength"
         (keyup)="
           update('resourceAxis', options.resourceAxis, {
@@ -79,6 +91,18 @@
         "
       />
       <label>Show grid lines</label><br />
+    </div>
+    <div>
+      <input
+        type="checkbox"
+        [checked]="options.timeAxis.showAxisLine"
+        (change)="
+          update('timeAxis', options.timeAxis, {
+            showAxisLine: !options.timeAxis.showAxisLine
+          })
+        "
+      />
+      <label>Show axis lines</label><br />
     </div>
     <div>
       <input
