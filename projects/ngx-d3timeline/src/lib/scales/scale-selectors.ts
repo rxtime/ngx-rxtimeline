@@ -20,6 +20,10 @@ export const selectBandScale = createSelector(
   configureBandScale
 );
 
+export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
+  scale.bandwidth()
+);
+
 export const selectTimeScale = createSelector(
   selectPositionedActivities,
   selectView,
