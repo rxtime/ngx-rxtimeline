@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AxisComponent should not display axis line when axis.line is falsy 1`] = `
+<div
+  id="root1"
+  ngx-d3timeline-axis=""
+>
+  <g
+    class="axis-group"
+  >
+    
+    
+    
+    
+    <g
+      class="grid-line"
+      ngx-d3timeline-line=""
+    >
+      <g />
+    </g>
+    
+    
+  </g>
+</div>
+`;
+
+exports[`AxisComponent should not show gridlines when axis.showGridLines is false 1`] = `
+<div
+  id="root2"
+  ngx-d3timeline-axis=""
+>
+  <g
+    class="axis-group"
+  >
+    
+    
+    
+    <g
+      class="axis-line"
+      ngx-d3timeline-line=""
+    >
+      <g />
+    </g>
+  </g>
+</div>
+`;
+
 exports[`AxisComponent should render correctly 1`] = `
 <div
   id="root0"
@@ -32,6 +77,7 @@ exports[`AxisComponent should render correctly 1`] = `
     >
       <g />
     </g>
+    
     
     <g
       class="axis-line"

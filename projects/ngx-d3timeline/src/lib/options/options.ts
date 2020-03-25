@@ -3,6 +3,7 @@ import { Complete } from '../core/types';
 export interface AxisOptions {
   tickLineLength?: number;
   showGridLines?: boolean;
+  showAxisLine?: boolean;
 }
 
 export interface ResourceOptions {
@@ -35,11 +36,13 @@ export const defaultOptions: CompleteOptions = {
   orientation: 'Vertical',
   timeAxis: {
     tickLineLength: 5,
-    showGridLines: true
+    showGridLines: true,
+    showAxisLine: true
   },
   resourceAxis: {
     tickLineLength: 0,
-    showGridLines: true
+    showGridLines: true,
+    showAxisLine: true
   },
   resource: {
     gap: 0.25,

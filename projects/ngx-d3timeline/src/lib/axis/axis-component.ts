@@ -18,7 +18,12 @@ import { Axis } from './axis';
           [line]="gridLine"
         ></svg:g>
       </ng-container>
-      <svg:g class="axis-line" ngx-d3timeline-line [line]="axis.line"></svg:g>
+      <svg:g
+        class="axis-line"
+        *ngIf="axis.line"
+        ngx-d3timeline-line
+        [line]="axis.line"
+      ></svg:g>
     </svg:g>
   `
 })

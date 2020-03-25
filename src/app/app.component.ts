@@ -29,11 +29,13 @@ export class AppComponent {
     },
     resourceAxis: {
       showGridLines: true,
-      tickLineLength: 0
+      tickLineLength: 0,
+      showAxisLine: true
     },
     timeAxis: {
       showGridLines: true,
-      tickLineLength: 5
+      tickLineLength: 5,
+      showAxisLine: true
     },
     type: {
       Driving: {

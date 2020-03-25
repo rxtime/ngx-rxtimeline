@@ -23,7 +23,9 @@ import { Scale } from '../scales/scale-types';
 import { mapValues } from '../core/transform-utils';
 import {
   selectResourceAxisShowGridLines,
-  selectTimeAxisShowGridLines
+  selectTimeAxisShowGridLines,
+  selectTimeAxisShowAxisLines,
+  selectResourceAxisShowAxisLine
 } from '../options/options.selectors';
 
 const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
@@ -69,12 +71,14 @@ const selectTimeAxisGridLines = createSelector(
 );
 
 const selectResourceAxisLine = createSelector(
+  selectResourceAxisShowAxisLine,
   selectOrientedBandScale,
   selectAxisLine,
   axisLineFromOrientedScale
 );
 
 export const selectTimeAxisLine = createSelector(
+  selectTimeAxisShowAxisLines,
   selectOrientedTimeScale,
   selectAxisLine,
   axisLineFromOrientedScale
@@ -97,8 +101,9 @@ export const selectTimeAxis = createSelector(
 );
 
 function axisLineFromOrientedScale(
+  showAxisLine: boolean,
   orientedScale: OrientedScale<Scale>,
   line: (o: OrientedScale<Scale>) => Line
 ) {
-  return line(orientedScale);
+  return showAxisLine && line(orientedScale);
 }
