@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { deliveryData } from './data';
 import { Activity } from 'ngx-d3timeline';
 import { Options } from 'ngx-d3timeline';
@@ -8,7 +8,8 @@ import { scan, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent {
   activities = deliveryData;
@@ -23,7 +24,7 @@ export class AppComponent {
     },
     activity: {
       fontFace: 'Arial',
-      fontSize: 10,
+      fontSize: 12,
       padding: 0
     },
     resourceAxis: {
@@ -50,8 +51,8 @@ export class AppComponent {
     tap(console.log)
   );
 
-  width = 400;
-  height = 400;
+  width = 800;
+  height = 600;
 
   onDropped(activity: Activity) {
     console.log(activity);
