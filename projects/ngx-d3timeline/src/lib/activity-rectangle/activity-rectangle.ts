@@ -3,6 +3,7 @@ import { identifier } from '../core/types';
 export interface ActivityRectangle {
   id: identifier;
   title: string;
+  type: string;
   showTitle: boolean;
   transform: string;
   width: number;
