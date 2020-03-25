@@ -5,6 +5,7 @@ export interface AxisOptions {
 
 export interface ResourceOptions {
   gap: number;
+  padding: number;
 }
 
 export interface ActivityOptions {
@@ -33,7 +34,8 @@ export const defaultOptions: CompleteOptions = {
     showGridLines: true
   },
   resource: {
-    gap: 0.25
+    gap: 0.25,
+    padding: 5
   },
   activity: {
     fontFace: 'Arial',

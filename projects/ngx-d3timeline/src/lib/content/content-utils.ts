@@ -13,9 +13,10 @@ export const activityTitlePadding = 2;
 
 export function getPositionInResourceAxis(
   bandScale: BandScale,
+  resourcePadding: number,
   positionedActivity: PositionedActivity
 ): number {
-  return bandScale(positionedActivity.updatedResource);
+  return bandScale(positionedActivity.updatedResource) + resourcePadding;
 }
 
 export function getPositionInTimeAxis(
@@ -77,6 +78,13 @@ export function getRectBreadthInTimeAxis(
   return (
     timeScale(positionedActivity.finish) - timeScale(positionedActivity.start)
   );
+}
+
+export function getRectBreadthInResourceAxis(
+  bandScale: BandScale,
+  resourcePadding: number
+) {
+  return bandScale.bandwidth() - 2 * resourcePadding;
 }
 
 export function getActivityTitleBreadthInTimeAxis(

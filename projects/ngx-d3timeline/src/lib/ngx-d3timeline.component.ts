@@ -34,6 +34,11 @@ import { Options } from './options/options';
         [axis]="timeline.resourceAxis$ | async"
       ></g>
       <g
+        ngx-d3timeline-resource-rectangle
+        *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
+        [resourceRectangle]="resourceRectangle"
+      ></g>
+      <g
         ngx-d3timeline-axis
         class="time-axis"
         [axis]="timeline.timeAxis$ | async"

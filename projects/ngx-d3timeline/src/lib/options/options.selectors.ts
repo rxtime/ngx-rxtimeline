@@ -56,3 +56,8 @@ export const selectActivityFontSize = createSelector(
   selectActivityOptions,
   activityOptions => activityOptions && activityOptions.fontSize
 );
+
+export const selectResourcePadding = createSelector(
+  selectResourceOptions,
+  resourceOptions => resourceOptions.padding
+);

@@ -18,7 +18,8 @@ export class AppComponent {
   initialOptions: Options = {
     orientation: 'Vertical',
     resource: {
-      gap: 0.25
+      gap: 0,
+      padding: 5
     },
     activity: {
       fontFace: 'Arial',
