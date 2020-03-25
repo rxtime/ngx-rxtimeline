@@ -163,6 +163,7 @@ export function createActivityRectangle(
   return {
     id: positionedActivity.id,
     title: positionedActivity.type,
+    type: positionedActivity.type,
     transform: transform(positionedActivity),
     width: width(positionedActivity),
     height: height(positionedActivity),

@@ -24,6 +24,7 @@ describe('ActivityRectangleComponent', () => {
     fixture.componentInstance.activityRectangle = {
       id: 1,
       title: 'Activity 1',
+      type: 'Driving',
       transform: 'translate(50,0)',
       width: 50,
       height: 80,
@@ -42,6 +43,7 @@ describe('ActivityRectangleComponent', () => {
       id: 1,
       title: 'Activity 1',
       transform: 'translate(50,0)',
+      type: 'Driving',
       width: 50,
       height: 80,
       showTitle: false,

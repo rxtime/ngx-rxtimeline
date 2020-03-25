@@ -18,6 +18,7 @@ import { activityTitlePadding } from '../content/content-utils';
       [attr.transform]="activityRectangle.transform"
       *ngIf="activityRectangle"
       #activityRectangleEl
+      [ngClass]="activityRectangle.type"
     >
       <svg:rect
         [attr.height]="activityRectangle.height"
