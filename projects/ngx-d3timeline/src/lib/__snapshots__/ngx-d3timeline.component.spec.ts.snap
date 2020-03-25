@@ -26,6 +26,17 @@ exports[`NgxD3timelineComponent should render correctly 1`] = `
         class="axis-group"
       />
     </g>
+    
+    <g
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
     <g
       class="time-axis"
       ngx-d3timeline-axis=""
@@ -40,17 +51,6 @@ exports[`NgxD3timelineComponent should render correctly 1`] = `
       <g
         class="content"
       />
-    </g>
-    
-    <g
-      ngx-d3timeline-resource-rectangle=""
-    >
-      <rect />
-    </g>
-    <g
-      ngx-d3timeline-resource-rectangle=""
-    >
-      <rect />
     </g>
   </svg>
 </div>
