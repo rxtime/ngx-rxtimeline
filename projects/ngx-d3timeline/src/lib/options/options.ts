@@ -4,6 +4,8 @@ export interface AxisOptions {
   tickLineLength?: number;
   showGridLines?: boolean;
   showAxisLine?: boolean;
+  fontFace: string;
+  fontSize: number;
 }
 
 export interface ResourceOptions {
@@ -37,12 +39,16 @@ export const defaultOptions: CompleteOptions = {
   timeAxis: {
     tickLineLength: 5,
     showGridLines: true,
-    showAxisLine: true
+    showAxisLine: true,
+    fontFace: 'sans-serif',
+    fontSize: 10
   },
   resourceAxis: {
     tickLineLength: 0,
     showGridLines: true,
-    showAxisLine: true
+    showAxisLine: true,
+    fontFace: 'sans-serif',
+    fontSize: 16
   },
   resource: {
     gap: 0.25,

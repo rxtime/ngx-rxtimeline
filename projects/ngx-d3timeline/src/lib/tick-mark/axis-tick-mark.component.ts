@@ -8,6 +8,8 @@ import { TickMark } from './tick-mark';
       <svg:text
         [attr.dx]="tickMark.labelOffset.x"
         [attr.dy]="tickMark.labelOffset.y"
+        [attr.font-family]="tickMark.fontFace"
+        [attr.font-size]="tickMark.fontSize"
       >
         {{ tickMark.label }}
       </svg:text>

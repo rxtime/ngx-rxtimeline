@@ -11,6 +11,8 @@ exports[`AxisTickMarkComponent should not render line when tickMark.line is fals
     <text
       dx="0"
       dy="1"
+      font-family="arial"
+      font-size="10"
     >
        tickMark label 
     </text>
@@ -30,6 +32,8 @@ exports[`AxisTickMarkComponent should render line when tickMark.line is truthy 1
     <text
       dx="0"
       dy="2"
+      font-family="arial"
+      font-size="10"
     >
        tickMark label 
     </text>
