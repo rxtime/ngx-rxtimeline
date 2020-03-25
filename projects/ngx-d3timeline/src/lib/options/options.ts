@@ -5,6 +5,7 @@ export interface AxisOptions {
 
 export interface ResourceOptions {
   gap: number;
+  padding: number;
 }
 
 export interface CompleteOptions {
@@ -29,6 +30,7 @@ export const defaultOptions: CompleteOptions = {
     showGridLines: true
   },
   resource: {
-    gap: 0
+    gap: 0,
+    padding: 0
   }
 };

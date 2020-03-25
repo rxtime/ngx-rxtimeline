@@ -19,7 +19,8 @@ export class AppComponent {
     activityFontSize: 10,
     orientation: 'Vertical',
     resource: {
-      gap: 0
+      gap: 0,
+      padding: 5
     },
     resourceAxis: {
       showGridLines: true,

@@ -22,7 +22,18 @@
     <label>Resource Gap (0-1)</label>
     <input
       [value]="options.resource.gap"
-      (keyup)="update('resource', {}, { gap: $event.target.value })"
+      (keyup)="
+        update('resource', options.resource, { gap: +$event.target.value })
+      "
+    />
+  </div>
+  <div>
+    <label>Resource padding</label>
+    <input
+      [value]="options.resource.padding"
+      (keyup)="
+        update('resource', options.resource, { padding: +$event.target.value })
+      "
     />
   </div>
 

@@ -1,6 +1,9 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
-import { selectTimeOrientation } from '../../options/options.selectors';
+import {
+  selectTimeOrientation,
+  selectResourcePadding
+} from '../../options/options.selectors';
 import {
   getPositionInTimeAxis,
   getPositionInResourceAxis,
@@ -19,7 +22,9 @@ const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>
 
 const selectPositionInResourceAxis = createSelector(
   selectBandScale,
-  bandScale => getPositionInResourceAxis.bind(null, bandScale)
+  selectResourcePadding,
+  (bandScale, padding) =>
+    getPositionInResourceAxis.bind(null, bandScale, padding)
 );
 
 const selectX = createSelector(

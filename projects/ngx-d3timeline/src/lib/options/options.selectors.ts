@@ -46,3 +46,8 @@ export const selectResourceGap = createSelector(
   selectResourceOptions,
   resourceOptions => resourceOptions.gap
 );
+
+export const selectResourcePadding = createSelector(
+  selectResourceOptions,
+  resourceOptions => resourceOptions.padding
+);
