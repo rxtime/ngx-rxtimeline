@@ -23,7 +23,8 @@ export class AppComponent {
     },
     activity: {
       fontFace: 'Arial',
-      fontSize: 10
+      fontSize: 10,
+      padding: 0
     },
     resourceAxis: {
       showGridLines: true,
@@ -32,6 +33,15 @@ export class AppComponent {
     timeAxis: {
       showGridLines: true,
       tickLineLength: 5
+    },
+    type: {
+      Driving: {
+        activity: {
+          fontFace: 'Arial',
+          fontSize: 10,
+          padding: 10
+        }
+      }
     }
   };
 
