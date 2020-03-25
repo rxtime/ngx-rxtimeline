@@ -14,9 +14,14 @@ export const activityTitlePadding = 2;
 export function getPositionInResourceAxis(
   bandScale: BandScale,
   resourcePadding: number,
+  getActivityPadding: (type: string) => number,
   positionedActivity: PositionedActivity
 ): number {
-  return bandScale(positionedActivity.updatedResource) + resourcePadding;
+  return (
+    bandScale(positionedActivity.updatedResource) +
+    resourcePadding +
+    getActivityPadding(positionedActivity.type)
+  );
 }
 
 export function getPositionInTimeAxis(
@@ -82,9 +87,15 @@ export function getRectBreadthInTimeAxis(
 
 export function getRectBreadthInResourceAxis(
   bandScale: BandScale,
-  resourcePadding: number
+  resourcePadding: number,
+  activityPadding: (type: string) => number,
+  positionedActivity: PositionedActivity
 ) {
-  return bandScale.bandwidth() - 2 * resourcePadding;
+  return (
+    bandScale.bandwidth() -
+    2 * resourcePadding -
+    2 * activityPadding(positionedActivity.type)
+  );
 }
 
 export function getActivityTitleBreadthInTimeAxis(
@@ -121,22 +132,22 @@ export function getShowTitle(
 export function getRectHeight(
   timeOrientation: Orientation,
   rectBreathInTimeAxis: PositionInAxis,
-  rectBreadthInResourceAxis: number,
+  rectBreadthInResourceAxis: PositionInAxis,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
     ? rectBreathInTimeAxis(positionedActivity)
-    : rectBreadthInResourceAxis;
+    : rectBreadthInResourceAxis(positionedActivity);
 }
 
 export function getRectWidth(
   timeOrientation: Orientation,
   rectBreathInTimeAxis: PositionInAxis,
-  rectBreadthInResourceAxis: number,
+  rectBreadthInResourceAxis: PositionInAxis,
   positionedActivity: PositionedActivity
 ) {
   return timeOrientation === Orientation.Vertical
-    ? rectBreadthInResourceAxis
+    ? rectBreadthInResourceAxis(positionedActivity)
     : rectBreathInTimeAxis(positionedActivity);
 }
 

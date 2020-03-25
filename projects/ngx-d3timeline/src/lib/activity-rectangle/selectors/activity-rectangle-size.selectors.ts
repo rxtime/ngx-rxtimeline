@@ -2,7 +2,8 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectResourcePadding
+  selectResourcePadding,
+  selectAcivityPadding
 } from '../../options/options.selectors';
 import {
   getRectBreadthInTimeAxis,
@@ -19,7 +20,14 @@ export const selectRectBreadthInTimeAxis = createSelector(
 export const selectRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
-  getRectBreadthInResourceAxis
+  selectAcivityPadding,
+  (bandScale, resourcePadding, activityPadding) =>
+    getRectBreadthInResourceAxis.bind(
+      null,
+      bandScale,
+      resourcePadding,
+      activityPadding
+    )
 );
 
 export const selectRectHeight = createSelector(

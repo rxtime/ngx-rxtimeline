@@ -11,6 +11,11 @@ export interface ResourceOptions {
 export interface ActivityOptions {
   fontFace: string;
   fontSize: number;
+  padding: number;
+}
+
+export interface TypeOptions {
+  activity: ActivityOptions;
 }
 
 export interface CompleteOptions {
@@ -19,6 +24,7 @@ export interface CompleteOptions {
   resourceAxis: AxisOptions;
   resource: ResourceOptions;
   activity: ActivityOptions;
+  type?: { [key: string]: TypeOptions };
 }
 
 export type Options = Partial<CompleteOptions>;
@@ -39,6 +45,7 @@ export const defaultOptions: CompleteOptions = {
   },
   activity: {
     fontFace: 'Arial',
-    fontSize: 10
+    fontSize: 10,
+    padding: 0
   }
 };
