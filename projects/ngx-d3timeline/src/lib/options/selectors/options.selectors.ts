@@ -1,15 +1,10 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
 import { flipOrientation } from '../../core/orientation';
-import { getTimeOrientation, getActivityPadding } from '../options-utils';
-import {
-  selectTypeActivityPadding,
-  selectTypeActivityStrokeWidth
-} from './type-options.selectors';
-import {
-  selectActivityOptionsPadding,
-  selectActivityOptionsStrokeWidth
-} from './activity-options.selectors';
+import { getTimeOrientation } from '../options-utils';
+import { selectTypeActivityOption } from './type-options.selectors';
+import { selectGlobalActivityOption } from './activity-options.selectors';
+import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 
 export const selectTimeOrientation = createSelector(
   selectOptions,
@@ -20,20 +15,30 @@ export const selectResourceOrientation = createSelector(
   flipOrientation
 );
 
-export const selectAcivityPadding = createSelector(
-  selectTypeActivityPadding,
-  selectActivityOptionsPadding,
-  (typeActivityPadding, activityOptionsPadding) =>
-    getActivityPadding.bind(null, typeActivityPadding, activityOptionsPadding)
+const selectActivityOption = <T>(
+  key: string
+): MemoizedSelector<(type: string) => T> =>
+  createSelector(
+    selectTypeActivityOption<T>(key),
+    selectGlobalActivityOption<T>(key),
+    (typeActivityOption, globalActivityOption) =>
+      getActivityOption.bind(
+        null,
+        typeActivityOption,
+        globalActivityOption
+      ) as (type: string) => T
+  );
+
+export const selectAcivityPadding = selectActivityOption<number>('padding');
+
+export const selectActivityStrokeWidth = selectActivityOption<number>(
+  'strokeWidth'
 );
 
-export const selectActivityStrokeWidth = createSelector(
-  selectTypeActivityStrokeWidth,
-  selectActivityOptionsStrokeWidth,
-  (typeActivityStrokeWidth, activityOptionsStrokeWidth) =>
-    getActivityPadding.bind(
-      null,
-      typeActivityStrokeWidth,
-      activityOptionsStrokeWidth
-    )
-);
+function getActivityOption<T>(
+  typeActivityOption: (type: string) => T,
+  globalActivityOption: T,
+  type: string
+): T {
+  return typeActivityOption(type) || globalActivityOption;
+}

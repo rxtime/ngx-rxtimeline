@@ -40,7 +40,8 @@ export class AppComponent {
     type: {
       Driving: {
         activity: {
-          padding: 10
+          padding: 10,
+          strokeWidth: 3
         }
       }
     }
