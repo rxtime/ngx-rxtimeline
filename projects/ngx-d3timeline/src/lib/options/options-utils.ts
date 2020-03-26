@@ -15,12 +15,6 @@ export function getShowGridLines(axisOptions: AxisOptions): boolean {
   return axisOptions.showGridLines;
 }
 
-export function getActivityOptionsPadding(
-  activityOptions: ActivityOptions
-): number {
-  return activityOptions.padding;
-}
-
 export function getTypeOptions(
   options: CompleteOptions,
   type: string
