@@ -7,16 +7,6 @@ export const selectActivityOptions = createSelector(
   options => options.activity
 );
 
-export const selectActivityFontFace = createSelector(
-  selectActivityOptions,
-  options => options.fontFace
-);
-
-export const selectActivityFontSize = createSelector(
-  selectActivityOptions,
-  options => options.fontSize
-);
-
 export const selectGlobalActivityOption = <T>(
   key: string
 ): MemoizedSelector<T> =>

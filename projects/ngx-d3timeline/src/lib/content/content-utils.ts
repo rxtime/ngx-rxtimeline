@@ -100,13 +100,17 @@ export function getRectBreadthInResourceAxis(
 
 export function getActivityTitleBreadthInTimeAxis(
   timeOrientation: Orientation,
-  fontFace: string,
-  fontSize: number,
+  fontFace: (type: string) => string,
+  fontSize: (type: string) => number,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
-    ? fontSize
-    : getTextWidth(positionedActivity.type, fontFace, fontSize);
+    ? fontSize(positionedActivity.type)
+    : getTextWidth(
+        positionedActivity.type,
+        fontFace(positionedActivity.type),
+        fontSize(positionedActivity.type)
+      );
 }
 
 export function getMinBreadthToShowTitle(
@@ -155,8 +159,8 @@ export function createActivityRectangle(
   transform: ActivityTransform,
   width: PositionInAxis,
   height: PositionInAxis,
-  fontFace: string,
-  fontSize: number,
+  fontFace: (type: string) => string,
+  fontSize: (type: string) => number,
   strokeWidth: (type: string) => number,
   showTitle: (p: PositionedActivity) => boolean,
   positionedActivity: PositionedActivity
@@ -168,8 +172,8 @@ export function createActivityRectangle(
     transform: transform(positionedActivity),
     width: width(positionedActivity),
     height: height(positionedActivity),
-    fontFace,
-    fontSize,
+    fontFace: fontFace(positionedActivity.type),
+    fontSize: fontSize(positionedActivity.type),
     strokeWidth: strokeWidth(positionedActivity.type),
     showTitle: showTitle(positionedActivity)
   };
