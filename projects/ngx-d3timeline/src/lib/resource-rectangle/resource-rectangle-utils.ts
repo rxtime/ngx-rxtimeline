@@ -7,13 +7,17 @@ import { View } from '../view/view';
 export function getResourceRectangles(
   scale: BandScale,
   view: View,
+  resourceFontSize: number,
   width: number,
-  height: number
+  clipRectangleHeight: number
 ): ResourceRectangle[] {
   return scale.domain().map(resource => ({
     id: resource,
     width,
-    height,
-    transform: pointToTransform({ x: scale(resource), y: view.top })
+    height: clipRectangleHeight + resourceFontSize,
+    transform: pointToTransform({
+      x: scale(resource),
+      y: view.top - resourceFontSize
+    })
   }));
 }
