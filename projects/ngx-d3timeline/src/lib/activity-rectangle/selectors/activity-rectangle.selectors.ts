@@ -38,7 +38,7 @@ import {
   partial3,
   partial1,
   partial2,
-  partial7
+  partial8
 } from '../../core/function-utils';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
@@ -80,27 +80,7 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectActivityStrokeWidth,
     selectActivityDisableDrag,
     selectShowTitle,
-    (
-      transform,
-      width,
-      height,
-      fontFace,
-      fontSize,
-      strokeWidth,
-      disableDrag,
-      showTitle
-    ) =>
-      createActivityRectangle.bind(
-        null,
-        transform,
-        width,
-        height,
-        fontFace,
-        fontSize,
-        strokeWidth,
-        disableDrag,
-        showTitle
-      )
+    partial8(createActivityRectangle)
   );
 
 export const selectNonDraggedActivityRectangles = createSelector(
