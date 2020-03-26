@@ -24,6 +24,7 @@ import { activityTitlePadding } from '../content/content-utils';
         [attr.height]="activityRectangle.height"
         [attr.width]="activityRectangle.width"
         [attr.stroke-width]="activityRectangle.strokeWidth"
+        [ngClass]="{ draggable: !activityRectangle.disableDrag }"
       ></svg:rect>
       <svg:g *ngIf="activityRectangle.showTitle">
         <svg:text
