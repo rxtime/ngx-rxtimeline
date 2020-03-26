@@ -1,16 +1,15 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
 import { flipOrientation } from '../../core/orientation';
+import { getTimeOrientation, getActivityPadding } from '../options-utils';
 import {
-  getTimeOrientation,
-  getShowGridLines,
-  getTypeOptions,
-  getTypeActivityOptions,
-  getActivityPadding,
-  getTypeActivityPadding
-} from '../options-utils';
-import { selectTypeActivityPadding } from './type-options.selectors';
-import { selectActivityOptionsPadding } from './activity-options.selectors';
+  selectTypeActivityPadding,
+  selectTypeActivityStrokeWidth
+} from './type-options.selectors';
+import {
+  selectActivityOptionsPadding,
+  selectActivityOptionsStrokeWidth
+} from './activity-options.selectors';
 
 export const selectTimeOrientation = createSelector(
   selectOptions,
@@ -26,4 +25,15 @@ export const selectAcivityPadding = createSelector(
   selectActivityOptionsPadding,
   (typeActivityPadding, activityOptionsPadding) =>
     getActivityPadding.bind(null, typeActivityPadding, activityOptionsPadding)
+);
+
+export const selectActivityStrokeWidth = createSelector(
+  selectTypeActivityStrokeWidth,
+  selectActivityOptionsStrokeWidth,
+  (typeActivityStrokeWidth, activityOptionsStrokeWidth) =>
+    getActivityPadding.bind(
+      null,
+      typeActivityStrokeWidth,
+      activityOptionsStrokeWidth
+    )
 );

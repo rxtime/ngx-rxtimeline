@@ -3,7 +3,8 @@ import { selectOptions } from '../../store/state';
 import {
   getTypeOptions,
   getTypeActivityOptions,
-  getTypeActivityPadding
+  getTypeActivityPadding,
+  getTypeActivityStrokeWidth
 } from '../options-utils';
 
 export const selectTypeOptions = createSelector(selectOptions, options =>
@@ -18,4 +19,10 @@ export const selectTypeActivityOptions = createSelector(
 export const selectTypeActivityPadding = createSelector(
   selectTypeActivityOptions,
   typeActivityOptions => getTypeActivityPadding.bind(null, typeActivityOptions)
+);
+
+export const selectTypeActivityStrokeWidth = createSelector(
+  selectTypeActivityOptions,
+  typeActivityOptions =>
+    getTypeActivityStrokeWidth.bind(null, typeActivityOptions)
 );

@@ -10,4 +10,5 @@ export interface ActivityRectangle {
   height: number;
   fontFace: string;
   fontSize: number;
+  strokeWidth: number;
 }

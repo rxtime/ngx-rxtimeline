@@ -157,6 +157,7 @@ export function createActivityRectangle(
   height: PositionInAxis,
   fontFace: string,
   fontSize: number,
+  strokeWidth: (type: string) => number,
   showTitle: (p: PositionedActivity) => boolean,
   positionedActivity: PositionedActivity
 ): ActivityRectangle {
@@ -169,6 +170,7 @@ export function createActivityRectangle(
     height: height(positionedActivity),
     fontFace,
     fontSize,
+    strokeWidth: strokeWidth(positionedActivity.type),
     showTitle: showTitle(positionedActivity)
   };
 }
