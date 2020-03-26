@@ -11,7 +11,7 @@ import {
   getRectWidth,
   getRectBreadthInResourceAxis
 } from '../../content/content-utils';
-import { partial1, partial3 } from '../../core/function-utils';
+import { partial1, partial3 } from '../../core/partial';
 
 export const selectRectBreadthInTimeAxis = createSelector(
   selectTimeScale,

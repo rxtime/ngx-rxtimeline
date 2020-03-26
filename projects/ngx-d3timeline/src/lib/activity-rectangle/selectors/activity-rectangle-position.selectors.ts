@@ -16,7 +16,7 @@ import {
 } from '../../content/content-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point } from '../../core/point';
-import { partial3, partial2, partial1 } from '../../core/function-utils';
+import { partial3, partial2, partial1 } from '../../core/partial';
 
 const selectPositionInTimeAxis = createSelector(
   selectTimeScale,

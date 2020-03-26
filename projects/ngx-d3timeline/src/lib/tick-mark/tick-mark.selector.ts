@@ -23,7 +23,7 @@ import {
   selectTimeAxisFontFace,
   selectTimeAxisFontSize
 } from '../options/selectors/axis-options.selectors';
-import { partial4 } from '../core/function-utils';
+import { partial4 } from '../core/partial';
 
 export const selectTickMarkTopLeftFunc = createSelector(
   selectViewTopLeft,

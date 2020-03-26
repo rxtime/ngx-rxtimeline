@@ -5,7 +5,7 @@ import { getTimeOrientation } from '../options-utils';
 import { selectTypeActivityOption } from './type-options.selectors';
 import { selectGlobalActivityOption } from './activity-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
-import { partial2 } from '../../core/function-utils';
+import { partial2 } from '../../core/partial';
 
 export const selectTimeOrientation = createSelector(
   selectOptions,

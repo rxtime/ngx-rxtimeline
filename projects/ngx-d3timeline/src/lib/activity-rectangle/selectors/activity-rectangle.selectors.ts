@@ -34,12 +34,7 @@ import {
   selectActivityFontFace,
   selectActivityFontSize
 } from '../../options/selectors/options.selectors';
-import {
-  partial3,
-  partial1,
-  partial2,
-  partial8
-} from '../../core/function-utils';
+import { partial3, partial1, partial2, partial8 } from '../../core/partial';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
   selectTimeOrientation,

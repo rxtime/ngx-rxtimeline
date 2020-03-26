@@ -22,7 +22,7 @@ import {
   selectTimeAxisShowAxisLines,
   selectResourceAxisShowAxisLine
 } from '../options/selectors/axis-options.selectors';
-import { partial1, partial3 } from '../core/function-utils';
+import { partial1, partial3 } from '../core/partial';
 
 const selectAxisLine = createSelector(selectViewTopLeft, partial1(getAxisLine));
 
