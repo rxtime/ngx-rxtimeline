@@ -11,47 +11,30 @@ import {
   getRectWidth,
   getRectBreadthInResourceAxis
 } from '../../content/content-utils';
+import { partial1, partial3 } from '../../core/partial';
 
 export const selectRectBreadthInTimeAxis = createSelector(
   selectTimeScale,
-  timeScale => getRectBreadthInTimeAxis.bind(null, timeScale)
+  partial1(getRectBreadthInTimeAxis)
 );
 
 export const selectRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectAcivityPadding,
-  (bandScale, resourcePadding, activityPadding) =>
-    getRectBreadthInResourceAxis.bind(
-      null,
-      bandScale,
-      resourcePadding,
-      activityPadding
-    )
+  partial3(getRectBreadthInResourceAxis)
 );
 
 export const selectRectHeight = createSelector(
   selectTimeOrientation,
   selectRectBreadthInTimeAxis,
   selectRectBreadthInResourceAxis,
-  (timeOrientation, rectBreadthInTimeAxis, rectBreadthInResourceAxis) =>
-    getRectHeight.bind(
-      null,
-      timeOrientation,
-      rectBreadthInTimeAxis,
-      rectBreadthInResourceAxis
-    )
+  partial3(getRectHeight)
 );
 
 export const selectRectWidth = createSelector(
   selectTimeOrientation,
   selectRectBreadthInTimeAxis,
   selectRectBreadthInResourceAxis,
-  (timeOrientation, rectBreadthInTimeAxis, rectBreadthInResourceAxis) =>
-    getRectWidth.bind(
-      null,
-      timeOrientation,
-      rectBreadthInTimeAxis,
-      rectBreadthInResourceAxis
-    )
+  partial3(getRectWidth)
 );

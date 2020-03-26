@@ -23,6 +23,7 @@ import {
   selectTimeAxisFontFace,
   selectTimeAxisFontSize
 } from '../options/selectors/axis-options.selectors';
+import { partial4 } from '../core/partial';
 
 export const selectTickMarkTopLeftFunc = createSelector(
   selectViewTopLeft,
@@ -46,8 +47,7 @@ const selectResourceAxisTickMarkFunc = createSelector(
   selectResourceAxisTickMarkRenderer,
   selectResourceAxisFontFace,
   selectResourceAxisFontSize,
-  (tickMarkTopLeft, renderer, fontFace, fontSize) =>
-    getTickMark.bind(null, tickMarkTopLeft, renderer, fontFace, fontSize)
+  partial4(getTickMark)
 );
 
 const selectTimeAxisTickMarkFunc = createSelector(
@@ -55,8 +55,7 @@ const selectTimeAxisTickMarkFunc = createSelector(
   selectTimeAxisTickMarkRenderer,
   selectTimeAxisFontFace,
   selectTimeAxisFontSize,
-  (tickMarkTopLeft, renderer, fontFace, fontSize) =>
-    getTickMark.bind(null, tickMarkTopLeft, renderer, fontFace, fontSize)
+  partial4(getTickMark)
 );
 
 export const selectResourceAxisTickValues = createSelector(

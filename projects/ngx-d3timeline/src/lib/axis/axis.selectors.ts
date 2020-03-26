@@ -22,35 +22,22 @@ import {
   selectTimeAxisShowAxisLines,
   selectResourceAxisShowAxisLine
 } from '../options/selectors/axis-options.selectors';
+import { partial1, partial3 } from '../core/partial';
 
-const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
-  getAxisLine.bind(null, viewTopLeft)
-);
+const selectAxisLine = createSelector(selectViewTopLeft, partial1(getAxisLine));
 
 const selectResourceAxisTickValueToGridLineFunc = createSelector(
   selectTickMarkTopLeftFunc,
   selectOrientedBandScale,
   selectOrientedTimeScale,
-  (tickMarkTopLeft, orientedScale, otherOrientedScale) =>
-    getTickGridLine.bind(
-      null,
-      tickMarkTopLeft,
-      orientedScale,
-      otherOrientedScale
-    )
+  partial3(getTickGridLine)
 );
 
 const selectTimeAxisTickValueToGridLineFunc = createSelector(
   selectTickMarkTopLeftFunc,
   selectOrientedTimeScale,
   selectOrientedBandScale,
-  (tickMarkTopLeft, orientedScale, otherOrientedScale) =>
-    getTickGridLine.bind(
-      null,
-      tickMarkTopLeft,
-      orientedScale,
-      otherOrientedScale
-    )
+  partial3(getTickGridLine)
 );
 
 export const selectResourceAxisGridLines = createSelector(
