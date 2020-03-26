@@ -30,7 +30,8 @@ describe('ActivityRectangleComponent', () => {
       height: 80,
       showTitle: true,
       fontSize: 10,
-      fontFace: 'Arial'
+      fontFace: 'Arial',
+      strokeWidth: 1
     };
 
     fixture.detectChanges();
@@ -48,7 +49,8 @@ describe('ActivityRectangleComponent', () => {
       height: 80,
       showTitle: false,
       fontSize: 10,
-      fontFace: 'Arial'
+      fontFace: 'Arial',
+      strokeWidth: 1
     };
 
     fixture.detectChanges();

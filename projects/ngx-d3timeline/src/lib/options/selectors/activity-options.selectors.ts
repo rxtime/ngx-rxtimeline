@@ -8,15 +8,20 @@ export const selectActivityOptions = createSelector(
 
 export const selectActivityFontFace = createSelector(
   selectActivityOptions,
-  activityOptions => activityOptions.fontFace
+  options => options.fontFace
 );
 
 export const selectActivityFontSize = createSelector(
   selectActivityOptions,
-  activityOptions => activityOptions.fontSize
+  options => options.fontSize
 );
 
 export const selectActivityOptionsPadding = createSelector(
   selectActivityOptions,
-  activityOptions => activityOptions.padding
+  options => options.padding
+);
+
+export const selectActivityOptionsStrokeWidth = createSelector(
+  selectActivityOptions,
+  options => options.strokeWidth
 );

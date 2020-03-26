@@ -12,6 +12,7 @@ exports[`ActivityRectangleComponent should hide title when showTitle false 1`] =
   >
     <rect
       height="80"
+      stroke-width="1"
       width="50"
     />
     
@@ -40,6 +41,7 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
   >
     <rect
       height="80"
+      stroke-width="1"
       width="50"
     />
     

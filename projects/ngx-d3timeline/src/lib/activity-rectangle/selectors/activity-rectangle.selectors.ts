@@ -25,7 +25,10 @@ import {
   selectRectHeight,
   selectRectBreadthInTimeAxis
 } from './activity-rectangle-size.selectors';
-import { selectTimeOrientation } from '../../options/selectors/options.selectors';
+import {
+  selectTimeOrientation,
+  selectActivityStrokeWidth
+} from '../../options/selectors/options.selectors';
 import {
   selectActivityFontFace,
   selectActivityFontSize
@@ -75,8 +78,9 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectRectHeight,
     selectActivityFontFace,
     selectActivityFontSize,
+    selectActivityStrokeWidth,
     selectShowTitle,
-    (transform, width, height, fontFace, fontSize, showTitle) =>
+    (transform, width, height, fontFace, fontSize, strokeWidth, showTitle) =>
       createActivityRectangle.bind(
         null,
         transform,
@@ -84,6 +88,7 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
         height,
         fontFace,
         fontSize,
+        strokeWidth,
         showTitle
       )
   );

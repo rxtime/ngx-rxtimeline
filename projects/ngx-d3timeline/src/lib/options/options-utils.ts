@@ -42,6 +42,13 @@ export function getTypeActivityPadding(
   return typeActivityOptions(type) && typeActivityOptions(type).padding;
 }
 
+export function getTypeActivityStrokeWidth(
+  typeActivityOptions: (type: string) => ActivityOptions,
+  type: string
+): number {
+  return typeActivityOptions(type) && typeActivityOptions(type).strokeWidth;
+}
+
 export function getActivityPadding(
   typeActivityPadding: (type: string) => number,
   activityOptionsPadding: number,
@@ -64,4 +71,8 @@ export function getFontFace(axisOptions: AxisOptions): string {
 
 export function getFontSize(axisOptions: AxisOptions): number {
   return axisOptions.fontSize;
+}
+
+export function getStrokeWidth(activityOptions: ActivityOptions): number {
+  return activityOptions.strokeWidth;
 }

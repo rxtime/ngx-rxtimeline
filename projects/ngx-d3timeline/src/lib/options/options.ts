@@ -17,6 +17,7 @@ export interface ActivityOptions {
   fontFace?: string;
   fontSize?: number;
   padding?: number;
+  strokeWidth?: number;
 }
 
 export interface TypeOptions {
@@ -57,7 +58,8 @@ export const defaultOptions: CompleteOptions = {
   activity: {
     fontFace: 'Arial',
     fontSize: 10,
-    padding: 0
+    padding: 0,
+    strokeWidth: 1
   },
   type: {}
 };

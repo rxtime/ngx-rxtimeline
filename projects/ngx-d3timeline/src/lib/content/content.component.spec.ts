@@ -53,7 +53,8 @@ describe('ContentComponent', () => {
         height: 80,
         fontSize: 10,
         showTitle: true,
-        fontFace: 'Arial'
+        fontFace: 'Arial',
+        strokeWidth: 1
       },
       {
         id: 2,
@@ -64,7 +65,8 @@ describe('ContentComponent', () => {
         height: 90,
         fontSize: 10,
         showTitle: true,
-        fontFace: 'Arial'
+        fontFace: 'Arial',
+        strokeWidth: 1
       }
     ];
   });
