@@ -48,7 +48,3 @@ export function getFontSize(axisOptions: AxisOptions): number {
 export function getStrokeWidth(activityOptions: ActivityOptions): number {
   return activityOptions.strokeWidth;
 }
-
-export function getDisableDrag(activityOptions: ActivityOptions): boolean {
-  return activityOptions.disableDrag;
-}
