@@ -43,6 +43,11 @@ export class AppComponent {
           padding: 10,
           strokeWidth: 3
         }
+      },
+      DriveBreak: {
+        activity: {
+          disableDrag: true
+        }
       }
     }
   };

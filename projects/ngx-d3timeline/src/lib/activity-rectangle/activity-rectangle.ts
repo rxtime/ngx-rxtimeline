@@ -11,4 +11,5 @@ export interface ActivityRectangle {
   fontFace: string;
   fontSize: number;
   strokeWidth: number;
+  disableDrag: boolean;
 }
