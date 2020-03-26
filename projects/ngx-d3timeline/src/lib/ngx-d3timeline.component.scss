@@ -27,6 +27,9 @@
       fill: #fff;
       stroke: #000;
     }
+    .draggable {
+      cursor: move;
+    }
   }
 
   .drop-activity-rectangle {

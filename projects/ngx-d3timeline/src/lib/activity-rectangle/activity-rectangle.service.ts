@@ -10,7 +10,11 @@ export class ActivityRectangleService {
     activityRectangle: ActivityRectangle,
     activityRectangleEl: ElementRef
   ) {
-    if (activityRectangleEl) {
+    if (
+      activityRectangleEl &&
+      activityRectangle &&
+      !activityRectangle.disableDrag
+    ) {
       this.dragService.setupDrag(
         activityRectangle.id,
         activityRectangleEl.nativeElement

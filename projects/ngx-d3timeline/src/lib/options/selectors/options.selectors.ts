@@ -29,6 +29,9 @@ export const selectAcivityPadding = selectActivityOption<number>('padding');
 export const selectActivityStrokeWidth = selectActivityOption<number>(
   'strokeWidth'
 );
+export const selectActivityDisableDrag = selectActivityOption<number>(
+  'disableDrag'
+);
 export const selectActivityFontFace = selectActivityOption<string>('fontFace');
 export const selectActivityFontSize = selectActivityOption<number>('fontSize');
 
