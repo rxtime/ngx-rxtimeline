@@ -21,7 +21,7 @@ import {
   selectTimeAxisShowGridLines,
   selectTimeAxisShowAxisLines,
   selectResourceAxisShowAxisLine
-} from '../options/axis-options.selectors';
+} from '../options/selectors/axis-options.selectors';
 
 const selectAxisLine = createSelector(selectViewTopLeft, viewTopLeft =>
   getAxisLine.bind(null, viewTopLeft)

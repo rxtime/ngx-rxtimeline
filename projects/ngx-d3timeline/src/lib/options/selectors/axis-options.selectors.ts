@@ -1,12 +1,12 @@
-import { selectOptions } from '../store/state';
-import { createSelector } from '../store-lib/selector/create-selector';
+import { selectOptions } from '../../store/state';
+import { createSelector } from '../../store-lib/selector/create-selector';
 import {
   getShowGridLines,
   getTickLineOffset,
   getShowAxisLine,
   getFontFace,
   getFontSize
-} from './options-utils';
+} from '../options-utils';
 
 export const selectResourceAxisOptions = createSelector(
   selectOptions,

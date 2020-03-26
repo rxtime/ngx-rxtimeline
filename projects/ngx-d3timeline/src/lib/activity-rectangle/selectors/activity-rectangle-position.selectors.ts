@@ -3,8 +3,8 @@ import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
   selectAcivityPadding
-} from '../../options/options.selectors';
-import { selectResourcePadding } from '../../options/resource-options.selectors';
+} from '../../options/selectors/options.selectors';
+import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import {
   getPositionInTimeAxis,
   getPositionInResourceAxis,

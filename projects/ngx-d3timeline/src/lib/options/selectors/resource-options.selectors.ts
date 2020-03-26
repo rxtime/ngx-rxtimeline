@@ -1,5 +1,5 @@
-import { selectOptions } from '../store/state';
-import { createSelector } from '../store-lib/selector/create-selector';
+import { selectOptions } from '../../store/state';
+import { createSelector } from '../../store-lib/selector/create-selector';
 
 export const selectResourceOptions = createSelector(
   selectOptions,
