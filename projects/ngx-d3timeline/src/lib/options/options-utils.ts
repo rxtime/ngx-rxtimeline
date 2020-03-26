@@ -15,12 +15,6 @@ export function getShowGridLines(axisOptions: AxisOptions): boolean {
   return axisOptions.showGridLines;
 }
 
-export function getActivityOptionsPadding(
-  activityOptions: ActivityOptions
-): number {
-  return activityOptions.padding;
-}
-
 export function getTypeOptions(
   options: CompleteOptions,
   type: string
@@ -33,28 +27,6 @@ export function getTypeActivityOptions(
   type: string
 ): ActivityOptions {
   return typeOptions(type) && typeOptions(type).activity;
-}
-
-export function getTypeActivityPadding(
-  typeActivityOptions: (type: string) => ActivityOptions,
-  type: string
-): number {
-  return typeActivityOptions(type) && typeActivityOptions(type).padding;
-}
-
-export function getTypeActivityStrokeWidth(
-  typeActivityOptions: (type: string) => ActivityOptions,
-  type: string
-): number {
-  return typeActivityOptions(type) && typeActivityOptions(type).strokeWidth;
-}
-
-export function getActivityPadding(
-  typeActivityPadding: (type: string) => number,
-  activityOptionsPadding: number,
-  type: string
-) {
-  return typeActivityPadding(type) || activityOptionsPadding;
 }
 
 export function getTickLineOffset(axisOptions: AxisOptions): number {
