@@ -25,11 +25,11 @@ import {
   selectRectHeight,
   selectRectBreadthInTimeAxis
 } from './activity-rectangle-size.selectors';
+import { selectTimeOrientation } from '../../options/selectors/options.selectors';
 import {
-  selectTimeOrientation,
   selectActivityFontFace,
   selectActivityFontSize
-} from '../../options/options.selectors';
+} from '../../options/selectors/activity-options.selectors';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
   selectTimeOrientation,
