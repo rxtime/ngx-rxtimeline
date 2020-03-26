@@ -162,6 +162,7 @@ export function createActivityRectangle(
   fontFace: (type: string) => string,
   fontSize: (type: string) => number,
   strokeWidth: (type: string) => number,
+  disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
   positionedActivity: PositionedActivity
 ): ActivityRectangle {
@@ -174,6 +175,7 @@ export function createActivityRectangle(
     height: height(positionedActivity),
     fontFace: fontFace(positionedActivity.type),
     fontSize: fontSize(positionedActivity.type),
+    disableDrag: disableDrag(positionedActivity.type),
     strokeWidth: strokeWidth(positionedActivity.type),
     showTitle: showTitle(positionedActivity)
   };
