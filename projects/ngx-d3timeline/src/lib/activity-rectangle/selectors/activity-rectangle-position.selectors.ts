@@ -16,63 +16,52 @@ import {
 } from '../../content/content-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point } from '../../core/point';
+import { partial3, partial2, partial1 } from '../../core/function-utils';
 
-const selectPositionInTimeAxis = createSelector(selectTimeScale, timeScale =>
-  getPositionInTimeAxis.bind(null, timeScale)
+const selectPositionInTimeAxis = createSelector(
+  selectTimeScale,
+  partial1(getPositionInTimeAxis)
 );
 
 const selectPositionInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectAcivityPadding,
-  (bandScale, resourcePadding, activityPadding) =>
-    getPositionInResourceAxis.bind(
-      null,
-      bandScale,
-      resourcePadding,
-      activityPadding
-    )
+  partial3(getPositionInResourceAxis)
 );
 
 const selectX = createSelector(
   selectTimeOrientation,
   selectPositionInResourceAxis,
   selectPositionInTimeAxis,
-  (timeOrientation, positionInResourceAxis, positionInTimeAxis) =>
-    getActivityX.bind(
-      null,
-      timeOrientation,
-      positionInResourceAxis,
-      positionInTimeAxis
-    )
+  partial3(getActivityX)
 );
 
 const selectY = createSelector(
   selectTimeOrientation,
   selectPositionInResourceAxis,
   selectPositionInTimeAxis,
-  (timeOrientation, positionInResourceAxis, positionInTimeAxis) =>
-    getActivityY.bind(
-      null,
-      timeOrientation,
-      positionInResourceAxis,
-      positionInTimeAxis
-    )
+  partial3(getActivityY)
 );
 
-const selectTopLeft = createSelector(selectX, selectY, (x, y) =>
-  getActivityTopLeft.bind(null, x, y)
+const selectTopLeft = createSelector(
+  selectX,
+  selectY,
+  partial2(getActivityTopLeft)
 );
 
 const selectTopLeftWithOffset = (selectOffset: MemoizedSelector<Point>) =>
-  createSelector(selectTopLeft, selectOffset, (topLeft, offset) =>
-    getOffsetActivityTopLeft.bind(null, topLeft, offset)
+  createSelector(
+    selectTopLeft,
+    selectOffset,
+    partial2(getOffsetActivityTopLeft)
   );
 
 const createSelectTopLeft = (selectOffset?: MemoizedSelector<Point>) =>
   selectOffset ? selectTopLeftWithOffset(selectOffset) : selectTopLeft;
 
 export const selectTransform = (selectOffset: MemoizedSelector<Point>) =>
-  createSelector(createSelectTopLeft(selectOffset), topLeft =>
-    getActivityTransform.bind(null, topLeft)
+  createSelector(
+    createSelectTopLeft(selectOffset),
+    partial1(getActivityTransform)
   );

@@ -3,6 +3,7 @@ import { selectOptions } from '../../store/state';
 import { getTypeOptions, getTypeActivityOptions } from '../options-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { ActivityOptions } from '../options';
+import { partial1 } from '../../core/function-utils';
 
 export const selectTypeOptions = createSelector(selectOptions, options =>
   getTypeOptions.bind(null, options)
@@ -10,7 +11,7 @@ export const selectTypeOptions = createSelector(selectOptions, options =>
 
 export const selectTypeActivityOptions = createSelector(
   selectTypeOptions,
-  typeOptions => getTypeActivityOptions.bind(null, typeOptions)
+  partial1(getTypeActivityOptions)
 );
 
 export const selectTypeActivityOption = <T>(

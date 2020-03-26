@@ -5,6 +5,7 @@ import { getTimeOrientation } from '../options-utils';
 import { selectTypeActivityOption } from './type-options.selectors';
 import { selectGlobalActivityOption } from './activity-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
+import { partial2 } from '../../core/function-utils';
 
 export const selectTimeOrientation = createSelector(
   selectOptions,
@@ -21,12 +22,7 @@ const selectActivityOption = <T>(
   createSelector(
     selectTypeActivityOption<T>(key),
     selectGlobalActivityOption<T>(key),
-    (typeActivityOption, globalActivityOption) =>
-      getActivityOption.bind(
-        null,
-        typeActivityOption,
-        globalActivityOption
-      ) as (type: string) => T
+    partial2(getActivityOption)
   );
 
 export const selectAcivityPadding = selectActivityOption<number>('padding');

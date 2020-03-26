@@ -33,31 +33,29 @@ import {
   selectActivityFontFace,
   selectActivityFontSize
 } from '../../options/selectors/options.selectors';
+import {
+  partial3,
+  partial1,
+  partial2,
+  partial7
+} from '../../core/function-utils';
 
 const selectActivityTitleBreadthInTimeline = createSelector(
   selectTimeOrientation,
   selectActivityFontFace,
   selectActivityFontSize,
-  (timeOrientation, fontFace, fontSize) =>
-    getActivityTitleBreadthInTimeAxis.bind(
-      null,
-      timeOrientation,
-      fontFace,
-      fontSize
-    )
+  partial3(getActivityTitleBreadthInTimeAxis)
 );
 
 const selectMinBreadthToShowLabel = createSelector(
   selectActivityTitleBreadthInTimeline,
-  activityTitleBreadthInTimeline =>
-    getMinBreadthToShowTitle.bind(null, activityTitleBreadthInTimeline)
+  partial1(getMinBreadthToShowTitle)
 );
 
 const selectShowTitle = createSelector(
   selectRectBreadthInTimeAxis,
   selectMinBreadthToShowLabel,
-  (rectBreadthInTimeAxis, minBreadthToShowLabel) =>
-    getShowTitle.bind(null, rectBreadthInTimeAxis, minBreadthToShowLabel)
+  partial2(getShowTitle)
 );
 
 const selectDragEventOffset = createSelector(
@@ -80,17 +78,7 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectActivityFontSize,
     selectActivityStrokeWidth,
     selectShowTitle,
-    (transform, width, height, fontFace, fontSize, strokeWidth, showTitle) =>
-      createActivityRectangle.bind(
-        null,
-        transform,
-        width,
-        height,
-        fontFace,
-        fontSize,
-        strokeWidth,
-        showTitle
-      )
+    partial7(createActivityRectangle)
   );
 
 export const selectNonDraggedActivityRectangles = createSelector(
