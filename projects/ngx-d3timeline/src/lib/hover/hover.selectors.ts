@@ -1,6 +1,6 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 import { selectHoveredEvent, selectPositionedActivities } from '../store/state';
-import { findActivity } from '../drag/drag-utils';
+import { findIdentifiable } from '../core/identifiable-utils';
 import { HoverAction, getHoveredActivityByType } from './hover-event';
 
 const selectHoveredId = createSelector(
@@ -11,7 +11,7 @@ const selectHoveredId = createSelector(
 const selectHoveredPositionedActivity = createSelector(
   selectPositionedActivities,
   selectHoveredId,
-  findActivity
+  findIdentifiable
 );
 
 export const selectHoveredActivity = (type: HoverAction) =>

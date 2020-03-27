@@ -1,6 +1,7 @@
 import { PositionedActivity } from './positioned-activity';
+import { Identifiable } from '../core/types';
 
-export interface Activity {
+export interface Activity extends Identifiable {
   id: number;
   start: Date;
   finish: Date;
