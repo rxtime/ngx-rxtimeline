@@ -13,3 +13,5 @@ export interface ActivityRectangle {
   strokeWidth: number;
   disableDrag: boolean;
 }
+
+export const activityTitlePadding = 2;
