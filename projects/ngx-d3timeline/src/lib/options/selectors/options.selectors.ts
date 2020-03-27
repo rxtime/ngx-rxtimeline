@@ -16,6 +16,11 @@ export const selectResourceOrientation = createSelector(
   flipOrientation
 );
 
+export const selectStrokeWidth = createSelector(
+  selectOptions,
+  options => options.strokeWidth
+);
+
 const selectGetActivityOption = <T>(
   key: string
 ): MemoizedSelector<(type: string) => T> =>
@@ -27,9 +32,6 @@ const selectGetActivityOption = <T>(
 
 export const selectGetActivityLateralMargin = selectGetActivityOption<number>(
   'lateralMargin'
-);
-export const selectGetActivityStrokeWidth = selectGetActivityOption<number>(
-  'strokeWidth'
 );
 export const selectGetActivityDisableDrag = selectGetActivityOption<boolean>(
   'disableDrag'
