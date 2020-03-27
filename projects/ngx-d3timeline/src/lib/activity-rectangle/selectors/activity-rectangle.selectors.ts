@@ -22,12 +22,12 @@ import {
 } from './activity-rectangle-size.selectors';
 import {
   selectTimeOrientation,
-  selectActivityStrokeWidth,
-  selectActivityDisableDrag
+  selectGetActivityStrokeWidth,
+  selectGetActivityDisableDrag
 } from '../../options/selectors/options.selectors';
 import {
-  selectActivityFontFace,
-  selectActivityFontSize
+  selectGetActivityFontFace,
+  selectGetActivityFontSize
 } from '../../options/selectors/options.selectors';
 import { partial3, partial1, partial2, partial8 } from '../../core/partial';
 import { Orientation } from '../../core/orientation';
@@ -35,8 +35,8 @@ import { getTextWidth } from '../../core/text-utils';
 
 const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
-  selectActivityFontFace,
-  selectActivityFontSize,
+  selectGetActivityFontFace,
+  selectGetActivityFontSize,
   partial3(getActivityTitleBreadthInTimeAxis)
 );
 
@@ -102,10 +102,10 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectGetActivityTransform(selectOffset),
     selectGetRectWidth,
     selectGetRectHeight,
-    selectActivityFontFace,
-    selectActivityFontSize,
-    selectActivityStrokeWidth,
-    selectActivityDisableDrag,
+    selectGetActivityFontFace,
+    selectGetActivityFontSize,
+    selectGetActivityStrokeWidth,
+    selectGetActivityDisableDrag,
     selectGetShowTitle,
     partial8(createActivityRectangle)
   );

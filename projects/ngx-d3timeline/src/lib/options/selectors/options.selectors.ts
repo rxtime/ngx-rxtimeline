@@ -25,19 +25,19 @@ const selectGetActivityOption = <T>(
     partial2(getActivityOption)
   );
 
-export const selectActivityLateralMargin = selectGetActivityOption<number>(
+export const selectGetActivityLateralMargin = selectGetActivityOption<number>(
   'lateralMargin'
 );
-export const selectActivityStrokeWidth = selectGetActivityOption<number>(
+export const selectGetActivityStrokeWidth = selectGetActivityOption<number>(
   'strokeWidth'
 );
-export const selectActivityDisableDrag = selectGetActivityOption<boolean>(
+export const selectGetActivityDisableDrag = selectGetActivityOption<boolean>(
   'disableDrag'
 );
-export const selectActivityFontFace = selectGetActivityOption<string>(
+export const selectGetActivityFontFace = selectGetActivityOption<string>(
   'fontFace'
 );
-export const selectActivityFontSize = selectGetActivityOption<number>(
+export const selectGetActivityFontSize = selectGetActivityOption<number>(
   'fontSize'
 );
 

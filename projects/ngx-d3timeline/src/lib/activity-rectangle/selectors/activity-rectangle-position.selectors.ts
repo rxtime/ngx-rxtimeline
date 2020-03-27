@@ -2,7 +2,7 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectActivityLateralMargin
+  selectGetActivityLateralMargin
 } from '../../options/selectors/options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
@@ -27,7 +27,7 @@ function getPositionInTimeAxis(
 const selectGetPositionInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
-  selectActivityLateralMargin,
+  selectGetActivityLateralMargin,
   partial3(getPositionInResourceAxis)
 );
 
