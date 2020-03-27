@@ -44,7 +44,3 @@ export function getFontFace(axisOptions: AxisOptions): string {
 export function getFontSize(axisOptions: AxisOptions): number {
   return axisOptions.fontSize;
 }
-
-export function getStrokeWidth(activityOptions: ActivityOptions): number {
-  return activityOptions.strokeWidth;
-}
