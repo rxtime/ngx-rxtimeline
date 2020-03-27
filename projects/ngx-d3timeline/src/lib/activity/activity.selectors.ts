@@ -5,7 +5,7 @@ import {
 } from '../store/state';
 import { selectTimeOrientation } from '../options/selectors/options.selectors';
 import { createSelector } from '../store-lib/selector/create-selector';
-import { findActivity } from '../drag/drag-utils';
+import { findIdentifiable } from '../core/identifiable-utils';
 import { TimelineDragEvent } from '../drag/timeline-drag-event';
 import { identifier } from '../core/types';
 import { PositionedActivity } from './positioned-activity';
@@ -39,7 +39,7 @@ function getNonDraggedActivities(
 export const selectCurrentlyDraggedActivity = createSelector(
   selectPositionedActivities,
   selectDragEventId,
-  findActivity
+  findIdentifiable
 );
 
 function getCurrentlyDraggedActivityWithDraggedToResource(
@@ -163,5 +163,5 @@ function updateActivityForDrag(
 export const selectLastDraggedActivity = createSelector(
   selectPositionedActivities,
   selectLastDraggedActivityId,
-  findActivity
+  findIdentifiable
 );

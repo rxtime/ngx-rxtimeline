@@ -7,3 +7,7 @@ export type Complete<T> = {
     ? Complete<T[P]>
     : T[P];
 };
+
+export interface Identifiable {
+  id: identifier;
+}
