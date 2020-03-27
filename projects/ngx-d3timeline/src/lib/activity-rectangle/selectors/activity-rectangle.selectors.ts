@@ -19,7 +19,7 @@ import {
 } from './activity-rectangle-size.selectors';
 import {
   selectTimeOrientation,
-  selectGetActivityStrokeWidth,
+  selectStrokeWidth,
   selectGetActivityDisableDrag,
   selectGetActivityPadding
 } from '../../options/selectors/options.selectors';
@@ -56,17 +56,20 @@ function getActivityTitleBreadthInTimeAxis(
 const selectGetMinBreadthToShowLabel = createSelector(
   selectGetActivityTitleBreadthInTimeAxis,
   selectGetActivityPadding,
-  partial2(getMinBreadthToShowTitle)
+  selectStrokeWidth,
+  partial3(getMinBreadthToShowTitle)
 );
 
 function getMinBreadthToShowTitle(
   activityTitleBreadthInTimeAxis: (p: PositionedActivity) => number,
   activityPadding: (type: string) => number,
+  strokeWidth: number,
   positionedActivity: PositionedActivity
 ) {
   return (
     activityTitleBreadthInTimeAxis(positionedActivity) +
-    activityPadding(positionedActivity.type)
+    activityPadding(positionedActivity.type) +
+    2 * strokeWidth
   );
 }
 
@@ -121,7 +124,7 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectGetRectHeight,
     selectGetActivityFontFace,
     selectGetActivityFontSize,
-    selectGetActivityStrokeWidth,
+    selectStrokeWidth,
     selectGetActivityDisableDrag,
     selectGetShowTitle,
     selectGetActivityPadding,
@@ -134,7 +137,7 @@ function createActivityRectangle(
   height: (p: PositionedActivity) => number,
   fontFace: (type: string) => string,
   fontSize: (type: string) => number,
-  strokeWidth: (type: string) => number,
+  strokeWidth: number,
   disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
   activityPadding: (type: string) => number,
@@ -150,9 +153,9 @@ function createActivityRectangle(
     fontFace: fontFace(positionedActivity.type),
     fontSize: fontSize(positionedActivity.type),
     disableDrag: disableDrag(positionedActivity.type),
-    strokeWidth: strokeWidth(positionedActivity.type),
+    strokeWidth,
     showTitle: showTitle(positionedActivity),
-    padding: activityPadding(positionedActivity.type)
+    padding: activityPadding(positionedActivity.type) + strokeWidth
   };
 }
 
