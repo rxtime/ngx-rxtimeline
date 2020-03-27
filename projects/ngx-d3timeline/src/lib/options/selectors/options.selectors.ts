@@ -25,7 +25,7 @@ const selectActivityOption = <T>(
     partial2(getActivityOption)
   );
 
-export const selectAcivityPadding = selectActivityOption<number>('padding');
+export const selectActivityPadding = selectActivityOption<number>('padding');
 export const selectActivityStrokeWidth = selectActivityOption<number>(
   'strokeWidth'
 );
