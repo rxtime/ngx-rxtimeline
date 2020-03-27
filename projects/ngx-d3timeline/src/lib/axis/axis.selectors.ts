@@ -6,7 +6,7 @@ import {
   selectTimeAxisTickMarks,
   selectTimeAxisTickValues,
   selectResourceAxisTickValues,
-  selectTickMarkPositionFunc
+  selectGetTickPosition
 } from '../tick-mark/tick-mark.selector';
 import { Line } from '../core/line';
 import {
@@ -27,20 +27,20 @@ import { partial1, partial3 } from '../core/partial';
 const selectAxisLine = createSelector(selectViewTopLeft, partial1(getAxisLine));
 
 const selectGetResourceAxisGridLine = createSelector(
-  selectTickMarkPositionFunc,
+  selectGetTickPosition,
   selectOrientedBandScale,
   selectOrientedTimeScale,
   partial3(getTickGridLine)
 );
 
 const selectGetTimeAxisGridLine = createSelector(
-  selectTickMarkPositionFunc,
+  selectGetTickPosition,
   selectOrientedTimeScale,
   selectOrientedBandScale,
   partial3(getTickGridLine)
 );
 
-export const selectResourceAxisGridLines = createSelector(
+const selectResourceAxisGridLines = createSelector(
   selectResourceAxisTickValues,
   selectGetResourceAxisGridLine,
   mapValues
@@ -59,7 +59,7 @@ const selectResourceAxisLine = createSelector(
   axisLineFromOrientedScale
 );
 
-export const selectTimeAxisLine = createSelector(
+const selectTimeAxisLine = createSelector(
   selectTimeAxisShowAxisLines,
   selectOrientedTimeScale,
   selectAxisLine,
