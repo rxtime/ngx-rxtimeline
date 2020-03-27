@@ -19,11 +19,11 @@ import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { ActivityRectangle } from '../activity-rectangle';
 import { Point } from '../../core/point';
-import { selectTransform } from './activity-rectangle-position.selectors';
+import { selectGetActivityTransform } from './activity-rectangle-position.selectors';
 import {
-  selectRectWidth,
-  selectRectHeight,
-  selectRectBreadthInTimeAxis
+  selectGetRectWidth,
+  selectGetRectHeight,
+  selectGetRectBreadthInTimeAxis
 } from './activity-rectangle-size.selectors';
 import {
   selectTimeOrientation,
@@ -36,21 +36,21 @@ import {
 } from '../../options/selectors/options.selectors';
 import { partial3, partial1, partial2, partial8 } from '../../core/partial';
 
-const selectActivityTitleBreadthInTimeAxis = createSelector(
+const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
   selectActivityFontFace,
   selectActivityFontSize,
   partial3(getActivityTitleBreadthInTimeAxis)
 );
 
-const selectMinBreadthToShowLabel = createSelector(
-  selectActivityTitleBreadthInTimeAxis,
+const selectGetMinBreadthToShowLabel = createSelector(
+  selectGetActivityTitleBreadthInTimeAxis,
   partial1(getMinBreadthToShowTitle)
 );
 
-const selectShowTitle = createSelector(
-  selectRectBreadthInTimeAxis,
-  selectMinBreadthToShowLabel,
+const selectGetShowTitle = createSelector(
+  selectGetRectBreadthInTimeAxis,
+  selectGetMinBreadthToShowLabel,
   partial2(getShowTitle)
 );
 
@@ -67,14 +67,14 @@ const selectDragEventOffsetTime = createSelector(
 
 const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
   createSelector(
-    selectTransform(selectOffset),
-    selectRectWidth,
-    selectRectHeight,
+    selectGetActivityTransform(selectOffset),
+    selectGetRectWidth,
+    selectGetRectHeight,
     selectActivityFontFace,
     selectActivityFontSize,
     selectActivityStrokeWidth,
     selectActivityDisableDrag,
-    selectShowTitle,
+    selectGetShowTitle,
     partial8(createActivityRectangle)
   );
 

@@ -14,7 +14,7 @@ export const selectTypeActivityOptions = createSelector(
   partial1(getTypeActivityOptions)
 );
 
-export const selectTypeActivityOption = <T>(
+export const selectGetTypeActivityOption = <T>(
   key: string
 ): MemoizedSelector<(type: string) => T> =>
   createSelector(

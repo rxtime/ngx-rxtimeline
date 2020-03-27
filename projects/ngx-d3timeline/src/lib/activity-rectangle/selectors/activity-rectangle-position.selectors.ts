@@ -18,49 +18,55 @@ import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point } from '../../core/point';
 import { partial3, partial2, partial1 } from '../../core/partial';
 
-const selectPositionInTimeAxis = createSelector(
+const selectGetPositionInTimeAxis = createSelector(
   selectTimeScale,
   partial1(getPositionInTimeAxis)
 );
 
-const selectPositionInResourceAxis = createSelector(
+const selectGetPositionInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectActivityLateralMargin,
   partial3(getPositionInResourceAxis)
 );
 
-const selectX = createSelector(
+const selectGetActivityX = createSelector(
   selectTimeOrientation,
-  selectPositionInResourceAxis,
-  selectPositionInTimeAxis,
+  selectGetPositionInResourceAxis,
+  selectGetPositionInTimeAxis,
   partial3(getActivityX)
 );
 
-const selectY = createSelector(
+const selectGetActivityY = createSelector(
   selectTimeOrientation,
-  selectPositionInResourceAxis,
-  selectPositionInTimeAxis,
+  selectGetPositionInResourceAxis,
+  selectGetPositionInTimeAxis,
   partial3(getActivityY)
 );
 
-const selectTopLeft = createSelector(
-  selectX,
-  selectY,
+const selectGetActivityTopLeft = createSelector(
+  selectGetActivityX,
+  selectGetActivityY,
   partial2(getActivityTopLeft)
 );
 
-const selectTopLeftWithOffset = (selectOffset: MemoizedSelector<Point>) =>
+const selectGetOffsetActivityTopLeft = (
+  selectOffset: MemoizedSelector<Point>
+) =>
   createSelector(
-    selectTopLeft,
+    selectGetActivityTopLeft,
     selectOffset,
     partial2(getOffsetActivityTopLeft)
   );
 
 const createSelectTopLeft = (selectOffset?: MemoizedSelector<Point>) =>
-  selectOffset ? selectTopLeftWithOffset(selectOffset) : selectTopLeft;
+  selectOffset
+    ? selectGetOffsetActivityTopLeft(selectOffset)
+    : selectGetActivityTopLeft;
 
-export const selectTransform = (selectOffset: MemoizedSelector<Point>) =>
+export const selectGetActivityTransform = (
+  selectOffset: MemoizedSelector<Point>
+) =>
   createSelector(
     createSelectTopLeft(selectOffset),
     partial1(getActivityTransform)
