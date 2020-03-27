@@ -25,7 +25,7 @@ export class AppComponent {
     activity: {
       fontFace: 'Arial',
       fontSize: 12,
-      padding: 0
+      lateralMargin: 0
     },
     resourceAxis: {
       showGridLines: true,
@@ -40,7 +40,7 @@ export class AppComponent {
     type: {
       Driving: {
         activity: {
-          padding: 10,
+          lateralMargin: 10,
           strokeWidth: 3
         }
       },

@@ -16,7 +16,7 @@ export interface ResourceOptions {
 export interface ActivityOptions {
   fontFace?: string;
   fontSize?: number;
-  padding?: number;
+  lateralMargin?: number;
   strokeWidth?: number;
   disableDrag?: boolean;
 }
@@ -59,7 +59,7 @@ export const defaultOptions: CompleteOptions = {
   activity: {
     fontFace: 'Arial',
     fontSize: 10,
-    padding: 0,
+    lateralMargin: 0,
     strokeWidth: 1,
     disableDrag: false
   },
