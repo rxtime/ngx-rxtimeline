@@ -5,10 +5,6 @@ import { Point, translatePoint, pointToTransform } from '../core/point';
 import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
 import { getTextWidth } from '../core/text-utils';
 
-type PositionInAxis = (p: PositionedActivity) => number;
-export type PointInAxis = (p: PositionedActivity) => Point;
-export type ActivityTransform = (p: PositionedActivity) => string;
-
 export const activityTitlePadding = 2;
 
 export function getPositionInResourceAxis(
@@ -33,8 +29,8 @@ export function getPositionInTimeAxis(
 
 export function getActivityX(
   timeOrientation: Orientation,
-  positionInResourceAxis: PositionInAxis,
-  positionInTimeAxis: PositionInAxis,
+  positionInResourceAxis: (p: PositionedActivity) => number,
+  positionInTimeAxis: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
@@ -44,8 +40,8 @@ export function getActivityX(
 
 export function getActivityY(
   timeOrientation: Orientation,
-  positionInResourceAxis: PositionInAxis,
-  positionInTimeAxis: PositionInAxis,
+  positionInResourceAxis: (p: PositionedActivity) => number,
+  positionInTimeAxis: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
@@ -54,15 +50,15 @@ export function getActivityY(
 }
 
 export function getActivityTopLeft(
-  x: PositionInAxis,
-  y: PositionInAxis,
+  x: (p: PositionedActivity) => number,
+  y: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ): Point {
   return { x: x(positionedActivity), y: y(positionedActivity) };
 }
 
 export function getOffsetActivityTopLeft(
-  activityTopLeft: PointInAxis,
+  activityTopLeft: (p: PositionedActivity) => Point,
   offset: Point,
   positionedActivity: PositionedActivity
 ): Point {
@@ -70,7 +66,7 @@ export function getOffsetActivityTopLeft(
 }
 
 export function getActivityTransform(
-  activityTopLeft: PointInAxis,
+  activityTopLeft: (p: PositionedActivity) => Point,
   positionedActivity: PositionedActivity
 ): string {
   return pointToTransform(activityTopLeft(positionedActivity));
@@ -114,7 +110,7 @@ export function getActivityTitleBreadthInTimeAxis(
 }
 
 export function getMinBreadthToShowTitle(
-  activityTitleBreadthInTimeAxis: PositionInAxis,
+  activityTitleBreadthInTimeAxis: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ) {
   return (
@@ -123,8 +119,8 @@ export function getMinBreadthToShowTitle(
 }
 
 export function getShowTitle(
-  rectBreadthInTimeAxis: PositionInAxis,
-  minBreadthToShowTitle: PositionInAxis,
+  rectBreadthInTimeAxis: (p: PositionedActivity) => number,
+  minBreadthToShowTitle: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ): boolean {
   return (
@@ -135,8 +131,8 @@ export function getShowTitle(
 
 export function getRectHeight(
   timeOrientation: Orientation,
-  rectBreadthInTimeAxis: PositionInAxis,
-  rectBreadthInResourceAxis: PositionInAxis,
+  rectBreadthInTimeAxis: (p: PositionedActivity) => number,
+  rectBreadthInResourceAxis: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
@@ -146,8 +142,8 @@ export function getRectHeight(
 
 export function getRectWidth(
   timeOrientation: Orientation,
-  rectBreadthInTimeAxis: PositionInAxis,
-  rectBreadthInResourceAxis: PositionInAxis,
+  rectBreadthInTimeAxis: (p: PositionedActivity) => number,
+  rectBreadthInResourceAxis: (p: PositionedActivity) => number,
   positionedActivity: PositionedActivity
 ) {
   return timeOrientation === Orientation.Vertical
@@ -156,9 +152,9 @@ export function getRectWidth(
 }
 
 export function createActivityRectangle(
-  transform: ActivityTransform,
-  width: PositionInAxis,
-  height: PositionInAxis,
+  transform: (p: PositionedActivity) => string,
+  width: (p: PositionedActivity) => number,
+  height: (p: PositionedActivity) => number,
   fontFace: (type: string) => string,
   fontSize: (type: string) => number,
   strokeWidth: (type: string) => number,
