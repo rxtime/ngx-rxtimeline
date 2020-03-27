@@ -19,6 +19,7 @@ export interface ActivityOptions {
   lateralMargin?: number;
   strokeWidth?: number;
   disableDrag?: boolean;
+  padding?: number;
 }
 
 export interface TypeOptions {
@@ -61,7 +62,8 @@ export const defaultOptions: CompleteOptions = {
     fontSize: 10,
     lateralMargin: 0,
     strokeWidth: 1,
-    disableDrag: false
+    disableDrag: false,
+    padding: 5
   },
   type: {}
 };

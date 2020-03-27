@@ -10,7 +10,7 @@ import { Point, origin } from '../../core/point';
 import { TimelineDragEvent } from '../../drag/timeline-drag-event';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';
-import { ActivityRectangle, activityTitlePadding } from '../activity-rectangle';
+import { ActivityRectangle } from '../activity-rectangle';
 import { selectGetActivityTransform } from './activity-rectangle-position.selectors';
 import {
   selectGetRectWidth,
@@ -20,13 +20,14 @@ import {
 import {
   selectTimeOrientation,
   selectGetActivityStrokeWidth,
-  selectGetActivityDisableDrag
+  selectGetActivityDisableDrag,
+  selectGetActivityPadding
 } from '../../options/selectors/options.selectors';
 import {
   selectGetActivityFontFace,
   selectGetActivityFontSize
 } from '../../options/selectors/options.selectors';
-import { partial3, partial1, partial2, partial8 } from '../../core/partial';
+import { partial3, partial2, partial9 } from '../../core/partial';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
 
@@ -54,15 +55,18 @@ function getActivityTitleBreadthInTimeAxis(
 
 const selectGetMinBreadthToShowLabel = createSelector(
   selectGetActivityTitleBreadthInTimeAxis,
-  partial1(getMinBreadthToShowTitle)
+  selectGetActivityPadding,
+  partial2(getMinBreadthToShowTitle)
 );
 
 function getMinBreadthToShowTitle(
   activityTitleBreadthInTimeAxis: (p: PositionedActivity) => number,
+  activityPadding: (type: string) => number,
   positionedActivity: PositionedActivity
 ) {
   return (
-    activityTitleBreadthInTimeAxis(positionedActivity) + activityTitlePadding
+    activityTitleBreadthInTimeAxis(positionedActivity) +
+    activityPadding(positionedActivity.type)
   );
 }
 
@@ -120,7 +124,8 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectGetActivityStrokeWidth,
     selectGetActivityDisableDrag,
     selectGetShowTitle,
-    partial8(createActivityRectangle)
+    selectGetActivityPadding,
+    partial9(createActivityRectangle)
   );
 
 function createActivityRectangle(
@@ -132,6 +137,7 @@ function createActivityRectangle(
   strokeWidth: (type: string) => number,
   disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
+  activityPadding: (type: string) => number,
   positionedActivity: PositionedActivity
 ): ActivityRectangle {
   return {
@@ -145,7 +151,8 @@ function createActivityRectangle(
     fontSize: fontSize(positionedActivity.type),
     disableDrag: disableDrag(positionedActivity.type),
     strokeWidth: strokeWidth(positionedActivity.type),
-    showTitle: showTitle(positionedActivity)
+    showTitle: showTitle(positionedActivity),
+    padding: activityPadding(positionedActivity.type)
   };
 }
 

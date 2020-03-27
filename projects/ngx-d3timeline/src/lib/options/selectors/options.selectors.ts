@@ -40,6 +40,9 @@ export const selectGetActivityFontFace = selectGetActivityOption<string>(
 export const selectGetActivityFontSize = selectGetActivityOption<number>(
   'fontSize'
 );
+export const selectGetActivityPadding = selectGetActivityOption<number>(
+  'padding'
+);
 
 function getActivityOption<T>(
   typeActivityOption: (type: string) => T,
