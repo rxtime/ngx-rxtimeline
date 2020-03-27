@@ -3,7 +3,7 @@ import {
   getTickMark,
   getTimeAxisTickValues,
   getResourceAxisTickValues,
-  getTickMarkTopLeft
+  getTickMarkPosition
 } from './tick-mark-utils';
 import {
   selectOrientedTimeScale,
@@ -25,9 +25,9 @@ import {
 } from '../options/selectors/axis-options.selectors';
 import { partial4 } from '../core/partial';
 
-export const selectTickMarkTopLeftFunc = createSelector(
+export const selectTickMarkPositionFunc = createSelector(
   selectViewTopLeft,
-  viewTopLeft => getTickMarkTopLeft.bind(null, viewTopLeft)
+  viewTopLeft => getTickMarkPosition.bind(null, viewTopLeft)
 );
 
 const selectResourceAxisTickMarkRenderer = createSelector(
@@ -43,7 +43,7 @@ const selectTimeAxisTickMarkRenderer = createSelector(
 );
 
 const selectResourceAxisTickMarkFunc = createSelector(
-  selectTickMarkTopLeftFunc,
+  selectTickMarkPositionFunc,
   selectResourceAxisTickMarkRenderer,
   selectResourceAxisFontFace,
   selectResourceAxisFontSize,
@@ -51,7 +51,7 @@ const selectResourceAxisTickMarkFunc = createSelector(
 );
 
 const selectTimeAxisTickMarkFunc = createSelector(
-  selectTickMarkTopLeftFunc,
+  selectTickMarkPositionFunc,
   selectTimeAxisTickMarkRenderer,
   selectTimeAxisFontFace,
   selectTimeAxisFontSize,

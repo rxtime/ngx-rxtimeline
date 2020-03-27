@@ -17,7 +17,7 @@ function getTickLabelOffset(labelSpacing: number, orientation: Orientation) {
     : { ...origin, x: labelSpacing };
 }
 
-export function getTickMarkTopLeft(
+export function getTickMarkPosition(
   viewTopLeft: Point,
   orientation: Orientation,
   range: number
@@ -28,7 +28,7 @@ export function getTickMarkTopLeft(
 }
 
 export function getTickMark(
-  tickMarkTopLeft: (o: Orientation, range: number) => Point,
+  tickMarkPosition: (o: Orientation, range: number) => Point,
   tickMarkRenderer: TickMarkRenderer,
   fontFace: string,
   fontSize: number,
@@ -37,7 +37,7 @@ export function getTickMark(
   return {
     label: tickMarkRenderer.getTickLabel(tickValue),
     transform: pointToTransform(
-      tickMarkTopLeft(
+      tickMarkPosition(
         tickMarkRenderer.orientation,
         tickMarkRenderer.mapTickValueToPositionInScale(tickValue)
       )
