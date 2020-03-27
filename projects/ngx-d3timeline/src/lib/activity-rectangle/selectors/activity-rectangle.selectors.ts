@@ -6,14 +6,11 @@ import {
   selectCurrentlyDraggedActivityWithDraggedToResource
 } from '../../activity/activity.selectors';
 
-import {
-  getDragEventOffset,
-  getDragEventOffsetTime
-} from '../../drag/drag-utils';
+import { Point, origin } from '../../core/point';
+import { TimelineDragEvent } from '../../drag/timeline-drag-event';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { ActivityRectangle, activityTitlePadding } from '../activity-rectangle';
-import { Point } from '../../core/point';
 import { selectGetActivityTransform } from './activity-rectangle-position.selectors';
 import {
   selectGetRectWidth,
@@ -91,11 +88,27 @@ const selectDragEventOffset = createSelector(
   getDragEventOffset
 );
 
+export function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
+  return dragEvent && { x: dragEvent.dx, y: dragEvent.dy };
+}
+
 const selectDragEventOffsetTime = createSelector(
   selectDragEvent,
   selectTimeOrientation,
   getDragEventOffsetTime
 );
+
+function getDragEventOffsetTime(
+  dragEvent: TimelineDragEvent,
+  timeOrientation: Orientation
+): Point {
+  return (
+    dragEvent &&
+    (timeOrientation === Orientation.Vertical
+      ? { ...origin, y: dragEvent.dy }
+      : { ...origin, x: dragEvent.dx })
+  );
+}
 
 const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
   createSelector(
