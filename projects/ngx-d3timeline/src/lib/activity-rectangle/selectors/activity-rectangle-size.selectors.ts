@@ -2,9 +2,9 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectGetActivityLateralMargin,
   selectStrokeWidth
 } from '../../options/selectors/options.selectors';
+import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 
 import { partial1, partial3, partial4 } from '../../core/partial';

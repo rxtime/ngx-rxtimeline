@@ -19,14 +19,14 @@ import {
 } from './activity-rectangle-size.selectors';
 import {
   selectTimeOrientation,
-  selectStrokeWidth,
-  selectGetActivityDisableDrag,
-  selectGetActivityPadding
+  selectStrokeWidth
 } from '../../options/selectors/options.selectors';
 import {
+  selectGetActivityDisableDrag,
+  selectGetActivityPadding,
   selectGetActivityFontFace,
   selectGetActivityFontSize
-} from '../../options/selectors/options.selectors';
+} from '../../options/selectors/activity-options.selectors';
 import { partial3, partial2, partial9 } from '../../core/partial';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
