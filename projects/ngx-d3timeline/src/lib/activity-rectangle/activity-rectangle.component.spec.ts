@@ -32,7 +32,8 @@ describe('ActivityRectangleComponent', () => {
       fontSize: 10,
       fontFace: 'Arial',
       strokeWidth: 1,
-      disableDrag: false
+      disableDrag: false,
+      padding: 5
     };
 
     fixture.detectChanges();
@@ -52,7 +53,8 @@ describe('ActivityRectangleComponent', () => {
       fontSize: 10,
       fontFace: 'Arial',
       strokeWidth: 1,
-      disableDrag: false
+      disableDrag: false,
+      padding: 5
     };
 
     fixture.detectChanges();

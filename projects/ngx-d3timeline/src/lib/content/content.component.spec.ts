@@ -55,7 +55,8 @@ describe('ContentComponent', () => {
         showTitle: true,
         fontFace: 'Arial',
         strokeWidth: 1,
-        disableDrag: false
+        disableDrag: false,
+        padding: 5
       },
       {
         id: 2,
@@ -68,7 +69,8 @@ describe('ContentComponent', () => {
         showTitle: true,
         fontFace: 'Arial',
         strokeWidth: 1,
-        disableDrag: false
+        disableDrag: false,
+        padding: 5
       }
     ];
   });
