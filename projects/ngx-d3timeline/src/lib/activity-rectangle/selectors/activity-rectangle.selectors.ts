@@ -95,7 +95,7 @@ const selectDragEventOffset = createSelector(
   getDragEventOffset
 );
 
-export function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
+function getDragEventOffset(dragEvent: TimelineDragEvent): Point {
   return dragEvent && { x: dragEvent.dx, y: dragEvent.dy };
 }
 

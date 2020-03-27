@@ -26,7 +26,7 @@ function getRectBreadthInTimeAxis(
   );
 }
 
-export const selectGetRectBreadthInResourceAxis = createSelector(
+const selectGetRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectGetActivityLateralMargin,
