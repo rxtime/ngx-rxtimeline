@@ -2,12 +2,13 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectGetActivityLateralMargin
+  selectStrokeWidth
 } from '../../options/selectors/options.selectors';
+import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point, translatePoint, pointToTransform } from '../../core/point';
-import { partial3, partial2, partial1 } from '../../core/partial';
+import { partial3, partial2, partial1, partial4 } from '../../core/partial';
 import { BandScale, TimeScale } from '../../scales/scale-types';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { Orientation } from '../../core/orientation';
@@ -28,19 +29,22 @@ const selectGetPositionInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectGetActivityLateralMargin,
-  partial3(getPositionInResourceAxis)
+  selectStrokeWidth,
+  partial4(getPositionInResourceAxis)
 );
 
 function getPositionInResourceAxis(
   bandScale: BandScale,
   resourcePadding: number,
   getActivityLateralMargin: (type: string) => number,
+  strokeWidth: number,
   positionedActivity: PositionedActivity
 ): number {
   return (
     bandScale(positionedActivity.updatedResource) +
     resourcePadding +
-    getActivityLateralMargin(positionedActivity.type)
+    getActivityLateralMargin(positionedActivity.type) +
+    0.5 * strokeWidth
   );
 }
 

@@ -40,8 +40,7 @@ export class AppComponent {
     type: {
       Driving: {
         activity: {
-          lateralMargin: 10,
-          strokeWidth: 3
+          lateralMargin: 10
         }
       },
       DriveBreak: {

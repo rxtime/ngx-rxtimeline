@@ -17,8 +17,8 @@ export interface ActivityOptions {
   fontFace?: string;
   fontSize?: number;
   lateralMargin?: number;
-  strokeWidth?: number;
   disableDrag?: boolean;
+  padding?: number;
 }
 
 export interface TypeOptions {
@@ -28,6 +28,7 @@ export interface TypeOptions {
 export interface Options {
   orientation?: 'Vertical' | 'Horizontal';
   timeAxis?: AxisOptions;
+  strokeWidth?: number;
   resourceAxis?: AxisOptions;
   resource?: ResourceOptions;
   activity?: ActivityOptions;
@@ -45,6 +46,7 @@ export const defaultOptions: CompleteOptions = {
     fontFace: 'sans-serif',
     fontSize: 10
   },
+  strokeWidth: 3,
   resourceAxis: {
     tickLineLength: 0,
     showGridLines: true,
@@ -60,8 +62,8 @@ export const defaultOptions: CompleteOptions = {
     fontFace: 'Arial',
     fontSize: 10,
     lateralMargin: 0,
-    strokeWidth: 1,
-    disableDrag: false
+    disableDrag: false,
+    padding: 5
   },
   type: {}
 };

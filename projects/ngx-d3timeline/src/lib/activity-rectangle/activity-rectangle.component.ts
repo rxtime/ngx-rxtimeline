@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { ActivityRectangle } from './activity-rectangle';
 import { ActivityRectangleService } from './activity-rectangle.service';
-import { activityTitlePadding } from './activity-rectangle';
 
 @Component({
   selector: '[ngx-d3timeline-activity-rectangle]',
@@ -29,8 +28,8 @@ import { activityTitlePadding } from './activity-rectangle';
       <svg:g *ngIf="activityRectangle.showTitle">
         <svg:text
           dominant-baseline="hanging"
-          [attr.dx]="activityTitlePadding"
-          [attr.dy]="activityTitlePadding"
+          [attr.dx]="activityRectangle.padding"
+          [attr.dy]="activityRectangle.padding"
           [attr.font-family]="activityRectangle.fontFace"
           [attr.font-size]="activityRectangle.fontSize"
         >
@@ -45,8 +44,6 @@ export class ActivityRectangleComponent implements AfterViewInit {
   @Input() activityRectangle: ActivityRectangle;
 
   @ViewChild('activityRectangleEl') activityRectangleEl: ElementRef;
-
-  activityTitlePadding = activityTitlePadding;
 
   constructor(public facade: ActivityRectangleService) {}
 

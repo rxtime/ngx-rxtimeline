@@ -2,11 +2,12 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
 import {
   selectTimeOrientation,
-  selectGetActivityLateralMargin
+  selectStrokeWidth
 } from '../../options/selectors/options.selectors';
+import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 
-import { partial1, partial3 } from '../../core/partial';
+import { partial1, partial3, partial4 } from '../../core/partial';
 import { TimeScale, BandScale } from '../../scales/scale-types';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { Orientation } from '../../core/orientation';
@@ -29,19 +30,22 @@ const selectGetRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectGetActivityLateralMargin,
-  partial3(getRectBreadthInResourceAxis)
+  selectStrokeWidth,
+  partial4(getRectBreadthInResourceAxis)
 );
 
 function getRectBreadthInResourceAxis(
   bandScale: BandScale,
   resourcePadding: number,
   activityLateralMargin: (type: string) => number,
+  strokeWidth: number,
   positionedActivity: PositionedActivity
 ) {
   return (
     bandScale.bandwidth() -
     2 * resourcePadding -
-    2 * activityLateralMargin(positionedActivity.type)
+    2 * activityLateralMargin(positionedActivity.type) -
+    strokeWidth
   );
 }
 
