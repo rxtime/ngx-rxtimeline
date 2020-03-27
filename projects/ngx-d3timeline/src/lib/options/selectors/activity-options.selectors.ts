@@ -7,7 +7,7 @@ export const selectActivityOptions = createSelector(
   options => options.activity
 );
 
-export const selectGlobalActivityOption = <T>(
+export const selectGetGlobalActivityOption = <T>(
   key: string
 ): MemoizedSelector<T> =>
   createSelector(selectActivityOptions, options => options[key]);

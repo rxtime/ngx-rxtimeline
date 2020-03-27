@@ -13,28 +13,28 @@ import {
 } from '../../content/content-utils';
 import { partial1, partial3 } from '../../core/partial';
 
-export const selectRectBreadthInTimeAxis = createSelector(
+export const selectGetRectBreadthInTimeAxis = createSelector(
   selectTimeScale,
   partial1(getRectBreadthInTimeAxis)
 );
 
-export const selectRectBreadthInResourceAxis = createSelector(
+export const selectGetRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
   selectActivityLateralMargin,
   partial3(getRectBreadthInResourceAxis)
 );
 
-export const selectRectHeight = createSelector(
+export const selectGetRectHeight = createSelector(
   selectTimeOrientation,
-  selectRectBreadthInTimeAxis,
-  selectRectBreadthInResourceAxis,
+  selectGetRectBreadthInTimeAxis,
+  selectGetRectBreadthInResourceAxis,
   partial3(getRectHeight)
 );
 
-export const selectRectWidth = createSelector(
+export const selectGetRectWidth = createSelector(
   selectTimeOrientation,
-  selectRectBreadthInTimeAxis,
-  selectRectBreadthInResourceAxis,
+  selectGetRectBreadthInTimeAxis,
+  selectGetRectBreadthInResourceAxis,
   partial3(getRectWidth)
 );

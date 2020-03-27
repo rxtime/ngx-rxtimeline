@@ -42,7 +42,7 @@ const selectTimeAxisTickMarkRenderer = createSelector(
   getTimeAxisTickMarkRenderer
 );
 
-const selectResourceAxisTickMarkFunc = createSelector(
+const selectGetResourceAxisTickMark = createSelector(
   selectTickMarkPositionFunc,
   selectResourceAxisTickMarkRenderer,
   selectResourceAxisFontFace,
@@ -50,7 +50,7 @@ const selectResourceAxisTickMarkFunc = createSelector(
   partial4(getTickMark)
 );
 
-const selectTimeAxisTickMarkFunc = createSelector(
+const selectGetTimeAxisTickMark = createSelector(
   selectTickMarkPositionFunc,
   selectTimeAxisTickMarkRenderer,
   selectTimeAxisFontFace,
@@ -70,12 +70,12 @@ export const selectTimeAxisTickValues = createSelector(
 
 export const selectResourceAxisTickMarks = createSelector(
   selectResourceAxisTickValues,
-  selectResourceAxisTickMarkFunc,
+  selectGetResourceAxisTickMark,
   mapValues
 );
 
 export const selectTimeAxisTickMarks = createSelector(
   selectTimeAxisTickValues,
-  selectTimeAxisTickMarkFunc,
+  selectGetTimeAxisTickMark,
   mapValues
 );

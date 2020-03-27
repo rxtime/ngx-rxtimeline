@@ -26,14 +26,14 @@ import { partial1, partial3 } from '../core/partial';
 
 const selectAxisLine = createSelector(selectViewTopLeft, partial1(getAxisLine));
 
-const selectResourceAxisTickValueToGridLineFunc = createSelector(
+const selectGetResourceAxisGridLine = createSelector(
   selectTickMarkPositionFunc,
   selectOrientedBandScale,
   selectOrientedTimeScale,
   partial3(getTickGridLine)
 );
 
-const selectTimeAxisTickValueToGridLineFunc = createSelector(
+const selectGetTimeAxisGridLine = createSelector(
   selectTickMarkPositionFunc,
   selectOrientedTimeScale,
   selectOrientedBandScale,
@@ -42,13 +42,13 @@ const selectTimeAxisTickValueToGridLineFunc = createSelector(
 
 export const selectResourceAxisGridLines = createSelector(
   selectResourceAxisTickValues,
-  selectResourceAxisTickValueToGridLineFunc,
+  selectGetResourceAxisGridLine,
   mapValues
 );
 
 const selectTimeAxisGridLines = createSelector(
   selectTimeAxisTickValues,
-  selectTimeAxisTickValueToGridLineFunc,
+  selectGetTimeAxisGridLine,
   mapValues
 );
 

@@ -2,8 +2,8 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
 import { flipOrientation } from '../../core/orientation';
 import { getTimeOrientation } from '../options-utils';
-import { selectTypeActivityOption } from './type-options.selectors';
-import { selectGlobalActivityOption } from './activity-options.selectors';
+import { selectGetTypeActivityOption } from './type-options.selectors';
+import { selectGetGlobalActivityOption } from './activity-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { partial2 } from '../../core/partial';
 
@@ -16,26 +16,30 @@ export const selectResourceOrientation = createSelector(
   flipOrientation
 );
 
-const selectActivityOption = <T>(
+const selectGetActivityOption = <T>(
   key: string
 ): MemoizedSelector<(type: string) => T> =>
   createSelector(
-    selectTypeActivityOption<T>(key),
-    selectGlobalActivityOption<T>(key),
+    selectGetTypeActivityOption<T>(key),
+    selectGetGlobalActivityOption<T>(key),
     partial2(getActivityOption)
   );
 
-export const selectActivityLateralMargin = selectActivityOption<number>(
+export const selectActivityLateralMargin = selectGetActivityOption<number>(
   'lateralMargin'
 );
-export const selectActivityStrokeWidth = selectActivityOption<number>(
+export const selectActivityStrokeWidth = selectGetActivityOption<number>(
   'strokeWidth'
 );
-export const selectActivityDisableDrag = selectActivityOption<boolean>(
+export const selectActivityDisableDrag = selectGetActivityOption<boolean>(
   'disableDrag'
 );
-export const selectActivityFontFace = selectActivityOption<string>('fontFace');
-export const selectActivityFontSize = selectActivityOption<number>('fontSize');
+export const selectActivityFontFace = selectGetActivityOption<string>(
+  'fontFace'
+);
+export const selectActivityFontSize = selectGetActivityOption<number>(
+  'fontSize'
+);
 
 function getActivityOption<T>(
   typeActivityOption: (type: string) => T,
