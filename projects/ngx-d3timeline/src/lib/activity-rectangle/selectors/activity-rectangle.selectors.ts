@@ -36,7 +36,7 @@ import {
 } from '../../options/selectors/options.selectors';
 import { partial3, partial1, partial2, partial8 } from '../../core/partial';
 
-const selectActivityTitleBreadthInTimeline = createSelector(
+const selectActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
   selectActivityFontFace,
   selectActivityFontSize,
@@ -44,7 +44,7 @@ const selectActivityTitleBreadthInTimeline = createSelector(
 );
 
 const selectMinBreadthToShowLabel = createSelector(
-  selectActivityTitleBreadthInTimeline,
+  selectActivityTitleBreadthInTimeAxis,
   partial1(getMinBreadthToShowTitle)
 );
 
