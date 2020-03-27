@@ -135,24 +135,24 @@ export function getShowTitle(
 
 export function getRectHeight(
   timeOrientation: Orientation,
-  rectBreathInTimeAxis: PositionInAxis,
+  rectBreadthInTimeAxis: PositionInAxis,
   rectBreadthInResourceAxis: PositionInAxis,
   positionedActivity: PositionedActivity
 ): number {
   return timeOrientation === Orientation.Vertical
-    ? rectBreathInTimeAxis(positionedActivity)
+    ? rectBreadthInTimeAxis(positionedActivity)
     : rectBreadthInResourceAxis(positionedActivity);
 }
 
 export function getRectWidth(
   timeOrientation: Orientation,
-  rectBreathInTimeAxis: PositionInAxis,
+  rectBreadthInTimeAxis: PositionInAxis,
   rectBreadthInResourceAxis: PositionInAxis,
   positionedActivity: PositionedActivity
 ) {
   return timeOrientation === Orientation.Vertical
     ? rectBreadthInResourceAxis(positionedActivity)
-    : rectBreathInTimeAxis(positionedActivity);
+    : rectBreadthInTimeAxis(positionedActivity);
 }
 
 export function createActivityRectangle(
