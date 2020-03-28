@@ -72,15 +72,12 @@ export class NgxD3timelineComponent
 
   destroy$ = new Subject<boolean>();
 
-  private observableToOutputMap: [Observable<any>, EventEmitter<any>][] = [
-    [this.timeline.hoveredActivity$, this.hovered],
-    [this.timeline.unhoveredActivity$, this.unhovered],
-    [this.timeline.lastDraggedActivity$, this.activityDropped]
-  ];
+  private observableToOutputMap: [Observable<any>, EventEmitter<any>][];
 
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
+    this.initObservableToOutputMap();
     this.observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
   }
 
@@ -92,10 +89,19 @@ export class NgxD3timelineComponent
     this.destroy$.next(true);
   }
 
+  private initObservableToOutputMap() {
+    this.observableToOutputMap = [
+      [this.timeline.hoveredActivity$, this.hovered],
+      [this.timeline.unhoveredActivity$, this.unhovered],
+      [this.timeline.lastDraggedActivity$, this.activityDropped]
+    ];
+  }
+
   private outputOnObservableEmit<T>([observable$, output]: [
     Observable<T>,
     EventEmitter<T>
   ]) {
+    console.log(observable$);
     observable$
       .pipe(takeUntil(this.destroy$))
       .subscribe(value => output.emit(value));
