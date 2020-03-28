@@ -107,7 +107,7 @@ const selectGetOffsetActivityTopLeft = (
     partial2(getOffsetActivityTopLeft)
   );
 
-export function getOffsetActivityTopLeft(
+function getOffsetActivityTopLeft(
   activityTopLeft: (p: PositionedActivity) => Point,
   offset: Point,
   positionedActivity: PositionedActivity

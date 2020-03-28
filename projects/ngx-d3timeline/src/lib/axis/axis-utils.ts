@@ -32,13 +32,13 @@ export function getGridLineLength(orientedScale: OrientedScale<Scale>) {
 }
 
 export function getTickGridLine(
-  tickMarkPosition: (o: Orientation, range: number) => Point,
+  tickPosition: (o: Orientation, range: number) => Point,
   orientedScale: OrientedScale<Scale>,
   otherOrientedScale: OrientedScale<Scale>,
   tickValue: any
 ): Line {
   return createOrientedLine(
-    tickMarkPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
+    tickPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
     getGridLineLength(otherOrientedScale),
     flipOrientation(orientedScale.orientation)
   );

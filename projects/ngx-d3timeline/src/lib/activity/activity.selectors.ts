@@ -81,7 +81,7 @@ const selectDraggedToResource = createSelector(
   valueToResource
 );
 
-export function valueToResource(
+function valueToResource(
   value: number,
   inverseBandScale: InverseBandScale
 ): string {
