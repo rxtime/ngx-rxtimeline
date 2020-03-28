@@ -27,7 +27,7 @@ import {
   selectGetActivityFontFace,
   selectGetActivityFontSize
 } from '../../options/selectors/activity-options.selectors';
-import { partial3, partial2, partial9 } from '../../core/partial';
+import { partialApply } from '../../core/function-utils';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
 import { ActivityContent } from '../activity-content';
@@ -36,14 +36,14 @@ const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
   selectGetActivityFontFace,
   selectGetActivityFontSize,
-  partial3(getActivityTitleBreadthInTimeAxis)
+  partialApply(getActivityTitleBreadthInTimeAxis)
 );
 
 function getActivityTitleBreadthInTimeAxis(
+  positionedActivity: PositionedActivity,
   timeOrientation: Orientation,
   fontFace: (type: string) => string,
-  fontSize: (type: string) => number,
-  positionedActivity: PositionedActivity
+  fontSize: (type: string) => number
 ): number {
   return timeOrientation === Orientation.Vertical
     ? fontSize(positionedActivity.type)
@@ -58,14 +58,14 @@ const selectGetMinBreadthToShowLabel = createSelector(
   selectGetActivityTitleBreadthInTimeAxis,
   selectGetActivityPadding,
   selectStrokeWidth,
-  partial3(getMinBreadthToShowTitle)
+  partialApply(getMinBreadthToShowTitle)
 );
 
 function getMinBreadthToShowTitle(
+  positionedActivity: PositionedActivity,
   activityTitleBreadthInTimeAxis: (p: PositionedActivity) => number,
   activityPadding: (type: string) => number,
-  strokeWidth: number,
-  positionedActivity: PositionedActivity
+  strokeWidth: number
 ) {
   return (
     activityTitleBreadthInTimeAxis(positionedActivity) +
@@ -76,13 +76,13 @@ function getMinBreadthToShowTitle(
 const selectGetShowTitle = createSelector(
   selectGetRectBreadthInTimeAxis,
   selectGetMinBreadthToShowLabel,
-  partial2(getShowTitle)
+  partialApply(getShowTitle)
 );
 
 function getShowTitle(
+  positionedActivity: PositionedActivity,
   rectBreadthInTimeAxis: (p: PositionedActivity) => number,
-  minBreadthToShowTitle: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  minBreadthToShowTitle: (p: PositionedActivity) => number
 ): boolean {
   return (
     rectBreadthInTimeAxis(positionedActivity) >
@@ -128,10 +128,11 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectGetActivityDisableDrag,
     selectGetShowTitle,
     selectGetActivityPadding,
-    partial9(createActivityRectangle)
+    partialApply(createActivityRectangle)
   );
 
 function createActivityRectangle(
+  positionedActivity: PositionedActivity,
   transform: (p: PositionedActivity) => string,
   width: (p: PositionedActivity) => number,
   height: (p: PositionedActivity) => number,
@@ -140,8 +141,7 @@ function createActivityRectangle(
   strokeWidth: number,
   disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
-  activityPadding: (type: string) => number,
-  positionedActivity: PositionedActivity
+  activityPadding: (type: string) => number
 ): ActivityRectangle {
   return {
     id: positionedActivity.id,

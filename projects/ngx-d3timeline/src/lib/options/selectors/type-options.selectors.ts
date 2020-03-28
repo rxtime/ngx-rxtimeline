@@ -1,11 +1,13 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
 import { CompleteOptions, TypeOptions } from '../options';
+import { partialApply } from '../../core/function-utils';
 
-export const selectTypeOptions = createSelector(selectOptions, options =>
-  getTypeOptions.bind(null, options)
+export const selectTypeOptions = createSelector(
+  selectOptions,
+  partialApply(getTypeOptions)
 );
 
-function getTypeOptions(options: CompleteOptions, type: string): TypeOptions {
+function getTypeOptions(type: string, options: CompleteOptions): TypeOptions {
   return options.type && options.type[type];
 }

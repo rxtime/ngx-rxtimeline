@@ -2,7 +2,7 @@ import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { selectTypeOptions } from './type-options.selectors';
-import { partial1, partial2 } from '../../core/partial';
+import { partialApply } from '../../core/function-utils';
 import { ActivityOptions, TypeOptions } from '../options';
 
 const selectActivityOptions = createSelector(
@@ -12,12 +12,12 @@ const selectActivityOptions = createSelector(
 
 const selectTypeActivityOptions = createSelector(
   selectTypeOptions,
-  partial1(getTypeActivityOptions)
+  partialApply(getTypeActivityOptions)
 );
 
 function getTypeActivityOptions(
-  typeOptions: (type: string) => TypeOptions,
-  type: string
+  type: string,
+  typeOptions: (type: string) => TypeOptions
 ): ActivityOptions {
   return typeOptions(type) && typeOptions(type).activity;
 }
@@ -48,13 +48,13 @@ const selectGetActivityOption = <T>(
   createSelector(
     selectGetTypeActivityOption<T>(key),
     selectGetGlobalActivityOption<T>(key),
-    partial2(getActivityOption)
+    partialApply(getActivityOption)
   );
 
 function getActivityOption<T>(
+  type: string,
   typeActivityOption: (type: string) => T,
-  globalActivityOption: T,
-  type: string
+  globalActivityOption: T
 ): T {
   return typeActivityOption(type) || globalActivityOption;
 }
