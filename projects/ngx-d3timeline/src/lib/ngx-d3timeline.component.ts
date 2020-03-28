@@ -8,14 +8,13 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Output,
-  EventEmitter,
-  OnDestroy
+  EventEmitter
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
-import { Observable } from 'rxjs';
 import { Options } from './options/options';
+import { ObservableOutputMap } from './core/observable-output-map';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -49,8 +48,7 @@ import { Options } from './options/options';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NgxD3timelineComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -69,25 +67,24 @@ export class NgxD3timelineComponent
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  private get observableToOutputMap(): [Observable<any>, EventEmitter<any>][] {
+  private get observableToOutputMappings(): ObservableOutputMap<Activity>[] {
     return [
-      [this.timeline.hoveredActivity$, this.hovered],
-      [this.timeline.unhoveredActivity$, this.unhovered],
-      [this.timeline.activityDropped$, this.activityDropped]
+      { observable$: this.timeline.hoveredActivity$, output: this.hovered },
+      { observable$: this.timeline.unhoveredActivity$, output: this.unhovered },
+      {
+        observable$: this.timeline.activityDropped$,
+        output: this.activityDropped
+      }
     ];
   }
 
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.timeline.setupOutputs(this.observableToOutputMap);
+    this.timeline.setupOutputs(this.observableToOutputMappings);
   }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
-  }
-
-  ngOnDestroy(): void {
-    this.timeline.destroy$.next(true);
   }
 }

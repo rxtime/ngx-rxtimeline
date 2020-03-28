@@ -1,4 +1,4 @@
-import { Injectable, ElementRef, EventEmitter } from '@angular/core';
+import { Injectable, ElementRef, OnDestroy } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -15,11 +15,14 @@ import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import {
+  ObservableOutputMap,
+  setupObservableToOutputMappings
+} from './core/observable-output-map';
 
 @Injectable({ providedIn: 'root' })
-export class NgxD3TimelineService {
+export class NgxD3TimelineService implements OnDestroy {
   destroy$ = new Subject<boolean>();
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
@@ -42,6 +45,10 @@ export class NgxD3TimelineService {
   resourceRectangles$ = this.store.select(selectResourceRectangles);
 
   constructor(private store: Store, private axisService: AxisService) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
 
   setActivities(activities: Activity[]) {
     this.store.dispatch(new fromActions.ActivitiesChangedAction(activities));
@@ -66,16 +73,7 @@ export class NgxD3TimelineService {
     this.store.dispatch(new fromActions.ZoomedAction(event));
   }
 
-  setupOutputs<T>(observableToOutputMap: [Observable<T>, EventEmitter<T>][]) {
-    observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
-  }
-
-  private outputOnObservableEmit<T>([observable$, output]: [
-    Observable<T>,
-    EventEmitter<T>
-  ]) {
-    observable$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => output.emit(value));
+  setupOutputs(observableToOutputMappings: ObservableOutputMap<Activity>[]) {
+    setupObservableToOutputMappings(observableToOutputMappings, this.destroy$);
   }
 }
