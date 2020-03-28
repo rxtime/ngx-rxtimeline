@@ -14,8 +14,7 @@ import {
 import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Options } from './options/options';
 
 @Component({
@@ -70,22 +69,6 @@ export class NgxD3timelineComponent
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  destroy$ = new Subject<boolean>();
-
-  constructor(public timeline: NgxD3TimelineService) {}
-
-  ngOnInit(): void {
-    this.observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
-  }
-
-  ngAfterViewInit(): void {
-    this.timeline.setupZoom(this.svgEl);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-  }
-
   private get observableToOutputMap(): [Observable<any>, EventEmitter<any>][] {
     return [
       [this.timeline.hoveredActivity$, this.hovered],
@@ -94,13 +77,17 @@ export class NgxD3timelineComponent
     ];
   }
 
-  private outputOnObservableEmit<T>([observable$, output]: [
-    Observable<T>,
-    EventEmitter<T>
-  ]) {
-    console.log(observable$);
-    observable$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => output.emit(value));
+  constructor(public timeline: NgxD3TimelineService) {}
+
+  ngOnInit(): void {
+    this.timeline.setupOutputs(this.observableToOutputMap);
+  }
+
+  ngAfterViewInit(): void {
+    this.timeline.setupZoom(this.svgEl);
+  }
+
+  ngOnDestroy(): void {
+    this.timeline.destroy$.next(true);
   }
 }

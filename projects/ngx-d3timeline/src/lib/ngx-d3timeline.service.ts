@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, EventEmitter } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -15,9 +15,12 @@ import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {
+  destroy$ = new Subject<boolean>();
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
@@ -61,5 +64,18 @@ export class NgxD3TimelineService {
 
   private zoomed() {
     this.store.dispatch(new fromActions.ZoomedAction(event));
+  }
+
+  setupOutputs<T>(observableToOutputMap: [Observable<T>, EventEmitter<T>][]) {
+    observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
+  }
+
+  private outputOnObservableEmit<T>([observable$, output]: [
+    Observable<T>,
+    EventEmitter<T>
+  ]) {
+    observable$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => output.emit(value));
   }
 }
