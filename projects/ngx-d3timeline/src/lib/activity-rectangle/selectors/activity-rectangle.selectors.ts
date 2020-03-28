@@ -6,7 +6,7 @@ import {
   selectCurrentlyDraggedActivityWithDraggedToResource
 } from '../../activity/activity.selectors';
 
-import { Point, origin } from '../../core/point';
+import { Point, origin, pointToTransform } from '../../core/point';
 import { TimelineDragEvent } from '../../drag/timeline-drag-event';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { PositionedActivity } from '../../activity/positioned-activity';
@@ -30,6 +30,7 @@ import {
 import { partial3, partial2, partial9 } from '../../core/partial';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
+import { ActivityContent } from '../activity-content';
 
 const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
@@ -68,8 +69,7 @@ function getMinBreadthToShowTitle(
 ) {
   return (
     activityTitleBreadthInTimeAxis(positionedActivity) +
-    activityPadding(positionedActivity.type) +
-    2 * strokeWidth
+    2 * activityPadding(positionedActivity.type)
   );
 }
 
@@ -145,8 +145,6 @@ function createActivityRectangle(
 ): ActivityRectangle {
   return {
     id: positionedActivity.id,
-    title: positionedActivity.title,
-    description: positionedActivity.description,
     type: positionedActivity.type,
     transform: transform(positionedActivity),
     width: width(positionedActivity),
@@ -156,7 +154,36 @@ function createActivityRectangle(
     disableDrag: disableDrag(positionedActivity.type),
     strokeWidth,
     showTitle: showTitle(positionedActivity),
-    padding: activityPadding(positionedActivity.type) + strokeWidth
+    content: getActivityConent(
+      positionedActivity,
+      width(positionedActivity),
+      height(positionedActivity),
+      activityPadding(positionedActivity.type),
+      fontSize(positionedActivity.type),
+      fontFace(positionedActivity.type)
+    )
+  };
+}
+
+function getActivityConent(
+  positionedActivity: PositionedActivity,
+  width: number,
+  height: number,
+  padding: number,
+  fontSize: number,
+  fontFace: string
+): ActivityContent {
+  return {
+    width: width - 2 * padding,
+    height: height - 2 * padding,
+    transform: pointToTransform({
+      x: padding,
+      y: padding
+    }),
+    title: positionedActivity.title,
+    description: positionedActivity.description,
+    fontSize: `${fontSize}px`,
+    fontFace
   };
 }
 

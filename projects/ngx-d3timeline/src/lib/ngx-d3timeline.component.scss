@@ -50,4 +50,14 @@
     fill-opacity: 0;
     stroke: #000;
   }
+
+  .activity-content-title {
+    font-weight: bold;
+  }
+
+  .activity-content-div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }

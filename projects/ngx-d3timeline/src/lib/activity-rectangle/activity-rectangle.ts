@@ -1,9 +1,8 @@
 import { identifier } from '../core/types';
+import { ActivityContent } from './activity-content';
 
 export interface ActivityRectangle {
   id: identifier;
-  title: string;
-  description: string;
   type: string;
   showTitle: boolean;
   transform: string;
@@ -13,5 +12,5 @@ export interface ActivityRectangle {
   fontSize: number;
   strokeWidth: number;
   disableDrag: boolean;
-  padding: number;
+  content: ActivityContent;
 }
