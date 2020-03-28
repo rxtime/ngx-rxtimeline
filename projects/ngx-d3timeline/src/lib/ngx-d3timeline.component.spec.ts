@@ -84,17 +84,35 @@ describe('NgxD3timelineComponent', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 
-  it('should render correctly', () => {
-    timeline.view$ = of(new View([800, 600]));
-    timeline.resourceAxis$ = of(null);
-    timeline.timeAxis$ = of(null);
-    timeline.resourceRectangles$ = of([
-      { id: 'resource1', width: 10, height: 10, transform: 'translate(50,50' },
-      { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
-    ]);
+  describe('view not null', () => {
+    beforeEach(() => {
+      timeline.view$ = of(new View([800, 600]));
+      timeline.resourceAxis$ = of(null);
+      timeline.timeAxis$ = of(null);
+      timeline.showRectangles$ = of(true);
+      timeline.resourceRectangles$ = of([
+        {
+          id: 'resource1',
+          width: 10,
+          height: 10,
+          transform: 'translate(50,50'
+        },
+        { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
+      ]);
+    });
 
-    fixture.detectChanges();
+    it('should render correctly', () => {
+      fixture.detectChanges();
 
-    expect(fixture.nativeElement).toMatchSnapshot();
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
+
+    it('should not render resource rectangles when showRectangles$ false', () => {
+      timeline.showRectangles$ = of(false);
+
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement).toMatchSnapshot();
+    });
   });
 });

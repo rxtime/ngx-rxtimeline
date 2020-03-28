@@ -8,7 +8,45 @@ exports[`NgxD3timelineComponent should not render if view null 1`] = `
 </div>
 `;
 
-exports[`NgxD3timelineComponent should render correctly 1`] = `
+exports[`NgxD3timelineComponent view not null should not render resource rectangles when showRectangles$ false 1`] = `
+<div
+  id="root2"
+>
+  
+  <svg
+    class="ngx-d3timeline"
+    height="600"
+    width="800"
+  >
+    <g
+      class="resources-axis"
+      ngx-d3timeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    
+    <g
+      class="time-axis"
+      ngx-d3timeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    <g
+      ngx-d3timeline-content=""
+    >
+      <g
+        class="content"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`NgxD3timelineComponent view not null should render correctly 1`] = `
 <div
   id="root1"
 >
@@ -27,6 +65,8 @@ exports[`NgxD3timelineComponent should render correctly 1`] = `
       />
     </g>
     
+    
+    
     <g
       ngx-d3timeline-resource-rectangle=""
     >
@@ -37,6 +77,7 @@ exports[`NgxD3timelineComponent should render correctly 1`] = `
     >
       <rect />
     </g>
+    
     <g
       class="time-axis"
       ngx-d3timeline-axis=""
