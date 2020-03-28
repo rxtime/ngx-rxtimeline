@@ -1,10 +1,5 @@
 import { createSelector } from '../store-lib/selector/create-selector';
-import {
-  getTickMark,
-  getTimeAxisTickValues,
-  getResourceAxisTickValues,
-  getTickPosition
-} from './tick-mark-utils';
+
 import {
   selectOrientedTimeScale,
   selectOrientedBandScale,
@@ -24,11 +19,27 @@ import {
   selectTimeAxisFontSize
 } from '../options/selectors/axis-options.selectors';
 import { partial4 } from '../core/partial';
+import { BandScale, TimeScale } from '../scales/scale-types';
+import { Orientation, flipOrientation } from '../core/orientation';
+import { Point, pointToTransform, origin } from '../core/point';
+import { TickMarkRenderer } from './tick-mark-renderer';
+import { TickMark } from './tick-mark';
+import { createOrientedLine } from '../core/line';
 
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
   viewTopLeft => getTickPosition.bind(null, viewTopLeft)
 );
+
+function getTickPosition(
+  viewTopLeft: Point,
+  orientation: Orientation,
+  range: number
+): Point {
+  return orientation === Orientation.Vertical
+    ? { ...viewTopLeft, y: range }
+    : { ...viewTopLeft, x: range };
+}
 
 const selectResourceAxisTickMarkRenderer = createSelector(
   selectOrientedBandScale,
@@ -58,15 +69,61 @@ const selectGetTimeAxisTickMark = createSelector(
   partial4(getTickMark)
 );
 
+function getTickMark(
+  tickPosition: (o: Orientation, range: number) => Point,
+  tickMarkRenderer: TickMarkRenderer,
+  fontFace: string,
+  fontSize: number,
+  tickValue: any
+): TickMark {
+  return {
+    label: tickMarkRenderer.getTickLabel(tickValue),
+    transform: pointToTransform(
+      tickPosition(
+        tickMarkRenderer.orientation,
+        tickMarkRenderer.mapTickValueToPositionInScale(tickValue)
+      )
+    ),
+    labelOffset: getTickLabelOffset(
+      tickMarkRenderer.getTickLabelSpacing(),
+      flipOrientation(tickMarkRenderer.orientation)
+    ),
+    line: getTickLine(
+      tickMarkRenderer.tickLineOffset,
+      flipOrientation(tickMarkRenderer.orientation)
+    ),
+    fontFace,
+    fontSize
+  };
+}
+
+function getTickLine(lineOffset: number, orientation: Orientation) {
+  return lineOffset && createOrientedLine(origin, lineOffset, orientation);
+}
+
+function getTickLabelOffset(labelSpacing: number, orientation: Orientation) {
+  return orientation === Orientation.Vertical
+    ? { ...origin, y: labelSpacing }
+    : { ...origin, x: labelSpacing };
+}
+
 export const selectResourceAxisTickValues = createSelector(
   selectBandScale,
   getResourceAxisTickValues
 );
 
+function getResourceAxisTickValues(scale: BandScale) {
+  return scale.domain();
+}
+
 export const selectTimeAxisTickValues = createSelector(
   selectTimeScale,
   getTimeAxisTickValues
 );
+
+function getTimeAxisTickValues(scale: TimeScale) {
+  return scale.ticks();
+}
 
 export const selectResourceAxisTickMarks = createSelector(
   selectResourceAxisTickValues,
