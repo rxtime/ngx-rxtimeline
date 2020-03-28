@@ -36,6 +36,18 @@
       "
     />
   </div>
+  <div>
+    <label>Show rectangles</label>
+    <input
+        type="checkbox"
+        [checked]="options.resource.showRectangles"
+        (change)="
+          update('resource', options.resource, {
+            showRectangles: !options.resource.showRectangles
+          })
+        "
+      />
+  </div>
 
   <button (click)="flipOrientation(options)">Flip Orientation</button>
   <span>{{ options.orientation }}</span>

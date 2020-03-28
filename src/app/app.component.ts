@@ -20,7 +20,8 @@ export class AppComponent {
     orientation: 'Vertical',
     resource: {
       gap: 0,
-      padding: 5
+      padding: 5,
+      showRectangles: true
     },
     activity: {
       fontFace: 'Arial',

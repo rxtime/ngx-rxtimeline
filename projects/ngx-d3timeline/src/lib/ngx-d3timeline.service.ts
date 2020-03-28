@@ -15,12 +15,14 @@ import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
+import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
+  showRectangles$ = this.store.select(selectResourceShowRectangles);
 
   activityDropped$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),
