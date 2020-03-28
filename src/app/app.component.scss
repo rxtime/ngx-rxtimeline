@@ -4,10 +4,16 @@
       rx: 5px;
     }
 
-    &.Driving rect {
-      rx: 0;
-      fill: #dadee0;
-      stroke: #4e585e;
+    &.Driving {
+      rect {
+        rx: 0;
+        fill: #dadee0;
+        stroke: #4e585e;
+      }
+
+      .activity-content-div {
+        text-align: right;
+      }
     }
 
     &.Waiting rect {
