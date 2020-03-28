@@ -3,8 +3,7 @@ import { selectOptions } from '../../store/state';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { selectTypeOptions } from './type-options.selectors';
 import { partial1, partial2 } from '../../core/partial';
-import { getTypeActivityOptions } from '../options-utils';
-import { ActivityOptions } from '../options';
+import { ActivityOptions, TypeOptions } from '../options';
 
 const selectActivityOptions = createSelector(
   selectOptions,
@@ -15,6 +14,13 @@ const selectTypeActivityOptions = createSelector(
   selectTypeOptions,
   partial1(getTypeActivityOptions)
 );
+
+function getTypeActivityOptions(
+  typeOptions: (type: string) => TypeOptions,
+  type: string
+): ActivityOptions {
+  return typeOptions(type) && typeOptions(type).activity;
+}
 
 const selectGetTypeActivityOption = <T>(
   key: string

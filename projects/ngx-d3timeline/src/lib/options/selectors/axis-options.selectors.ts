@@ -1,12 +1,6 @@
 import { selectOptions } from '../../store/state';
 import { createSelector } from '../../store-lib/selector/create-selector';
-import {
-  getShowGridLines,
-  getTickLineOffset,
-  getShowAxisLine,
-  getFontFace,
-  getFontSize
-} from '../options-utils';
+import { AxisOptions } from '../options';
 
 export const selectResourceAxisOptions = createSelector(
   selectOptions,
@@ -28,6 +22,10 @@ export const selectTimeAxisShowGridLines = createSelector(
   getShowGridLines
 );
 
+function getShowGridLines(axisOptions: AxisOptions): boolean {
+  return axisOptions.showGridLines;
+}
+
 export const selectResourceAxisShowAxisLine = createSelector(
   selectResourceAxisOptions,
   getShowAxisLine
@@ -37,6 +35,10 @@ export const selectTimeAxisShowAxisLines = createSelector(
   selectTimeAxisOptions,
   getShowAxisLine
 );
+
+function getShowAxisLine(axisOptions: AxisOptions): boolean {
+  return axisOptions.showAxisLine;
+}
 
 export const selectResourceAxisTickLineOffset = createSelector(
   selectResourceAxisOptions,
@@ -48,6 +50,10 @@ export const selectTimeAxisTickLineOffset = createSelector(
   getTickLineOffset
 );
 
+function getTickLineOffset(axisOptions: AxisOptions): number {
+  return axisOptions.tickLineLength * -1;
+}
+
 export const selectResourceAxisFontFace = createSelector(
   selectResourceAxisOptions,
   getFontFace
@@ -58,6 +64,10 @@ export const selectTimeAxisFontFace = createSelector(
   getFontFace
 );
 
+function getFontFace(axisOptions: AxisOptions): string {
+  return axisOptions.fontFace;
+}
+
 export const selectResourceAxisFontSize = createSelector(
   selectResourceAxisOptions,
   getFontSize
@@ -67,3 +77,7 @@ export const selectTimeAxisFontSize = createSelector(
   selectTimeAxisOptions,
   getFontSize
 );
+
+function getFontSize(axisOptions: AxisOptions): number {
+  return axisOptions.fontSize;
+}
