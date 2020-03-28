@@ -1,6 +1,6 @@
-export function partialApply<TInput, TBoundArgs extends any[], TOut>(
-  func: (input: TInput, ...boundArgs: TBoundArgs) => TOut
-): (...boundArgs: TBoundArgs) => (input: TInput) => TOut {
-  return (...boundArgs: TBoundArgs) => (input: TInput) =>
-    func.call(null, input, ...boundArgs);
+export function partialApply<TInput, TAppliedArgs extends any[], TOut>(
+  func: (input: TInput, ...appliedArgs: TAppliedArgs) => TOut
+): (...appliedArgs: TAppliedArgs) => (input: TInput) => TOut {
+  return (...appliedArgs: TAppliedArgs) => (input: TInput) =>
+    func.call(null, input, ...appliedArgs);
 }
