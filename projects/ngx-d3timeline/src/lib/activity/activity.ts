@@ -6,6 +6,7 @@ export interface Activity extends Identifiable {
   start: Date;
   finish: Date;
   type?: string;
+  description?: string;
   resource?: string;
   title?: string;
   sequence?: number;

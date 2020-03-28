@@ -47,6 +47,7 @@ describe('ContentComponent', () => {
       {
         id: 1,
         title: 'Activity 1',
+        description: 'Activity 1 description',
         transform: 'translate(50,0)',
         type: 'Driving',
         width: 50,
@@ -61,6 +62,7 @@ describe('ContentComponent', () => {
       {
         id: 2,
         title: 'Activity 2',
+        description: 'Activity 2 description',
         transform: 'translate(130,0)',
         type: 'Driving',
         width: 60,
