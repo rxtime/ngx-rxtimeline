@@ -86,7 +86,7 @@ export class NgxD3timelineComponent
     this.destroy$.next(true);
   }
 
-  private get observableToOutputMap() {
+  private get observableToOutputMap(): [Observable<any>, EventEmitter<any>][] {
     return [
       [this.timeline.hoveredActivity$, this.hovered],
       [this.timeline.unhoveredActivity$, this.unhovered],
