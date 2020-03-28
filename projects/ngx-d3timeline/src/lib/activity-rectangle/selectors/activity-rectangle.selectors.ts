@@ -145,7 +145,8 @@ function createActivityRectangle(
 ): ActivityRectangle {
   return {
     id: positionedActivity.id,
-    title: positionedActivity.type,
+    title: positionedActivity.title,
+    description: positionedActivity.description,
     type: positionedActivity.type,
     transform: transform(positionedActivity),
     width: width(positionedActivity),

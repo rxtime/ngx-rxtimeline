@@ -57,6 +57,15 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
       >
          Activity 1 
       </text>
+      <text
+        dominant-baseline="hanging"
+        dx="5"
+        dy="19"
+        font-family="Arial"
+        font-size="10"
+      >
+         Activity 1 description 
+      </text>
     </g>
   </g>
 </div>

@@ -35,6 +35,15 @@ import { ActivityRectangleService } from './activity-rectangle.service';
         >
           {{ activityRectangle.title }}
         </svg:text>
+        <svg:text
+          dominant-baseline="hanging"
+          [attr.dx]="activityRectangle.padding"
+          [attr.dy]="activityRectangle.padding + 14"
+          [attr.font-family]="activityRectangle.fontFace"
+          [attr.font-size]="activityRectangle.fontSize"
+        >
+          {{ activityRectangle.description }}
+        </svg:text>
       </svg:g>
     </svg:g>
   `,
