@@ -18,7 +18,7 @@ import {
   selectTimeAxisFontFace,
   selectTimeAxisFontSize
 } from '../options/selectors/axis-options.selectors';
-import { partial4 } from '../core/partial';
+import { partialApply } from '../core/function-utils';
 import { BandScale, TimeScale } from '../scales/scale-types';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point, pointToTransform, origin } from '../core/point';
@@ -58,7 +58,7 @@ const selectGetResourceAxisTickMark = createSelector(
   selectResourceAxisTickMarkRenderer,
   selectResourceAxisFontFace,
   selectResourceAxisFontSize,
-  partial4(getTickMark)
+  partialApply(getTickMark)
 );
 
 const selectGetTimeAxisTickMark = createSelector(
@@ -66,15 +66,15 @@ const selectGetTimeAxisTickMark = createSelector(
   selectTimeAxisTickMarkRenderer,
   selectTimeAxisFontFace,
   selectTimeAxisFontSize,
-  partial4(getTickMark)
+  partialApply(getTickMark)
 );
 
 function getTickMark(
+  tickValue: any,
   tickPosition: (o: Orientation, range: number) => Point,
   tickMarkRenderer: TickMarkRenderer,
   fontFace: string,
-  fontSize: number,
-  tickValue: any
+  fontSize: number
 ): TickMark {
   return {
     label: tickMarkRenderer.getTickLabel(tickValue),

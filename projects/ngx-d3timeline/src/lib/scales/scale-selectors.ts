@@ -3,7 +3,7 @@ import {
   selectPositionedActivities,
   selectView,
   selectZoomEvent
-} from '../store/state'; // TODO use barelling?
+} from '../store/state';
 import {
   selectResourceOrientation,
   selectTimeOrientation
@@ -16,11 +16,11 @@ import { Orientation } from '../core/orientation';
 import { TimeScale, BandScale } from './scale-types';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { min, max } from 'd3-array';
-import { partial1 } from '../core/partial';
+import { partialApply } from '../core/function-utils';
 
-const selectScaleRange = createSelector(selectView, partial1(getRange));
+const selectScaleRange = createSelector(selectView, partialApply(getRange));
 
-function getRange(view: View, orientation: Orientation): [number, number] {
+function getRange(orientation: Orientation, view: View): [number, number] {
   return orientation === Orientation.Vertical
     ? [view.top, view.bottom]
     : [view.left, view.right];

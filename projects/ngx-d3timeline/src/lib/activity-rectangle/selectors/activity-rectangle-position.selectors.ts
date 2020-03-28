@@ -8,19 +8,19 @@ import { selectGetActivityLateralMargin } from '../../options/selectors/activity
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point, translatePoint, pointToTransform } from '../../core/point';
-import { partial3, partial2, partial1, partial4 } from '../../core/partial';
+import { partialApply } from '../../core/function-utils';
 import { BandScale, TimeScale } from '../../scales/scale-types';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { Orientation } from '../../core/orientation';
 
 const selectGetPositionInTimeAxis = createSelector(
   selectTimeScale,
-  partial1(getPositionInTimeAxis)
+  partialApply(getPositionInTimeAxis)
 );
 
 function getPositionInTimeAxis(
-  timeScale: TimeScale,
-  positionedActivity: PositionedActivity
+  positionedActivity: PositionedActivity,
+  timeScale: TimeScale
 ): number {
   return timeScale(positionedActivity.updatedStart);
 }
@@ -30,15 +30,15 @@ const selectGetPositionInResourceAxis = createSelector(
   selectResourcePadding,
   selectGetActivityLateralMargin,
   selectStrokeWidth,
-  partial4(getPositionInResourceAxis)
+  partialApply(getPositionInResourceAxis)
 );
 
 function getPositionInResourceAxis(
+  positionedActivity: PositionedActivity,
   bandScale: BandScale,
   resourcePadding: number,
   getActivityLateralMargin: (type: string) => number,
-  strokeWidth: number,
-  positionedActivity: PositionedActivity
+  strokeWidth: number
 ): number {
   return (
     bandScale(positionedActivity.updatedResource) +
@@ -52,14 +52,14 @@ const selectGetActivityX = createSelector(
   selectTimeOrientation,
   selectGetPositionInResourceAxis,
   selectGetPositionInTimeAxis,
-  partial3(getActivityX)
+  partialApply(getActivityX)
 );
 
 function getActivityX(
+  positionedActivity: PositionedActivity,
   timeOrientation: Orientation,
   positionInResourceAxis: (p: PositionedActivity) => number,
-  positionInTimeAxis: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  positionInTimeAxis: (p: PositionedActivity) => number
 ): number {
   return timeOrientation === Orientation.Vertical
     ? positionInResourceAxis(positionedActivity)
@@ -70,14 +70,14 @@ const selectGetActivityY = createSelector(
   selectTimeOrientation,
   selectGetPositionInResourceAxis,
   selectGetPositionInTimeAxis,
-  partial3(getActivityY)
+  partialApply(getActivityY)
 );
 
 function getActivityY(
+  positionedActivity: PositionedActivity,
   timeOrientation: Orientation,
   positionInResourceAxis: (p: PositionedActivity) => number,
-  positionInTimeAxis: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  positionInTimeAxis: (p: PositionedActivity) => number
 ): number {
   return timeOrientation === Orientation.Vertical
     ? positionInTimeAxis(positionedActivity)
@@ -87,13 +87,13 @@ function getActivityY(
 const selectGetActivityTopLeft = createSelector(
   selectGetActivityX,
   selectGetActivityY,
-  partial2(getActivityTopLeft)
+  partialApply(getActivityTopLeft)
 );
 
 function getActivityTopLeft(
+  positionedActivity: PositionedActivity,
   x: (p: PositionedActivity) => number,
-  y: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  y: (p: PositionedActivity) => number
 ): Point {
   return { x: x(positionedActivity), y: y(positionedActivity) };
 }
@@ -104,13 +104,13 @@ const selectGetOffsetActivityTopLeft = (
   createSelector(
     selectGetActivityTopLeft,
     selectOffset,
-    partial2(getOffsetActivityTopLeft)
+    partialApply(getOffsetActivityTopLeft)
   );
 
 function getOffsetActivityTopLeft(
+  positionedActivity: PositionedActivity,
   activityTopLeft: (p: PositionedActivity) => Point,
-  offset: Point,
-  positionedActivity: PositionedActivity
+  offset: Point
 ): Point {
   return translatePoint(activityTopLeft(positionedActivity), offset);
 }
@@ -125,12 +125,12 @@ export const selectGetActivityTransform = (
 ) =>
   createSelector(
     createSelectTopLeft(selectOffset),
-    partial1(getActivityTransform)
+    partialApply(getActivityTransform)
   );
 
 function getActivityTransform(
-  activityTopLeft: (p: PositionedActivity) => Point,
-  positionedActivity: PositionedActivity
+  positionedActivity: PositionedActivity,
+  activityTopLeft: (p: PositionedActivity) => Point
 ): string {
   return pointToTransform(activityTopLeft(positionedActivity));
 }

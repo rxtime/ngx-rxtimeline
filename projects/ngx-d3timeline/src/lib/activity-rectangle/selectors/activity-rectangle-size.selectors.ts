@@ -6,20 +6,19 @@ import {
 } from '../../options/selectors/options.selectors';
 import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
-
-import { partial1, partial3, partial4 } from '../../core/partial';
+import { partialApply } from '../../core/function-utils';
 import { TimeScale, BandScale } from '../../scales/scale-types';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { Orientation } from '../../core/orientation';
 
 export const selectGetRectBreadthInTimeAxis = createSelector(
   selectTimeScale,
-  partial1(getRectBreadthInTimeAxis)
+  partialApply(getRectBreadthInTimeAxis)
 );
 
 function getRectBreadthInTimeAxis(
-  timeScale: TimeScale,
-  positionedActivity: PositionedActivity
+  positionedActivity: PositionedActivity,
+  timeScale: TimeScale
 ): number {
   return (
     timeScale(positionedActivity.finish) - timeScale(positionedActivity.start)
@@ -31,15 +30,15 @@ const selectGetRectBreadthInResourceAxis = createSelector(
   selectResourcePadding,
   selectGetActivityLateralMargin,
   selectStrokeWidth,
-  partial4(getRectBreadthInResourceAxis)
+  partialApply(getRectBreadthInResourceAxis)
 );
 
 function getRectBreadthInResourceAxis(
+  positionedActivity: PositionedActivity,
   bandScale: BandScale,
   resourcePadding: number,
   activityLateralMargin: (type: string) => number,
-  strokeWidth: number,
-  positionedActivity: PositionedActivity
+  strokeWidth: number
 ) {
   return (
     bandScale.bandwidth() -
@@ -53,14 +52,14 @@ export const selectGetRectHeight = createSelector(
   selectTimeOrientation,
   selectGetRectBreadthInTimeAxis,
   selectGetRectBreadthInResourceAxis,
-  partial3(getRectHeight)
+  partialApply(getRectHeight)
 );
 
 function getRectHeight(
+  positionedActivity: PositionedActivity,
   timeOrientation: Orientation,
   rectBreadthInTimeAxis: (p: PositionedActivity) => number,
-  rectBreadthInResourceAxis: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  rectBreadthInResourceAxis: (p: PositionedActivity) => number
 ): number {
   return timeOrientation === Orientation.Vertical
     ? rectBreadthInTimeAxis(positionedActivity)
@@ -71,14 +70,14 @@ export const selectGetRectWidth = createSelector(
   selectTimeOrientation,
   selectGetRectBreadthInTimeAxis,
   selectGetRectBreadthInResourceAxis,
-  partial3(getRectWidth)
+  partialApply(getRectWidth)
 );
 
 function getRectWidth(
+  positionedActivity: PositionedActivity,
   timeOrientation: Orientation,
   rectBreadthInTimeAxis: (p: PositionedActivity) => number,
-  rectBreadthInResourceAxis: (p: PositionedActivity) => number,
-  positionedActivity: PositionedActivity
+  rectBreadthInResourceAxis: (p: PositionedActivity) => number
 ) {
   return timeOrientation === Orientation.Vertical
     ? rectBreadthInResourceAxis(positionedActivity)
