@@ -1,5 +1,4 @@
 import { createSelector } from '../store-lib/selector/create-selector';
-import { getAxis, getAxisLine, getTickGridLine } from './axis-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
   selectResourceAxisTickMarks,
@@ -8,7 +7,7 @@ import {
   selectResourceAxisTickValues,
   selectGetTickPosition
 } from '../tick-mark/tick-mark.selector';
-import { Line } from '../core/line';
+import { Line, createOrientedLine, createLine } from '../core/line';
 import {
   selectOrientedBandScale,
   selectOrientedTimeScale
@@ -23,8 +22,32 @@ import {
   selectResourceAxisShowAxisLine
 } from '../options/selectors/axis-options.selectors';
 import { partial1, partial3 } from '../core/partial';
+import { TickMark } from '../tick-mark/tick-mark';
+import { Axis } from './axis';
+import { Orientation, flipOrientation } from '../core/orientation';
+import { Point } from '../core/point';
+import { View } from '../view/view';
 
-const selectAxisLine = createSelector(selectViewTopLeft, partial1(getAxisLine));
+const selectGetAxisLine = createSelector(
+  selectViewTopLeft,
+  partial1(getAxisLine)
+);
+
+function getAxisLine(
+  viewTopLeft: Point,
+  orientedScale: OrientedScale<Scale>
+): Line {
+  return createLine(viewTopLeft, getAxisEndPoint(viewTopLeft, orientedScale));
+}
+
+function getAxisEndPoint(
+  viewTopLeft: Point,
+  orientedScale: OrientedScale<Scale>
+): Point {
+  return orientedScale.orientation === Orientation.Vertical
+    ? { ...viewTopLeft, y: getRangeLimit(orientedScale.scale) }
+    : { ...viewTopLeft, x: getRangeLimit(orientedScale.scale) };
+}
 
 const selectGetResourceAxisGridLine = createSelector(
   selectGetTickPosition,
@@ -39,6 +62,27 @@ const selectGetTimeAxisGridLine = createSelector(
   selectOrientedBandScale,
   partial3(getTickGridLine)
 );
+
+function getTickGridLine(
+  tickPosition: (o: Orientation, range: number) => Point,
+  orientedScale: OrientedScale<Scale>,
+  otherOrientedScale: OrientedScale<Scale>,
+  tickValue: any
+): Line {
+  return createOrientedLine(
+    tickPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
+    getGridLineLength(otherOrientedScale),
+    flipOrientation(orientedScale.orientation)
+  );
+}
+
+function getGridLineLength(orientedScale: OrientedScale<Scale>) {
+  return getRangeLimit(orientedScale.scale) - View.margin;
+}
+
+function getRangeLimit(scale: Scale): number {
+  return scale.range()[1];
+}
 
 const selectResourceAxisGridLines = createSelector(
   selectResourceAxisTickValues,
@@ -55,14 +99,14 @@ const selectTimeAxisGridLines = createSelector(
 const selectResourceAxisLine = createSelector(
   selectResourceAxisShowAxisLine,
   selectOrientedBandScale,
-  selectAxisLine,
+  selectGetAxisLine,
   axisLineFromOrientedScale
 );
 
 const selectTimeAxisLine = createSelector(
   selectTimeAxisShowAxisLines,
   selectOrientedTimeScale,
-  selectAxisLine,
+  selectGetAxisLine,
   axisLineFromOrientedScale
 );
 
@@ -81,6 +125,20 @@ export const selectTimeAxis = createSelector(
   selectTimeAxisGridLines,
   getAxis
 );
+
+function getAxis(
+  line: Line,
+  tickMarks: TickMark[],
+  showGridLines: boolean,
+  gridLines: Line[]
+): Axis {
+  return {
+    line,
+    tickMarks,
+    showGridLines,
+    gridLines
+  };
+}
 
 function axisLineFromOrientedScale(
   showAxisLine: boolean,
