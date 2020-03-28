@@ -22,7 +22,7 @@ export class NgxD3TimelineService {
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
 
-  lastDraggedActivity$ = this.store.select(selectLastDraggedActivity).pipe(
+  activityDropped$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),
     distinctUntilChanged(),
     map(getActivityFromPositionedActivity)
