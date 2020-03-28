@@ -47,25 +47,12 @@ exports[`ActivityRectangleComponent should render correctly 1`] = `
       width="50"
     />
     
-    <g>
-      <text
-        dominant-baseline="hanging"
-        dx="5"
-        dy="5"
-        font-family="Arial"
-        font-size="10"
-      >
-         Activity 1 
-      </text>
-      <text
-        dominant-baseline="hanging"
-        dx="5"
-        dy="19"
-        font-family="Arial"
-        font-size="10"
-      >
-         Activity 1 description 
-      </text>
+    <g
+      ngx-d3timeline-activity-content=""
+    >
+      <foreignobject
+        class="activity-content"
+      />
     </g>
   </g>
 </div>

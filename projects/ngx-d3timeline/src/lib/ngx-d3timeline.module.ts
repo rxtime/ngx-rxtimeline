@@ -8,6 +8,7 @@ import { AxisTickMarkComponent } from './tick-mark/axis-tick-mark.component';
 import { AxisComponent } from './axis/axis-component';
 import { ClipPathComponent } from './content/clip-path.component';
 import { ResourceRectangleComponent } from './resource-rectangle/resource-rectangle.component';
+import { ActivityContentComponent } from './activity-rectangle/activity-content.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ResourceRectangleComponent } from './resource-rectangle/resource-rectan
     AxisTickMarkComponent,
     AxisComponent,
     ClipPathComponent,
-    ResourceRectangleComponent
+    ResourceRectangleComponent,
+    ActivityContentComponent
   ],
   imports: [CommonModule],
   exports: [NgxD3timelineComponent]

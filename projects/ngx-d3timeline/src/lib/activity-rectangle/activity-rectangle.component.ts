@@ -25,26 +25,11 @@ import { ActivityRectangleService } from './activity-rectangle.service';
         [attr.stroke-width]="activityRectangle.strokeWidth"
         [class.draggable]="!activityRectangle.disableDrag"
       ></svg:rect>
-      <svg:g *ngIf="activityRectangle.showTitle">
-        <svg:text
-          dominant-baseline="hanging"
-          [attr.dx]="activityRectangle.padding"
-          [attr.dy]="activityRectangle.padding"
-          [attr.font-family]="activityRectangle.fontFace"
-          [attr.font-size]="activityRectangle.fontSize"
-        >
-          {{ activityRectangle.title }}
-        </svg:text>
-        <svg:text
-          dominant-baseline="hanging"
-          [attr.dx]="activityRectangle.padding"
-          [attr.dy]="activityRectangle.padding + 14"
-          [attr.font-family]="activityRectangle.fontFace"
-          [attr.font-size]="activityRectangle.fontSize"
-        >
-          {{ activityRectangle.description }}
-        </svg:text>
-      </svg:g>
+      <svg:g
+        *ngIf="activityRectangle.showTitle"
+        ngx-d3timeline-activity-content
+        [content]="activityRectangle.content"
+      ></svg:g>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
