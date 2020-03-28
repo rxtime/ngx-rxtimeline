@@ -18,12 +18,12 @@ import { ActivityRectangleService } from './activity-rectangle.service';
       *ngIf="activityRectangle"
       #activityRectangleEl
       [ngClass]="activityRectangle.type"
+      [class.draggable]="!activityRectangle.disableDrag"
     >
       <svg:rect
         [attr.height]="activityRectangle.height"
         [attr.width]="activityRectangle.width"
         [attr.stroke-width]="activityRectangle.strokeWidth"
-        [class.draggable]="!activityRectangle.disableDrag"
       ></svg:rect>
       <svg:g
         *ngIf="activityRectangle.showTitle"
