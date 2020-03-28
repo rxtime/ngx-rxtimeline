@@ -23,11 +23,12 @@
   }
 
   .activity-rectangle {
+    cursor: default;
     rect {
       fill: #fff;
       stroke: #000;
     }
-    .draggable {
+    &.draggable {
       cursor: move;
     }
   }
@@ -59,5 +60,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: inherit;
+  }
+
+  text {
+    cursor: default;
   }
 }
