@@ -14,7 +14,7 @@ import {
 import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Options } from './options/options';
 
@@ -72,20 +72,16 @@ export class NgxD3timelineComponent
 
   destroy$ = new Subject<boolean>();
 
+  private observableToOutputMap: [Observable<any>, EventEmitter<any>][] = [
+    [this.timeline.hoveredActivity$, this.hovered],
+    [this.timeline.unhoveredActivity$, this.unhovered],
+    [this.timeline.lastDraggedActivity$, this.activityDropped]
+  ];
+
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.timeline.lastDraggedActivity$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(activity => this.activityDropped.emit(activity));
-
-    this.timeline.hoveredActivity$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(activity => this.hovered.emit(activity));
-
-    this.timeline.unhoveredActivity$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(activity => this.unhovered.emit(activity));
+    this.observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
   }
 
   ngAfterViewInit(): void {
@@ -94,5 +90,14 @@ export class NgxD3timelineComponent
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
+  }
+
+  private outputOnObservableEmit<T>([observable$, output]: [
+    Observable<T>,
+    EventEmitter<T>
+  ]) {
+    observable$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => output.emit(value));
   }
 }
