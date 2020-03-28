@@ -46,8 +46,6 @@ describe('ContentComponent', () => {
     mockActivityRectangles = [
       {
         id: 1,
-        title: 'Activity 1',
-        description: 'Activity 1 description',
         transform: 'translate(50,0)',
         type: 'Driving',
         width: 50,
@@ -57,12 +55,10 @@ describe('ContentComponent', () => {
         fontFace: 'Arial',
         strokeWidth: 1,
         disableDrag: false,
-        padding: 5
+        content: null
       },
       {
         id: 2,
-        title: 'Activity 2',
-        description: 'Activity 2 description',
         transform: 'translate(130,0)',
         type: 'Driving',
         width: 60,
@@ -72,7 +68,7 @@ describe('ContentComponent', () => {
         fontFace: 'Arial',
         strokeWidth: 1,
         disableDrag: false,
-        padding: 5
+        content: null
       }
     ];
   });

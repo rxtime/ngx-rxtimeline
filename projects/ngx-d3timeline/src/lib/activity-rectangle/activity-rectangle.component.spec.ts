@@ -1,12 +1,24 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ActivityRectangleComponent } from './activity-rectangle.component';
+import { Component, Input } from '@angular/core';
+import { ActivityContent } from './activity-content';
+
+@Component({
+  selector: '[ngx-d3timeline-activity-content]',
+  template: `
+    <svg:foreignObject class="activity-content"> </svg:foreignObject>
+  `
+})
+class ActivityContentComponent {
+  @Input() content: ActivityContent;
+}
 
 describe('ActivityRectangleComponent', () => {
   let fixture: ComponentFixture<ActivityRectangleComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ActivityRectangleComponent]
+      declarations: [ActivityRectangleComponent, ActivityContentComponent]
     });
 
     fixture = TestBed.createComponent(ActivityRectangleComponent);
@@ -23,8 +35,6 @@ describe('ActivityRectangleComponent', () => {
   it('should render correctly', () => {
     fixture.componentInstance.activityRectangle = {
       id: 1,
-      title: 'Activity 1',
-      description: 'Activity 1 description',
       type: 'Driving',
       transform: 'translate(50,0)',
       width: 50,
@@ -34,7 +44,7 @@ describe('ActivityRectangleComponent', () => {
       fontFace: 'Arial',
       strokeWidth: 1,
       disableDrag: false,
-      padding: 5
+      content: null
     };
 
     fixture.detectChanges();
@@ -45,8 +55,6 @@ describe('ActivityRectangleComponent', () => {
   it('should hide title when showTitle false', () => {
     fixture.componentInstance.activityRectangle = {
       id: 1,
-      title: 'Activity 1',
-      description: 'Activity 2 description',
       transform: 'translate(50,0)',
       type: 'Driving',
       width: 50,
@@ -56,7 +64,7 @@ describe('ActivityRectangleComponent', () => {
       fontFace: 'Arial',
       strokeWidth: 1,
       disableDrag: false,
-      padding: 5
+      content: null
     };
 
     fixture.detectChanges();
