@@ -16,71 +16,49 @@ import { Orientation } from '../core/orientation';
 import { TimeScale, BandScale } from './scale-types';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { min, max } from 'd3-array';
+import { partial1 } from '../core/partial';
 
-export const selectBandScale = createSelector(
-  selectPositionedActivities,
-  selectView,
-  selectResourceOrientation,
-  selectResourceGap,
-  configureBandScale
-);
+const selectScaleRange = createSelector(selectView, partial1(getRange));
 
-function configureBandScale(
-  activities: Activity[],
-  view: View,
-  orientation: Orientation,
-  resourceGap: number
-): BandScale {
-  return scaleBand()
-    .domain(getBandScaleDomain(activities))
-    .range(getRange(view, orientation))
-    .paddingInner(resourceGap);
+function getRange(view: View, orientation: Orientation): [number, number] {
+  return orientation === Orientation.Vertical
+    ? [view.top, view.bottom]
+    : [view.left, view.right];
 }
+
+const selectBandScaleDomain = createSelector(
+  selectPositionedActivities,
+  getBandScaleDomain
+);
 
 function getBandScaleDomain(activities: Activity[]): string[] {
   return [...new Set(activities.map(activity => activity.resource))];
 }
 
-export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
-  scale.bandwidth()
+export const selectBandScale = createSelector(
+  selectBandScaleDomain,
+  selectScaleRange,
+  selectResourceOrientation,
+  selectResourceGap,
+  getBandScale
 );
 
-export const selectTimeScale = createSelector(
+function getBandScale(
+  domain: string[],
+  range: (o: Orientation) => [number, number],
+  orientation: Orientation,
+  resourceGap: number
+): BandScale {
+  return scaleBand()
+    .domain(domain)
+    .range(range(orientation))
+    .paddingInner(resourceGap);
+}
+
+const selectTimeScaleDomain = createSelector(
   selectPositionedActivities,
-  selectView,
-  selectTimeOrientation,
-  selectZoomEvent,
-  rescaleTime
+  getTimeScaleDomain
 );
-
-function rescaleTime(
-  activities: Activity[],
-  view: View,
-  timeOrientation: Orientation,
-  event: any
-): TimeScale {
-  const unscaledTimeScale = configureTimeScale(
-    activities,
-    view,
-    timeOrientation
-  );
-
-  return event
-    ? timeOrientation === Orientation.Vertical
-      ? event.transform.rescaleY(unscaledTimeScale)
-      : event.transform.rescaleX(unscaledTimeScale)
-    : unscaledTimeScale;
-}
-
-function configureTimeScale(
-  activities: Activity[],
-  view: View,
-  orientation: Orientation
-): TimeScale {
-  return scaleTime()
-    .domain(getTimeScaleDomain(activities))
-    .range(getRange(view, orientation));
-}
 
 function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
   return [
@@ -89,10 +67,40 @@ function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
   ];
 }
 
-function getRange(view: View, orientation: Orientation): [number, number] {
-  return orientation === Orientation.Vertical
-    ? [view.top, view.bottom]
-    : [view.left, view.right];
+const selectUnscaledTimeScale = createSelector(
+  selectTimeScaleDomain,
+  selectScaleRange,
+  selectTimeOrientation,
+  getTimeScale
+);
+
+function getTimeScale(
+  domain: [Date, Date],
+  range: (o: Orientation) => [number, number],
+  orientation: Orientation
+): TimeScale {
+  return scaleTime()
+    .domain(domain)
+    .range(range(orientation));
+}
+
+export const selectTimeScale = createSelector(
+  selectUnscaledTimeScale,
+  selectTimeOrientation,
+  selectZoomEvent,
+  rescaleTime
+);
+
+function rescaleTime(
+  unscaledTimeScale: TimeScale,
+  timeOrientation: Orientation,
+  event: any
+): TimeScale {
+  return event
+    ? timeOrientation === Orientation.Vertical
+      ? event.transform.rescaleY(unscaledTimeScale)
+      : event.transform.rescaleX(unscaledTimeScale)
+    : unscaledTimeScale;
 }
 
 export const selectOrientedTimeScale = createSelector(
@@ -105,4 +113,8 @@ export const selectOrientedBandScale = createSelector(
   selectBandScale,
   selectResourceOrientation,
   getOrientedScale
+);
+
+export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
+  scale.bandwidth()
 );
