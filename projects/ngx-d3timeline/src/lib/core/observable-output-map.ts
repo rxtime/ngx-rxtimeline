@@ -7,8 +7,8 @@ export interface ObservableOutputMap<T> {
   output: EventEmitter<T>;
 }
 
-export function setupObservableToOutputMappings<T>(
-  observableToOutputMap: ObservableOutputMap<T>[],
+export function setupObservableToOutputMappings(
+  observableToOutputMap: ObservableOutputMap<any>[],
   destroy$: Subject<boolean>
 ) {
   observableToOutputMap.forEach(map =>
