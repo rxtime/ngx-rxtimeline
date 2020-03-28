@@ -69,7 +69,7 @@ describe('NgxD3timelineComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NgxD3timelineComponent);
     timeline = TestBed.inject(NgxD3TimelineService);
-    timeline.lastDraggedActivity$ = of(null);
+    timeline.activityDropped$ = of(null);
     timeline.hoveredActivity$ = of(null);
     timeline.unhoveredActivity$ = of(null);
 

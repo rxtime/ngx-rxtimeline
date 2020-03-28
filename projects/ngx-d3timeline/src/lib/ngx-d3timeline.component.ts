@@ -90,7 +90,7 @@ export class NgxD3timelineComponent
     return [
       [this.timeline.hoveredActivity$, this.hovered],
       [this.timeline.unhoveredActivity$, this.unhovered],
-      [this.timeline.lastDraggedActivity$, this.activityDropped]
+      [this.timeline.activityDropped$, this.activityDropped]
     ];
   }
 
