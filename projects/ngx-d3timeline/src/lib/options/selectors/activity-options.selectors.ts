@@ -22,32 +22,36 @@ function getTypeActivityOptions(
   return typeOptions(type) && typeOptions(type).activity;
 }
 
-const selectGetTypeActivityOption = <T>(
-  key: string
-): MemoizedSelector<(type: string) => T> =>
+const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
   createSelector(
     selectTypeActivityOptions,
     options =>
-      getTypeActivityOption.bind(null, options, key) as (type: string) => T
+      getTypeActivityOption.bind(null, options, key) as (
+        type: string
+      ) => ActivityOptions[TOption]
   );
 
-function getTypeActivityOption<T>(
+function getTypeActivityOption<TOption extends keyof ActivityOptions>(
   typeActivityOptions: (type: string) => ActivityOptions,
-  key: string,
+  key: TOption,
   type: string
-): T {
+): ActivityOptions[TOption] {
   return typeActivityOptions(type) && typeActivityOptions(type)[key];
 }
 
-const selectGetGlobalActivityOption = <T>(key: string): MemoizedSelector<T> =>
+const selectGetGlobalActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<ActivityOptions[TOption]> =>
   createSelector(selectActivityOptions, options => options[key]);
 
-const selectGetActivityOption = <T>(
-  key: string
-): MemoizedSelector<(type: string) => T> =>
+const selectGetActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
   createSelector(
-    selectGetTypeActivityOption<T>(key),
-    selectGetGlobalActivityOption<T>(key),
+    selectGetTypeActivityOption(key),
+    selectGetGlobalActivityOption(key),
     partialApply(getActivityOption)
   );
 
@@ -59,18 +63,12 @@ function getActivityOption<T>(
   return typeActivityOption(type) || globalActivityOption;
 }
 
-export const selectGetActivityLateralMargin = selectGetActivityOption<number>(
+export const selectGetActivityLateralMargin = selectGetActivityOption(
   'lateralMargin'
 );
-export const selectGetActivityDisableDrag = selectGetActivityOption<boolean>(
+export const selectGetActivityDisableDrag = selectGetActivityOption(
   'disableDrag'
 );
-export const selectGetActivityFontFace = selectGetActivityOption<string>(
-  'fontFace'
-);
-export const selectGetActivityFontSize = selectGetActivityOption<number>(
-  'fontSize'
-);
-export const selectGetActivityPadding = selectGetActivityOption<number>(
-  'padding'
-);
+export const selectGetActivityFontFace = selectGetActivityOption('fontFace');
+export const selectGetActivityFontSize = selectGetActivityOption('fontSize');
+export const selectGetActivityPadding = selectGetActivityOption('padding');
