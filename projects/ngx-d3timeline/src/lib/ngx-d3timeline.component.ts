@@ -72,8 +72,6 @@ export class NgxD3timelineComponent
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  destroy$ = new Subject<boolean>();
-
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
@@ -85,7 +83,7 @@ export class NgxD3timelineComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
+    this.timeline.componentDeystroyed();
   }
 
   private initEventEmitters() {
