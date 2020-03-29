@@ -64,7 +64,7 @@ export class NgxD3TimelineService {
     }
   }
 
-  componentDeystroyed() {
+  componentDestroyed() {
     this.deystroySubject.next(true);
   }
 

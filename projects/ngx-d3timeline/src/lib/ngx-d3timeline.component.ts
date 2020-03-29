@@ -83,7 +83,7 @@ export class NgxD3timelineComponent
   }
 
   ngOnDestroy(): void {
-    this.timeline.componentDeystroyed();
+    this.timeline.componentDestroyed();
   }
 
   private initEventEmitters() {
