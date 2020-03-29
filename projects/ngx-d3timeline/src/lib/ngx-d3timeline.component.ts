@@ -8,14 +8,11 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Output,
-  EventEmitter,
-  OnDestroy
+  EventEmitter
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Options } from './options/options';
 
 @Component({
@@ -50,10 +47,10 @@ import { Options } from './options/options';
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [NgxD3TimelineService]
 })
-export class NgxD3timelineComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -72,37 +69,19 @@ export class NgxD3timelineComponent
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  destroy$ = new Subject<boolean>();
-
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
+    this.initEventEmitters();
   }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-  }
-
-  private get observableToOutputMap(): [Observable<any>, EventEmitter<any>][] {
-    return [
-      [this.timeline.hoveredActivity$, this.hovered],
-      [this.timeline.unhoveredActivity$, this.unhovered],
-      [this.timeline.activityDropped$, this.activityDropped]
-    ];
-  }
-
-  private outputOnObservableEmit<T>([observable$, output]: [
-    Observable<T>,
-    EventEmitter<T>
-  ]) {
-    console.log(observable$);
-    observable$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => output.emit(value));
+  private initEventEmitters() {
+    this.timeline.onActivityDropped(this.activityDropped);
+    this.timeline.onHovered(this.hovered);
+    this.timeline.onUnhovered(this.unhovered);
   }
 }

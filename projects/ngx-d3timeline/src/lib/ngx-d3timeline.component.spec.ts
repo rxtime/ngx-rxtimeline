@@ -59,7 +59,10 @@ describe('NgxD3timelineComponent', () => {
             hoveredActivity$: jest.fn(),
             unhoveredActivity$: jest.fn(),
             resourceRectangles$: jest.fn(),
-            setupZoom: jest.fn()
+            setupZoom: jest.fn(),
+            onActivityDropped: jest.fn(),
+            onHovered: jest.fn(),
+            onUnhovered: jest.fn()
           }
         }
       ]
@@ -68,7 +71,7 @@ describe('NgxD3timelineComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NgxD3timelineComponent);
-    timeline = TestBed.inject(NgxD3TimelineService);
+    timeline = fixture.debugElement.injector.get(NgxD3TimelineService);
     timeline.activityDropped$ = of(null);
     timeline.hoveredActivity$ = of(null);
     timeline.unhoveredActivity$ = of(null);
