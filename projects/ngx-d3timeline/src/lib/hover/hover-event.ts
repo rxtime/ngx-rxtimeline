@@ -15,15 +15,15 @@ export interface HoverEvent {
   action: HoverAction;
 }
 
-export function getHoveredActivityByType(
+export function getHoveredActivity(
   hoverEvent: HoverEvent,
-  hoveredPositionedActivity: PositionedActivity,
-  action: HoverAction
+  hoveredPositionedActivity: PositionedActivity
 ): Activity {
   return (
-    hoverEvent &&
-    (hoverEvent.action === action
-      ? getActivityFromPositionedActivity(hoveredPositionedActivity)
-      : null)
+    hoverEvent && getActivityFromPositionedActivity(hoveredPositionedActivity)
   );
+}
+
+export function hoverEventComparator(x: HoverEvent, y: HoverEvent) {
+  return x.id === y.id && x.action === y.action;
 }
