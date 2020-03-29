@@ -21,7 +21,7 @@ import {
   withLatestFrom
 } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
-import { HoverAction, hoverEventComparator } from './hover/hover-event';
+import { HoverAction, hoverEventComparer } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
@@ -43,7 +43,7 @@ export class NgxD3TimelineService implements OnDestroy {
 
   hoverEvent$ = this.store.select(selectHoverEvent).pipe(
     filter(activity => !!activity),
-    distinctUntilChanged(hoverEventComparator)
+    distinctUntilChanged(hoverEventComparer)
   );
 
   hoveredActivity$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
