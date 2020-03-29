@@ -8,14 +8,11 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Output,
-  EventEmitter,
-  OnDestroy
+  EventEmitter
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Options } from './options/options';
 
 @Component({
@@ -50,10 +47,10 @@ import { Options } from './options/options';
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [NgxD3TimelineService]
 })
-export class NgxD3timelineComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -80,10 +77,6 @@ export class NgxD3timelineComponent
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
-  }
-
-  ngOnDestroy(): void {
-    this.timeline.componentDestroyed();
   }
 
   private initEventEmitters() {
