@@ -46,9 +46,9 @@ export class NgxD3TimelineService implements OnDestroy {
     distinctUntilChanged(hoverEventComparator)
   );
 
-  hoveredActivity$ = this.getHoveredActivityByHoverType(HoverAction.Hovered);
+  hoveredActivity$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
 
-  unhoveredActivity$ = this.getHoveredActivityByHoverType(
+  unhoveredActivity$ = this.getHoveredActivityByHoverAction(
     HoverAction.Unhovered
   );
 
@@ -101,7 +101,7 @@ export class NgxD3TimelineService implements OnDestroy {
     );
   }
 
-  private getHoveredActivityByHoverType(hoverAction: HoverAction) {
+  private getHoveredActivityByHoverAction(hoverAction: HoverAction) {
     return this.hoverEvent$.pipe(
       filter(hoverEvent => hoverEvent.action === hoverAction),
       withLatestFrom(this.store.select(selectPositionedActivities)),
