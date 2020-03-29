@@ -27,6 +27,10 @@ import { Axis } from './axis';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
 import { View } from '../view/view';
+import {
+  selectTimeOrientation,
+  selectResourceOrientation
+} from '../options/selectors/options.selectors';
 
 const selectGetAxisLine = createSelector(
   selectViewTopLeft,
@@ -115,6 +119,7 @@ export const selectResourceAxis = createSelector(
   selectResourceAxisTickMarks,
   selectResourceAxisShowGridLines,
   selectResourceAxisGridLines,
+  selectResourceOrientation,
   getAxis
 );
 
@@ -123,6 +128,7 @@ export const selectTimeAxis = createSelector(
   selectTimeAxisTickMarks,
   selectTimeAxisShowGridLines,
   selectTimeAxisGridLines,
+  selectTimeOrientation,
   getAxis
 );
 
@@ -130,13 +136,15 @@ function getAxis(
   line: Line,
   tickMarks: TickMark[],
   showGridLines: boolean,
-  gridLines: Line[]
+  gridLines: Line[],
+  orientation: Orientation
 ): Axis {
   return {
     line,
     tickMarks,
     showGridLines,
-    gridLines
+    gridLines,
+    orientation
   };
 }
 

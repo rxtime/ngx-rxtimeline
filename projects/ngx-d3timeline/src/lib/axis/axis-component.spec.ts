@@ -4,6 +4,7 @@ import { createLine, Line } from '../core/line';
 import { origin } from '../core/point';
 import { Component, Input } from '@angular/core';
 import { TickMark } from '../tick-mark/tick-mark';
+import { Orientation } from '../core/orientation';
 
 @Component({
   selector: '[ngx-d3timeline-line]',
@@ -63,7 +64,8 @@ describe('AxisComponent', () => {
       ],
       line: { x1: 0, x2: 10, y1: 1, y2: 0 },
       showGridLines: true,
-      gridLines: [line]
+      gridLines: [line],
+      orientation: Orientation.Vertical
     };
 
     fixture.detectChanges();
@@ -77,7 +79,8 @@ describe('AxisComponent', () => {
       tickMarks: [],
       line: null,
       showGridLines: true,
-      gridLines: [line]
+      gridLines: [line],
+      orientation: Orientation.Vertical
     };
 
     fixture.detectChanges();
@@ -91,7 +94,8 @@ describe('AxisComponent', () => {
       tickMarks: [],
       line,
       showGridLines: false,
-      gridLines: [line]
+      gridLines: [line],
+      orientation: Orientation.Horizontal
     };
 
     fixture.detectChanges();
