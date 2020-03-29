@@ -18,7 +18,7 @@ export function translatePointInOrientation(
   point: Point,
   distance: number,
   orientation: Orientation
-) {
+): Point {
   return orientation === Orientation.Vertical
     ? { ...point, y: point.y + distance }
     : { ...point, x: point.x + distance };
