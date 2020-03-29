@@ -1,12 +1,21 @@
 .ngx-d3timeline {
   .resources-axis .axis-group {
-    text-anchor: middle;
+    &.Vertical {
+      text-anchor: end;
+    }
+    &.Horizontal {
+      text-anchor: middle;
+    }
   }
 
   .time-axis .axis-group {
-    text-anchor: end;
-    dominant-baseline: central;
-    font-size: 10px;
+    &.Vertical {
+      text-anchor: end;
+      dominant-baseline: central;
+    }
+    &.Horizontal {
+      text-anchor: middle;
+    }
   }
 
   .tick-mark-line {

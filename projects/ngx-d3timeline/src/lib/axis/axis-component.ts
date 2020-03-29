@@ -4,7 +4,7 @@ import { Axis } from './axis';
 @Component({
   selector: '[ngx-d3timeline-axis]',
   template: `
-    <svg:g class="axis-group">
+    <svg:g class="axis-group" [ngClass]="axis.orientation">
       <svg:g
         *ngFor="let tickMark of axis.tickMarks"
         ngx-d3timeline-axis-tick-mark

@@ -6,7 +6,7 @@ exports[`AxisComponent should not display axis line when axis.line is falsy 1`] 
   ngx-d3timeline-axis=""
 >
   <g
-    class="axis-group"
+    class="axis-group Vertical"
   >
     
     
@@ -30,7 +30,7 @@ exports[`AxisComponent should not show gridlines when axis.showGridLines is fals
   ngx-d3timeline-axis=""
 >
   <g
-    class="axis-group"
+    class="axis-group Horizontal"
   >
     
     
@@ -51,7 +51,7 @@ exports[`AxisComponent should render correctly 1`] = `
   ngx-d3timeline-axis=""
 >
   <g
-    class="axis-group"
+    class="axis-group Vertical"
   >
     
     <g
