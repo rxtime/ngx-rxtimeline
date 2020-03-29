@@ -77,7 +77,7 @@ export class NgxD3timelineComponent
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.observableToOutputMap.forEach(this.outputOnObservableEmit.bind(this));
+    this.initEventEmitters();
   }
 
   ngAfterViewInit(): void {
@@ -88,21 +88,9 @@ export class NgxD3timelineComponent
     this.destroy$.next(true);
   }
 
-  private get observableToOutputMap(): [Observable<any>, EventEmitter<any>][] {
-    return [
-      [this.timeline.hoveredActivity$, this.hovered],
-      [this.timeline.unhoveredActivity$, this.unhovered],
-      [this.timeline.activityDropped$, this.activityDropped]
-    ];
-  }
-
-  private outputOnObservableEmit<T>([observable$, output]: [
-    Observable<T>,
-    EventEmitter<T>
-  ]) {
-    console.log(observable$);
-    observable$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(value => output.emit(value));
+  private initEventEmitters() {
+    this.timeline.onActivityDropped(this.activityDropped);
+    this.timeline.onHovered(this.hovered);
+    this.timeline.onUnhovered(this.unhovered);
   }
 }

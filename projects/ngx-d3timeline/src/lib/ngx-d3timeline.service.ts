@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, EventEmitter } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -10,12 +10,13 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NgxD3TimelineService {
@@ -40,6 +41,8 @@ export class NgxD3TimelineService {
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
 
+  private deystroySubject = new Subject<boolean>();
+
   constructor(private store: Store, private axisService: AxisService) {}
 
   setActivities(activities: Activity[]) {
@@ -59,6 +62,31 @@ export class NgxD3TimelineService {
       const onZoom = zoom().on('zoom', this.zoomed.bind(this));
       onZoom(select(svgEl.nativeElement));
     }
+  }
+
+  componentDeystroyed() {
+    this.deystroySubject.next(true);
+  }
+
+  onHovered(hovered: EventEmitter<Activity>) {
+    this.outputOnObservableEmit(this.hoveredActivity$, hovered);
+  }
+
+  onUnhovered(unhovered: EventEmitter<Activity>) {
+    this.outputOnObservableEmit(this.unhoveredActivity$, unhovered);
+  }
+
+  onActivityDropped(activityDropped: EventEmitter<Activity>) {
+    this.outputOnObservableEmit(this.activityDropped$, activityDropped);
+  }
+
+  private outputOnObservableEmit<T>(
+    observable$: Observable<T>,
+    output: EventEmitter<T>
+  ) {
+    observable$
+      .pipe(takeUntil(this.deystroySubject))
+      .subscribe(value => output.emit(value));
   }
 
   private zoomed() {

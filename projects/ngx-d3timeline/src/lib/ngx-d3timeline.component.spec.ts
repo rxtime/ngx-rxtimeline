@@ -59,7 +59,10 @@ describe('NgxD3timelineComponent', () => {
             hoveredActivity$: jest.fn(),
             unhoveredActivity$: jest.fn(),
             resourceRectangles$: jest.fn(),
-            setupZoom: jest.fn()
+            setupZoom: jest.fn(),
+            onActivityDropped: jest.fn(),
+            onHovered: jest.fn(),
+            onUnhovered: jest.fn()
           }
         }
       ]
