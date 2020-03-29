@@ -24,6 +24,6 @@ export function getHoveredActivity(
   );
 }
 
-export function hoverEventComparer(x: HoverEvent, y: HoverEvent) {
-  return x.id === y.id && x.action === y.action;
+export function hoverEventComparer(e1: HoverEvent, e2: HoverEvent) {
+  return e1.id === e2.id && e1.action === e2.action;
 }
