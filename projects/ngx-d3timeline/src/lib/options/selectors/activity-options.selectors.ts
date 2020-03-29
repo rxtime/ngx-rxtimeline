@@ -25,8 +25,12 @@ function getTypeActivityOptions(
 const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
   key: TOption
 ): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
-  createSelector(selectTypeActivityOptions, options =>
-    getTypeActivityOption.bind(null, options, key)
+  createSelector(
+    selectTypeActivityOptions,
+    options =>
+      getTypeActivityOption.bind(null, options, key) as (
+        type: string
+      ) => ActivityOptions[TOption]
   );
 
 function getTypeActivityOption<TOption extends keyof ActivityOptions>(
