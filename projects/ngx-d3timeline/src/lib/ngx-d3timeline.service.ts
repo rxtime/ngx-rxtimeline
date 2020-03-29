@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -16,9 +16,11 @@ import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
+import { Subject } from 'rxjs';
+import { outputOnObservableEmit } from './core/observable-utils';
 
-@Injectable({ providedIn: 'root' })
-export class NgxD3TimelineService {
+@Injectable()
+export class NgxD3TimelineService implements OnDestroy {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
@@ -40,7 +42,13 @@ export class NgxD3TimelineService {
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
 
+  private destroySubject = new Subject<boolean>();
+
   constructor(private store: Store, private axisService: AxisService) {}
+
+  ngOnDestroy(): void {
+    this.destroySubject.next(true);
+  }
 
   setActivities(activities: Activity[]) {
     this.store.dispatch(new fromActions.ActivitiesChangedAction(activities));
@@ -59,6 +67,26 @@ export class NgxD3TimelineService {
       const onZoom = zoom().on('zoom', this.zoomed.bind(this));
       onZoom(select(svgEl.nativeElement));
     }
+  }
+
+  onHovered(hovered: EventEmitter<Activity>) {
+    outputOnObservableEmit(this.hoveredActivity$, this.destroySubject, hovered);
+  }
+
+  onUnhovered(unhovered: EventEmitter<Activity>) {
+    outputOnObservableEmit(
+      this.unhoveredActivity$,
+      this.destroySubject,
+      unhovered
+    );
+  }
+
+  onActivityDropped(activityDropped: EventEmitter<Activity>) {
+    outputOnObservableEmit(
+      this.activityDropped$,
+      this.destroySubject,
+      activityDropped
+    );
   }
 
   private zoomed() {
