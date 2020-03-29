@@ -1,6 +1,10 @@
 import { Injectable, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { Store } from './store-lib/store';
-import { selectView } from './store/state';
+import {
+  selectView,
+  selectHoverEvent,
+  selectPositionedActivities
+} from './store/state';
 import {
   Activity,
   getActivityFromPositionedActivity
@@ -10,14 +14,19 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
+import {
+  map,
+  filter,
+  distinctUntilChanged,
+  withLatestFrom
+} from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
-import { selectHoveredActivity } from './hover/hover.selectors';
-import { HoverAction } from './hover/hover-event';
+import { HoverAction, hoverEventComparer } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
+import { findIdentifiable } from './core/identifiable-utils';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -32,13 +41,16 @@ export class NgxD3TimelineService implements OnDestroy {
     map(getActivityFromPositionedActivity)
   );
 
-  hoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverAction.Hovered))
-    .pipe(filter(activity => !!activity));
+  hoverEvent$ = this.store.select(selectHoverEvent).pipe(
+    filter(activity => !!activity),
+    distinctUntilChanged(hoverEventComparer)
+  );
 
-  unhoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverAction.Unhovered))
-    .pipe(filter(activity => !!activity));
+  hoveredActivity$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
+
+  unhoveredActivity$ = this.getHoveredActivityByHoverAction(
+    HoverAction.Unhovered
+  );
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
 
@@ -86,6 +98,17 @@ export class NgxD3TimelineService implements OnDestroy {
       this.activityDropped$,
       this.destroySubject,
       activityDropped
+    );
+  }
+
+  private getHoveredActivityByHoverAction(hoverAction: HoverAction) {
+    return this.hoverEvent$.pipe(
+      filter(hoverEvent => hoverEvent.action === hoverAction),
+      withLatestFrom(this.store.select(selectPositionedActivities)),
+      map(([hoverEvent, activities]) =>
+        findIdentifiable(activities, hoverEvent.id)
+      ),
+      map(getActivityFromPositionedActivity)
     );
   }
 

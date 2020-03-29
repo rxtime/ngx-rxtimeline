@@ -46,6 +46,6 @@ export const selectLastDraggedActivityId = createSliceSelector(
   (state: State) => state.lastDraggedActivityId
 );
 
-export const selectHoveredEvent = createSliceSelector(
+export const selectHoverEvent = createSliceSelector(
   (state: State) => state.hoverEvent
 );
