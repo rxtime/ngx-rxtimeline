@@ -22,29 +22,29 @@ function getTypeActivityOptions(
   return typeOptions(type) && typeOptions(type).activity;
 }
 
-const selectGetTypeActivityOption = <TKey extends keyof ActivityOptions>(
-  key: TKey
-): MemoizedSelector<(type: string) => ActivityOptions[TKey]> =>
+const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
   createSelector(selectTypeActivityOptions, options =>
     getTypeActivityOption.bind(null, options, key)
   );
 
-function getTypeActivityOption<TKey extends keyof ActivityOptions>(
+function getTypeActivityOption<TOption extends keyof ActivityOptions>(
   typeActivityOptions: (type: string) => ActivityOptions,
-  key: TKey,
+  key: TOption,
   type: string
-): ActivityOptions[TKey] {
+): ActivityOptions[TOption] {
   return typeActivityOptions(type) && typeActivityOptions(type)[key];
 }
 
-const selectGetGlobalActivityOption = <TKey extends keyof ActivityOptions>(
-  key: TKey
-): MemoizedSelector<ActivityOptions[TKey]> =>
+const selectGetGlobalActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<ActivityOptions[TOption]> =>
   createSelector(selectActivityOptions, options => options[key]);
 
-const selectGetActivityOption = <TKey extends keyof ActivityOptions>(
-  key: TKey
-): MemoizedSelector<(type: string) => ActivityOptions[TKey]> =>
+const selectGetActivityOption = <TOption extends keyof ActivityOptions>(
+  key: TOption
+): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
   createSelector(
     selectGetTypeActivityOption(key),
     selectGetGlobalActivityOption(key),
