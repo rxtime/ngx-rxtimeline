@@ -1,10 +1,6 @@
-import { Injectable, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import { Injectable, ElementRef, OnDestroy, EventEmitter } from '@angular/core';
 import { Store } from './store-lib/store';
-import {
-  selectView,
-  selectHoverEvent,
-  selectPositionedActivities
-} from './store/state';
+import { selectView } from './store/state';
 import {
   Activity,
   getActivityFromPositionedActivity
@@ -14,28 +10,15 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import {
-  map,
-  filter,
-  distinctUntilChanged,
-  withLatestFrom
-} from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
-import {
-  HoverAction,
-  hoverEventComparer,
-  HoverEvent,
-  HoverSource
-} from './hover/hover-event';
+
 import {
   selectResourceRectangles,
   selectResourceTickRectangles
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
-import { Subject, Observable } from 'rxjs';
-import { outputOnObservableEmit } from './core/observable-utils';
-import { findIdentifiable } from './core/identifiable-utils';
-import { PositionedActivity } from './activity/positioned-activity';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -49,13 +32,6 @@ export class NgxD3TimelineService implements OnDestroy {
     distinctUntilChanged(),
     map(getActivityFromPositionedActivity)
   );
-
-  hoverEvent$ = this.store.select(selectHoverEvent).pipe(
-    filter(activity => !!activity),
-    distinctUntilChanged(hoverEventComparer)
-  );
-  hovered$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
-  unhovered$ = this.getHoveredActivityByHoverAction(HoverAction.Unhovered);
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
   resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
@@ -87,56 +63,10 @@ export class NgxD3TimelineService implements OnDestroy {
     }
   }
 
-  resourceHovered(id: string) {
-    this.store.dispatch(
-      new fromActions.ResourceHoveredAction({ id, action: HoverAction.Hovered })
-    );
-  }
-
-  resourceUnhovered(id: string) {
-    this.store.dispatch(
-      new fromActions.ResourceHoveredAction({
-        id,
-        action: HoverAction.Unhovered
-      })
-    );
-  }
-
-  onHovered(hovered: EventEmitter<Activity | string>) {
-    outputOnObservableEmit(this.hovered$, this.destroySubject, hovered);
-  }
-
-  onUnhovered(unhovered: EventEmitter<Activity | string>) {
-    outputOnObservableEmit(this.unhovered$, this.destroySubject, unhovered);
-  }
-
   onActivityDropped(activityDropped: EventEmitter<Activity>) {
-    outputOnObservableEmit(
-      this.activityDropped$,
-      this.destroySubject,
-      activityDropped
-    );
-  }
-
-  private getHoveredActivityByHoverAction(
-    hoverAction: HoverAction
-  ): Observable<Activity | string> {
-    return this.hoverEvent$.pipe(
-      filter(hoverEvent => hoverEvent.action === hoverAction),
-      withLatestFrom(this.store.select(selectPositionedActivities)),
-      map(this.getHoveredSource)
-    );
-  }
-
-  private getHoveredSource([hoverEvent, activities]: [
-    HoverEvent,
-    PositionedActivity[]
-  ]) {
-    return hoverEvent.source === HoverSource.Resource
-      ? (hoverEvent.id as string)
-      : getActivityFromPositionedActivity(
-          findIdentifiable(activities, hoverEvent.id)
-        );
+    this.activityDropped$
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe(activity => activityDropped.emit(activity));
   }
 
   private zoomed() {

@@ -1,5 +1,11 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { ContentService } from './content.service';
+import { identifier } from '../core/types';
 
 @Component({
   selector: '[ngx-d3timeline-content]',
@@ -18,8 +24,8 @@ import { ContentService } from './content.service';
           *ngFor="let activityRectangle of activityRectangles"
           ngx-d3timeline-activity-rectangle
           [activityRectangle]="activityRectangle"
-          (mouseenter)="contentService.hovered(activityRectangle.id)"
-          (mouseleave)="contentService.unhovered(activityRectangle.id)"
+          (mouseenter)="hovered.emit(activityRectangle.id)"
+          (mouseleave)="unhovered.emit(activityRectangle.id)"
         ></svg:g>
 
         <svg:g
@@ -47,5 +53,8 @@ import { ContentService } from './content.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent {
+  @Output() hovered = new EventEmitter<identifier>();
+  @Output() unhovered = new EventEmitter<identifier>();
+
   constructor(public contentService: ContentService) {}
 }

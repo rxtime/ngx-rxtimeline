@@ -45,8 +45,8 @@ import { Options } from './options/options';
           class="resource-rectangle"
           *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
           [resourceRectangle]="resourceRectangle"
-          (mouseenter)="timeline.resourceHovered(resourceRectangle.id)"
-          (mouseleave)="timeline.resourceUnhovered(resourceRectangle.id)"
+          (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
+          (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
         ></g>
       </ng-container>
       <g
@@ -54,7 +54,11 @@ import { Options } from './options/options';
         class="time-axis"
         [axis]="timeline.timeAxis$ | async"
       ></g>
-      <g ngx-d3timeline-content></g>
+      <g
+        ngx-d3timeline-content
+        (hovered)="activityHovered.emit($event)"
+        (unhovered)="activityUnhovered.emit($event)"
+      ></g>
     </svg>
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],
@@ -76,24 +80,20 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   }
 
   @Output() activityDropped = new EventEmitter<Activity>();
-  @Output() hovered = new EventEmitter<Activity | string>();
-  @Output() unhovered = new EventEmitter<Activity | string>();
+  @Output() resourceHovered = new EventEmitter<string>();
+  @Output() resourceUnhovered = new EventEmitter<string>();
+  @Output() activityHovered = new EventEmitter<Activity>();
+  @Output() activityUnhovered = new EventEmitter<Activity>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
   constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
-    this.initEventEmitters();
+    this.timeline.onActivityDropped(this.activityDropped);
   }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
-  }
-
-  private initEventEmitters() {
-    this.timeline.onActivityDropped(this.activityDropped);
-    this.timeline.onHovered(this.hovered);
-    this.timeline.onUnhovered(this.unhovered);
   }
 }
