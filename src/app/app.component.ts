@@ -25,8 +25,7 @@ export class AppComponent {
     },
     activity: {
       fontFace: 'Arial',
-      fontSize: 12,
-      lateralMargin: 0
+      fontSize: 12
     },
     resourceAxis: {
       showGridLines: true,
@@ -40,9 +39,7 @@ export class AppComponent {
     },
     type: {
       Driving: {
-        activity: {
-          lateralMargin: 10
-        }
+        lateralMargin: 10
       },
       DriveBreak: {
         activity: {

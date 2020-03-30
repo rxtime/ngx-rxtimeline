@@ -11,3 +11,15 @@ export const selectTypeOptions = createSelector(
 function getTypeOptions(type: string, options: CompleteOptions): TypeOptions {
   return options.type && options.type[type];
 }
+
+export const selectGetTypeLateralMargin = createSelector(
+  selectTypeOptions,
+  partialApply(getTypeLateralMargin)
+);
+
+function getTypeLateralMargin(
+  type: string,
+  typeOptions: (type: string) => TypeOptions
+): number {
+  return (typeOptions(type) && typeOptions(type).lateralMargin) || 0;
+}

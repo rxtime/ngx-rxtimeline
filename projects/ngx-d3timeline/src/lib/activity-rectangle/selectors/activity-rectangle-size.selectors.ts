@@ -4,7 +4,7 @@ import {
   selectTimeOrientation,
   selectStrokeWidth
 } from '../../options/selectors/options.selectors';
-import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
+import { selectGetTypeLateralMargin } from '../../options/selectors/type-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { partialApply } from '../../core/function-utils';
 import { TimeScale, BandScale } from '../../scales/scale-types';
@@ -28,7 +28,7 @@ function getRectBreadthInTimeAxis(
 const selectGetRectBreadthInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
-  selectGetActivityLateralMargin,
+  selectGetTypeLateralMargin,
   selectStrokeWidth,
   partialApply(getRectBreadthInResourceAxis)
 );
