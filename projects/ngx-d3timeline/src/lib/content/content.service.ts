@@ -6,7 +6,7 @@ import {
   selectDraggedFromRectangle,
   selectDraggedToRectangle
 } from '../activity-rectangle/selectors/activity-rectangle.selectors';
-import { selectViewClipRectangle } from '../view/view.selectors';
+import { selectViewClipRect } from '../view/view.selectors';
 import { identifier } from '../core/types';
 import {
   ActivityHoveredAction,
@@ -20,7 +20,7 @@ export class ContentService {
   draggingRectangle$ = this.store.select(selectDraggingActivityRectangle);
   dropRectangle$ = this.store.select(selectDraggedToRectangle);
   fromRectangle$ = this.store.select(selectDraggedFromRectangle);
-  clipRect$ = this.store.select(selectViewClipRectangle);
+  clipRect$ = this.store.select(selectViewClipRect);
 
   constructor(private store: Store) {}
 

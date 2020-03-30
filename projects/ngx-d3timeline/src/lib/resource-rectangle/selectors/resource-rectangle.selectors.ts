@@ -4,25 +4,29 @@ import { BandScale } from '../../scales/scale-types';
 import { ResourceRectangle } from '../resource-rectangle';
 import { pointToTransform, Point } from '../../core/point';
 import {
-  selectRectWidth,
+  selectResourceRectWidth,
   selectResourceRectHeight,
-  selectTickRectHeight
-} from './resource-rectangle-size.selectors';
-import { selectResourceRectangleTopLeft } from './resource-rectangle-position.selectors';
-
-export const selectResourceTickMarkRectangles = createSelector(
-  selectBandScale,
-  selectRectWidth,
   selectTickRectHeight,
-  selectResourceRectangleTopLeft,
+  selectTickRectWidth
+} from './resource-rectangle-size.selectors';
+import {
+  selectResourceRectTopLeft,
+  selectTickRectTopLeft
+} from './resource-rectangle-position.selectors';
+
+export const selectResourceTickRectangles = createSelector(
+  selectBandScale,
+  selectTickRectWidth,
+  selectTickRectHeight,
+  selectTickRectTopLeft,
   getResourceRectangles
 );
 
 export const selectResourceRectangles = createSelector(
   selectBandScale,
-  selectRectWidth,
+  selectResourceRectWidth,
   selectResourceRectHeight,
-  selectResourceRectangleTopLeft,
+  selectResourceRectTopLeft,
   getResourceRectangles
 );
 

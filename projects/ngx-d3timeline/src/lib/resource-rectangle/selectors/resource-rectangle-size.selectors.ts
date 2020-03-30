@@ -1,40 +1,52 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectBandScaleWidth } from '../../scales/scale-selectors';
 import {
-  selectViewClipRectangleHeight,
-  selectViewClipRectangleWidth
+  selectViewClipRectHeight,
+  selectViewClipRectWidth
 } from '../../view/view.selectors';
 import { selectTimeOrientation } from '../../options/selectors/options.selectors';
 import { Orientation } from '../../core/orientation';
 import { sum } from '../../core/array-utils';
-import { selectTimeAxisOffset } from './resource-rectangle-position.selectors';
+import { selectResourceRectMargin } from './resource-rectangle-position.selectors';
+import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
+import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
 
 const selectClipRectBreadthInTimeAxis = createSelector(
-  selectViewClipRectangleHeight,
-  selectViewClipRectangleWidth,
+  selectViewClipRectHeight,
+  selectViewClipRectWidth,
   selectTimeOrientation,
   getClipRectBreadthInTimeAxis
 );
 
 function getClipRectBreadthInTimeAxis(
-  clipRectangleHeight: number,
-  clipRectangleWidth: number,
+  clipRectHeight: number,
+  clipRectWidth: number,
   timeOrientation: Orientation
 ) {
   return timeOrientation === Orientation.Vertical
-    ? clipRectangleHeight
-    : clipRectangleWidth;
+    ? clipRectHeight
+    : clipRectWidth;
 }
 
-const selectRectBreadthInTimeAxis = createSelector(
-  selectTimeAxisOffset,
+const selectResourceRectBreadthInTimeAxis = createSelector(
+  selectResourceRectMargin,
   selectClipRectBreadthInTimeAxis,
   sum
 );
 
-export const selectRectWidth = createSelector(
+export const selectTickRectWidth = createSelector(
+  selectBandScaleWidth,
+  selectResourcePadding,
+  getTickRectWidth
+);
+
+function getTickRectWidth(bandScaleWidth: number, resourcePadding) {
+  return bandScaleWidth - 2 * resourcePadding;
+}
+
+export const selectResourceRectWidth = createSelector(
   selectTimeOrientation,
-  selectRectBreadthInTimeAxis,
+  selectResourceRectBreadthInTimeAxis,
   selectBandScaleWidth,
   getRectWidth
 );
@@ -51,29 +63,12 @@ function getRectWidth(
 
 export const selectResourceRectHeight = createSelector(
   selectTimeOrientation,
-  selectRectBreadthInTimeAxis,
+  selectResourceRectBreadthInTimeAxis,
   selectBandScaleWidth,
-  getRectHeight
+  getResourceRectHeight
 );
 
-export const selectTickRectHeight = createSelector(
-  selectTimeOrientation,
-  selectTimeAxisOffset,
-  selectBandScaleWidth,
-  getTickRectHeight
-);
-
-function getTickRectHeight(
-  timeOrientation: Orientation,
-  timeAxisOffset: number,
-  bandScaleWidth: number
-) {
-  return timeOrientation === Orientation.Vertical
-    ? timeAxisOffset
-    : bandScaleWidth;
-}
-
-function getRectHeight(
+function getResourceRectHeight(
   timeOrientation: Orientation,
   rectBreadthInTimeAxis: number,
   bandScaleWidth: number
@@ -81,4 +76,17 @@ function getRectHeight(
   return timeOrientation === Orientation.Vertical
     ? rectBreadthInTimeAxis
     : bandScaleWidth;
+}
+
+export const selectTickRectHeight = createSelector(
+  selectTimeOrientation,
+  selectResourceAxisFontSize,
+  getTickRectHeight
+);
+
+function getTickRectHeight(
+  timeOrientation: Orientation,
+  resourceAxisFontSize: number
+) {
+  return timeOrientation === Orientation.Vertical ? resourceAxisFontSize : 0;
 }
