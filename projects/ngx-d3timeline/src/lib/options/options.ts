@@ -17,13 +17,13 @@ export interface ResourceOptions {
 export interface ActivityOptions {
   fontFace?: string;
   fontSize?: number;
-  lateralMargin?: number;
   disableDrag?: boolean;
   padding?: number;
 }
 
 export interface TypeOptions {
   activity?: ActivityOptions;
+  lateralMargin?: number;
 }
 
 export interface Options {
@@ -63,7 +63,6 @@ export const defaultOptions: CompleteOptions = {
   activity: {
     fontFace: 'Arial',
     fontSize: 10,
-    lateralMargin: 0,
     disableDrag: false,
     padding: 5
   },

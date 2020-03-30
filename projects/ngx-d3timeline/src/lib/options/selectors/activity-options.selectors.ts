@@ -63,9 +63,6 @@ function getActivityOption<T>(
   return typeActivityOption(type) || globalActivityOption;
 }
 
-export const selectGetActivityLateralMargin = selectGetActivityOption(
-  'lateralMargin'
-);
 export const selectGetActivityDisableDrag = selectGetActivityOption(
   'disableDrag'
 );
