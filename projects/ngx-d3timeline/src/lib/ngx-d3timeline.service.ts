@@ -21,15 +21,21 @@ import {
   withLatestFrom
 } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
-import { HoverAction, hoverEventComparer } from './hover/hover-event';
+import {
+  HoverAction,
+  hoverEventComparer,
+  HoverEvent,
+  HoverSource
+} from './hover/hover-event';
 import {
   selectResourceRectangles,
   selectResourceTickRectangles
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
 import { findIdentifiable } from './core/identifiable-utils';
+import { PositionedActivity } from './activity/positioned-activity';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -85,11 +91,26 @@ export class NgxD3TimelineService implements OnDestroy {
     }
   }
 
-  onHovered(hovered: EventEmitter<Activity>) {
+  resourceHovered(id: string) {
+    this.store.dispatch(
+      new fromActions.ResourceHoveredAction({ id, action: HoverAction.Hovered })
+    );
+  }
+
+  resourceUnhovered(id: string) {
+    this.store.dispatch(
+      new fromActions.ResourceHoveredAction({
+        id,
+        action: HoverAction.Unhovered
+      })
+    );
+  }
+
+  onHovered(hovered: EventEmitter<Activity | string>) {
     outputOnObservableEmit(this.hoveredActivity$, this.destroySubject, hovered);
   }
 
-  onUnhovered(unhovered: EventEmitter<Activity>) {
+  onUnhovered(unhovered: EventEmitter<Activity | string>) {
     outputOnObservableEmit(
       this.unhoveredActivity$,
       this.destroySubject,
@@ -105,15 +126,25 @@ export class NgxD3TimelineService implements OnDestroy {
     );
   }
 
-  private getHoveredActivityByHoverAction(hoverAction: HoverAction) {
+  private getHoveredActivityByHoverAction(
+    hoverAction: HoverAction
+  ): Observable<Activity | string> {
     return this.hoverEvent$.pipe(
       filter(hoverEvent => hoverEvent.action === hoverAction),
       withLatestFrom(this.store.select(selectPositionedActivities)),
-      map(([hoverEvent, activities]) =>
-        findIdentifiable(activities, hoverEvent.id)
-      ),
-      map(getActivityFromPositionedActivity)
+      map(this.getHoveredSource)
     );
+  }
+
+  private getHoveredSource([hoverEvent, activities]: [
+    HoverEvent,
+    PositionedActivity[]
+  ]) {
+    return hoverEvent.source === HoverSource.Resource
+      ? (hoverEvent.id as string)
+      : getActivityFromPositionedActivity(
+          findIdentifiable(activities, hoverEvent.id)
+        );
   }
 
   private zoomed() {

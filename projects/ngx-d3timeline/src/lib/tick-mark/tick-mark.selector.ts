@@ -4,7 +4,7 @@ import {
   selectOrientedTimeScale,
   selectOrientedBandScale,
   selectTimeScale,
-  selectBandScale
+  selectResources
 } from '../scales/scale-selectors';
 import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
 import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
@@ -107,15 +107,6 @@ function getTickLabelOffset(labelSpacing: number, orientation: Orientation) {
     : { ...origin, x: labelSpacing };
 }
 
-export const selectResourceAxisTickValues = createSelector(
-  selectBandScale,
-  getResourceAxisTickValues
-);
-
-function getResourceAxisTickValues(scale: BandScale) {
-  return scale.domain();
-}
-
 export const selectTimeAxisTickValues = createSelector(
   selectTimeScale,
   getTimeAxisTickValues
@@ -126,7 +117,7 @@ function getTimeAxisTickValues(scale: TimeScale) {
 }
 
 export const selectResourceAxisTickMarks = createSelector(
-  selectResourceAxisTickValues,
+  selectResources,
   selectGetResourceAxisTickMark,
   mapValues
 );

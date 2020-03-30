@@ -3,7 +3,7 @@ import { PositionedActivity } from '../activity/positioned-activity';
 import { Options } from '../options/options';
 import { identifier } from '../core/types';
 import { Action } from '../store-lib/action';
-import { HoverEvent } from '../hover/hover-event';
+import { HoverEventArgs } from '../hover/hover-event';
 
 export enum ActionType {
   ActivitiesChanged = 'Activities Changed',
@@ -14,7 +14,9 @@ export enum ActionType {
   TimelineDragging = 'Timeline Dragging',
   TimelineDragEnded = 'Timeline Drag Ended',
   ActivityHovered = 'Activity Hovered',
-  ActivityUnhovered = 'Activity Unhovered'
+  ActivityUnhovered = 'Activity Unhovered',
+  ResourceHovered = 'Resource Hovered',
+  ResourceUnhovered = 'Resource Unhovered'
 }
 
 export class ActivitiesChangedAction implements Action {
@@ -54,12 +56,22 @@ export class TimelineDragEndedAction implements Action {
 
 export class ActivityHoveredAction implements Action {
   readonly type = ActionType.ActivityHovered;
-  constructor(public payload: HoverEvent) {}
+  constructor(public payload: HoverEventArgs) {}
 }
 
 export class ActivityUnhoveredAction implements Action {
   readonly type = ActionType.ActivityUnhovered;
-  constructor(public payload: HoverEvent) {}
+  constructor(public payload: HoverEventArgs) {}
+}
+
+export class ResourceHoveredAction implements Action {
+  readonly type = ActionType.ResourceHovered;
+  constructor(public payload: HoverEventArgs) {}
+}
+
+export class ResourceUnhoveredAction implements Action {
+  readonly type = ActionType.ResourceUnhovered;
+  constructor(public payload: HoverEventArgs) {}
 }
 
 export type Actions =
@@ -71,4 +83,6 @@ export type Actions =
   | TimelineDraggingAction
   | TimelineDragEndedAction
   | ActivityHoveredAction
-  | ActivityUnhoveredAction;
+  | ActivityUnhoveredAction
+  | ResourceHoveredAction
+  | ResourceUnhoveredAction;

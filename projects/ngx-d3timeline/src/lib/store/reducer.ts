@@ -6,6 +6,7 @@ import { identifier } from '../core/types';
 import { initialisePositionedActivity } from '../activity/positioned-activity';
 import { defaultOptions } from '../options/options';
 import { mergeDeep } from '../core/object-utils';
+import { HoverSource, HoverEvent } from '../hover/hover-event';
 
 export function reducer(state: State = initialState, action: Actions): State {
   switch (action.type) {
@@ -65,7 +66,15 @@ export function reducer(state: State = initialState, action: Actions): State {
     case ActionType.ActivityUnhovered: {
       return {
         ...state,
-        hoverEvent: action.payload
+        hoverEvent: { ...action.payload, source: HoverSource.Activity }
+      };
+    }
+
+    case ActionType.ResourceHovered:
+    case ActionType.ResourceUnhovered: {
+      return {
+        ...state,
+        hoverEvent: { ...action.payload, source: HoverSource.Resource }
       };
     }
 
