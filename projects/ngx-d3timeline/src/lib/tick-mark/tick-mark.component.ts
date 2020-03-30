@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { TickMark } from './tick-mark';
 
 @Component({
-  selector: '[ngx-d3timeline-axis-tick-mark]',
+  selector: '[ngx-d3timeline-tick-mark]',
   template: `
     <svg:g [attr.transform]="tickMark.transform">
       <svg:text
@@ -23,6 +23,6 @@ import { TickMark } from './tick-mark';
     </svg:g>
   `
 })
-export class AxisTickMarkComponent {
+export class TickMarkComponent {
   @Input() tickMark: TickMark;
 }
