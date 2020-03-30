@@ -41,8 +41,14 @@
         fill: orange;
       }
 
-      &.selected rect {
-        fill: blue;
+      &.selected {
+        rect {
+          fill: blue;
+        }
+
+        .activity-content-div {
+          color: #fff;
+        }
       }
     }
 
