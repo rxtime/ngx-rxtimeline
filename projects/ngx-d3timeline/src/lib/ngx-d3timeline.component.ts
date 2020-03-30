@@ -45,6 +45,8 @@ import { Options } from './options/options';
           class="resource-rectangle"
           *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
           [resourceRectangle]="resourceRectangle"
+          (mouseenter)="timeline.resourceHovered(resourceRectangle.id)"
+          (mouseleave)="timeline.resourceUnhovered(resourceRectangle.id)"
         ></g>
       </ng-container>
       <g
@@ -74,8 +76,8 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   }
 
   @Output() activityDropped = new EventEmitter<Activity>();
-  @Output() hovered = new EventEmitter<Activity>();
-  @Output() unhovered = new EventEmitter<Activity>();
+  @Output() hovered = new EventEmitter<Activity | string>();
+  @Output() unhovered = new EventEmitter<Activity | string>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 

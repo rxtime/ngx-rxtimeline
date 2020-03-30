@@ -1,29 +1,24 @@
 import { identifier } from '../core/types';
-import {
-  Activity,
-  getActivityFromPositionedActivity
-} from '../activity/activity';
-import { PositionedActivity } from '../activity/positioned-activity';
 
 export enum HoverAction {
   Hovered = 'Hovered',
   Unhovered = 'Unhovered'
 }
 
-export interface HoverEvent {
+export enum HoverSource {
+  Resource = 'Resource',
+  Activity = 'Activity'
+}
+
+export interface HoverEventArgs {
   id: identifier;
   action: HoverAction;
 }
 
-export function getHoveredActivity(
-  hoverEvent: HoverEvent,
-  hoveredPositionedActivity: PositionedActivity
-): Activity {
-  return (
-    hoverEvent && getActivityFromPositionedActivity(hoveredPositionedActivity)
-  );
+export interface HoverEvent extends HoverEventArgs {
+  source: HoverSource;
 }
 
-export function hoverEventComparer(e1: HoverEvent, e2: HoverEvent) {
-  return e1.id === e2.id && e1.action === e2.action;
+export function hoverEventComparer(a: HoverEvent, b: HoverEvent) {
+  return a.id === b.id && a.action === b.action && a.source === b.source;
 }

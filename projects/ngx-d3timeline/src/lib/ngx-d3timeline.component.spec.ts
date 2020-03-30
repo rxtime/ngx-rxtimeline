@@ -74,8 +74,8 @@ describe('NgxD3timelineComponent', () => {
     fixture = TestBed.createComponent(NgxD3timelineComponent);
     timeline = fixture.debugElement.injector.get(NgxD3TimelineService);
     timeline.activityDropped$ = of(null);
-    timeline.hoveredActivity$ = of(null);
-    timeline.unhoveredActivity$ = of(null);
+    timeline.hovered$ = of(null);
+    timeline.unhovered$ = of(null);
 
     component = fixture.componentInstance;
   });

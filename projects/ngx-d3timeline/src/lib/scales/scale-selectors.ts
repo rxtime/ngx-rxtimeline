@@ -118,3 +118,7 @@ export const selectOrientedBandScale = createSelector(
 export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
   scale.bandwidth()
 );
+
+export const selectResources = createSelector(selectBandScale, scale =>
+  scale.domain()
+);
