@@ -4,7 +4,6 @@ import { createSliceSelector } from '../store-lib/selector/slice-selector';
 import { PositionedActivity } from '../activity/positioned-activity';
 import { identifier } from '../core/types';
 import { defaultOptions, CompleteOptions } from '../options/options';
-import { HoverEvent } from '../hover/hover-event';
 
 export interface State {
   view: View;
@@ -13,7 +12,6 @@ export interface State {
   lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
-  hoverEvent: HoverEvent;
 }
 
 const initialView = new View([null, null]);
@@ -24,8 +22,7 @@ export const initialState: State = {
   positionedActivities: [],
   lastDraggedActivityId: null,
   dragEvent: null,
-  zoomEvent: null,
-  hoverEvent: null
+  zoomEvent: null
 };
 
 export const selectOptions = createSliceSelector(
@@ -44,8 +41,4 @@ export const selectDragEvent = createSliceSelector(
 
 export const selectLastDraggedActivityId = createSliceSelector(
   (state: State) => state.lastDraggedActivityId
-);
-
-export const selectHoverEvent = createSliceSelector(
-  (state: State) => state.hoverEvent
 );

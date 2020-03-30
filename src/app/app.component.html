@@ -4,8 +4,10 @@
     [view]="[width, height]"
     [options]="options"
     (activityDropped)="onDropped($event)"
-    (hovered)="onHovered($event)"
-    (unhovered)="onUnhovered($event)"
+    (resourceHovered)="onHovered($event)"
+    (resourceUnhovered)="onUnhovered($event)"
+    (activityHovered)="onHovered($event)"
+    (activityUnhovered)="onUnhovered($event)"
     class="demo-app"
   ></ngx-d3timeline>
 
