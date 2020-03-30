@@ -18,6 +18,15 @@ exports[`NgxD3timelineComponent view not null should not render resource rectang
     height="600"
     width="800"
   >
+    <g
+      class="time-axis"
+      ngx-d3timeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    
     
     <g
       class="resource-title-background"
@@ -33,15 +42,6 @@ exports[`NgxD3timelineComponent view not null should not render resource rectang
     </g>
     <g
       class="resources-axis"
-      ngx-d3timeline-axis=""
-    >
-      <g
-        class="axis-group"
-      />
-    </g>
-    
-    <g
-      class="time-axis"
       ngx-d3timeline-axis=""
     >
       <g
@@ -69,21 +69,8 @@ exports[`NgxD3timelineComponent view not null should render correctly 1`] = `
     height="600"
     width="800"
   >
-    
     <g
-      class="resource-title-background"
-      ngx-d3timeline-resource-rectangle=""
-    >
-      <rect />
-    </g>
-    <g
-      class="resource-title-background"
-      ngx-d3timeline-resource-rectangle=""
-    >
-      <rect />
-    </g>
-    <g
-      class="resources-axis"
+      class="time-axis"
       ngx-d3timeline-axis=""
     >
       <g
@@ -106,8 +93,21 @@ exports[`NgxD3timelineComponent view not null should render correctly 1`] = `
       <rect />
     </g>
     
+    
     <g
-      class="time-axis"
+      class="resource-title-background"
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      class="resource-title-background"
+      ngx-d3timeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      class="resources-axis"
       ngx-d3timeline-axis=""
     >
       <g

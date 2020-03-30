@@ -27,6 +27,22 @@ import { identifier } from './core/types';
       class="ngx-d3timeline"
     >
       <g
+        ngx-d3timeline-axis
+        class="time-axis"
+        [axis]="timeline.timeAxis$ | async"
+      ></g>
+      <ng-container *ngIf="timeline.showRectangles$ | async">
+        <g
+          ngx-d3timeline-resource-rectangle
+          class="resource-rectangle"
+          *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
+          [resourceRectangle]="resourceRectangle"
+          (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
+          (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
+          (click)="resourceSelected.emit(resourceRectangle.id)"
+        ></g>
+      </ng-container>
+      <g
         *ngFor="
           let tickMarkRectangle of timeline.resourceTickMarkRectangles$ | async
         "
@@ -40,22 +56,6 @@ import { identifier } from './core/types';
         [axis]="timeline.resourceAxis$ | async"
       ></g>
 
-      <ng-container *ngIf="timeline.showRectangles$ | async">
-        <g
-          ngx-d3timeline-resource-rectangle
-          class="resource-rectangle"
-          *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
-          [resourceRectangle]="resourceRectangle"
-          (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
-          (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
-          (click)="resourceSelected.emit(resourceRectangle.id)"
-        ></g>
-      </ng-container>
-      <g
-        ngx-d3timeline-axis
-        class="time-axis"
-        [axis]="timeline.timeAxis$ | async"
-      ></g>
       <g
         ngx-d3timeline-content
         (hovered)="activityHovered.emit($event)"

@@ -28,7 +28,7 @@ export class AppComponent {
       fontSize: 12
     },
     resourceAxis: {
-      showGridLines: true,
+      showGridLines: false,
       tickLineLength: 0,
       showAxisLine: false
     },

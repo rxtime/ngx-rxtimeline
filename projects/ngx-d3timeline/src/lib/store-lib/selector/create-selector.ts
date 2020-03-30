@@ -209,6 +209,46 @@ export function createSelector<
   ) => TResult
 ): MemoizedSelector<TResult>;
 
+export function createSelector<
+  S1Result,
+  S2Result,
+  S3Result,
+  S4Result,
+  S5Result,
+  S6Result,
+  S7Result,
+  S8Result,
+  S9Result,
+  S10Result,
+  S11Result,
+  TResult
+>(
+  selector1: Selector<S1Result>,
+  selector2: Selector<S2Result>,
+  selector3: Selector<S3Result>,
+  selector4: Selector<S4Result>,
+  selector5: Selector<S5Result>,
+  selector6: Selector<S6Result>,
+  selector7: Selector<S7Result>,
+  selector8: Selector<S8Result>,
+  selector9: Selector<S9Result>,
+  selector10: Selector<S10Result>,
+  selector11: Selector<S11Result>,
+  projector: (
+    res1: S1Result,
+    res2: S2Result,
+    res3: S3Result,
+    res4: S4Result,
+    res5: S5Result,
+    res6: S6Result,
+    res7: S7Result,
+    res8: S8Result,
+    res9: S9Result,
+    res10: S10Result,
+    res11: S11Result
+  ) => TResult
+): MemoizedSelector<TResult>;
+
 export function createSelector(...args: any[]) {
   const projector = args.pop();
   const selectors = args;

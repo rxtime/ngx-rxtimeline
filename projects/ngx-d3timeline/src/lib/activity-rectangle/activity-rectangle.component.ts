@@ -19,6 +19,8 @@ import { ActivityRectangleService } from './activity-rectangle.service';
       #activityRectangleEl
       [ngClass]="activityRectangle.type"
       [class.draggable]="!activityRectangle.disableDrag"
+      [class.hovered]="activityRectangle.hovered"
+      [class.selected]="activityRectangle.selected"
     >
       <svg:rect
         [attr.height]="activityRectangle.height"
