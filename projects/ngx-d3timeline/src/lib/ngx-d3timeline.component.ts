@@ -32,20 +32,18 @@ import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
         class="time-axis"
         [axis]="timeline.timeAxis$ | async"
       ></g>
-      <ng-container *ngIf="timeline.showRectangles$ | async">
-        <g
-          ngx-d3timeline-resource-rectangle
-          class="resource-rectangle"
-          *ngFor="
-            let resourceRectangle of timeline.resourceRectangles$ | async;
-            trackBy: trackByFn
-          "
-          [resourceRectangle]="resourceRectangle"
-          (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
-          (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
-          (click)="resourceSelected.emit(resourceRectangle.id)"
-        ></g>
-      </ng-container>
+      <g
+        ngx-d3timeline-resource-rectangle
+        class="resource-rectangle"
+        *ngFor="
+          let resourceRectangle of timeline.resourceRectangles$ | async;
+          trackBy: trackByFn
+        "
+        [resourceRectangle]="resourceRectangle"
+        (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
+        (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
+        (click)="resourceSelected.emit(resourceRectangle.id)"
+      ></g>
       <g
         *ngFor="
           let tickMarkRectangle of timeline.resourceTickMarkRectangles$ | async;

@@ -20,8 +20,7 @@ export class AppComponent {
     orientation: 'Vertical',
     resource: {
       gap: 0,
-      padding: 5,
-      showRectangles: true
+      padding: 5
     },
     activity: {
       fontFace: 'Arial',
@@ -78,17 +77,19 @@ export class AppComponent {
     });
   }
 
-  onHovered(event: any) {
-    this.hoveredId = event;
+  onHovered(hovered: any) {
+    console.log({ hovered });
+    this.hoveredId = hovered;
   }
 
-  onUnhovered() {
+  onUnhovered(unhovered: any) {
+    console.log({ unhovered });
     this.hoveredId = null;
   }
 
-  onSelected(event: any) {
-    console.log({ event });
-    this.selectedId = event;
+  onSelected(selected: any) {
+    console.log({ hovered: selected });
+    this.selectedId = selected;
   }
 
   private updateOptions(options: Options, value: { [key: string]: any }) {

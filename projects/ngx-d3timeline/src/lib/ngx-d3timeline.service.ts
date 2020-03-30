@@ -17,7 +17,6 @@ import {
   selectResourceRectangles,
   selectResourceTickRectangles
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
-import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
 import { identifier } from './core/types';
 
@@ -26,7 +25,6 @@ export class NgxD3TimelineService implements OnDestroy {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
-  showRectangles$ = this.store.select(selectResourceShowRectangles);
 
   activityDropped$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),

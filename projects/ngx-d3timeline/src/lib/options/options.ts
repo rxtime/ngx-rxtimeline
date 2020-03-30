@@ -11,7 +11,6 @@ export interface AxisOptions {
 export interface ResourceOptions {
   gap?: number;
   padding?: number;
-  showRectangles?: boolean;
 }
 
 export interface ActivityOptions {
@@ -57,8 +56,7 @@ export const defaultOptions: CompleteOptions = {
   },
   resource: {
     gap: 0.25,
-    padding: 5,
-    showRectangles: false
+    padding: 5
   },
   activity: {
     fontFace: 'Arial',

@@ -7,10 +7,10 @@
     [hoveredId]="hoveredId"
     (activityDropped)="onDropped($event)"
     (resourceHovered)="onHovered($event)"
-    (resourceUnhovered)="onUnhovered()"
+    (resourceUnhovered)="onUnhovered($event)"
     (resourceSelected)="onSelected($event)"
     (activityHovered)="onHovered($event)"
-    (activityUnhovered)="onUnhovered()"
+    (activityUnhovered)="onUnhovered($event)"
     (activitySelected)="onSelected($event)"
     class="demo-app"
   ></ngx-d3timeline>
@@ -40,18 +40,6 @@
       [value]="options.resource.padding"
       (keyup)="
         update('resource', options.resource, { padding: +$event.target.value })
-      "
-    />
-  </div>
-  <div>
-    <label>Show rectangles</label>
-    <input
-      type="checkbox"
-      [checked]="options.resource.showRectangles"
-      (change)="
-        update('resource', options.resource, {
-          showRectangles: !options.resource.showRectangles
-        })
       "
     />
   </div>
