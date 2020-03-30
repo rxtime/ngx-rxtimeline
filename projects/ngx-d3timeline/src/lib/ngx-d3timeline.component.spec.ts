@@ -106,20 +106,11 @@ describe('NgxD3timelineComponent', () => {
       timeline.view$ = of(new View([800, 600]));
       timeline.resourceAxis$ = of(null);
       timeline.timeAxis$ = of(null);
-      timeline.showRectangles$ = of(true);
       timeline.resourceRectangles$ = of(mockRectangles);
       timeline.resourceTickMarkRectangles$ = of(mockRectangles);
     });
 
     it('should render correctly', () => {
-      fixture.detectChanges();
-
-      expect(fixture.nativeElement).toMatchSnapshot();
-    });
-
-    it('should not render resource rectangles when showRectangles$ false', () => {
-      timeline.showRectangles$ = of(false);
-
       fixture.detectChanges();
 
       expect(fixture.nativeElement).toMatchSnapshot();
