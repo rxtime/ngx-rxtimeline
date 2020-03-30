@@ -14,7 +14,10 @@ import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
-import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
+import {
+  selectResourceRectangles,
+  selectResourceTickMarkRectangles
+} from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
@@ -41,6 +44,9 @@ export class NgxD3TimelineService implements OnDestroy {
     .pipe(filter(activity => !!activity));
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
+  resourceTickMarkRectangles$ = this.store.select(
+    selectResourceTickMarkRectangles
+  );
 
   private destroySubject = new Subject<boolean>();
 

@@ -1,21 +1,27 @@
-import { createSelector } from '../store-lib/selector/create-selector';
-import { selectBandScale } from '../scales/scale-selectors';
-import { BandScale } from '../scales/scale-types';
-import { ResourceRectangle } from './resource-rectangle';
-import { pointToTransform, Point } from '../core/point';
-import { selectTimeOrientation } from '../options/selectors/options.selectors';
-import { Orientation } from '../core/orientation';
+import { createSelector } from '../../store-lib/selector/create-selector';
+import { selectBandScale } from '../../scales/scale-selectors';
+import { BandScale } from '../../scales/scale-types';
+import { ResourceRectangle } from '../resource-rectangle';
+import { pointToTransform, Point } from '../../core/point';
 import {
   selectRectWidth,
-  selectRectHeight
+  selectResourceRectHeight,
+  selectTickRectHeight
 } from './resource-rectangle-size.selectors';
 import { selectResourceRectangleTopLeft } from './resource-rectangle-position.selectors';
 
-// This could be better, tidy up as part of #373
+export const selectResourceTickMarkRectangles = createSelector(
+  selectBandScale,
+  selectRectWidth,
+  selectTickRectHeight,
+  selectResourceRectangleTopLeft,
+  getResourceRectangles
+);
+
 export const selectResourceRectangles = createSelector(
   selectBandScale,
   selectRectWidth,
-  selectRectHeight,
+  selectResourceRectHeight,
   selectResourceRectangleTopLeft,
   getResourceRectangles
 );

@@ -59,6 +59,7 @@ describe('NgxD3timelineComponent', () => {
             hoveredActivity$: jest.fn(),
             unhoveredActivity$: jest.fn(),
             resourceRectangles$: jest.fn(),
+            resourceTickMarkRectangles$: jest.fn(),
             setupZoom: jest.fn(),
             onActivityDropped: jest.fn(),
             onHovered: jest.fn(),
@@ -89,11 +90,7 @@ describe('NgxD3timelineComponent', () => {
 
   describe('view not null', () => {
     beforeEach(() => {
-      timeline.view$ = of(new View([800, 600]));
-      timeline.resourceAxis$ = of(null);
-      timeline.timeAxis$ = of(null);
-      timeline.showRectangles$ = of(true);
-      timeline.resourceRectangles$ = of([
+      const mockRectangles = [
         {
           id: 'resource1',
           width: 10,
@@ -101,7 +98,14 @@ describe('NgxD3timelineComponent', () => {
           transform: 'translate(50,50'
         },
         { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
-      ]);
+      ];
+
+      timeline.view$ = of(new View([800, 600]));
+      timeline.resourceAxis$ = of(null);
+      timeline.timeAxis$ = of(null);
+      timeline.showRectangles$ = of(true);
+      timeline.resourceRectangles$ = of(mockRectangles);
+      timeline.resourceTickMarkRectangles$ = of(mockRectangles);
     });
 
     it('should render correctly', () => {

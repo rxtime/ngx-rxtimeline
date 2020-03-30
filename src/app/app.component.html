@@ -6,6 +6,7 @@
     (activityDropped)="onDropped($event)"
     (hovered)="onHovered($event)"
     (unhovered)="onUnhovered($event)"
+    class="demo-app"
   ></ngx-d3timeline>
 
   <div>
@@ -39,14 +40,14 @@
   <div>
     <label>Show rectangles</label>
     <input
-        type="checkbox"
-        [checked]="options.resource.showRectangles"
-        (change)="
-          update('resource', options.resource, {
-            showRectangles: !options.resource.showRectangles
-          })
-        "
-      />
+      type="checkbox"
+      [checked]="options.resource.showRectangles"
+      (change)="
+        update('resource', options.resource, {
+          showRectangles: !options.resource.showRectangles
+        })
+      "
+    />
   </div>
 
   <button (click)="flipOrientation(options)">Flip Orientation</button>
