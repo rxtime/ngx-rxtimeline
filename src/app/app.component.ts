@@ -30,7 +30,7 @@ export class AppComponent {
     resourceAxis: {
       showGridLines: true,
       tickLineLength: 0,
-      showAxisLine: true
+      showAxisLine: false
     },
     timeAxis: {
       showGridLines: true,

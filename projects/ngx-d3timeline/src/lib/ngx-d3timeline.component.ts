@@ -26,13 +26,23 @@ import { Options } from './options/options';
       class="ngx-d3timeline"
     >
       <g
+        *ngFor="
+          let tickMarkRectangle of timeline.resourceTickMarkRectangles$ | async
+        "
+        class="resource-title-background"
+        ngx-d3timeline-resource-rectangle
+        [resourceRectangle]="tickMarkRectangle"
+      ></g>
+      <g
         ngx-d3timeline-axis
         class="resources-axis"
         [axis]="timeline.resourceAxis$ | async"
       ></g>
+
       <ng-container *ngIf="timeline.showRectangles$ | async">
         <g
           ngx-d3timeline-resource-rectangle
+          class="resource-rectangle"
           *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
           [resourceRectangle]="resourceRectangle"
         ></g>
