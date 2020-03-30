@@ -22,7 +22,10 @@ import {
 } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { HoverAction, hoverEventComparer } from './hover/hover-event';
-import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
+import {
+  selectResourceRectangles,
+  selectResourceTickMarkRectangles
+} from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
@@ -53,6 +56,9 @@ export class NgxD3TimelineService implements OnDestroy {
   );
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
+  resourceTickMarkRectangles$ = this.store.select(
+    selectResourceTickMarkRectangles
+  );
 
   private destroySubject = new Subject<boolean>();
 
