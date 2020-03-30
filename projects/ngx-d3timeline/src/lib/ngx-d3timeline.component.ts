@@ -66,7 +66,7 @@ import { Options } from './options/options';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NgxD3TimelineService]
 })
-export class NgxD3timelineComponent implements AfterViewInit {
+export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -88,6 +88,10 @@ export class NgxD3timelineComponent implements AfterViewInit {
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
   constructor(public timeline: NgxD3TimelineService) {}
+
+  ngOnInit(): void {
+    this.timeline.onActivityDropped(this.activityDropped);
+  }
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);

@@ -1,4 +1,4 @@
-import { Injectable, ElementRef, OnDestroy } from '@angular/core';
+import { Injectable, ElementRef, OnDestroy, EventEmitter } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -10,7 +10,7 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 
 import {
@@ -61,6 +61,12 @@ export class NgxD3TimelineService implements OnDestroy {
       const onZoom = zoom().on('zoom', this.zoomed.bind(this));
       onZoom(select(svgEl.nativeElement));
     }
+  }
+
+  onActivityDropped(activityDropped: EventEmitter<Activity>) {
+    this.activityDropped$
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe(activity => activityDropped.emit(activity));
   }
 
   private zoomed() {
