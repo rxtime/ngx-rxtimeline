@@ -9,9 +9,10 @@ export enum ActionType {
   OptionsChanged = 'Options Changed',
   ViewChanged = 'View Changed',
   Zoomed = 'Zoomed',
-
   TimelineDragging = 'Timeline Dragging',
-  TimelineDragEnded = 'Timeline Drag Ended'
+  TimelineDragEnded = 'Timeline Drag Ended',
+  SelectedIdChanged = 'SelectedId Changed',
+  HoveredIdChanged = 'HoveredId Changed'
 }
 
 export class ActivitiesChangedAction implements Action {
@@ -44,10 +45,22 @@ export class TimelineDragEndedAction implements Action {
   constructor(public payload: PositionedActivity) {}
 }
 
+export class SelectedIdChangedAction implements Action {
+  readonly type = ActionType.SelectedIdChanged;
+  constructor(public payload: identifier) {}
+}
+
+export class HoveredIdChangedAction implements Action {
+  readonly type = ActionType.HoveredIdChanged;
+  constructor(public payload: identifier) {}
+}
+
 export type Actions =
   | ActivitiesChangedAction
   | OptionsChangedAction
   | ViewChangedAction
   | ZoomedAction
   | TimelineDraggingAction
-  | TimelineDragEndedAction;
+  | TimelineDragEndedAction
+  | SelectedIdChangedAction
+  | HoveredIdChangedAction;
