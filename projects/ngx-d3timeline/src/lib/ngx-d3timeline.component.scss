@@ -2,12 +2,12 @@
   .resources-axis .axis-group {
     &.Vertical {
       text-anchor: end;
+      dominant-baseline: central;
     }
     &.Horizontal {
       text-anchor: middle;
     }
   }
-
   .time-axis .axis-group {
     &.Vertical {
       text-anchor: end;
