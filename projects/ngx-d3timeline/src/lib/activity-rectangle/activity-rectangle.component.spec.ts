@@ -44,7 +44,9 @@ describe('ActivityRectangleComponent', () => {
       fontFace: 'Arial',
       strokeWidth: 1,
       disableDrag: false,
-      content: null
+      content: null,
+      selected: false,
+      hovered: false
     };
 
     fixture.detectChanges();
@@ -64,7 +66,9 @@ describe('ActivityRectangleComponent', () => {
       fontFace: 'Arial',
       strokeWidth: 1,
       disableDrag: false,
-      content: null
+      content: null,
+      selected: true,
+      hovered: true
     };
 
     fixture.detectChanges();

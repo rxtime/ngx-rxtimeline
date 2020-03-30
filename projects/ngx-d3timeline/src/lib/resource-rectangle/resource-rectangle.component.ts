@@ -8,6 +8,8 @@ import { ResourceRectangle } from './resource-rectangle';
       [attr.transform]="resourceRectangle.transform"
       [attr.width]="resourceRectangle.width"
       [attr.height]="resourceRectangle.height"
+      [class.selected]="resourceRectangle.selected"
+      [class.hovered]="resourceRectangle.hovered"
     ></svg:rect>
   `
 })

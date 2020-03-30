@@ -7,7 +7,7 @@ exports[`ActivityRectangleComponent should hide title when showTitle false 1`] =
 >
   
   <g
-    class="activity-rectangle Driving draggable"
+    class="activity-rectangle Driving draggable hovered selected"
     transform="translate(50,0)"
   >
     <rect

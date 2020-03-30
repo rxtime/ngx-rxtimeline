@@ -13,12 +13,37 @@ import {
   selectResourceRectTopLeft,
   selectTickRectTopLeft
 } from './resource-rectangle-position.selectors';
+import { selectSelectedId, selectHoveredId } from '../../store/state';
+import { identifier } from '../../core/types';
+import { PositionedActivity } from '../../activity/positioned-activity';
+import {
+  selectSelectedActivity,
+  selectHoveredActivity
+} from '../../activity/activity.selectors';
+
+const selectSelectedResource = createSelector(
+  selectSelectedId,
+  selectSelectedActivity,
+  getResource
+);
+
+const selectHoveredResource = createSelector(
+  selectHoveredId,
+  selectHoveredActivity,
+  getResource
+);
+
+function getResource(id: identifier, activity: PositionedActivity): string {
+  return (activity && activity.updatedResource) || (id as string);
+}
 
 export const selectResourceTickRectangles = createSelector(
   selectBandScale,
   selectTickRectWidth,
   selectTickRectHeight,
   selectTickRectTopLeft,
+  selectSelectedResource,
+  selectHoveredResource,
   getResourceRectangles
 );
 
@@ -27,6 +52,8 @@ export const selectResourceRectangles = createSelector(
   selectResourceRectWidth,
   selectResourceRectHeight,
   selectResourceRectTopLeft,
+  selectSelectedResource,
+  selectHoveredResource,
   getResourceRectangles
 );
 
@@ -34,12 +61,16 @@ function getResourceRectangles(
   scale: BandScale,
   width: number,
   height: number,
-  rectTopLeft: (resource: string) => Point
+  rectTopLeft: (resource: string) => Point,
+  selectedId: string,
+  hoveredId: string
 ): ResourceRectangle[] {
   return scale.domain().map(resource => ({
     id: resource,
     width,
     height,
-    transform: pointToTransform(rectTopLeft(resource))
+    transform: pointToTransform(rectTopLeft(resource)),
+    selected: selectedId === resource,
+    hovered: hoveredId === resource
   }));
 }
