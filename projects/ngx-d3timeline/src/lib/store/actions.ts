@@ -9,7 +9,7 @@ export enum ActionType {
   OptionsChanged = 'Options Changed',
   ViewChanged = 'View Changed',
   Zoomed = 'Zoomed',
-  TimelineDragStarted = 'Timeline Drag Started',
+
   TimelineDragging = 'Timeline Dragging',
   TimelineDragEnded = 'Timeline Drag Ended'
 }
@@ -34,14 +34,9 @@ export class ZoomedAction implements Action {
   constructor(public payload: any) {}
 }
 
-export class TimelineDragStartedAction implements Action {
-  readonly type = ActionType.TimelineDragStarted;
-  constructor(public payload: { id: identifier; event: any }) {}
-}
-
 export class TimelineDraggingAction implements Action {
   readonly type = ActionType.TimelineDragging;
-  constructor(public payload: any) {} // TODO payload: d3Drag.DragEvent
+  constructor(public payload: { id: identifier; event: any }) {} // TODO payload: d3Drag.DragEvent
 }
 
 export class TimelineDragEndedAction implements Action {
@@ -54,6 +49,5 @@ export type Actions =
   | OptionsChangedAction
   | ViewChangedAction
   | ZoomedAction
-  | TimelineDragStartedAction
   | TimelineDraggingAction
   | TimelineDragEndedAction;

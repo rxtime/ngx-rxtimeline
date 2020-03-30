@@ -27,26 +27,16 @@ export class ActivityDragService {
     });
   }
 
-  setupDrag(activityRectangleId: identifier, nativeElement: HTMLElement) {
+  setupDrag(id: identifier, nativeElement: HTMLElement) {
     const onDrag = drag()
-      .on('start', () => this.onDragStarted(activityRectangleId))
-      .on('drag', this.onDragging.bind(this))
+      .on('drag', () => this.onDragging(id))
       .on('end', this.onDragEnded.bind(this));
 
     onDrag(select(nativeElement));
   }
 
-  private onDragStarted(activityRectangleId: identifier) {
-    this.store.dispatch(
-      new fromActions.TimelineDragStartedAction({
-        id: activityRectangleId,
-        event
-      })
-    );
-  }
-
-  private onDragging() {
-    this.store.dispatch(new fromActions.TimelineDraggingAction(event));
+  private onDragging(id: identifier) {
+    this.store.dispatch(new fromActions.TimelineDraggingAction({ id, event }));
   }
 
   private onDragEnded() {

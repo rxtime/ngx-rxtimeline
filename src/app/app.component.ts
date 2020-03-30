@@ -83,6 +83,10 @@ export class AppComponent {
     console.log('unhovered ', event);
   }
 
+  onSelected(event: any) {
+    console.log('selected', event);
+  }
+
   private updateOptions(options: Options, value: { [key: string]: any }) {
     console.log(value);
     return { ...{ ...options, ...value } };

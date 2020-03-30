@@ -14,6 +14,7 @@ import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Options } from './options/options';
+import { identifier } from './core/types';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -58,6 +59,7 @@ import { Options } from './options/options';
         ngx-d3timeline-content
         (hovered)="activityHovered.emit($event)"
         (unhovered)="activityUnhovered.emit($event)"
+        (selected)="activitySelected.emit($event)"
       ></g>
     </svg>
   `,
@@ -82,8 +84,9 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Output() activityDropped = new EventEmitter<Activity>();
   @Output() resourceHovered = new EventEmitter<string>();
   @Output() resourceUnhovered = new EventEmitter<string>();
-  @Output() activityHovered = new EventEmitter<Activity>();
-  @Output() activityUnhovered = new EventEmitter<Activity>();
+  @Output() activityHovered = new EventEmitter<identifier>();
+  @Output() activityUnhovered = new EventEmitter<identifier>();
+  @Output() activitySelected = new EventEmitter<identifier>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 

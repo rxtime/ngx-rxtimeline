@@ -26,6 +26,7 @@ import { identifier } from '../core/types';
           [activityRectangle]="activityRectangle"
           (mouseenter)="hovered.emit(activityRectangle.id)"
           (mouseleave)="unhovered.emit(activityRectangle.id)"
+          (click)="selected.emit(activityRectangle.id)"
         ></svg:g>
 
         <svg:g
@@ -55,6 +56,7 @@ import { identifier } from '../core/types';
 export class ContentComponent {
   @Output() hovered = new EventEmitter<identifier>();
   @Output() unhovered = new EventEmitter<identifier>();
+  @Output() selected = new EventEmitter<identifier>();
 
   constructor(public contentService: ContentService) {}
 }
