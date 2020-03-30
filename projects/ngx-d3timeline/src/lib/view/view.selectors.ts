@@ -1,27 +1,27 @@
 import { selectView } from '../store/state';
 import {
   getViewTopLeft,
-  getViewClipRectangle,
-  getViewClipRectangleHeight,
-  getViewClipRectangleWidth
+  getViewClipRect,
+  getViewClipRectHeight,
+  getViewClipRectWidth
 } from './view-utils';
 import { createSelector } from '../store-lib/selector/create-selector';
 
 export const selectViewTopLeft = createSelector(selectView, getViewTopLeft);
 
-export const selectViewClipRectangleHeight = createSelector(
+export const selectViewClipRectHeight = createSelector(
   selectView,
-  getViewClipRectangleHeight
+  getViewClipRectHeight
 );
 
-export const selectViewClipRectangleWidth = createSelector(
+export const selectViewClipRectWidth = createSelector(
   selectView,
-  getViewClipRectangleWidth
+  getViewClipRectWidth
 );
 
-export const selectViewClipRectangle = createSelector(
+export const selectViewClipRect = createSelector(
   selectViewTopLeft,
-  selectViewClipRectangleWidth,
-  selectViewClipRectangleHeight,
-  getViewClipRectangle
+  selectViewClipRectWidth,
+  selectViewClipRectHeight,
+  getViewClipRect
 );
