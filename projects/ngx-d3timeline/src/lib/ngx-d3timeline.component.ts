@@ -48,6 +48,7 @@ import { identifier } from './core/types';
           [resourceRectangle]="resourceRectangle"
           (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
           (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
+          (click)="resourceSelected.emit(resourceRectangle.id)"
         ></g>
       </ng-container>
       <g
@@ -84,6 +85,7 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Output() activityDropped = new EventEmitter<Activity>();
   @Output() resourceHovered = new EventEmitter<string>();
   @Output() resourceUnhovered = new EventEmitter<string>();
+  @Output() resourceSelected = new EventEmitter<string>();
   @Output() activityHovered = new EventEmitter<identifier>();
   @Output() activityUnhovered = new EventEmitter<identifier>();
   @Output() activitySelected = new EventEmitter<identifier>();
