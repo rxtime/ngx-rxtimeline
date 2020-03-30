@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { AxisTickMarkComponent } from './axis-tick-mark.component';
+import { TickMarkComponent } from './tick-mark.component';
 import { createLine, Line } from '../core/line';
 import { Component, Input } from '@angular/core';
 
@@ -14,14 +14,14 @@ class FakeLineComponent {
 }
 
 describe('AxisTickMarkComponent', () => {
-  let fixture: ComponentFixture<AxisTickMarkComponent>;
+  let fixture: ComponentFixture<TickMarkComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AxisTickMarkComponent, FakeLineComponent]
+      declarations: [TickMarkComponent, FakeLineComponent]
     });
 
-    fixture = TestBed.createComponent(AxisTickMarkComponent);
+    fixture = TestBed.createComponent(TickMarkComponent);
   });
 
   it('should not render line when tickMark.line is falsy', () => {

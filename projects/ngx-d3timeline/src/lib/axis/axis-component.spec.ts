@@ -17,7 +17,7 @@ class FakeLineComponent {
 }
 
 @Component({
-  selector: '[ngx-d3timeline-axis-tick-mark]',
+  selector: '[ngx-d3timeline-tick-mark]',
   template: `
     <svg:g class="axis-tick-mark"></svg:g>
   `

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content/content.component';
 import { LineComponent } from './line/line.component';
 import { ActivityRectangleComponent } from './activity-rectangle/activity-rectangle.component';
-import { AxisTickMarkComponent } from './tick-mark/axis-tick-mark.component';
+import { TickMarkComponent } from './tick-mark/tick-mark.component';
 import { AxisComponent } from './axis/axis-component';
 import { ClipPathComponent } from './content/clip-path.component';
 import { ResourceRectangleComponent } from './resource-rectangle/resource-rectangle.component';
@@ -16,7 +16,7 @@ import { ActivityContentComponent } from './activity-rectangle/activity-content.
     ContentComponent,
     LineComponent,
     ActivityRectangleComponent,
-    AxisTickMarkComponent,
+    TickMarkComponent,
     AxisComponent,
     ClipPathComponent,
     ResourceRectangleComponent,
