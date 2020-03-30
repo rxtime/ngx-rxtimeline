@@ -15,6 +15,7 @@ import { Activity } from './activity/activity';
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Options } from './options/options';
 import { identifier } from './core/types';
+import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
 
 @Component({
   selector: 'ngx-d3timeline',
@@ -35,7 +36,10 @@ import { identifier } from './core/types';
         <g
           ngx-d3timeline-resource-rectangle
           class="resource-rectangle"
-          *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
+          *ngFor="
+            let resourceRectangle of timeline.resourceRectangles$ | async;
+            trackBy: trackByFn
+          "
           [resourceRectangle]="resourceRectangle"
           (mouseenter)="resourceHovered.emit(resourceRectangle.id)"
           (mouseleave)="resourceUnhovered.emit(resourceRectangle.id)"
@@ -44,7 +48,8 @@ import { identifier } from './core/types';
       </ng-container>
       <g
         *ngFor="
-          let tickMarkRectangle of timeline.resourceTickMarkRectangles$ | async
+          let tickMarkRectangle of timeline.resourceTickMarkRectangles$ | async;
+          trackBy: trackByFn
         "
         class="resource-title-background"
         ngx-d3timeline-resource-rectangle
@@ -108,5 +113,9 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.timeline.setupZoom(this.svgEl);
+  }
+
+  trackByFn(resourceRectangle: ResourceRectangle) {
+    return resourceRectangle.id;
   }
 }
