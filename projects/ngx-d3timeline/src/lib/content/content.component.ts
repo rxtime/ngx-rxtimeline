@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ContentService } from './content.service';
 import { identifier } from '../core/types';
+import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
 
 @Component({
   selector: '[ngx-d3timeline-content]',
@@ -21,7 +22,10 @@ import { identifier } from '../core/types';
         *ngIf="contentService.activityRectangles$ | async as activityRectangles"
       >
         <svg:g
-          *ngFor="let activityRectangle of activityRectangles"
+          *ngFor="
+            let activityRectangle of activityRectangles;
+            trackBy: trackByFn
+          "
           ngx-d3timeline-activity-rectangle
           [activityRectangle]="activityRectangle"
           (mouseenter)="hovered.emit(activityRectangle.id)"
@@ -59,4 +63,8 @@ export class ContentComponent {
   @Output() selected = new EventEmitter<identifier>();
 
   constructor(public contentService: ContentService) {}
+
+  trackByFn(activityRectangle: ActivityRectangle) {
+    return activityRectangle.id;
+  }
 }
