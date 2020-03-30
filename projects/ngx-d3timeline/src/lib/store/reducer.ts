@@ -36,12 +36,6 @@ export function reducer(state: State = initialState, action: Actions): State {
       };
     }
 
-    case ActionType.TimelineDragStarted: {
-      return {
-        ...state,
-        dragEvent: createDragEvent(action.payload.id, action.payload.event)
-      };
-    }
     case ActionType.TimelineDragging: {
       return {
         ...state,
@@ -50,14 +44,18 @@ export function reducer(state: State = initialState, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const activities = state.positionedActivities.map(activity =>
-        activity.id === action.payload.id ? action.payload : activity
-      );
+      const activities = action.payload
+        ? state.positionedActivities.map(activity =>
+            activity.id === action.payload.id ? action.payload : activity
+          )
+        : state.positionedActivities;
+
+      const lastDraggedActivityId = action.payload && action.payload.id;
       return {
         ...state,
         positionedActivities: activities,
         dragEvent: null,
-        lastDraggedActivityId: action.payload.id
+        lastDraggedActivityId
       };
     }
 
@@ -73,19 +71,21 @@ export function createDragEvent(
 ): TimelineDragEvent {
   return {
     id,
-    dx: dragEvent.dx,
-    dy: dragEvent.dy,
-    x: dragEvent.x,
-    y: dragEvent.y
+    ...dragEvent
   };
 }
 
-function updateDragEvent(dragEvent: TimelineDragEvent, event: any) {
-  return {
-    ...dragEvent,
-    dx: dragEvent.dx + event.dx,
-    dy: dragEvent.dy + event.dy,
-    x: event.x,
-    y: event.y
-  };
+function updateDragEvent(
+  dragEvent: TimelineDragEvent,
+  payload: { id: identifier; event: any }
+) {
+  return dragEvent
+    ? {
+        ...dragEvent,
+        dx: dragEvent.dx + payload.event.dx,
+        dy: dragEvent.dy + payload.event.dy,
+        x: payload.event.x,
+        y: payload.event.y
+      }
+    : createDragEvent(payload.id, payload.event);
 }
