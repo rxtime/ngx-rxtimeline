@@ -54,12 +54,8 @@ export class NgxD3TimelineService implements OnDestroy {
     filter(activity => !!activity),
     distinctUntilChanged(hoverEventComparer)
   );
-
-  hoveredActivity$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
-
-  unhoveredActivity$ = this.getHoveredActivityByHoverAction(
-    HoverAction.Unhovered
-  );
+  hovered$ = this.getHoveredActivityByHoverAction(HoverAction.Hovered);
+  unhovered$ = this.getHoveredActivityByHoverAction(HoverAction.Unhovered);
 
   resourceRectangles$ = this.store.select(selectResourceRectangles);
   resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
@@ -107,15 +103,11 @@ export class NgxD3TimelineService implements OnDestroy {
   }
 
   onHovered(hovered: EventEmitter<Activity | string>) {
-    outputOnObservableEmit(this.hoveredActivity$, this.destroySubject, hovered);
+    outputOnObservableEmit(this.hovered$, this.destroySubject, hovered);
   }
 
   onUnhovered(unhovered: EventEmitter<Activity | string>) {
-    outputOnObservableEmit(
-      this.unhoveredActivity$,
-      this.destroySubject,
-      unhovered
-    );
+    outputOnObservableEmit(this.unhovered$, this.destroySubject, unhovered);
   }
 
   onActivityDropped(activityDropped: EventEmitter<Activity>) {

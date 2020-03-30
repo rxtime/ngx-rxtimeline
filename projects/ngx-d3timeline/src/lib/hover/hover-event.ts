@@ -20,5 +20,5 @@ export interface HoverEvent extends HoverEventArgs {
 }
 
 export function hoverEventComparer(a: HoverEvent, b: HoverEvent) {
-  return a.id === b.id && a.action === b.action;
+  return a.id === b.id && a.action === b.action && a.source === b.source;
 }
