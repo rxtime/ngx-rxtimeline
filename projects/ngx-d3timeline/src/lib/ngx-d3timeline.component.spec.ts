@@ -84,14 +84,23 @@ describe('NgxD3timelineComponent', () => {
 
   describe('view not null', () => {
     beforeEach(() => {
-      const mockRectangles = [
+      const mockRectangles: ResourceRectangle[] = [
         {
           id: 'resource1',
           width: 10,
           height: 10,
-          transform: 'translate(50,50'
+          transform: 'translate(50,50',
+          hovered: true,
+          selected: true
         },
-        { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
+        {
+          id: 'resource2',
+          width: 10,
+          height: 10,
+          transform: 'translate(50,50',
+          hovered: false,
+          selected: false
+        }
       ];
 
       timeline.view$ = of(new View([800, 600]));
