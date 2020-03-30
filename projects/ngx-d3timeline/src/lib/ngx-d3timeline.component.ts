@@ -82,6 +82,14 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
     this.timeline.setOptions(options);
   }
 
+  @Input() set selectedId(id: identifier) {
+    this.timeline.setSelectedId(id);
+  }
+
+  @Input() set hoveredId(id: identifier) {
+    this.timeline.setHoveredId(id);
+  }
+
   @Output() activityDropped = new EventEmitter<Activity>();
   @Output() resourceHovered = new EventEmitter<string>();
   @Output() resourceUnhovered = new EventEmitter<string>();

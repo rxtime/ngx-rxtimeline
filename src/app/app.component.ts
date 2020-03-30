@@ -49,6 +49,9 @@ export class AppComponent {
     }
   };
 
+  selectedId = null;
+  hoveredId = null;
+
   options$ = this.optionUpdateSubject.pipe(
     scan(this.updateOptions, this.initialOptions),
     tap(console.log)
@@ -76,15 +79,16 @@ export class AppComponent {
   }
 
   onHovered(event: any) {
-    console.log('hovered ', event);
+    this.hoveredId = event;
   }
 
-  onUnhovered(event: any) {
-    console.log('unhovered ', event);
+  onUnhovered() {
+    this.hoveredId = null;
   }
 
   onSelected(event: any) {
-    console.log('selected', event);
+    console.log({ event });
+    this.selectedId = event;
   }
 
   private updateOptions(options: Options, value: { [key: string]: any }) {

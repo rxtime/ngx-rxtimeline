@@ -12,6 +12,8 @@ export interface State {
   lastDraggedActivityId: identifier;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
+  selectedId: identifier;
+  hoveredId: identifier;
 }
 
 const initialView = new View([null, null]);
@@ -22,7 +24,9 @@ export const initialState: State = {
   positionedActivities: [],
   lastDraggedActivityId: null,
   dragEvent: null,
-  zoomEvent: null
+  zoomEvent: null,
+  selectedId: null,
+  hoveredId: null
 };
 
 export const selectOptions = createSliceSelector(
@@ -41,4 +45,12 @@ export const selectDragEvent = createSliceSelector(
 
 export const selectLastDraggedActivityId = createSliceSelector(
   (state: State) => state.lastDraggedActivityId
+);
+
+export const selectSelectedId = createSliceSelector(
+  (state: State) => state.selectedId
+);
+
+export const selectHoveredId = createSliceSelector(
+  (state: State) => state.hoveredId
 );

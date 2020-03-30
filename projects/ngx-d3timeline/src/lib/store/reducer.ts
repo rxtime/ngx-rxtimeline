@@ -59,6 +59,14 @@ export function reducer(state: State = initialState, action: Actions): State {
       };
     }
 
+    case ActionType.SelectedIdChanged: {
+      return { ...state, selectedId: action.payload };
+    }
+
+    case ActionType.HoveredIdChanged: {
+      return { ...state, hoveredId: action.payload };
+    }
+
     default: {
       return state;
     }
