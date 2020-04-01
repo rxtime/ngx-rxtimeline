@@ -16,16 +16,23 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
+import {
+  map,
+  filter,
+  distinctUntilChanged,
+  debounceTime,
+  takeUntil
+} from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 import { selectHoveredActivity } from './hover/hover.selectors';
 import { HoverAction } from './hover/hover-event';
 import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
 
 declare var ResizeObserver: any; // typings not yet available in Typescript
+declare type ResizeObserver = any;
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -33,6 +40,8 @@ export class NgxD3TimelineService implements OnDestroy {
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
   showRectangles$ = this.store.select(selectResourceShowRectangles);
+  resizeObserver: ResizeObserver;
+  resizes$ = new BehaviorSubject<[number, number]>([0, 0]);
 
   activityDropped$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),
@@ -55,6 +64,7 @@ export class NgxD3TimelineService implements OnDestroy {
   constructor(private store: Store, private axisService: AxisService) {}
 
   ngOnDestroy(): void {
+    this.resizeObserver.disconnect();
     this.destroySubject.next(true);
   }
 
@@ -102,12 +112,20 @@ export class NgxD3TimelineService implements OnDestroy {
   }
 
   setupResizing(hostElement: ElementRef, changeDetector: ChangeDetectorRef) {
-    const observer = new ResizeObserver(entries => {
-      entries.forEach(entry => {
-        this.setView([entry.contentRect.width, entry.contentRect.height]);
-        changeDetector.detectChanges(); // not sure why change detection does not ordinarily pick this up
+    this.resizes$
+      .pipe(takeUntil(this.destroySubject), debounceTime(100))
+      .subscribe(view => {
+        this.setView(view);
+
+        // possibly necessary due to current lack of monkey patching for ResizeObserver
+        // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
+        changeDetector.detectChanges();
       });
+
+    this.resizeObserver = new ResizeObserver(entries => {
+      const entry = entries[0];
+      this.resizes$.next([entry.contentRect.width, entry.contentRect.height]);
     });
-    observer.observe(hostElement.nativeElement);
+    this.resizeObserver.observe(hostElement.nativeElement);
   }
 }
