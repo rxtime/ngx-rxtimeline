@@ -4,8 +4,8 @@ export class View {
   readonly width: number;
   readonly height: number;
 
-  readonly left = View.margin;
-  readonly top = View.margin;
+  readonly left: number;
+  readonly top: number;
   readonly right: number;
   readonly bottom: number;
 
@@ -13,7 +13,13 @@ export class View {
     this.width = width;
     this.height = height;
 
-    this.bottom = height - View.margin;
-    this.right = width - View.margin;
+    this.left = Math.min(View.margin, width);
+    this.top = Math.min(View.margin, height);
+    this.bottom = Math.max(height - View.margin, 0);
+    this.right = Math.max(width - View.margin, 0);
+  }
+
+  get isEmpty(): boolean {
+    return !(this.width && this.height);
   }
 }

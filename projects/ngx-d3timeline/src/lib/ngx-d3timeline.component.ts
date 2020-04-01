@@ -19,32 +19,36 @@ import { Options } from './options/options';
 @Component({
   selector: 'ngx-d3timeline',
   template: `
-    <svg
-      #svgEl
-      *ngIf="timeline.view$ | async as view"
-      [attr.width]="view.width"
-      [attr.height]="view.height"
-      class="ngx-d3timeline"
-    >
-      <g
-        ngx-d3timeline-axis
-        class="resources-axis"
-        [axis]="timeline.resourceAxis$ | async"
-      ></g>
-      <ng-container *ngIf="timeline.showRectangles$ | async">
+    <ng-container *ngIf="timeline.view$ | async as view">
+      <svg
+        #svgEl
+        *ngIf="!view.isEmpty"
+        [attr.width]="view.width"
+        [attr.height]="view.height"
+        class="ngx-d3timeline"
+      >
         <g
-          ngx-d3timeline-resource-rectangle
-          *ngFor="let resourceRectangle of timeline.resourceRectangles$ | async"
-          [resourceRectangle]="resourceRectangle"
+          ngx-d3timeline-axis
+          class="resources-axis"
+          [axis]="timeline.resourceAxis$ | async"
         ></g>
-      </ng-container>
-      <g
-        ngx-d3timeline-axis
-        class="time-axis"
-        [axis]="timeline.timeAxis$ | async"
-      ></g>
-      <g ngx-d3timeline-content></g>
-    </svg>
+        <ng-container *ngIf="timeline.showRectangles$ | async">
+          <g
+            ngx-d3timeline-resource-rectangle
+            *ngFor="
+              let resourceRectangle of timeline.resourceRectangles$ | async
+            "
+            [resourceRectangle]="resourceRectangle"
+          ></g>
+        </ng-container>
+        <g
+          ngx-d3timeline-axis
+          class="time-axis"
+          [axis]="timeline.timeAxis$ | async"
+        ></g>
+        <g ngx-d3timeline-content></g>
+      </svg>
+    </ng-container>
   `,
   styleUrls: ['./ngx-d3timeline.component.scss'],
   encapsulation: ViewEncapsulation.None,
