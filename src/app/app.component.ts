@@ -53,8 +53,7 @@ export class AppComponent {
   };
 
   options$ = this.optionUpdateSubject.pipe(
-    scan(this.updateOptions, this.initialOptions),
-    tap(console.log)
+    scan(this.updateOptions, this.initialOptions)
   );
 
   width = '800px';
@@ -87,7 +86,6 @@ export class AppComponent {
   }
 
   private updateOptions(options: Options, value: { [key: string]: any }) {
-    console.log(value);
     return { ...{ ...options, ...value } };
   }
 }
