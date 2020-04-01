@@ -1,5 +1,3 @@
-export type identifier = string | number;
-
 export type Complete<T> = {
   [P in keyof T]-?: T[P] extends (infer U)[]
     ? Complete<U>[]
@@ -7,7 +5,3 @@ export type Complete<T> = {
     ? Complete<T[P]>
     : T[P];
 };
-
-export interface Identifiable {
-  id: identifier;
-}

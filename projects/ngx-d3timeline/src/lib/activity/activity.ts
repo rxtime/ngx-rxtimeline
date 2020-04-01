@@ -1,5 +1,5 @@
 import { PositionedActivity } from './positioned-activity';
-import { Identifiable } from '../core/types';
+import { Identifiable } from '../core/identifiable';
 
 export interface Activity extends Identifiable {
   id: number;

@@ -1,8 +1,8 @@
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { ActivityContent } from './activity-content';
 
 export interface ActivityRectangle {
-  id: identifier;
+  id: Identifier;
   type: string;
   showTitle: boolean;
   transform: string;

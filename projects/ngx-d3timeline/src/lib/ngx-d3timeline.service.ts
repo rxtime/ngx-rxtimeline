@@ -18,7 +18,7 @@ import {
   selectResourceTickRectangles
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { Subject } from 'rxjs';
-import { identifier } from './core/types';
+import { Identifier } from './core/identifiable';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -43,11 +43,11 @@ export class NgxD3TimelineService implements OnDestroy {
     this.destroySubject.next(true);
   }
 
-  setSelectedId(id: identifier) {
+  setSelectedId(id: Identifier) {
     this.store.dispatch(new fromActions.SelectedIdChangedAction(id));
   }
 
-  setHoveredId(id: identifier) {
+  setHoveredId(id: Identifier) {
     this.store.dispatch(new fromActions.HoveredIdChangedAction(id));
   }
 

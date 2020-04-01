@@ -1,7 +1,7 @@
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 
 export interface TimelineDragEvent {
-  id: identifier;
+  id: Identifier;
   dx: number;
   dy: number;
   x: number;

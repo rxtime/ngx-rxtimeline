@@ -6,7 +6,7 @@ import { drag } from 'd3-drag';
 import { select, event } from 'd3-selection';
 
 import * as fromActions from '../store/actions';
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { selectActivityUpdatedForDrag } from '../activity/activity.selectors';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +27,7 @@ export class ActivityDragService {
     });
   }
 
-  setupDrag(id: identifier, nativeElement: HTMLElement) {
+  setupDrag(id: Identifier, nativeElement: HTMLElement) {
     const onDrag = drag()
       .on('drag', () => this.onDragging(id))
       .on('end', this.onDragEnded.bind(this));
@@ -35,7 +35,7 @@ export class ActivityDragService {
     onDrag(select(nativeElement));
   }
 
-  private onDragging(id: identifier) {
+  private onDragging(id: Identifier) {
     this.store.dispatch(new fromActions.TimelineDraggingAction({ id, event }));
   }
 
