@@ -10,3 +10,14 @@ export function findIdentifiable<T extends Identifiable>(
 ): T {
   return id && identifiables.find(identifiable => identifiable.id === id);
 }
+
+export function updateOne<T extends Identifiable>(
+  identifiables: T[],
+  update: T
+): T[] {
+  return update
+    ? identifiables.map(activity =>
+        activity.id === update.id ? update : activity
+      )
+    : identifiables;
+}
