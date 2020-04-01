@@ -9,7 +9,7 @@ import { scan, tap } from 'rxjs/operators';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   activities = deliveryData;
@@ -57,8 +57,8 @@ export class AppComponent {
     tap(console.log)
   );
 
-  width = 800;
-  height = 600;
+  width = '800px';
+  height = '600px';
 
   onDropped(activity: Activity) {
     console.log(activity);

@@ -1,4 +1,10 @@
-import { Injectable, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  Injectable,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -18,6 +24,8 @@ import { selectResourceRectangles } from './resource-rectangle/resource-rectangl
 import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
 import { Subject } from 'rxjs';
 import { outputOnObservableEmit } from './core/observable-utils';
+
+declare var ResizeObserver: any; // typings not yet available in Typescript
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -91,5 +99,15 @@ export class NgxD3TimelineService implements OnDestroy {
 
   private zoomed() {
     this.store.dispatch(new fromActions.ZoomedAction(event));
+  }
+
+  setupResizing(hostElement: ElementRef, changeDetector: ChangeDetectorRef) {
+    const observer = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        this.setView([entry.contentRect.width, entry.contentRect.height]);
+        changeDetector.detectChanges(); // not sure why change detection does not ordinarily pick this up
+      });
+    });
+    observer.observe(hostElement.nativeElement);
   }
 }

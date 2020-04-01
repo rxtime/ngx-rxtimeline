@@ -8,7 +8,8 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
@@ -55,10 +56,6 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
     this.timeline.setActivities(value);
   }
 
-  @Input() set view([width, height]: [number, number]) {
-    this.timeline.setView([width, height]);
-  }
-
   @Input() set options(options: Options) {
     this.timeline.setOptions(options);
   }
@@ -69,10 +66,15 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 
-  constructor(public timeline: NgxD3TimelineService) {}
+  constructor(
+    public timeline: NgxD3TimelineService,
+    private hostElement: ElementRef,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.initEventEmitters();
+    this.timeline.setupResizing(this.hostElement, this.changeDetector);
   }
 
   ngAfterViewInit(): void {
