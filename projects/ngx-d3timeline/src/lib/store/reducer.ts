@@ -2,7 +2,7 @@ import { State, initialState } from './state';
 import { Actions, ActionType } from './actions';
 import { View } from '../view/view';
 import { TimelineDragEvent } from '../drag/timeline-drag-event';
-import { Identifier } from '../core/identifiable';
+import { Identifier, updateOne } from '../core/identifiable';
 import { initialisePositionedActivity } from '../activity/positioned-activity';
 import { defaultOptions } from '../options/options';
 import { mergeDeep } from '../core/object-utils';
@@ -44,16 +44,13 @@ export function reducer(state: State = initialState, action: Actions): State {
     }
 
     case ActionType.TimelineDragEnded: {
-      const activities = action.payload
-        ? state.positionedActivities.map(activity =>
-            activity.id === action.payload.id ? action.payload : activity
-          )
-        : state.positionedActivities;
-
       const lastDraggedActivityId = action.payload && action.payload.id;
       return {
         ...state,
-        positionedActivities: activities,
+        positionedActivities: updateOne(
+          state.positionedActivities,
+          action.payload
+        ),
         dragEvent: null,
         lastDraggedActivityId
       };
