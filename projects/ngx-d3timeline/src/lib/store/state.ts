@@ -2,18 +2,18 @@ import { View } from '../view/view';
 import { TimelineDragEvent } from '../drag/timeline-drag-event';
 import { createSliceSelector } from '../store-lib/selector/slice-selector';
 import { PositionedActivity } from '../activity/positioned-activity';
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { defaultOptions, CompleteOptions } from '../options/options';
 
 export interface State {
   view: View;
   options: CompleteOptions;
   positionedActivities: PositionedActivity[];
-  lastDraggedActivityId: identifier;
+  lastDraggedActivityId: Identifier;
   dragEvent: TimelineDragEvent;
   zoomEvent: any;
-  selectedId: identifier;
-  hoveredId: identifier;
+  selectedId: Identifier;
+  hoveredId: Identifier;
 }
 
 const initialView = new View([null, null]);

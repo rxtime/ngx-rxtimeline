@@ -2,7 +2,7 @@ import { State, initialState } from './state';
 import { Actions, ActionType } from './actions';
 import { View } from '../view/view';
 import { TimelineDragEvent } from '../drag/timeline-drag-event';
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { initialisePositionedActivity } from '../activity/positioned-activity';
 import { defaultOptions } from '../options/options';
 import { mergeDeep } from '../core/object-utils';
@@ -74,7 +74,7 @@ export function reducer(state: State = initialState, action: Actions): State {
 }
 
 export function createDragEvent(
-  id: identifier,
+  id: Identifier,
   dragEvent: any
 ): TimelineDragEvent {
   return {
@@ -85,7 +85,7 @@ export function createDragEvent(
 
 function updateDragEvent(
   dragEvent: TimelineDragEvent,
-  payload: { id: identifier; event: any }
+  payload: { id: Identifier; event: any }
 ) {
   return dragEvent
     ? {

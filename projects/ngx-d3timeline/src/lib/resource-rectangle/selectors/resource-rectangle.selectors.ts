@@ -14,7 +14,7 @@ import {
   selectTickRectTopLeft
 } from './resource-rectangle-position.selectors';
 import { selectSelectedId, selectHoveredId } from '../../store/state';
-import { identifier } from '../../core/types';
+import { Identifier } from '../../core/identifiable';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import {
   selectSelectedActivity,
@@ -33,7 +33,7 @@ const selectHoveredResource = createSelector(
   getResource
 );
 
-function getResource(id: identifier, activity: PositionedActivity): string {
+function getResource(id: Identifier, activity: PositionedActivity): string {
   return (activity && activity.updatedResource) || (id as string);
 }
 

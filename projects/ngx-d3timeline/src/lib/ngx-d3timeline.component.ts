@@ -14,7 +14,7 @@ import { Activity } from './activity/activity';
 
 import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { Options } from './options/options';
-import { identifier } from './core/types';
+import { Identifier } from './core/identifiable';
 import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
 
 @Component({
@@ -85,11 +85,11 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
     this.timeline.setOptions(options);
   }
 
-  @Input() set selectedId(id: identifier) {
+  @Input() set selectedId(id: Identifier) {
     this.timeline.setSelectedId(id);
   }
 
-  @Input() set hoveredId(id: identifier) {
+  @Input() set hoveredId(id: Identifier) {
     this.timeline.setHoveredId(id);
   }
 
@@ -97,9 +97,9 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Output() resourceHovered = new EventEmitter<string>();
   @Output() resourceUnhovered = new EventEmitter<string>();
   @Output() resourceSelected = new EventEmitter<string>();
-  @Output() activityHovered = new EventEmitter<identifier>();
-  @Output() activityUnhovered = new EventEmitter<identifier>();
-  @Output() activitySelected = new EventEmitter<identifier>();
+  @Output() activityHovered = new EventEmitter<Identifier>();
+  @Output() activityUnhovered = new EventEmitter<Identifier>();
+  @Output() activitySelected = new EventEmitter<Identifier>();
 
   @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
 

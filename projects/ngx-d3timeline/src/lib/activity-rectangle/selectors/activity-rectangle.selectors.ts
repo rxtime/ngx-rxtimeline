@@ -35,7 +35,7 @@ import { partialApply } from '../../core/function-utils';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
 import { ActivityContent } from '../activity-content';
-import { identifier } from '../../core/types';
+import { Identifier } from '../../core/identifiable';
 
 const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
@@ -148,8 +148,8 @@ function createActivityRectangle(
   disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
   activityPadding: (type: string) => number,
-  hoveredId: identifier,
-  selectedId: identifier
+  hoveredId: Identifier,
+  selectedId: Identifier
 ): ActivityRectangle {
   return {
     id: positionedActivity.id,
