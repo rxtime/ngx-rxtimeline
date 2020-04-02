@@ -15,6 +15,7 @@ import { Orientation } from '../core/orientation';
 import { selectBandScale, selectTimeScale } from '../scales/scale-selectors';
 import { getInverseBandScale } from '../scales/scale-utils';
 import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
+import { selectGetTypeZIndex } from '../options/selectors/type-options.selectors';
 
 const selectDragEventId = createSelector(selectDragEvent, getDragEventId);
 
@@ -22,8 +23,21 @@ function getDragEventId(dragEvent: TimelineDragEvent): Identifier {
   return dragEvent && dragEvent.id;
 }
 
-export const selectNonDraggedActivities = createSelector(
+const selectSortedPositionedActivities = createSelector(
   selectPositionedActivities,
+  selectGetTypeZIndex,
+  getSortedPositionedActivities
+);
+
+function getSortedPositionedActivities(
+  activities: PositionedActivity[],
+  zIndex: (type: string) => number
+): PositionedActivity[] {
+  return activities.sort((a, b) => zIndex(a.type) - zIndex(b.type));
+}
+
+export const selectNonDraggedActivities = createSelector(
+  selectSortedPositionedActivities,
   selectDragEventId,
   getNonDraggedActivities
 );
