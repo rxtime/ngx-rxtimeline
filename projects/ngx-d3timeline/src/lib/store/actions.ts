@@ -1,7 +1,7 @@
 import { Activity } from '../activity/activity';
 import { PositionedActivity } from '../activity/positioned-activity';
 import { Options } from '../options/options';
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { Action } from '../store-lib/action';
 
 export enum ActionType {
@@ -37,7 +37,7 @@ export class ZoomedAction implements Action {
 
 export class TimelineDraggingAction implements Action {
   readonly type = ActionType.TimelineDragging;
-  constructor(public payload: { id: identifier; event: any }) {} // TODO payload: d3Drag.DragEvent
+  constructor(public payload: { id: Identifier; event: any }) {} // TODO payload: d3Drag.DragEvent
 }
 
 export class TimelineDragEndedAction implements Action {
@@ -47,12 +47,12 @@ export class TimelineDragEndedAction implements Action {
 
 export class SelectedIdChangedAction implements Action {
   readonly type = ActionType.SelectedIdChanged;
-  constructor(public payload: identifier) {}
+  constructor(public payload: Identifier) {}
 }
 
 export class HoveredIdChangedAction implements Action {
   readonly type = ActionType.HoveredIdChanged;
-  constructor(public payload: identifier) {}
+  constructor(public payload: Identifier) {}
 }
 
 export type Actions =

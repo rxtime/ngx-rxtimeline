@@ -5,7 +5,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { ContentService } from './content.service';
-import { identifier } from '../core/types';
+import { Identifier } from '../core/identifiable';
 import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
 
 @Component({
@@ -58,9 +58,9 @@ import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent {
-  @Output() hovered = new EventEmitter<identifier>();
-  @Output() unhovered = new EventEmitter<identifier>();
-  @Output() selected = new EventEmitter<identifier>();
+  @Output() hovered = new EventEmitter<Identifier>();
+  @Output() unhovered = new EventEmitter<Identifier>();
+  @Output() selected = new EventEmitter<Identifier>();
 
   constructor(public contentService: ContentService) {}
 
