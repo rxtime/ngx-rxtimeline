@@ -22,6 +22,7 @@ export interface ActivityOptions {
 
 export interface TypeOptions {
   activity?: ActivityOptions;
+  zIndex?: number;
   lateralMargin?: number;
 }
 
@@ -65,4 +66,10 @@ export const defaultOptions: CompleteOptions = {
     padding: 5
   },
   type: {}
+};
+
+export const defaultTypeOptions: Complete<TypeOptions> = {
+  activity: null,
+  lateralMargin: 0,
+  zIndex: 0
 };
