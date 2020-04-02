@@ -29,19 +29,15 @@ import {
   selectResourceRectangles,
   selectResourceTickRectangles
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { identifier } from './core/types';
-
-declare var ResizeObserver: any; // typings not yet available in Typescript
-declare type ResizeObserver = any;
+import { createResizeObservable } from './core/resize-observable';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
-  resizeObserver: ResizeObserver;
-  resizes$ = new BehaviorSubject<[number, number]>([0, 0]);
 
   activityDropped$ = this.store.select(selectLastDraggedActivity).pipe(
     filter(activity => !!activity),
@@ -57,7 +53,6 @@ export class NgxD3TimelineService implements OnDestroy {
   constructor(private store: Store, private axisService: AxisService) {}
 
   ngOnDestroy(): void {
-    this.resizeObserver.disconnect();
     this.destroySubject.next(true);
   }
 
@@ -99,7 +94,9 @@ export class NgxD3TimelineService implements OnDestroy {
   }
 
   setupResizing(hostElement: ElementRef, changeDetector: ChangeDetectorRef) {
-    this.resizes$
+    const resizes$ = createResizeObservable(hostElement);
+
+    resizes$
       .pipe(takeUntil(this.destroySubject), debounceTime(100))
       .subscribe(view => {
         this.setView(view);
@@ -108,11 +105,5 @@ export class NgxD3TimelineService implements OnDestroy {
         // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
         changeDetector.detectChanges();
       });
-
-    this.resizeObserver = new ResizeObserver(entries => {
-      const entry = entries[0];
-      this.resizes$.next([entry.contentRect.width, entry.contentRect.height]);
-    });
-    this.resizeObserver.observe(hostElement.nativeElement);
   }
 }
