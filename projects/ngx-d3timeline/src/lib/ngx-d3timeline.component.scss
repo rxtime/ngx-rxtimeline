@@ -2,12 +2,12 @@
   .resources-axis .axis-group {
     &.Vertical {
       text-anchor: end;
+      dominant-baseline: central;
     }
     &.Horizontal {
       text-anchor: middle;
     }
   }
-
   .time-axis .axis-group {
     &.Vertical {
       text-anchor: end;
@@ -56,9 +56,13 @@
     }
   }
 
-  .resource-rectangle {
+  .resource-rectangle rect {
     fill-opacity: 0;
     stroke: #000;
+  }
+
+  .resource-title-background rect {
+    fill: none;
   }
 
   .activity-content-title {

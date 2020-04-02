@@ -15,8 +15,3 @@ export const selectResourcePadding = createSelector(
   selectResourceOptions,
   resourceOptions => resourceOptions.padding
 );
-
-export const selectResourceShowRectangles = createSelector(
-  selectResourceOptions,
-  resourceOptions => resourceOptions.showRectangles
-);

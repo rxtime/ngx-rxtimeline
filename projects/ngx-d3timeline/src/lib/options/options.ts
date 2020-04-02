@@ -11,19 +11,18 @@ export interface AxisOptions {
 export interface ResourceOptions {
   gap?: number;
   padding?: number;
-  showRectangles?: boolean;
 }
 
 export interface ActivityOptions {
   fontFace?: string;
   fontSize?: number;
-  lateralMargin?: number;
   disableDrag?: boolean;
   padding?: number;
 }
 
 export interface TypeOptions {
   activity?: ActivityOptions;
+  lateralMargin?: number;
 }
 
 export interface Options {
@@ -57,13 +56,11 @@ export const defaultOptions: CompleteOptions = {
   },
   resource: {
     gap: 0.25,
-    padding: 5,
-    showRectangles: false
+    padding: 5
   },
   activity: {
     fontFace: 'Arial',
     fontSize: 10,
-    lateralMargin: 0,
     disableDrag: false,
     padding: 5
   },

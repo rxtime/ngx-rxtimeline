@@ -4,7 +4,7 @@ import {
   selectTimeOrientation,
   selectStrokeWidth
 } from '../../options/selectors/options.selectors';
-import { selectGetActivityLateralMargin } from '../../options/selectors/activity-options.selectors';
+import { selectGetTypeLateralMargin } from '../../options/selectors/type-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { Point, translatePoint, pointToTransform } from '../../core/point';
@@ -28,7 +28,7 @@ function getPositionInTimeAxis(
 const selectGetPositionInResourceAxis = createSelector(
   selectBandScale,
   selectResourcePadding,
-  selectGetActivityLateralMargin,
+  selectGetTypeLateralMargin,
   selectStrokeWidth,
   partialApply(getPositionInResourceAxis)
 );

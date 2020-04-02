@@ -13,4 +13,6 @@ export interface ActivityRectangle {
   strokeWidth: number;
   disableDrag: boolean;
   content: ActivityContent;
+  selected: boolean;
+  hovered: boolean;
 }

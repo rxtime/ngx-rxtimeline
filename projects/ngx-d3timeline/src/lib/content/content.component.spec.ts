@@ -55,7 +55,9 @@ describe('ContentComponent', () => {
         fontFace: 'Arial',
         strokeWidth: 1,
         disableDrag: false,
-        content: null
+        content: null,
+        selected: false,
+        hovered: false
       },
       {
         id: 2,
@@ -68,7 +70,9 @@ describe('ContentComponent', () => {
         fontFace: 'Arial',
         strokeWidth: 1,
         disableDrag: false,
-        content: null
+        content: null,
+        selected: false,
+        hovered: false
       }
     ];
   });

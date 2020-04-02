@@ -24,12 +24,13 @@ import {
   takeUntil
 } from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
-import { selectHoveredActivity } from './hover/hover.selectors';
-import { HoverAction } from './hover/hover-event';
-import { selectResourceRectangles } from './resource-rectangle/resource-rectangle.selectors';
-import { selectResourceShowRectangles } from './options/selectors/resource-options.selectors';
+
+import {
+  selectResourceRectangles,
+  selectResourceTickRectangles
+} from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { outputOnObservableEmit } from './core/observable-utils';
+import { identifier } from './core/types';
 
 declare var ResizeObserver: any; // typings not yet available in Typescript
 declare type ResizeObserver = any;
@@ -39,7 +40,6 @@ export class NgxD3TimelineService implements OnDestroy {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
-  showRectangles$ = this.store.select(selectResourceShowRectangles);
   resizeObserver: ResizeObserver;
   resizes$ = new BehaviorSubject<[number, number]>([0, 0]);
 
@@ -49,15 +49,8 @@ export class NgxD3TimelineService implements OnDestroy {
     map(getActivityFromPositionedActivity)
   );
 
-  hoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverAction.Hovered))
-    .pipe(filter(activity => !!activity));
-
-  unhoveredActivity$ = this.store
-    .select(selectHoveredActivity(HoverAction.Unhovered))
-    .pipe(filter(activity => !!activity));
-
   resourceRectangles$ = this.store.select(selectResourceRectangles);
+  resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
 
   private destroySubject = new Subject<boolean>();
 
@@ -66,6 +59,14 @@ export class NgxD3TimelineService implements OnDestroy {
   ngOnDestroy(): void {
     this.resizeObserver.disconnect();
     this.destroySubject.next(true);
+  }
+
+  setSelectedId(id: identifier) {
+    this.store.dispatch(new fromActions.SelectedIdChangedAction(id));
+  }
+
+  setHoveredId(id: identifier) {
+    this.store.dispatch(new fromActions.HoveredIdChangedAction(id));
   }
 
   setActivities(activities: Activity[]) {
@@ -87,24 +88,10 @@ export class NgxD3TimelineService implements OnDestroy {
     }
   }
 
-  onHovered(hovered: EventEmitter<Activity>) {
-    outputOnObservableEmit(this.hoveredActivity$, this.destroySubject, hovered);
-  }
-
-  onUnhovered(unhovered: EventEmitter<Activity>) {
-    outputOnObservableEmit(
-      this.unhoveredActivity$,
-      this.destroySubject,
-      unhovered
-    );
-  }
-
   onActivityDropped(activityDropped: EventEmitter<Activity>) {
-    outputOnObservableEmit(
-      this.activityDropped$,
-      this.destroySubject,
-      activityDropped
-    );
+    this.activityDropped$
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe(activity => activityDropped.emit(activity));
   }
 
   private zoomed() {

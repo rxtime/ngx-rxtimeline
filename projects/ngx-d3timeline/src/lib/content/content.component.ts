@@ -1,5 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { ContentService } from './content.service';
+import { identifier } from '../core/types';
+import { ActivityRectangle } from '../activity-rectangle/activity-rectangle';
 
 @Component({
   selector: '[ngx-d3timeline-content]',
@@ -15,11 +22,15 @@ import { ContentService } from './content.service';
         *ngIf="contentService.activityRectangles$ | async as activityRectangles"
       >
         <svg:g
-          *ngFor="let activityRectangle of activityRectangles"
+          *ngFor="
+            let activityRectangle of activityRectangles;
+            trackBy: trackByFn
+          "
           ngx-d3timeline-activity-rectangle
           [activityRectangle]="activityRectangle"
-          (mouseenter)="contentService.hovered(activityRectangle.id)"
-          (mouseleave)="contentService.unhovered(activityRectangle.id)"
+          (mouseenter)="hovered.emit(activityRectangle.id)"
+          (mouseleave)="unhovered.emit(activityRectangle.id)"
+          (click)="selected.emit(activityRectangle.id)"
         ></svg:g>
 
         <svg:g
@@ -47,5 +58,13 @@ import { ContentService } from './content.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent {
+  @Output() hovered = new EventEmitter<identifier>();
+  @Output() unhovered = new EventEmitter<identifier>();
+  @Output() selected = new EventEmitter<identifier>();
+
   constructor(public contentService: ContentService) {}
+
+  trackByFn(activityRectangle: ActivityRectangle) {
+    return activityRectangle.id;
+  }
 }

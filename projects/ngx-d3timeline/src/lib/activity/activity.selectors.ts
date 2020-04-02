@@ -1,7 +1,9 @@
 import {
   selectDragEvent,
   selectPositionedActivities,
-  selectLastDraggedActivityId
+  selectLastDraggedActivityId,
+  selectSelectedId,
+  selectHoveredId
 } from '../store/state';
 import { selectTimeOrientation } from '../options/selectors/options.selectors';
 import { createSelector } from '../store-lib/selector/create-selector';
@@ -163,5 +165,17 @@ function updateActivityForDrag(
 export const selectLastDraggedActivity = createSelector(
   selectPositionedActivities,
   selectLastDraggedActivityId,
+  findIdentifiable
+);
+
+export const selectSelectedActivity = createSelector(
+  selectPositionedActivities,
+  selectSelectedId,
+  findIdentifiable
+);
+
+export const selectHoveredActivity = createSelector(
+  selectPositionedActivities,
+  selectHoveredId,
   findIdentifiable
 );

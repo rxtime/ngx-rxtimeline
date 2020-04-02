@@ -56,13 +56,10 @@ describe('NgxD3timelineComponent', () => {
             resourceAxis$: jest.fn(),
             content$: jest.fn(),
             lastDraggedActivity$: jest.fn(),
-            hoveredActivity$: jest.fn(),
-            unhoveredActivity$: jest.fn(),
             resourceRectangles$: jest.fn(),
+            resourceTickMarkRectangles$: jest.fn(),
             setupZoom: jest.fn(),
-            onActivityDropped: jest.fn(),
-            onHovered: jest.fn(),
-            onUnhovered: jest.fn()
+            onActivityDropped: jest.fn()
           }
         }
       ]
@@ -73,8 +70,6 @@ describe('NgxD3timelineComponent', () => {
     fixture = TestBed.createComponent(NgxD3timelineComponent);
     timeline = fixture.debugElement.injector.get(NgxD3TimelineService);
     timeline.activityDropped$ = of(null);
-    timeline.hoveredActivity$ = of(null);
-    timeline.unhoveredActivity$ = of(null);
 
     component = fixture.componentInstance;
   });
@@ -89,30 +84,33 @@ describe('NgxD3timelineComponent', () => {
 
   describe('view not null', () => {
     beforeEach(() => {
-      timeline.view$ = of(new View([800, 600]));
-      timeline.resourceAxis$ = of(null);
-      timeline.timeAxis$ = of(null);
-      timeline.showRectangles$ = of(true);
-      timeline.resourceRectangles$ = of([
+      const mockRectangles: ResourceRectangle[] = [
         {
           id: 'resource1',
           width: 10,
           height: 10,
-          transform: 'translate(50,50'
+          transform: 'translate(50,50',
+          hovered: true,
+          selected: true
         },
-        { id: 'resource2', width: 10, height: 10, transform: 'translate(50,50' }
-      ]);
+        {
+          id: 'resource2',
+          width: 10,
+          height: 10,
+          transform: 'translate(50,50',
+          hovered: false,
+          selected: false
+        }
+      ];
+
+      timeline.view$ = of(new View([800, 600]));
+      timeline.resourceAxis$ = of(null);
+      timeline.timeAxis$ = of(null);
+      timeline.resourceRectangles$ = of(mockRectangles);
+      timeline.resourceTickMarkRectangles$ = of(mockRectangles);
     });
 
     it('should render correctly', () => {
-      fixture.detectChanges();
-
-      expect(fixture.nativeElement).toMatchSnapshot();
-    });
-
-    it('should not render resource rectangles when showRectangles$ false', () => {
-      timeline.showRectangles$ = of(false);
-
       fixture.detectChanges();
 
       expect(fixture.nativeElement).toMatchSnapshot();

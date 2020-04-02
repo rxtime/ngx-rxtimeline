@@ -3,4 +3,6 @@ export interface ResourceRectangle {
   transform: string;
   width: number;
   height: number;
+  selected: boolean;
+  hovered: boolean;
 }

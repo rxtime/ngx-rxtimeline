@@ -20,18 +20,16 @@ export class AppComponent {
     orientation: 'Vertical',
     resource: {
       gap: 0,
-      padding: 5,
-      showRectangles: true
+      padding: 5
     },
     activity: {
       fontFace: 'Arial',
-      fontSize: 12,
-      lateralMargin: 0
+      fontSize: 12
     },
     resourceAxis: {
-      showGridLines: true,
+      showGridLines: false,
       tickLineLength: 0,
-      showAxisLine: true
+      showAxisLine: false
     },
     timeAxis: {
       showGridLines: true,
@@ -40,9 +38,7 @@ export class AppComponent {
     },
     type: {
       Driving: {
-        activity: {
-          lateralMargin: 10
-        }
+        lateralMargin: 10
       },
       DriveBreak: {
         activity: {
@@ -51,6 +47,9 @@ export class AppComponent {
       }
     }
   };
+
+  selectedId = null;
+  hoveredId = null;
 
   options$ = this.optionUpdateSubject.pipe(
     scan(this.updateOptions, this.initialOptions)
@@ -77,12 +76,19 @@ export class AppComponent {
     });
   }
 
-  onHovered(event: any) {
-    console.log('hovered ', event);
+  onHovered(hovered: any) {
+    console.log({ hovered });
+    this.hoveredId = hovered;
   }
 
-  onUnhovered(event: any) {
-    console.log('unhovered ', event);
+  onUnhovered(unhovered: any) {
+    console.log({ unhovered });
+    this.hoveredId = null;
+  }
+
+  onSelected(selected: any) {
+    console.log({ hovered: selected });
+    this.selectedId = selected;
   }
 
   private updateOptions(options: Options, value: { [key: string]: any }) {

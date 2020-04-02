@@ -1,5 +1,9 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
-import { selectDragEvent } from '../../store/state';
+import {
+  selectDragEvent,
+  selectSelectedId,
+  selectHoveredId
+} from '../../store/state';
 import {
   selectNonDraggedActivities,
   selectCurrentlyDraggedActivity,
@@ -31,6 +35,7 @@ import { partialApply } from '../../core/function-utils';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
 import { ActivityContent } from '../activity-content';
+import { identifier } from '../../core/types';
 
 const selectGetActivityTitleBreadthInTimeAxis = createSelector(
   selectTimeOrientation,
@@ -64,8 +69,7 @@ const selectGetMinBreadthToShowLabel = createSelector(
 function getMinBreadthToShowTitle(
   positionedActivity: PositionedActivity,
   activityTitleBreadthInTimeAxis: (p: PositionedActivity) => number,
-  activityPadding: (type: string) => number,
-  strokeWidth: number
+  activityPadding: (type: string) => number
 ) {
   return (
     activityTitleBreadthInTimeAxis(positionedActivity) +
@@ -128,6 +132,8 @@ const selectRectangle = (selectOffset?: MemoizedSelector<Point>) =>
     selectGetActivityDisableDrag,
     selectGetShowTitle,
     selectGetActivityPadding,
+    selectHoveredId,
+    selectSelectedId,
     partialApply(createActivityRectangle)
   );
 
@@ -141,7 +147,9 @@ function createActivityRectangle(
   strokeWidth: number,
   disableDrag: (type: string) => boolean,
   showTitle: (p: PositionedActivity) => boolean,
-  activityPadding: (type: string) => number
+  activityPadding: (type: string) => number,
+  hoveredId: identifier,
+  selectedId: identifier
 ): ActivityRectangle {
   return {
     id: positionedActivity.id,
@@ -161,7 +169,9 @@ function createActivityRectangle(
       activityPadding(positionedActivity.type),
       fontSize(positionedActivity.type),
       fontFace(positionedActivity.type)
-    )
+    ),
+    selected: positionedActivity.id === selectedId,
+    hovered: positionedActivity.id === hoveredId
   };
 }
 

@@ -4,13 +4,13 @@ import {
   selectResourceAxisTickMarks,
   selectTimeAxisTickMarks,
   selectTimeAxisTickValues,
-  selectResourceAxisTickValues,
   selectGetTickPosition
 } from '../tick-mark/tick-mark.selector';
 import { Line, createOrientedLine, createLine } from '../core/line';
 import {
   selectOrientedBandScale,
-  selectOrientedTimeScale
+  selectOrientedTimeScale,
+  selectResources
 } from '../scales/scale-selectors';
 import { OrientedScale } from '../scales/oriented-scale';
 import { Scale } from '../scales/scale-types';
@@ -89,7 +89,7 @@ function getRangeLimit(scale: Scale): number {
 }
 
 const selectResourceAxisGridLines = createSelector(
-  selectResourceAxisTickValues,
+  selectResources,
   selectGetResourceAxisGridLine,
   mapValues
 );

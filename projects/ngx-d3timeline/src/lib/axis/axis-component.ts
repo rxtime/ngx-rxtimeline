@@ -7,7 +7,7 @@ import { Axis } from './axis';
     <svg:g class="axis-group" [ngClass]="axis.orientation">
       <svg:g
         *ngFor="let tickMark of axis.tickMarks"
-        ngx-d3timeline-axis-tick-mark
+        ngx-d3timeline-tick-mark
         [tickMark]="tickMark"
       ></svg:g>
       <ng-container *ngIf="axis.showGridLines">

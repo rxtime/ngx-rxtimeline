@@ -6,15 +6,15 @@ export function getViewTopLeft(view: View): Point {
   return { x: view.left, y: view.top };
 }
 
-export function getViewClipRectangleHeight(view: View): number {
+export function getViewClipRectHeight(view: View): number {
   return view.height - 2 * View.margin;
 }
 
-export function getViewClipRectangleWidth(view: View): number {
+export function getViewClipRectWidth(view: View): number {
   return view.width - 2 * View.margin;
 }
 
-export function getViewClipRectangle(
+export function getViewClipRect(
   viewTopLeft: Point,
   width: number,
   height: number

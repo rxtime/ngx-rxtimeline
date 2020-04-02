@@ -44,6 +44,20 @@ ngx-d3timeline {
       fill: #bcd1d7;
       stroke: #76858d;
     }
+
+    &.hovered rect {
+      fill: orange;
+    }
+
+    &.selected {
+      rect {
+        fill: blue;
+      }
+
+      .activity-content-div {
+        color: #fff;
+      }
+    }
   }
 
   .from-activity-rectangle .activity-rectangle {
@@ -62,5 +76,23 @@ ngx-d3timeline {
       stroke-width: 3px;
       fill: none;
     }
+  }
+
+  .resources-axis .tick-mark-text {
+    fill: white;
+  }
+
+  .resource-title-background rect {
+    fill: #000;
+  }
+
+  rect.hovered {
+    fill: orange;
+    fill-opacity: 0.3;
+  }
+
+  rect.selected {
+    fill: blue;
+    fill-opacity: 0.3;
   }
 }
