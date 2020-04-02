@@ -94,7 +94,7 @@ export class NgxD3TimelineService implements OnDestroy {
   }
 
   setupResizing(hostElement: ElementRef, changeDetector: ChangeDetectorRef) {
-    const resizes$ = createResizeObservable(hostElement);
+    const resizes$ = createResizeObservable(hostElement.nativeElement);
 
     resizes$
       .pipe(takeUntil(this.destroySubject), debounceTime(100))
