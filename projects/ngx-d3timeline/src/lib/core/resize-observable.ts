@@ -1,5 +1,4 @@
 import { fromEventPattern } from 'rxjs';
-import { NodeEventHandler } from 'rxjs/internal/observable/fromEvent';
 
 declare var ResizeObserver: any; // typings not yet available in Typescript
 declare type ResizeObserver = any;
@@ -11,7 +10,10 @@ export function createResizeObservable(element: Element) {
   );
 }
 
-function addResizeHandler(handler: NodeEventHandler, element: Element) {
+function addResizeHandler(
+  handler: ([width, height]: [number, number]) => void,
+  element: Element
+) {
   const resizeObserver = new ResizeObserver(entries => {
     const entry = entries[0];
     handler([entry.contentRect.width, entry.contentRect.height]);
@@ -20,6 +22,6 @@ function addResizeHandler(handler: NodeEventHandler, element: Element) {
   return resizeObserver;
 }
 
-function removeResizeHandler(_: NodeEventHandler, token: ResizeObserver) {
+function removeResizeHandler(_: any, token: ResizeObserver) {
   token.disconnect();
 }
