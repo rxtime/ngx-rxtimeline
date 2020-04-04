@@ -49,7 +49,14 @@ export class NgxD3TimelineService implements OnDestroy {
   resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
 
   private destroySubject = new Subject<boolean>();
-  constructor(private store: Store, private axisService: AxisService) {}
+  constructor(
+    private store: Store,
+    private axisService: AxisService,
+    hostElement: ElementRef,
+    zone: NgZone
+  ) {
+    this.setupResizing(hostElement, zone);
+  }
 
   ngOnDestroy(): void {
     this.destroySubject.next(true);

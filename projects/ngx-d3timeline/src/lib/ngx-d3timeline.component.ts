@@ -104,15 +104,10 @@ export class NgxD3timelineComponent implements OnInit {
     this.timeline.setupZoom(el);
   }
 
-  constructor(
-    public timeline: NgxD3TimelineService,
-    private hostElement: ElementRef,
-    private zone: NgZone
-  ) {}
+  constructor(public timeline: NgxD3TimelineService) {}
 
   ngOnInit(): void {
     this.timeline.onActivityDropped(this.activityDropped);
-    this.timeline.setupResizing(this.hostElement, this.zone);
   }
 
   trackByFn(resourceRectangle: ResourceRectangle) {
