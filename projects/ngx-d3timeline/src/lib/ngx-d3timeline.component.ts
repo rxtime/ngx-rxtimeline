@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  AfterViewInit,
   ViewChild,
   ElementRef,
   ViewEncapsulation,

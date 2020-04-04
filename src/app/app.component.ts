@@ -3,7 +3,7 @@ import { deliveryData } from './data';
 import { Activity } from 'ngx-d3timeline';
 import { Options } from 'ngx-d3timeline';
 import { BehaviorSubject } from 'rxjs';
-import { scan, tap } from 'rxjs/operators';
+import { scan } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
