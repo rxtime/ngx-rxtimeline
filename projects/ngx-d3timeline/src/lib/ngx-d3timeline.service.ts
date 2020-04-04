@@ -100,16 +100,16 @@ export class NgxD3TimelineService implements OnDestroy {
   }
 
   setupResizing(hostElement: ElementRef, zone: NgZone) {
-    const resizes$ = createResizeObservable(hostElement.nativeElement);
-
-    resizes$
+    createResizeObservable(hostElement.nativeElement)
       .pipe(takeUntil(this.destroySubject), debounceTime(100))
-      .subscribe(view => {
-        // zone.run is necessary due to current lack of monkey patching for ResizeObserver
-        // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
-        zone.run(() => {
-          this.setView(view);
-        });
-      });
+      .subscribe(dimensions => this.updateView(dimensions, zone));
+  }
+
+  updateView(dimensions: [number, number], zone: NgZone) {
+    // zone.run is necessary due to current lack of monkey patching for ResizeObserver
+    // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
+    zone.run(() => {
+      this.setView(dimensions);
+    });
   }
 }
