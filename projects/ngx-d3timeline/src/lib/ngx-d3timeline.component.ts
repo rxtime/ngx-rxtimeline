@@ -9,7 +9,7 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  ChangeDetectorRef
+  NgZone
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
@@ -75,7 +75,7 @@ import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NgxD3TimelineService]
 })
-export class NgxD3timelineComponent implements OnInit, AfterViewInit {
+export class NgxD3timelineComponent implements OnInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -100,21 +100,20 @@ export class NgxD3timelineComponent implements OnInit, AfterViewInit {
   @Output() activityUnhovered = new EventEmitter<Identifier>();
   @Output() activitySelected = new EventEmitter<Identifier>();
 
-  @ViewChild('svgEl') svgEl: ElementRef<SVGElement>;
+  @ViewChild('svgEl') set svgElement(el: ElementRef<SVGElement>) {
+    // TODO remove zoom events from old SVG?
+    this.timeline.setupZoom(el);
+  }
 
   constructor(
     public timeline: NgxD3TimelineService,
     private hostElement: ElementRef,
-    private changeDetector: ChangeDetectorRef
+    private zone: NgZone
   ) {}
 
   ngOnInit(): void {
     this.timeline.onActivityDropped(this.activityDropped);
-    this.timeline.setupResizing(this.hostElement, this.changeDetector);
-  }
-
-  ngAfterViewInit(): void {
-    this.timeline.setupZoom(this.svgEl);
+    this.timeline.setupResizing(this.hostElement, this.zone);
   }
 
   trackByFn(resourceRectangle: ResourceRectangle) {

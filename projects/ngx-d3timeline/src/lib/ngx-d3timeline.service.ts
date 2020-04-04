@@ -3,7 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   OnDestroy,
-  ChangeDetectorRef
+  NgZone
 } from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
@@ -49,7 +49,6 @@ export class NgxD3TimelineService implements OnDestroy {
   resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
 
   private destroySubject = new Subject<boolean>();
-
   constructor(private store: Store, private axisService: AxisService) {}
 
   ngOnDestroy(): void {
@@ -93,17 +92,17 @@ export class NgxD3TimelineService implements OnDestroy {
     this.store.dispatch(new fromActions.ZoomedAction(event));
   }
 
-  setupResizing(hostElement: ElementRef, changeDetector: ChangeDetectorRef) {
+  setupResizing(hostElement: ElementRef, zone: NgZone) {
     const resizes$ = createResizeObservable(hostElement.nativeElement);
 
     resizes$
       .pipe(takeUntil(this.destroySubject), debounceTime(100))
       .subscribe(view => {
-        this.setView(view);
-
-        // possibly necessary due to current lack of monkey patching for ResizeObserver
+        // zone.run is necessary due to current lack of monkey patching for ResizeObserver
         // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
-        changeDetector.detectChanges();
+        zone.run(() => {
+          this.setView(view);
+        });
       });
   }
 }
