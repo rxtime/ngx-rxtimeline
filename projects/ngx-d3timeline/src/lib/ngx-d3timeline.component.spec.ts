@@ -7,6 +7,14 @@ import { NgxD3TimelineService } from './ngx-d3timeline.service';
 import { View } from './view/view';
 import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
 
+Object.defineProperty(window, 'ResizeObserver', {
+  value: jest.fn(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn()
+  }))
+});
+
 @Component({
   selector: '[ngx-d3timeline-axis]',
   template: `
@@ -59,6 +67,7 @@ describe('NgxD3timelineComponent', () => {
             resourceRectangles$: jest.fn(),
             resourceTickMarkRectangles$: jest.fn(),
             setupZoom: jest.fn(),
+            setupResizing: jest.fn(),
             onActivityDropped: jest.fn()
           }
         }

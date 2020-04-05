@@ -1,7 +1,8 @@
 <ng-container *ngIf="options$ | async as options">
   <ngx-d3timeline
     [activities]="activities"
-    [view]="[width, height]"
+    [style.width]="width"
+    [style.height]="height"
     [options]="options"
     [selectedId]="selectedId"
     [hoveredId]="hoveredId"

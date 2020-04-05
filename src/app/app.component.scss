@@ -1,3 +1,11 @@
+html,
+body {
+  height: 100%;
+}
+
+ngx-d3timeline {
+  display: block;
+}
 .demo-app {
   .ngx-d3timeline {
     .activity-rectangle {

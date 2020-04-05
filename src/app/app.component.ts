@@ -3,13 +3,13 @@ import { deliveryData } from './data';
 import { Activity } from 'ngx-d3timeline';
 import { Options } from 'ngx-d3timeline';
 import { BehaviorSubject } from 'rxjs';
-import { scan, tap } from 'rxjs/operators';
+import { scan } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   activities = deliveryData;
@@ -53,12 +53,11 @@ export class AppComponent {
   hoveredId = null;
 
   options$ = this.optionUpdateSubject.pipe(
-    scan(this.updateOptions, this.initialOptions),
-    tap(console.log)
+    scan(this.updateOptions, this.initialOptions)
   );
 
-  width = 800;
-  height = 600;
+  width = '800px';
+  height = '600px';
 
   onDropped(activity: Activity) {
     console.log(activity);
@@ -94,7 +93,6 @@ export class AppComponent {
   }
 
   private updateOptions(options: Options, value: { [key: string]: any }) {
-    console.log(value);
     return { ...{ ...options, ...value } };
   }
 }

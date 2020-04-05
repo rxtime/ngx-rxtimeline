@@ -1,4 +1,10 @@
-import { Injectable, ElementRef, OnDestroy, EventEmitter } from '@angular/core';
+import {
+  Injectable,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  NgZone
+} from '@angular/core';
 import { Store } from './store-lib/store';
 import { selectView } from './store/state';
 import {
@@ -10,7 +16,13 @@ import { Options } from './options/options';
 import { zoom } from 'd3-zoom';
 import { select, event } from 'd3-selection';
 import { AxisService } from './axis/axis.service';
-import { map, filter, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import {
+  map,
+  filter,
+  distinctUntilChanged,
+  debounceTime,
+  takeUntil
+} from 'rxjs/operators';
 import { selectLastDraggedActivity } from './activity/activity.selectors';
 
 import {
@@ -19,6 +31,7 @@ import {
 } from './resource-rectangle/selectors/resource-rectangle.selectors';
 import { Subject } from 'rxjs';
 import { Identifier } from './core/identifiable';
+import { createResizeObservable } from './core/resize-observable';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -36,8 +49,12 @@ export class NgxD3TimelineService implements OnDestroy {
   resourceTickMarkRectangles$ = this.store.select(selectResourceTickRectangles);
 
   private destroySubject = new Subject<boolean>();
-
-  constructor(private store: Store, private axisService: AxisService) {}
+  constructor(
+    private store: Store,
+    private axisService: AxisService,
+    private hostElement: ElementRef,
+    private zone: NgZone
+  ) {}
 
   ngOnDestroy(): void {
     this.destroySubject.next(true);
@@ -76,7 +93,21 @@ export class NgxD3TimelineService implements OnDestroy {
       .subscribe(activity => activityDropped.emit(activity));
   }
 
+  setupResizing() {
+    createResizeObservable(this.hostElement.nativeElement)
+      .pipe(debounceTime(100), takeUntil(this.destroySubject))
+      .subscribe(dimensions => this.updateView(dimensions, this.zone));
+  }
+
   private zoomed() {
     this.store.dispatch(new fromActions.ZoomedAction(event));
+  }
+
+  private updateView(dimensions: [number, number], zone: NgZone) {
+    // zone.run is necessary due to current lack of monkey patching for ResizeObserver
+    // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
+    zone.run(() => {
+      this.setView(dimensions);
+    });
   }
 }
