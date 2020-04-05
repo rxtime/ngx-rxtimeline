@@ -99,7 +99,7 @@ export class NgxD3TimelineService implements OnDestroy {
 
   setupResizing() {
     createResizeObservable(this.hostElement.nativeElement)
-      .pipe(takeUntil(this.destroySubject), debounceTime(100))
+      .pipe(debounceTime(100), takeUntil(this.destroySubject))
       .subscribe(dimensions => this.updateView(dimensions, this.zone));
   }
 
