@@ -103,7 +103,7 @@ export class NgxD3TimelineService implements OnDestroy {
       .subscribe(dimensions => this.updateView(dimensions, this.zone));
   }
 
-  updateView(dimensions: [number, number], zone: NgZone) {
+  private updateView(dimensions: [number, number], zone: NgZone) {
     // zone.run is necessary due to current lack of monkey patching for ResizeObserver
     // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
     zone.run(() => {
