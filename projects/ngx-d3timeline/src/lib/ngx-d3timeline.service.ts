@@ -52,11 +52,9 @@ export class NgxD3TimelineService implements OnDestroy {
   constructor(
     private store: Store,
     private axisService: AxisService,
-    hostElement: ElementRef,
-    zone: NgZone
-  ) {
-    this.setupResizing(hostElement, zone);
-  }
+    private hostElement: ElementRef,
+    private zone: NgZone
+  ) {}
 
   ngOnDestroy(): void {
     this.destroySubject.next(true);
@@ -99,10 +97,10 @@ export class NgxD3TimelineService implements OnDestroy {
     this.store.dispatch(new fromActions.ZoomedAction(event));
   }
 
-  setupResizing(hostElement: ElementRef, zone: NgZone) {
-    createResizeObservable(hostElement.nativeElement)
+  setupResizing() {
+    createResizeObservable(this.hostElement.nativeElement)
       .pipe(takeUntil(this.destroySubject), debounceTime(100))
-      .subscribe(dimensions => this.updateView(dimensions, zone));
+      .subscribe(dimensions => this.updateView(dimensions, this.zone));
   }
 
   updateView(dimensions: [number, number], zone: NgZone) {

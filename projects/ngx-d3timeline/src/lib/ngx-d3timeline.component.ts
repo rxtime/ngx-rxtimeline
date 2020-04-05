@@ -107,6 +107,7 @@ export class NgxD3timelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.timeline.onActivityDropped(this.activityDropped);
+    this.timeline.setupResizing();
   }
 
   trackByFn(resourceRectangle: ResourceRectangle) {
