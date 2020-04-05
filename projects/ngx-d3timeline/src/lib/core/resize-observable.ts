@@ -7,8 +7,8 @@ export function createResizeObservable(element: Element) {
   let resizeObserver: ResizeObserver;
 
   return fromEventPattern<[number, number]>(
-    handler => addResizeHandler(handler),
-    handler => removeResizeHandler(handler)
+    addResizeHandler,
+    removeResizeHandler
   );
 
   function addResizeHandler(
@@ -21,7 +21,7 @@ export function createResizeObservable(element: Element) {
     resizeObserver.observe(element);
   }
 
-  function removeResizeHandler(_: any) {
+  function removeResizeHandler() {
     resizeObserver.unobserve(element);
   }
 }
