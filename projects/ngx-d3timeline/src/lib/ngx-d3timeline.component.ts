@@ -100,7 +100,6 @@ export class NgxD3timelineComponent implements OnInit {
   @Output() activitySelected = new EventEmitter<Identifier>();
 
   @ViewChild('svgEl') set svgElement(el: ElementRef<SVGElement>) {
-    // TODO remove zoom events from old SVG?
     this.timeline.setupZoom(el);
   }
 
