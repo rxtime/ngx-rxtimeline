@@ -1,12 +1,15 @@
 import { selectView } from '../store/state';
 
 import { createSelector } from '../store-lib/selector/create-selector';
-import { margin } from './view';
 import { getPoint, Point } from '../core/point';
 import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
 import { Rectangle } from '../core/rectangle';
 import { toArray } from '../core/array-utils';
-import { pipe, clampZero } from '../core/function-utils';
+import { pipe, clampZero, subtract, double } from '../core/function-utils';
+import { constSelector } from '../store-lib/selector/selector';
+
+export const selectMargin = constSelector(50);
+const selectDoubleMargin = createSelector(selectMargin, double);
 
 const selectViewWidth = createSelector(selectView, view => view && view.width);
 const selectViewHeight = createSelector(
@@ -14,21 +17,14 @@ const selectViewHeight = createSelector(
   view => view && view.height
 );
 
-const selectViewLeft = createSelector(selectViewWidth, minWithMargin);
-const selectViewTop = createSelector(selectViewHeight, minWithMargin);
-const selectViewRight = createSelector(
-  selectViewWidth,
-  pipe(subtractMargin, clampZero)
+const selectViewLeft = createSelector(selectViewWidth, selectMargin, Math.min);
+const selectViewTop = createSelector(selectViewHeight, selectMargin, Math.min);
+const selectViewRight = createSelector(selectViewWidth, selectMargin, subtract);
+const selectViewBottom = createSelector(
+  selectViewHeight,
+  selectMargin,
+  subtract
 );
-const selectViewBottom = createSelector(selectViewHeight, pipe(subtractMargin));
-
-function minWithMargin(x: number): number {
-  return Math.min(x, margin);
-}
-
-function subtractMargin(x: number) {
-  return x - margin;
-}
 
 const createSelectViewPoint = (
   selectX: MemoizedSelector<number>,
@@ -42,17 +38,15 @@ export const selectViewTopLeft = createSelectViewPoint(
 
 export const selectViewClipRectHeight = createSelector(
   selectViewHeight,
-  pipe(subtractMarginTwice, clampZero)
+  selectDoubleMargin,
+  pipe(subtract, clampZero)
 );
 
 export const selectViewClipRectWidth = createSelector(
   selectViewWidth,
-  pipe(subtractMarginTwice, clampZero)
+  selectDoubleMargin,
+  pipe(subtract, clampZero)
 );
-
-export function subtractMarginTwice(x: number): number {
-  return x - 2 * margin;
-}
 
 export const selectViewClipRect = createSelector(
   selectViewTopLeft,
