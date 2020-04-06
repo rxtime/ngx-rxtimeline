@@ -81,23 +81,44 @@ function getTimeScale(
     .range(range);
 }
 
+const selectTimeScaleRescaledY = createSelector(
+  selectZoomEvent,
+  selectUnscaledTimeScale,
+  getTimeScaleRescaledY
+);
+
+function getTimeScaleRescaledY(event: any, unscaledTimeScale: TimeScale) {
+  return event && event.transform.rescaleY(unscaledTimeScale);
+}
+
+const selectTimeScaleRescaledX = createSelector(
+  selectZoomEvent,
+  selectUnscaledTimeScale,
+  getTimeScaleRescaledX
+);
+
+function getTimeScaleRescaledX(event: any, unscaledTimeScale: TimeScale) {
+  return event && event.transform.rescaleX(unscaledTimeScale);
+}
+
+const selectRescaledTimeScale = createSelector(
+  selectTimeOrientation,
+  selectTimeScaleRescaledY,
+  selectTimeScaleRescaledX,
+  EitherOnOrientation
+);
+
 export const selectTimeScale = createSelector(
   selectUnscaledTimeScale,
-  selectTimeOrientation,
-  selectZoomEvent,
+  selectRescaledTimeScale,
   rescaleTime
 );
 
 function rescaleTime(
   unscaledTimeScale: TimeScale,
-  timeOrientation: Orientation,
-  event: any
+  rescaledTimeScale: TimeScale
 ): TimeScale {
-  return event
-    ? timeOrientation === Orientation.Vertical
-      ? event.transform.rescaleY(unscaledTimeScale)
-      : event.transform.rescaleX(unscaledTimeScale)
-    : unscaledTimeScale;
+  return rescaledTimeScale || unscaledTimeScale;
 }
 
 export const selectOrientedTimeScale = createSelector(
