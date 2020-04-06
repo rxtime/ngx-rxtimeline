@@ -1,4 +1,5 @@
 import { fromEventPattern } from 'rxjs';
+import { View } from '../view/view';
 
 declare var ResizeObserver: any; // typings not yet available in Typescript
 declare type ResizeObserver = any;
@@ -6,17 +7,15 @@ declare type ResizeObserver = any;
 export function createResizeObservable(element: Element) {
   let resizeObserver: ResizeObserver;
 
-  return fromEventPattern<[number, number]>(
-    addResizeHandler,
-    removeResizeHandler
-  );
+  return fromEventPattern<View>(addResizeHandler, removeResizeHandler);
 
-  function addResizeHandler(
-    handler: ([width, height]: [number, number]) => void
-  ) {
+  function addResizeHandler(handler: (view: View) => void) {
     resizeObserver = new ResizeObserver(entries => {
       const entry = entries[0];
-      handler([entry.contentRect.width, entry.contentRect.height]);
+      handler({
+        width: entry.contentRect.width,
+        height: entry.contentRect.height
+      });
     });
     resizeObserver.observe(element);
   }

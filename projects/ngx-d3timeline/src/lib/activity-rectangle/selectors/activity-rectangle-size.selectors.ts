@@ -6,7 +6,7 @@ import {
 } from '../../options/selectors/options.selectors';
 import { selectGetTypeLateralMargin } from '../../options/selectors/type-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
-import { partialApply } from '../../core/function-utils';
+import { partialApply, clampZero } from '../../core/function-utils';
 import { TimeScale, BandScale } from '../../scales/scale-types';
 import { PositionedActivity } from '../../activity/positioned-activity';
 import { Orientation } from '../../core/orientation';
@@ -20,7 +20,7 @@ function getRectBreadthInTimeAxis(
   positionedActivity: PositionedActivity,
   timeScale: TimeScale
 ): number {
-  return (
+  return clampZero(
     timeScale(positionedActivity.finish) - timeScale(positionedActivity.start)
   );
 }
@@ -40,11 +40,11 @@ function getRectBreadthInResourceAxis(
   activityLateralMargin: (type: string) => number,
   strokeWidth: number
 ) {
-  return (
+  return clampZero(
     bandScale.bandwidth() -
-    2 * resourcePadding -
-    2 * activityLateralMargin(positionedActivity.type) -
-    strokeWidth
+      2 * resourcePadding -
+      2 * activityLateralMargin(positionedActivity.type) -
+      strokeWidth
   );
 }
 

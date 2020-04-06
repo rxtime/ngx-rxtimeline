@@ -10,6 +10,7 @@ import { sum } from '../../core/array-utils';
 import { selectResourceRectMargin } from './resource-rectangle-position.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
+import { clampZero } from '../../core/function-utils';
 
 const selectClipRectBreadthInTimeAxis = createSelector(
   selectViewClipRectHeight,
@@ -40,8 +41,8 @@ export const selectTickRectWidth = createSelector(
   getTickRectWidth
 );
 
-function getTickRectWidth(bandScaleWidth: number, resourcePadding) {
-  return bandScaleWidth - 2 * resourcePadding;
+function getTickRectWidth(bandScaleWidth: number, resourcePadding: number) {
+  return clampZero(bandScaleWidth - 2 * resourcePadding);
 }
 
 export const selectResourceRectWidth = createSelector(

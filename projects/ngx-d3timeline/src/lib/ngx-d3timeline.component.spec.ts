@@ -112,7 +112,7 @@ describe('NgxD3timelineComponent', () => {
         }
       ];
 
-      timeline.view$ = of(new View([800, 600]));
+      timeline.view$ = of({ width: 800, height: 600 });
       timeline.resourceAxis$ = of(null);
       timeline.timeAxis$ = of(null);
       timeline.resourceRectangles$ = of(mockRectangles);

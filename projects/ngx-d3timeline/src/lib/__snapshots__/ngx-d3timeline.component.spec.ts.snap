@@ -13,8 +13,6 @@ exports[`NgxD3timelineComponent view not null should render correctly 1`] = `
   id="root1"
 >
   
-  
-  
   <svg
     class="ngx-d3timeline"
     height="600"
@@ -70,6 +68,5 @@ exports[`NgxD3timelineComponent view not null should render correctly 1`] = `
       />
     </g>
   </svg>
-  
 </div>
 `;

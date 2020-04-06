@@ -10,7 +10,7 @@ export const origin: Point = {
   y: 0
 };
 
-export function getPoint(x: number, y: number) {
+export function getPoint(x: number, y: number): Point {
   return { x, y };
 }
 

@@ -16,10 +16,8 @@ export interface State {
   hoveredId: Identifier;
 }
 
-const initialView = new View([null, null]);
-
 export const initialState: State = {
-  view: initialView,
+  view: null,
   options: defaultOptions,
   positionedActivities: [],
   lastDraggedActivityId: null,

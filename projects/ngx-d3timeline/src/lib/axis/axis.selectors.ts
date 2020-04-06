@@ -26,7 +26,7 @@ import { TickMark } from '../tick-mark/tick-mark';
 import { Axis } from './axis';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
-import { View } from '../view/view';
+import { View, margin } from '../view/view';
 import {
   selectTimeOrientation,
   selectResourceOrientation
@@ -81,7 +81,7 @@ function getTickGridLine(
 }
 
 function getGridLineLength(orientedScale: OrientedScale<Scale>) {
-  return getRangeLimit(orientedScale.scale) - View.margin;
+  return getRangeLimit(orientedScale.scale) - margin;
 }
 
 function getRangeLimit(scale: Scale): number {
