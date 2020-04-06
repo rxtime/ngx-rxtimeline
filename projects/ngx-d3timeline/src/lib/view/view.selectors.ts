@@ -4,12 +4,29 @@ import { createSelector } from '../store-lib/selector/create-selector';
 import { getPoint, Point } from '../core/point';
 import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
 import { Rectangle } from '../core/rectangle';
-import { toArray } from '../core/array-utils';
+import { toArray, sum } from '../core/array-utils';
 import { pipe, clampZero, subtract, double } from '../core/function-utils';
 import { constSelector } from '../store-lib/selector/selector';
+import { EitherOnOrientation } from '../core/orientation';
+import { selectTimeOrientation } from '../options/selectors/options.selectors';
 
-export const selectMargin = constSelector(50);
-const selectDoubleMargin = createSelector(selectMargin, double);
+export const selectVerticalMargin = constSelector(50);
+export const selectMarginRight = constSelector(50);
+const selectMarginLeftWhenHorizontal = constSelector(100);
+const selectMarginLeftWhenVertical = constSelector(50);
+export const selectMarginLeft = createSelector(
+  selectTimeOrientation,
+  selectMarginLeftWhenVertical,
+  selectMarginLeftWhenHorizontal,
+  EitherOnOrientation
+);
+
+const selectVerticalMarginTotal = createSelector(selectVerticalMargin, double);
+const selectHorizontalMarginTotal = createSelector(
+  selectMarginLeft,
+  selectMarginRight,
+  sum
+);
 
 const selectViewWidth = createSelector(selectView, view => view && view.width);
 const selectViewHeight = createSelector(
@@ -17,12 +34,27 @@ const selectViewHeight = createSelector(
   view => view && view.height
 );
 
-const selectViewLeft = createSelector(selectViewWidth, selectMargin, Math.min);
-const selectViewTop = createSelector(selectViewHeight, selectMargin, Math.min);
-const selectViewRight = createSelector(selectViewWidth, selectMargin, subtract);
+const selectViewLeft = createSelector(
+  selectViewWidth,
+  selectMarginLeft,
+  Math.min
+);
+
+const selectViewTop = createSelector(
+  selectViewHeight,
+  selectVerticalMargin,
+  Math.min
+);
+
+const selectViewRight = createSelector(
+  selectViewWidth,
+  selectMarginRight,
+  subtract
+);
+
 const selectViewBottom = createSelector(
   selectViewHeight,
-  selectMargin,
+  selectVerticalMargin,
   subtract
 );
 
@@ -38,13 +70,13 @@ export const selectViewTopLeft = createSelectViewPoint(
 
 export const selectViewClipRectHeight = createSelector(
   selectViewHeight,
-  selectDoubleMargin,
+  selectVerticalMarginTotal,
   pipe(subtract, clampZero)
 );
 
 export const selectViewClipRectWidth = createSelector(
   selectViewWidth,
-  selectDoubleMargin,
+  selectHorizontalMarginTotal,
   pipe(subtract, clampZero)
 );
 
