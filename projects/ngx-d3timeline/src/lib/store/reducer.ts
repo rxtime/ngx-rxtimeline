@@ -26,7 +26,7 @@ export function reducer(state: State = initialState, action: Actions): State {
     }
 
     case ActionType.ViewChanged: {
-      return { ...state, view: new View(action.payload) };
+      return { ...state, view: action.payload };
     }
 
     case ActionType.Zoomed: {

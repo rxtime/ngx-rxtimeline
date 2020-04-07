@@ -32,6 +32,7 @@ import {
 import { Subject } from 'rxjs';
 import { Identifier } from './core/identifiable';
 import { createResizeObservable } from './core/resize-observable';
+import { View } from './view/view';
 
 @Injectable()
 export class NgxD3TimelineService implements OnDestroy {
@@ -72,10 +73,6 @@ export class NgxD3TimelineService implements OnDestroy {
     this.store.dispatch(new fromActions.ActivitiesChangedAction(activities));
   }
 
-  setView([width, height]: [number, number]) {
-    this.store.dispatch(new fromActions.ViewChangedAction([width, height]));
-  }
-
   setOptions(options: Options) {
     this.store.dispatch(new fromActions.OptionsChangedAction(options));
   }
@@ -96,18 +93,18 @@ export class NgxD3TimelineService implements OnDestroy {
   setupResizing() {
     createResizeObservable(this.hostElement.nativeElement)
       .pipe(debounceTime(100), takeUntil(this.destroySubject))
-      .subscribe(dimensions => this.updateView(dimensions, this.zone));
+      .subscribe(this.updateView.bind(this));
   }
 
   private zoomed() {
     this.store.dispatch(new fromActions.ZoomedAction(event));
   }
 
-  private updateView(dimensions: [number, number], zone: NgZone) {
+  private updateView(view: View) {
     // zone.run is necessary due to current lack of monkey patching for ResizeObserver
     // https://dev.to/christiankohler/how-to-use-resizeobserver-with-angular-9l5
-    zone.run(() => {
-      this.setView(dimensions);
+    this.zone.run(() => {
+      this.store.dispatch(new fromActions.ViewChangedAction(view));
     });
   }
 }

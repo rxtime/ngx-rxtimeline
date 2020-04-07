@@ -3,6 +3,7 @@ import { PositionedActivity } from '../activity/positioned-activity';
 import { Options } from '../options/options';
 import { Identifier } from '../core/identifiable';
 import { Action } from '../store-lib/action';
+import { View } from '../view/view';
 
 export enum ActionType {
   ActivitiesChanged = 'Activities Changed',
@@ -27,7 +28,7 @@ export class OptionsChangedAction implements Action {
 
 export class ViewChangedAction implements Action {
   readonly type = ActionType.ViewChanged;
-  constructor(public payload: [number, number]) {}
+  constructor(public payload: View) {}
 }
 
 export class ZoomedAction implements Action {

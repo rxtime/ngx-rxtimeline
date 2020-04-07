@@ -31,7 +31,7 @@ import {
   selectGetActivityFontFace,
   selectGetActivityFontSize
 } from '../../options/selectors/activity-options.selectors';
-import { partialApply } from '../../core/function-utils';
+import { partialApply, clampZero } from '../../core/function-utils';
 import { Orientation } from '../../core/orientation';
 import { getTextWidth } from '../../core/text-utils';
 import { ActivityContent } from '../activity-content';
@@ -184,8 +184,8 @@ function getActivityConent(
   fontFace: string
 ): ActivityContent {
   return {
-    width: width - 2 * padding,
-    height: height - 2 * padding,
+    width: clampZero(width - 2 * padding),
+    height: clampZero(height - 2 * padding),
     transform: pointToTransform({
       x: padding,
       y: padding
