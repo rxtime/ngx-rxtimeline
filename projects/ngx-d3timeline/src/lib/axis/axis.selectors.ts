@@ -1,5 +1,9 @@
 import { createSelector } from '../store-lib/selector/create-selector';
-import { selectViewTopLeft, selectMargin } from '../view/view.selectors';
+import {
+  selectViewTopLeft,
+  selectVerticalMargin,
+  selectMarginLeft
+} from '../view/view.selectors';
 import {
   selectResourceAxisTickMarks,
   selectTimeAxisTickMarks,
@@ -24,7 +28,11 @@ import {
 import { partialApply } from '../core/function-utils';
 import { TickMark } from '../tick-mark/tick-mark';
 import { Axis } from './axis';
-import { Orientation, flipOrientation } from '../core/orientation';
+import {
+  Orientation,
+  flipOrientation,
+  EitherOnOrientation
+} from '../core/orientation';
 import { Point } from '../core/point';
 import {
   selectTimeOrientation,
@@ -52,11 +60,17 @@ function getAxisEndPoint(
     : { ...viewTopLeft, x: getRangeLimit(orientedScale.scale) };
 }
 
+const selectGetMargin = createSelector(
+  selectVerticalMargin,
+  selectMarginLeft,
+  partialApply(EitherOnOrientation)
+);
+
 const selectGetResourceAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedBandScale,
   selectOrientedTimeScale,
-  selectMargin,
+  selectGetMargin,
   partialApply(getTickGridLine)
 );
 
@@ -64,7 +78,7 @@ const selectGetTimeAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedTimeScale,
   selectOrientedBandScale,
-  selectMargin,
+  selectGetMargin,
   partialApply(getTickGridLine)
 );
 
@@ -73,11 +87,11 @@ function getTickGridLine(
   tickPosition: (o: Orientation, range: number) => Point,
   orientedScale: OrientedScale<Scale>,
   otherOrientedScale: OrientedScale<Scale>,
-  margin: number
+  margin: (o: Orientation) => number
 ): Line {
   return createOrientedLine(
     tickPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
-    getGridLineLength(otherOrientedScale, margin),
+    getGridLineLength(otherOrientedScale, margin(orientedScale.orientation)),
     flipOrientation(orientedScale.orientation)
   );
 }

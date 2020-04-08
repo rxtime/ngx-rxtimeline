@@ -70,8 +70,12 @@
       }
     }
 
-    .resources-axis .tick-mark-text {
+    .resources-axis .Horizontal .tick-mark-text {
       fill: white;
+    }
+
+    .resources-axis .Vertical .tick-mark-text {
+      fill: #000;
     }
 
     .resource-title-background rect {

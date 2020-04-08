@@ -9,6 +9,10 @@ export function flipOrientation(orientation: Orientation): Orientation {
     : Orientation.Vertical;
 }
 
-export function EitherOnOrientation(orientation: Orientation, v: any, h: any) {
+export function EitherOnOrientation<T>(
+  orientation: Orientation,
+  v: T,
+  h: T
+): T {
   return orientation === Orientation.Vertical ? v : h;
 }
