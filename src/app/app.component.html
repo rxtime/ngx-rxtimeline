@@ -1,5 +1,5 @@
 <ng-container *ngIf="options$ | async as options">
-  <ngx-d3timeline
+  <ngx-rxtimeline
     [activities]="activities"
     [style.width]="width"
     [style.height]="height"
@@ -14,7 +14,7 @@
     (activityUnhovered)="onUnhovered($event)"
     (activitySelected)="onSelected($event)"
     class="demo-app"
-  ></ngx-d3timeline>
+  ></ngx-rxtimeline>
 
   <div>
     <label>Width</label>

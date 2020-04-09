@@ -1,0 +1,21 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ngx-rxtimeline",
+  "lib": {
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "d3-array": "d3-array",
+      "d3-scale": "d3-scale",
+      "d3-selection": "d3-selection",
+      "d3-zoom": "d3-zoom",
+      "d3-drag": "d3-drag"
+    }
+  },
+  "whitelistedNonPeerDependencies": [
+    "d3-array",
+    "d3-scale",
+    "d3-selection",
+    "d3-zoom",
+    "d3-drag"
+  ]
+}

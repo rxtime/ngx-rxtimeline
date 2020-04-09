@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AxisComponent should not display axis line when axis.line is falsy 1`] = `
+<div
+  id="root1"
+  ngx-rxtimeline-axis=""
+>
+  <g
+    class="axis-group Vertical"
+  >
+    
+    
+    
+    
+    <g
+      class="grid-line"
+      ngx-rxtimeline-line=""
+    >
+      <g />
+    </g>
+    
+    
+  </g>
+</div>
+`;
+
+exports[`AxisComponent should not show gridlines when axis.showGridLines is false 1`] = `
+<div
+  id="root2"
+  ngx-rxtimeline-axis=""
+>
+  <g
+    class="axis-group Horizontal"
+  >
+    
+    
+    
+    <g
+      class="axis-line"
+      ngx-rxtimeline-line=""
+    >
+      <g />
+    </g>
+  </g>
+</div>
+`;
+
+exports[`AxisComponent should render correctly 1`] = `
+<div
+  id="root0"
+  ngx-rxtimeline-axis=""
+>
+  <g
+    class="axis-group Vertical"
+  >
+    
+    <g
+      ngx-rxtimeline-tick-mark=""
+    >
+      <g
+        class="axis-tick-mark"
+      />
+    </g>
+    <g
+      ngx-rxtimeline-tick-mark=""
+    >
+      <g
+        class="axis-tick-mark"
+      />
+    </g>
+    
+    
+    
+    <g
+      class="grid-line"
+      ngx-rxtimeline-line=""
+    >
+      <g />
+    </g>
+    
+    
+    <g
+      class="axis-line"
+      ngx-rxtimeline-line=""
+    >
+      <g />
+    </g>
+  </g>
+</div>
+`;

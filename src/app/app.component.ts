@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { deliveryData } from './data';
-import { Activity } from 'ngx-d3timeline';
-import { Options } from 'ngx-d3timeline';
+import { Activity } from 'ngx-rxtimeline';
+import { Options } from 'ngx-rxtimeline';
 import { BehaviorSubject } from 'rxjs';
 import { scan } from 'rxjs/operators';
 
