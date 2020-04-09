@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NgxRxTimelineComponent should not render if view null 1`] = `
+exports[`NgxRxtimelineComponent should not render if view null 1`] = `
 <div
   id="root0"
 >
@@ -8,7 +8,7 @@ exports[`NgxRxTimelineComponent should not render if view null 1`] = `
 </div>
 `;
 
-exports[`NgxRxTimelineComponent view not null should render correctly 1`] = `
+exports[`NgxRxtimelineComponent view not null should render correctly 1`] = `
 <div
   id="root1"
 >
