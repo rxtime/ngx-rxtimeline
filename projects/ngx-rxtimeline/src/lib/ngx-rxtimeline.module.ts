@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgxrxtimelineComponent } from './ngx-rxtimeline.component';
+import { NgxRxTimelineComponent } from './ngx-rxtimeline.component';
 import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content/content.component';
 import { LineComponent } from './line/line.component';
@@ -12,7 +12,7 @@ import { ActivityContentComponent } from './activity-rectangle/activity-content.
 
 @NgModule({
   declarations: [
-    NgxrxtimelineComponent,
+    NgxRxTimelineComponent,
     ContentComponent,
     LineComponent,
     ActivityRectangleComponent,
@@ -23,6 +23,6 @@ import { ActivityContentComponent } from './activity-rectangle/activity-content.
     ActivityContentComponent
   ],
   imports: [CommonModule],
-  exports: [NgxrxtimelineComponent]
+  exports: [NgxRxTimelineComponent]
 })
-export class NgxrxtimelineModule {}
+export class NgxRxTimelineModule {}

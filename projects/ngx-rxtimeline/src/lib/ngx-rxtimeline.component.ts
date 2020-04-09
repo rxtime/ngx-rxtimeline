@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Activity } from './activity/activity';
 
-import { NgxrxtimelineService } from './ngx-rxtimeline.service';
+import { NgxRxTimelineService } from './ngx-rxtimeline.service';
 import { Options } from './options/options';
 import { Identifier } from './core/identifiable';
 import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
@@ -68,9 +68,9 @@ import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
   styleUrls: ['./ngx-rxtimeline.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [NgxrxtimelineService]
+  providers: [NgxRxTimelineService]
 })
-export class NgxrxtimelineComponent implements OnInit {
+export class NgxRxTimelineComponent implements OnInit {
   @Input() set activities(value: Activity[]) {
     this.timeline.setActivities(value);
   }
@@ -99,7 +99,7 @@ export class NgxrxtimelineComponent implements OnInit {
     this.timeline.setupZoom(el);
   }
 
-  constructor(public timeline: NgxrxtimelineService) {}
+  constructor(public timeline: NgxRxTimelineService) {}
 
   ngOnInit(): void {
     this.timeline.onActivityDropped(this.activityDropped);

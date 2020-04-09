@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxrxtimelineComponent } from './ngx-rxtimeline.component';
+import { NgxRxTimelineComponent } from './ngx-rxtimeline.component';
 import { of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { Axis } from './axis/axis';
-import { NgxrxtimelineService } from './ngx-rxtimeline.service';
-import { View } from './view/view';
+import { NgxRxTimelineService } from './ngx-rxtimeline.service';
 import { ResourceRectangle } from './resource-rectangle/resource-rectangle';
 
 Object.defineProperty(window, 'ResizeObserver', {
@@ -43,22 +42,22 @@ class FakeResourceRectangleComponent {
   @Input() resourceRectangle: ResourceRectangle;
 }
 
-describe('NgxrxtimelineComponent', () => {
-  let component: NgxrxtimelineComponent;
-  let fixture: ComponentFixture<NgxrxtimelineComponent>;
-  let timeline: NgxrxtimelineService;
+describe('NgxRxtimelineComponent', () => {
+  let component: NgxRxTimelineComponent;
+  let fixture: ComponentFixture<NgxRxTimelineComponent>;
+  let timeline: NgxRxTimelineService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        NgxrxtimelineComponent,
+        NgxRxTimelineComponent,
         FakeContentComponent,
         FakeAxisComponent,
         FakeResourceRectangleComponent
       ],
       providers: [
         {
-          provide: NgxrxtimelineService,
+          provide: NgxRxTimelineService,
           useValue: {
             timeAxis$: jest.fn(),
             resourceAxis$: jest.fn(),
@@ -76,8 +75,8 @@ describe('NgxrxtimelineComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgxrxtimelineComponent);
-    timeline = fixture.debugElement.injector.get(NgxrxtimelineService);
+    fixture = TestBed.createComponent(NgxRxTimelineComponent);
+    timeline = fixture.debugElement.injector.get(NgxRxTimelineService);
     timeline.activityDropped$ = of(null);
 
     component = fixture.componentInstance;

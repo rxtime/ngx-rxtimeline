@@ -35,7 +35,7 @@ import { createResizeObservable } from './core/resize-observable';
 import { View } from './view/view';
 
 @Injectable()
-export class NgxrxtimelineService implements OnDestroy {
+export class NgxRxTimelineService implements OnDestroy {
   view$ = this.store.select(selectView);
   resourceAxis$ = this.axisService.resourceAxis$;
   timeAxis$ = this.axisService.timeAxis$;
