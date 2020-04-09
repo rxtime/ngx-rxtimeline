@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxrxtimelineComponent should not render if view null 1`] = `
+<div
+  id="root0"
+>
+  
+</div>
+`;
+
+exports[`NgxrxtimelineComponent view not null should render correctly 1`] = `
+<div
+  id="root1"
+>
+  
+  <svg
+    class="ngx-rxtimeline"
+    height="600"
+    width="800"
+  >
+    <g
+      class="time-axis"
+      ngx-rxtimeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    
+    <g
+      class="resource-rectangle"
+      ngx-rxtimeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      class="resource-rectangle"
+      ngx-rxtimeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    
+    <g
+      class="resource-title-background"
+      ngx-rxtimeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      class="resource-title-background"
+      ngx-rxtimeline-resource-rectangle=""
+    >
+      <rect />
+    </g>
+    <g
+      class="resources-axis"
+      ngx-rxtimeline-axis=""
+    >
+      <g
+        class="axis-group"
+      />
+    </g>
+    <g
+      ngx-rxtimeline-content=""
+    >
+      <g
+        class="content"
+      />
+    </g>
+  </svg>
+</div>
+`;

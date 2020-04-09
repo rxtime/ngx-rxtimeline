@@ -1,4 +1,4 @@
-import { Activity } from 'ngx-d3timeline';
+import { Activity } from 'ngx-rxtimeline';
 
 export const deliveryData: Activity[] = [
   {

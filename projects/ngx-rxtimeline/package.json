@@ -1,0 +1,21 @@
+{
+  "name": "ngx-rxtimeline",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0",
+    "tslib": "^1.10.0"
+  },
+  "dependencies": {
+    "d3-array": "^2.4.0",
+    "d3-scale": "^3.2.1",
+    "d3-selection": "^1.4.1",
+    "d3-zoom": "^1.8.3"
+  },
+  "devDependencies": {
+    "@types/d3-array": "^2.0.0",
+    "@types/d3-scale": "^2.1.1",
+    "@types/d3-selection": "^1.4.1",
+    "@types/d3-zoom": "^1.7.4"
+  }
+}

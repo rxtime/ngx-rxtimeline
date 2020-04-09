@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentComponent activityRectangles null should not render 1`] = `
+<div
+  id="root0"
+  ngx-rxtimeline-content=""
+>
+  <defs
+    ngx-rxtimeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
+</div>
+`;
+
+exports[`ContentComponent activityRectangles null should not render when draggingRectangle set 1`] = `
+<div
+  id="root1"
+  ngx-rxtimeline-content=""
+>
+  <defs
+    ngx-rxtimeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
+</div>
+`;
+
+exports[`ContentComponent activityRectangles null should not render when dropRectangle set 1`] = `
+<div
+  id="root2"
+  ngx-rxtimeline-content=""
+>
+  <defs
+    ngx-rxtimeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
+</div>
+`;
+
+exports[`ContentComponent activityRectangles null should not render when fromRectangle set 1`] = `
+<div
+  id="root3"
+  ngx-rxtimeline-content=""
+>
+  <defs
+    ngx-rxtimeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+  </g>
+</div>
+`;
+
+exports[`ContentComponent activityRectangles set should render 1`] = `
+<div
+  id="root4"
+  ngx-rxtimeline-content=""
+>
+  <defs
+    ngx-rxtimeline-clip-path=""
+  >
+    <g />
+  </defs>
+  <g
+    clip-path="url(#clipRect)"
+  >
+    
+    <g
+      class="content-group"
+    >
+      
+      <g
+        ngx-rxtimeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      <g
+        ngx-rxtimeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        class="from-activity-rectangle"
+        ngx-rxtimeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        class="drop-activity-rectangle"
+        ngx-rxtimeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+      
+      <g
+        ngx-rxtimeline-activity-rectangle=""
+      >
+        <g />
+      </g>
+    </g>
+  </g>
+</div>
+`;
