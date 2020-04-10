@@ -1,8 +1,8 @@
 import { selectView } from '../store/state';
 
 import { createSelector } from '../store-lib/selector/create-selector';
-import { getPoint, Point } from '../core/point';
-import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
+import { Point } from '../core/point';
+import { createStructuredSelector } from '../store-lib/selector/create-structured-selector';
 import { Rectangle } from '../core/rectangle';
 import { toArray, sum } from '../core/array-utils';
 import { pipe, clampZero, subtract, double } from '../core/function-utils';
@@ -58,15 +58,10 @@ const selectViewBottom = createSelector(
   subtract
 );
 
-const createSelectViewPoint = (
-  selectX: MemoizedSelector<number>,
-  selectY: MemoizedSelector<number>
-) => createSelector(selectX, selectY, getPoint);
-
-export const selectViewTopLeft = createSelectViewPoint(
-  selectViewLeft,
-  selectViewTop
-);
+export const selectViewTopLeft = createStructuredSelector<Point>({
+  x: selectViewLeft,
+  y: selectViewTop
+});
 
 export const selectViewClipRectHeight = createSelector(
   selectViewHeight,
