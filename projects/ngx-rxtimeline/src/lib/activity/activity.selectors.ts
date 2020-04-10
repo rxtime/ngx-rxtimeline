@@ -33,6 +33,7 @@ function getSortedPositionedActivities(
   activities: PositionedActivity[],
   zIndex: (type: string) => number
 ): PositionedActivity[] {
+  // TODO: this mutates the array
   return activities.sort((a, b) => zIndex(a.type) - zIndex(b.type));
 }
 

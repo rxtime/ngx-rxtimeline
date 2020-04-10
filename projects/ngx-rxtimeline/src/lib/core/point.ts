@@ -10,10 +10,6 @@ export const origin: Point = {
   y: 0
 };
 
-export function getPoint(x: number, y: number): Point {
-  return { x, y };
-}
-
 export function translatePoint(point: Point, offset: Point): Point {
   return { x: point.x + offset.x, y: point.y + offset.y };
 }

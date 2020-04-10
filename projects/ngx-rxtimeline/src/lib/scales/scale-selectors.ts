@@ -5,7 +5,7 @@ import {
   selectTimeOrientation
 } from '../options/selectors/options.selectors';
 import { selectResourceGap } from '../options/selectors/resource-options.selectors';
-import { getOrientedScale } from './oriented-scale';
+import { createStructuredSelector } from '../store-lib/selector/create-structured-selector';
 import { Activity } from '../../public-api';
 import { Orientation, EitherOnOrientation } from '../core/orientation';
 import { TimeScale, BandScale } from './scale-types';
@@ -16,6 +16,7 @@ import {
   selectViewVerticalRange
 } from '../view/view.selectors';
 import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
+import { OrientedTimeScale, OrientedBandScale } from './oriented-scale';
 
 const createSelectScaleRange = (
   selectOrientation: MemoizedSelector<Orientation>
@@ -121,17 +122,19 @@ function rescaleTime(
   return rescaledTimeScale || unscaledTimeScale;
 }
 
-export const selectOrientedTimeScale = createSelector(
-  selectTimeScale,
-  selectTimeOrientation,
-  getOrientedScale
-);
+export const selectOrientedTimeScale = createStructuredSelector<
+  OrientedTimeScale
+>({
+  scale: selectTimeScale,
+  orientation: selectTimeOrientation
+});
 
-export const selectOrientedBandScale = createSelector(
-  selectBandScale,
-  selectResourceOrientation,
-  getOrientedScale
-);
+export const selectOrientedBandScale = createStructuredSelector<
+  OrientedBandScale
+>({
+  scale: selectBandScale,
+  orientation: selectResourceOrientation
+});
 
 export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
   scale.bandwidth()
