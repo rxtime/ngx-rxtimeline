@@ -5,6 +5,28 @@ import { OptionsService } from './options.service';
   selector: 'app-options',
   template: `
     <ng-container *ngIf="optionsService.options$ | async as options">
+      <div>
+        <label>Resource Gap (0-1)</label>
+        <input
+          [value]="options.resource.gap"
+          (keyup)="
+            optionsService.update('resource', options.resource, {
+              gap: +$event.target.value
+            })
+          "
+        />
+      </div>
+      <div>
+        <label>Resource padding</label>
+        <input
+          [value]="options.resource.padding"
+          (keyup)="
+            optionsService.update('resource', options.resource, {
+              padding: +$event.target.value
+            })
+          "
+        />
+      </div>
       <button (click)="optionsService.flipOrientation(options)">
         Flip Orientation
       </button>
