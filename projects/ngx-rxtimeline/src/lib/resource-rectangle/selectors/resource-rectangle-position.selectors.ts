@@ -2,7 +2,6 @@ import { BandScale } from '../../scales/scale-types';
 import {
   Point,
   translatePointInOrientation,
-  getPoint,
   translatePoint
 } from '../../core/point';
 import { Orientation } from '../../core/orientation';
@@ -14,12 +13,12 @@ import { partialApply } from '../../core/function-utils';
 import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { sum } from '../../core/array-utils';
+import { createStructuredSelector } from '../../store-lib/selector/create-structured-selector';
 
-const selectTickRectOffset = createSelector(
-  selectResourcePadding,
-  selectResourcePadding,
-  getPoint
-);
+const selectTickRectOffset = createStructuredSelector<Point>({
+  x: selectResourcePadding,
+  y: selectResourcePadding
+});
 
 export const selectResourceRectMargin = createSelector(
   selectResourceAxisFontSize,

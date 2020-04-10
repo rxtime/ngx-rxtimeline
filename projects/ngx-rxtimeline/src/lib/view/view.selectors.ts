@@ -75,24 +75,12 @@ export const selectViewClipRectWidth = createSelector(
   pipe(subtract, clampZero)
 );
 
-export const selectViewClipRect = createSelector(
-  selectViewTopLeft,
-  selectViewClipRectWidth,
-  selectViewClipRectHeight,
-  getViewClipRect
-);
-
-export function getViewClipRect(
-  viewTopLeft: Point,
-  width: number,
-  height: number
-): Rectangle {
-  return {
-    ...viewTopLeft,
-    width,
-    height
-  };
-}
+export const selectViewClipRect = createStructuredSelector<Rectangle>({
+  height: selectViewClipRectHeight,
+  width: selectViewClipRectWidth,
+  x: selectViewLeft,
+  y: selectViewTop
+});
 
 export const selectViewVerticalRange = createSelector(
   selectViewTop,

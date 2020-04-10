@@ -1,4 +1,4 @@
-import { Scale } from './scale-types';
+import { Scale, TimeScale, BandScale } from './scale-types';
 import { Orientation } from '../core/orientation';
 
 export interface OrientedScale<TScale extends Scale> {
@@ -6,9 +6,5 @@ export interface OrientedScale<TScale extends Scale> {
   orientation: Orientation;
 }
 
-export function getOrientedScale<TScale extends Scale>(
-  scale: TScale,
-  orientation: Orientation
-) {
-  return { scale, orientation };
-}
+export type OrientedTimeScale = OrientedScale<TimeScale>;
+export type OrientedBandScale = OrientedScale<BandScale>;
