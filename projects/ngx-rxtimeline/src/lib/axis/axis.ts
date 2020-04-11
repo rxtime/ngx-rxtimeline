@@ -14,3 +14,7 @@ export enum AxisType {
   Time = 'Time',
   Resources = 'Resources'
 }
+
+export function flipAxisType(axisType: AxisType) {
+  return axisType === AxisType.Time ? AxisType.Resources : AxisType.Time;
+}
