@@ -1,8 +1,7 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 
 import {
-  selectOrientedTimeScale,
-  selectOrientedBandScale,
+  selectOrientedScale,
   selectTimeScale,
   selectResources
 } from '../scales/scale-selectors';
@@ -23,6 +22,8 @@ import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { createOrientedLine } from '../core/line';
 import { AxisType } from '../axis/axis';
+import { createEnumSelector } from '../store-lib/selector/selector-utils';
+import { constSelector } from '../store-lib/selector/selector';
 
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
@@ -40,13 +41,13 @@ function getTickPosition(
 }
 
 const selectResourceAxisTickMarkRenderer = createSelector(
-  selectOrientedBandScale,
+  selectOrientedScale(AxisType.Resources),
   selectAxisTickLineOffset(AxisType.Resources),
   getResourceAxisTickMarkRenderer
 );
 
 const selectTimeAxisTickMarkRenderer = createSelector(
-  selectOrientedTimeScale,
+  selectOrientedScale(AxisType.Time),
   selectAxisTickLineOffset(AxisType.Time),
   getTimeAxisTickMarkRenderer
 );
@@ -105,7 +106,7 @@ function getTickLabelOffset(labelSpacing: number, orientation: Orientation) {
     : { ...origin, x: labelSpacing };
 }
 
-export const selectTimeAxisTickValues = createSelector(
+const selectTimeAxisTickValues = createSelector(
   selectTimeScale,
   getTimeAxisTickValues
 );
@@ -114,14 +115,20 @@ function getTimeAxisTickValues(scale: TimeScale) {
   return scale.ticks();
 }
 
+export const selectAxisTickValues = (axisType: AxisType) =>
+  createEnumSelector<AxisType, any[]>({
+    Resources: selectResources,
+    Time: selectTimeAxisTickValues
+  })(constSelector(axisType));
+
 export const selectResourceAxisTickMarks = createSelector(
-  selectResources,
+  selectAxisTickValues(AxisType.Resources),
   selectGetResourceAxisTickMark,
   mapValues
 );
 
 export const selectTimeAxisTickMarks = createSelector(
-  selectTimeAxisTickValues,
+  selectAxisTickValues(AxisType.Time),
   selectGetTimeAxisTickMark,
   mapValues
 );
