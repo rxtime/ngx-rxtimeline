@@ -1,8 +1,8 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 import { selectPositionedActivities, selectZoomEvent } from '../store/state';
 import {
-  selectResourceOrientation,
-  selectTimeOrientation
+  selectTimeOrientation,
+  selectAxisOrientation
 } from '../options/selectors/options.selectors';
 import { selectResourceGap } from '../options/selectors/resource-options.selectors';
 import {
@@ -11,23 +11,22 @@ import {
 } from '../store-lib/selector/selector-utils';
 import { Activity } from '../../public-api';
 import { Orientation } from '../core/orientation';
-import { TimeScale, BandScale } from './scale-types';
+import { TimeScale, BandScale, Scale } from './scale-types';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { min, max } from 'd3-array';
 import {
   selectViewHorizontalRange,
   selectViewVerticalRange
 } from '../view/view.selectors';
-import { MemoizedSelector } from '../store-lib/selector/memoized-selector';
-import { OrientedTimeScale, OrientedBandScale } from './oriented-scale';
+import { OrientedScale } from './oriented-scale';
+import { AxisType } from '../axis/axis';
+import { constSelector } from '../store-lib/selector/selector';
 
-const createSelectScaleRange = (
-  selectOrientation: MemoizedSelector<Orientation>
-) =>
+const createSelectScaleRange = (axisType: AxisType) =>
   createEnumSelector<Orientation, number[]>({
     Vertical: selectViewVerticalRange,
     Horizontal: selectViewHorizontalRange
-  })(selectOrientation);
+  })(selectAxisOrientation(axisType));
 
 const selectBandScaleDomain = createSelector(
   selectPositionedActivities,
@@ -40,7 +39,7 @@ function getBandScaleDomain(activities: Activity[]): string[] {
 
 export const selectBandScale = createSelector(
   selectBandScaleDomain,
-  createSelectScaleRange(selectResourceOrientation),
+  createSelectScaleRange(AxisType.Resources),
   selectResourceGap,
   getBandScale
 );
@@ -70,7 +69,7 @@ function getTimeScaleDomain(activities: Activity[]): [Date, Date] {
 
 const selectUnscaledTimeScale = createSelector(
   selectTimeScaleDomain,
-  createSelectScaleRange(selectTimeOrientation),
+  createSelectScaleRange(AxisType.Time),
   getTimeScale
 );
 
@@ -121,19 +120,17 @@ function rescaleTime(
   return rescaledTimeScale || unscaledTimeScale;
 }
 
-export const selectOrientedTimeScale = createStructuredSelector<
-  OrientedTimeScale
->({
-  scale: selectTimeScale,
-  orientation: selectTimeOrientation
-});
+const selectScale = (axisType: AxisType) =>
+  createEnumSelector<AxisType, Scale>({
+    Resources: selectBandScale,
+    Time: selectTimeScale
+  })(constSelector(axisType));
 
-export const selectOrientedBandScale = createStructuredSelector<
-  OrientedBandScale
->({
-  scale: selectBandScale,
-  orientation: selectResourceOrientation
-});
+export const selectOrientedScale = (axisType: AxisType) =>
+  createStructuredSelector<OrientedScale<Scale>>({
+    orientation: selectAxisOrientation(axisType),
+    scale: selectScale(axisType)
+  });
 
 export const selectBandScaleWidth = createSelector(selectBandScale, scale =>
   scale.bandwidth()
