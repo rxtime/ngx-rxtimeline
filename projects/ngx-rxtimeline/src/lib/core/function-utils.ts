@@ -24,6 +24,8 @@ export function mult(x: number, y: number) {
   return x * y;
 }
 
+export const negate = mult.bind(null, -1);
+
 export function add(x: number, y: number): number {
   return x + y;
 }

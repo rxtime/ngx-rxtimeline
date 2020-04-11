@@ -20,14 +20,12 @@ import { OrientedScale } from '../scales/oriented-scale';
 import { Scale } from '../scales/scale-types';
 import { mapValues } from '../core/transform-utils';
 import {
-  selectResourceAxisShowGridLines,
-  selectTimeAxisShowGridLines,
-  selectTimeAxisShowAxisLines,
-  selectResourceAxisShowAxisLine
+  selectAxisShowGridLines,
+  selectAxisShowAxisLine
 } from '../options/selectors/axis-options.selectors';
 import { partialApply } from '../core/function-utils';
 import { TickMark } from '../tick-mark/tick-mark';
-import { Axis } from './axis';
+import { Axis, AxisType } from './axis';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
 import {
@@ -66,7 +64,7 @@ const selectGetResourceAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedBandScale,
   selectOrientedTimeScale,
-  selectGetMargin(selectResourceOrientation),
+  selectGetMargin(selectTimeOrientation),
   partialApply(getTickGridLine)
 );
 
@@ -74,7 +72,7 @@ const selectGetTimeAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedTimeScale,
   selectOrientedBandScale,
-  selectGetMargin(selectTimeOrientation),
+  selectGetMargin(selectResourceOrientation),
   partialApply(getTickGridLine)
 );
 
@@ -116,14 +114,14 @@ const selectTimeAxisGridLines = createSelector(
 );
 
 const selectResourceAxisLine = createSelector(
-  selectResourceAxisShowAxisLine,
+  selectAxisShowAxisLine(AxisType.Resources),
   selectOrientedBandScale,
   selectGetAxisLine,
   axisLineFromOrientedScale
 );
 
 const selectTimeAxisLine = createSelector(
-  selectTimeAxisShowAxisLines,
+  selectAxisShowAxisLine(AxisType.Time),
   selectOrientedTimeScale,
   selectGetAxisLine,
   axisLineFromOrientedScale
@@ -132,7 +130,7 @@ const selectTimeAxisLine = createSelector(
 export const selectResourceAxis = createSelector(
   selectResourceAxisLine,
   selectResourceAxisTickMarks,
-  selectResourceAxisShowGridLines,
+  selectAxisShowGridLines(AxisType.Resources),
   selectResourceAxisGridLines,
   selectResourceOrientation,
   getAxis
@@ -141,7 +139,7 @@ export const selectResourceAxis = createSelector(
 export const selectTimeAxis = createSelector(
   selectTimeAxisLine,
   selectTimeAxisTickMarks,
-  selectTimeAxisShowGridLines,
+  selectAxisShowGridLines(AxisType.Time),
   selectTimeAxisGridLines,
   selectTimeOrientation,
   getAxis

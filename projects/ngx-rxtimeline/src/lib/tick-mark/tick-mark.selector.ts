@@ -11,20 +11,18 @@ import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-rende
 import { mapValues } from '../core/transform-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
-  selectResourceAxisTickLineOffset,
-  selectTimeAxisTickLineOffset,
-  selectResourceAxisFontFace,
-  selectResourceAxisFontSize,
-  selectTimeAxisFontFace,
-  selectTimeAxisFontSize
+  selectAxisTickLineOffset,
+  selectAxisFontFace,
+  selectAxisFontSize
 } from '../options/selectors/axis-options.selectors';
 import { partialApply } from '../core/function-utils';
-import { BandScale, TimeScale } from '../scales/scale-types';
+import { TimeScale } from '../scales/scale-types';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point, pointToTransform, origin } from '../core/point';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { createOrientedLine } from '../core/line';
+import { AxisType } from '../axis/axis';
 
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
@@ -43,29 +41,29 @@ function getTickPosition(
 
 const selectResourceAxisTickMarkRenderer = createSelector(
   selectOrientedBandScale,
-  selectResourceAxisTickLineOffset,
+  selectAxisTickLineOffset(AxisType.Resources),
   getResourceAxisTickMarkRenderer
 );
 
 const selectTimeAxisTickMarkRenderer = createSelector(
   selectOrientedTimeScale,
-  selectTimeAxisTickLineOffset,
+  selectAxisTickLineOffset(AxisType.Time),
   getTimeAxisTickMarkRenderer
 );
 
 const selectGetResourceAxisTickMark = createSelector(
   selectGetTickPosition,
   selectResourceAxisTickMarkRenderer,
-  selectResourceAxisFontFace,
-  selectResourceAxisFontSize,
+  selectAxisFontFace(AxisType.Resources),
+  selectAxisFontSize(AxisType.Resources),
   partialApply(getTickMark)
 );
 
 const selectGetTimeAxisTickMark = createSelector(
   selectGetTickPosition,
   selectTimeAxisTickMarkRenderer,
-  selectTimeAxisFontFace,
-  selectTimeAxisFontSize,
+  selectAxisFontFace(AxisType.Time),
+  selectAxisFontSize(AxisType.Time),
   partialApply(getTickMark)
 );
 
