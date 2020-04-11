@@ -28,16 +28,13 @@ import {
 import { partialApply } from '../core/function-utils';
 import { TickMark } from '../tick-mark/tick-mark';
 import { Axis } from './axis';
-import {
-  Orientation,
-  flipOrientation,
-  EitherOnOrientation
-} from '../core/orientation';
+import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
 import {
   selectTimeOrientation,
   selectResourceOrientation
 } from '../options/selectors/options.selectors';
+import { createEnumSelector } from '../store-lib/selector/selector-utils';
 
 const selectGetAxisLine = createSelector(
   selectViewTopLeft,
@@ -60,17 +57,16 @@ function getAxisEndPoint(
     : { ...viewTopLeft, x: getRangeLimit(orientedScale.scale) };
 }
 
-const selectGetMargin = createSelector(
-  selectVerticalMargin,
-  selectMarginLeft,
-  partialApply(EitherOnOrientation)
-);
+const selectGetMargin = createEnumSelector<Orientation, number>({
+  Horizontal: selectMarginLeft,
+  Vertical: selectVerticalMargin
+});
 
 const selectGetResourceAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedBandScale,
   selectOrientedTimeScale,
-  selectGetMargin,
+  selectGetMargin(selectResourceOrientation),
   partialApply(getTickGridLine)
 );
 
@@ -78,7 +74,7 @@ const selectGetTimeAxisGridLine = createSelector(
   selectGetTickPosition,
   selectOrientedTimeScale,
   selectOrientedBandScale,
-  selectGetMargin,
+  selectGetMargin(selectTimeOrientation),
   partialApply(getTickGridLine)
 );
 
@@ -87,11 +83,11 @@ function getTickGridLine(
   tickPosition: (o: Orientation, range: number) => Point,
   orientedScale: OrientedScale<Scale>,
   otherOrientedScale: OrientedScale<Scale>,
-  margin: (o: Orientation) => number
+  margin: number
 ): Line {
   return createOrientedLine(
     tickPosition(orientedScale.orientation, orientedScale.scale(tickValue)),
-    getGridLineLength(otherOrientedScale, margin(orientedScale.orientation)),
+    getGridLineLength(otherOrientedScale, margin),
     flipOrientation(orientedScale.orientation)
   );
 }

@@ -4,6 +4,6 @@ export function sum(...args: number[]) {
   return args.reduce(add);
 }
 
-export function toArray(...args: any[]): any[] {
+export function toArray<T>(...args: T[]): T[] {
   return args;
 }

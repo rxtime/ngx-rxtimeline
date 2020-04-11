@@ -2,24 +2,26 @@ import { selectView } from '../store/state';
 
 import { createSelector } from '../store-lib/selector/create-selector';
 import { Point } from '../core/point';
-import { createStructuredSelector } from '../store-lib/selector/create-structured-selector';
+import {
+  createStructuredSelector,
+  createEnumSelector
+} from '../store-lib/selector/selector-utils';
 import { Rectangle } from '../core/rectangle';
 import { toArray, sum } from '../core/array-utils';
 import { pipe, clampZero, subtract, double } from '../core/function-utils';
 import { constSelector } from '../store-lib/selector/selector';
-import { EitherOnOrientation } from '../core/orientation';
+import { Orientation } from '../core/orientation';
 import { selectTimeOrientation } from '../options/selectors/options.selectors';
 
 export const selectVerticalMargin = constSelector(50);
 export const selectMarginRight = constSelector(50);
 const selectMarginLeftWhenHorizontal = constSelector(100);
 const selectMarginLeftWhenVertical = constSelector(50);
-export const selectMarginLeft = createSelector(
-  selectTimeOrientation,
-  selectMarginLeftWhenVertical,
-  selectMarginLeftWhenHorizontal,
-  EitherOnOrientation
-);
+
+export const selectMarginLeft = createEnumSelector<Orientation, number>({
+  Horizontal: selectMarginLeftWhenHorizontal,
+  Vertical: selectMarginLeftWhenVertical
+})(selectTimeOrientation);
 
 const selectVerticalMarginTotal = createSelector(selectVerticalMargin, double);
 const selectHorizontalMarginTotal = createSelector(
