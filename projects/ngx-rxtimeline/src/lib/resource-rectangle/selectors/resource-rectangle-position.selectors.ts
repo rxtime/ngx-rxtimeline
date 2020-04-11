@@ -13,7 +13,7 @@ import { partialApply } from '../../core/function-utils';
 import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { sum } from '../../core/array-utils';
-import { createStructuredSelector } from '../../store-lib/selector/create-structured-selector';
+import { createStructuredSelector } from '../../store-lib/selector/selector-utils';
 
 const selectTickRectOffset = createStructuredSelector<Point>({
   x: selectResourcePadding,
