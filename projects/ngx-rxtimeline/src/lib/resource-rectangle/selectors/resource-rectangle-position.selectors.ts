@@ -10,10 +10,11 @@ import { selectTimeOrientation } from '../../options/selectors/options.selectors
 import { selectViewTopLeft } from '../../view/view.selectors';
 import { selectBandScale } from '../../scales/scale-selectors';
 import { partialApply } from '../../core/function-utils';
-import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
+import { selectAxisFontSize } from '../../options/selectors/axis-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
 import { sum } from '../../core/array-utils';
 import { createStructuredSelector } from '../../store-lib/selector/selector-utils';
+import { AxisType } from '../../axis/axis';
 
 const selectTickRectOffset = createStructuredSelector<Point>({
   x: selectResourcePadding,
@@ -21,7 +22,7 @@ const selectTickRectOffset = createStructuredSelector<Point>({
 });
 
 export const selectResourceRectMargin = createSelector(
-  selectResourceAxisFontSize,
+  selectAxisFontSize(AxisType.Resources),
   selectResourcePadding,
   sum
 );

@@ -9,8 +9,9 @@ import { Orientation } from '../../core/orientation';
 import { sum } from '../../core/array-utils';
 import { selectResourceRectMargin } from './resource-rectangle-position.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';
-import { selectResourceAxisFontSize } from '../../options/selectors/axis-options.selectors';
+import { selectAxisFontSize } from '../../options/selectors/axis-options.selectors';
 import { clampZero } from '../../core/function-utils';
+import { AxisType } from '../../axis/axis';
 
 const selectClipRectBreadthInTimeAxis = createSelector(
   selectViewClipRectHeight,
@@ -81,7 +82,7 @@ function getResourceRectHeight(
 
 export const selectTickRectHeight = createSelector(
   selectTimeOrientation,
-  selectResourceAxisFontSize,
+  selectAxisFontSize(AxisType.Resources),
   getTickRectHeight
 );
 

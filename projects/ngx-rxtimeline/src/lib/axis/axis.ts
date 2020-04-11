@@ -9,3 +9,8 @@ export interface Axis {
   gridLines: Line[];
   orientation: Orientation;
 }
+
+export enum AxisType {
+  Time = 'Time',
+  Resources = 'Resources'
+}
