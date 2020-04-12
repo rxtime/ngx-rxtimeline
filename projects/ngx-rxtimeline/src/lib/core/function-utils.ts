@@ -24,7 +24,7 @@ export function mult(x: number, y: number) {
   return x * y;
 }
 
-export const negate = mult.bind(null, -1);
+export const negate: (x: any) => number = mult.bind(null, -1);
 
 export function add(x: number, y: number): number {
   return x + y;
@@ -34,4 +34,8 @@ export const double = mult.bind(null, 2);
 
 export function or<T>(x: T, y: T): T {
   return x || y;
+}
+
+export function identity<T>(x: T): T {
+  return x;
 }
