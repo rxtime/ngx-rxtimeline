@@ -14,6 +14,13 @@ export function translatePoint(point: Point, offset: Point): Point {
   return { x: point.x + offset.x, y: point.y + offset.y };
 }
 
+export function translateOriginInOrienation(
+  distance: number,
+  orientation: Orientation
+) {
+  return translatePointInOrientation(origin, distance, orientation);
+}
+
 export function translatePointInOrientation(
   point: Point,
   distance: number,

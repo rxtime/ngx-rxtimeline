@@ -17,16 +17,17 @@ import {
 } from '../options/selectors/axis-options.selectors';
 import { partialApply, identity, add } from '../core/function-utils';
 import { TimeScale } from '../scales/scale-types';
-import { Orientation, flipOrientation } from '../core/orientation';
-import { Point, pointToTransform, origin } from '../core/point';
+import { Orientation } from '../core/orientation';
+import {
+  Point,
+  pointToTransform,
+  translateOriginInOrienation
+} from '../core/point';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
-import { Line, createOrientedLine } from '../core/line';
+import { Line, createOrientedLineFromOrigin } from '../core/line';
 import { AxisType, flipAxisType } from '../axis/axis';
-import {
-  createEnumSelector,
-  createStructuredSelector
-} from '../store-lib/selector/selector-utils';
+import { createEnumSelector } from '../store-lib/selector/selector-utils';
 import { constSelector } from '../store-lib/selector/selector';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
 
@@ -74,35 +75,24 @@ const selectTickLabelGap = constSelector(-2);
 const selectTickLabelSpacing = (axisType: AxisType) =>
   createSelector(selectAxisTickLineOffset(axisType), selectTickLabelGap, add);
 
-const selectHorizontalTickLabelOffset = (axisType: AxisType) =>
-  createStructuredSelector<Point>({
-    x: selectTickLabelSpacing(axisType),
-    y: constSelector(0)
-  });
-
-const selectVerticalTickLabelOffset = (axisType: AxisType) =>
-  createStructuredSelector<Point>({
-    x: constSelector(0),
-    y: selectTickLabelSpacing(axisType)
-  });
-
 const selectTickLabelOffset = (axisType: AxisType) =>
-  createEnumSelector<Orientation, Point>({
-    Horizontal: selectHorizontalTickLabelOffset(axisType),
-    Vertical: selectVerticalTickLabelOffset(axisType)
-  })(selectAxisOrientation(flipAxisType(axisType)));
-
-const selectOrientedTickLine = (orientation: Orientation, axisType: AxisType) =>
   createSelector(
-    constSelector(origin),
+    selectTickLabelSpacing(axisType),
+    selectAxisOrientation(flipAxisType(axisType)),
+    translateOriginInOrienation
+  );
+
+const selectOrientedTickLine = (axisType: AxisType) =>
+  createSelector(
     selectAxisTickLineOffset(axisType),
-    (point, offset) => createOrientedLine(point, offset, orientation)
+    selectAxisOrientation(flipAxisType(axisType)),
+    createOrientedLineFromOrigin
   );
 
 const selectTickLine = (axisType: AxisType) =>
   createEnumSelector<Orientation, Line>({
-    Horizontal: selectOrientedTickLine(Orientation.Horizontal, axisType),
-    Vertical: selectOrientedTickLine(Orientation.Vertical, axisType)
+    Horizontal: selectOrientedTickLine(axisType),
+    Vertical: selectOrientedTickLine(axisType)
   })(selectAxisOrientation(flipAxisType(axisType)));
 
 const selectGetResourceAxisTickMark = createSelector(

@@ -1,11 +1,18 @@
 import { Orientation } from './orientation';
-import { Point, translatePointInOrientation } from './point';
+import { Point, translatePointInOrientation, origin } from './point';
 
 export interface Line {
   x1: number;
   x2: number;
   y1: number;
   y2: number;
+}
+
+export function createOrientedLineFromOrigin(
+  length: number,
+  orientation: Orientation
+) {
+  return createOrientedLine(origin, length, orientation);
 }
 
 export function createOrientedLine(
