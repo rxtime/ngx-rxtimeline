@@ -31,3 +31,7 @@ export function add(x: number, y: number): number {
 }
 
 export const double = mult.bind(null, 2);
+
+export function or<T>(x: T, y: T): T {
+  return x || y;
+}

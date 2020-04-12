@@ -1,5 +1,5 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
-import { selectBandScaleWidth } from '../../scales/scale-selectors';
+import { selectBandScaleWidth } from '../../scales/selectors/band-scale.selectors';
 import {
   selectViewClipRectHeight,
   selectViewClipRectWidth

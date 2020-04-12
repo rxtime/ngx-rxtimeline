@@ -11,7 +11,11 @@ import { toArray, sum } from '../core/array-utils';
 import { pipe, clampZero, subtract, double } from '../core/function-utils';
 import { constSelector } from '../store-lib/selector/selector';
 import { Orientation } from '../core/orientation';
-import { selectTimeOrientation } from '../options/selectors/options.selectors';
+import {
+  selectTimeOrientation,
+  selectAxisOrientation
+} from '../options/selectors/options.selectors';
+import { AxisType } from '../axis/axis';
 
 export const selectVerticalMargin = constSelector(50);
 export const selectMarginRight = constSelector(50);
@@ -95,3 +99,9 @@ export const selectViewHorizontalRange = createSelector(
   selectViewRight,
   toArray
 );
+
+export const selectViewRange = (axisType: AxisType) =>
+  createEnumSelector<Orientation, number[]>({
+    Vertical: selectViewVerticalRange,
+    Horizontal: selectViewHorizontalRange
+  })(selectAxisOrientation(axisType));
