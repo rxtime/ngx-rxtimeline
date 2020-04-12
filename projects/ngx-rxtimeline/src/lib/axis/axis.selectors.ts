@@ -20,7 +20,7 @@ import {
   selectAxisShowAxisLine
 } from '../options/selectors/axis-options.selectors';
 import { partialApply } from '../core/function-utils';
-import { Axis, AxisType } from './axis';
+import { Axis, AxisType, flipAxisType } from './axis';
 import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
@@ -56,21 +56,14 @@ const selectGetMargin = (axisType: AxisType) =>
     Vertical: selectVerticalMargin
   })(selectAxisOrientation(axisType));
 
-const selectGetResourceAxisGridLine = createSelector(
-  selectGetTickPosition,
-  selectOrientedScale(AxisType.Resources),
-  selectOrientedScale(AxisType.Time),
-  selectGetMargin(AxisType.Time),
-  partialApply(getTickGridLine)
-);
-
-const selectGetTimeAxisGridLine = createSelector(
-  selectGetTickPosition,
-  selectOrientedScale(AxisType.Time),
-  selectOrientedScale(AxisType.Resources),
-  selectGetMargin(AxisType.Resources),
-  partialApply(getTickGridLine)
-);
+const selectGetAxisGridLine = (axisType: AxisType) =>
+  createSelector(
+    selectGetTickPosition,
+    selectOrientedScale(axisType),
+    selectOrientedScale(flipAxisType(axisType)),
+    selectGetMargin(flipAxisType(axisType)),
+    partialApply(getTickGridLine)
+  );
 
 function getTickGridLine(
   tickValue: any,
@@ -97,17 +90,12 @@ function getRangeLimit(scale: Scale): number {
   return scale.range()[1];
 }
 
-const selectResourceAxisGridLines = createSelector(
-  selectAxisTickValues(AxisType.Resources),
-  selectGetResourceAxisGridLine,
-  mapValues
-);
-
-const selectTimeAxisGridLines = createSelector(
-  selectAxisTickValues(AxisType.Time),
-  selectGetTimeAxisGridLine,
-  mapValues
-);
+const selectAxisGridLines = (axisType: AxisType) =>
+  createSelector(
+    selectAxisTickValues(axisType),
+    selectGetAxisGridLine(axisType),
+    mapValues
+  );
 
 const selectAxisLine = (axisType: AxisType) =>
   createSelector(
@@ -126,7 +114,7 @@ function axisLineFromOrientedScale(
 }
 
 export const selectResourceAxis = createStructuredSelector<Axis>({
-  gridLines: selectResourceAxisGridLines,
+  gridLines: selectAxisGridLines(AxisType.Resources),
   line: selectAxisLine(AxisType.Resources),
   orientation: selectAxisOrientation(AxisType.Resources),
   showGridLines: selectAxisShowGridLines(AxisType.Resources),
@@ -134,7 +122,7 @@ export const selectResourceAxis = createStructuredSelector<Axis>({
 });
 
 export const selectTimeAxis = createStructuredSelector<Axis>({
-  gridLines: selectTimeAxisGridLines,
+  gridLines: selectAxisGridLines(AxisType.Time),
   line: selectAxisLine(AxisType.Time),
   orientation: selectAxisOrientation(AxisType.Time),
   showGridLines: selectAxisShowGridLines(AxisType.Time),
