@@ -11,7 +11,7 @@ import {
   selectGetTickPosition
 } from '../tick-mark/tick-mark.selector';
 import { Line, createOrientedLine, createLine } from '../core/line';
-import { selectOrientedScale } from '../scales/scale-selectors';
+import { selectOrientedScale } from '../scales/selectors/scale-selectors';
 import { OrientedScale } from '../scales/oriented-scale';
 import { Scale } from '../scales/scale-types';
 import { mapValues } from '../core/transform-utils';

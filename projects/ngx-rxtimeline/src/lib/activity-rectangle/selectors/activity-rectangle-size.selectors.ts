@@ -1,5 +1,6 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
-import { selectTimeScale, selectBandScale } from '../../scales/scale-selectors';
+import { selectTimeScale } from '../../scales/selectors/time-scale.selectors';
+import { selectBandScale } from '../../scales/selectors/band-scale.selectors';
 import {
   selectTimeOrientation,
   selectStrokeWidth

@@ -8,7 +8,7 @@ import { Orientation } from '../../core/orientation';
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectTimeOrientation } from '../../options/selectors/options.selectors';
 import { selectViewTopLeft } from '../../view/view.selectors';
-import { selectBandScale } from '../../scales/scale-selectors';
+import { selectBandScale } from '../../scales/selectors/band-scale.selectors';
 import { partialApply } from '../../core/function-utils';
 import { selectAxisFontSize } from '../../options/selectors/axis-options.selectors';
 import { selectResourcePadding } from '../../options/selectors/resource-options.selectors';

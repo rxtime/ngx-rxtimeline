@@ -1,5 +1,5 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
-import { selectBandScale } from '../../scales/scale-selectors';
+import { selectBandScale } from '../../scales/selectors/band-scale.selectors';
 import { BandScale } from '../../scales/scale-types';
 import { ResourceRectangle } from '../resource-rectangle';
 import { pointToTransform, Point } from '../../core/point';

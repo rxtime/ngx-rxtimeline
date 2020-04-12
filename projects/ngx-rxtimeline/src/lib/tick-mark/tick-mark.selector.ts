@@ -1,10 +1,8 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 
-import {
-  selectOrientedScale,
-  selectTimeScale,
-  selectResources
-} from '../scales/scale-selectors';
+import { selectResources } from '../scales/selectors/band-scale.selectors';
+import { selectOrientedScale } from '../scales/selectors/scale-selectors';
+import { selectTimeScale } from '../scales/selectors/time-scale.selectors';
 import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
 import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
 import { mapValues } from '../core/transform-utils';
