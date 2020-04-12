@@ -12,7 +12,7 @@ export function createOrientedLine(
   point: Point,
   length: number,
   orientation: Orientation
-) {
+): Line {
   const to = translatePointInOrientation(point, length, orientation);
 
   return createLine(point, to);

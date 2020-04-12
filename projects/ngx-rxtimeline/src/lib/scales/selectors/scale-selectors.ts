@@ -10,7 +10,7 @@ import { selectAxisOrientation } from '../../options/selectors/options.selectors
 import { selectBandScale } from './band-scale.selectors';
 import { selectTimeScale } from './time-scale.selectors';
 
-const selectScale = (axisType: AxisType) =>
+export const selectScale = (axisType: AxisType) =>
   createEnumSelector<AxisType, Scale>({
     Resources: selectBandScale,
     Time: selectTimeScale
