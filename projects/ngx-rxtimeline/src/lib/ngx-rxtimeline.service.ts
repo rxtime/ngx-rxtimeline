@@ -79,7 +79,7 @@ export class NgxRxTimelineService implements OnDestroy {
 
   setupZoom(svgEl: ElementRef<SVGElement>) {
     if (svgEl) {
-      const onZoom = zoom().on('zoom', this.zoomed.bind(this));
+      const onZoom = zoom().on('zoom', () => this.zoomed());
       onZoom(select(svgEl.nativeElement));
     }
   }
@@ -93,7 +93,7 @@ export class NgxRxTimelineService implements OnDestroy {
   setupResizing() {
     createResizeObservable(this.hostElement.nativeElement)
       .pipe(debounceTime(100), takeUntil(this.destroySubject))
-      .subscribe(this.updateView.bind(this));
+      .subscribe(view => this.updateView(view));
   }
 
   private zoomed() {

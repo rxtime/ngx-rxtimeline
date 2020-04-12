@@ -4,6 +4,7 @@ import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { selectTypeOptions } from './type-options.selectors';
 import { partialApply } from '../../core/function-utils';
 import { ActivityOptions, TypeOptions } from '../options';
+import { bind2 } from '../../core/bind';
 
 const selectActivityOptions = createSelector(
   selectOptions,
@@ -28,7 +29,7 @@ const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
   createSelector(
     selectTypeActivityOptions,
     options =>
-      getTypeActivityOption.bind(null, options, key) as (
+      bind2(getTypeActivityOption, options, key) as (
         type: string
       ) => ActivityOptions[TOption]
   );

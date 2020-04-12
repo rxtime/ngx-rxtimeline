@@ -30,7 +30,7 @@ export class ActivityDragService {
   setupDrag(id: Identifier, nativeElement: HTMLElement) {
     const onDrag = drag()
       .on('drag', () => this.onDragging(id))
-      .on('end', this.onDragEnded.bind(this));
+      .on('end', () => this.onDragEnded());
 
     onDrag(select(nativeElement));
   }

@@ -30,10 +30,11 @@ import { AxisType, flipAxisType } from '../axis/axis';
 import { createEnumSelector } from '../store-lib/selector/selector-utils';
 import { constSelector } from '../store-lib/selector/selector';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
+import { bind1 } from '../core/bind';
 
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
-  viewTopLeft => getTickPosition.bind(null, viewTopLeft)
+  viewTopLeft => bind1(getTickPosition, viewTopLeft)
 );
 
 function getTickPosition(
