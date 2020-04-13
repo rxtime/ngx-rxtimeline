@@ -96,7 +96,7 @@ const selectTickLine = (axisType: AxisType) =>
 // tick value (label and transform) from rest
 export const selectGetAxisTickMark = (axisType: AxisType) =>
   createSelector(
-    selectGetTickPositionFoo(AxisType.Time),
+    selectGetTickPositionFoo(axisType),
     selectGetTickLabel(axisType),
     selectTickLabelOffset(axisType),
     selectTickLine(axisType),
