@@ -5,8 +5,7 @@ import {
   selectMarginLeft
 } from '../view/view.selectors';
 import {
-  selectResourceAxisTickMarks,
-  selectTimeAxisTickMarks,
+  selectAxisTickMarks,
   selectAxisTickValues,
   selectGetTickPosition
 } from '../tick-mark/tick-mark.selector';
@@ -113,18 +112,14 @@ function axisLineFromOrientedScale(
   return showAxisLine && line(orientedScale);
 }
 
-export const selectResourceAxis = createStructuredSelector<Axis>({
-  gridLines: selectAxisGridLines(AxisType.Resources),
-  line: selectAxisLine(AxisType.Resources),
-  orientation: selectAxisOrientation(AxisType.Resources),
-  showGridLines: selectAxisShowGridLines(AxisType.Resources),
-  tickMarks: selectResourceAxisTickMarks
-});
+export const selectAxis = (axisType: AxisType) =>
+  createStructuredSelector<Axis>({
+    gridLines: selectAxisGridLines(axisType),
+    line: selectAxisLine(axisType),
+    orientation: selectAxisOrientation(axisType),
+    showGridLines: selectAxisShowGridLines(axisType),
+    tickMarks: selectAxisTickMarks(axisType)
+  });
 
-export const selectTimeAxis = createStructuredSelector<Axis>({
-  gridLines: selectAxisGridLines(AxisType.Time),
-  line: selectAxisLine(AxisType.Time),
-  orientation: selectAxisOrientation(AxisType.Time),
-  showGridLines: selectAxisShowGridLines(AxisType.Time),
-  tickMarks: selectTimeAxisTickMarks
-});
+export const selectResourceAxis = selectAxis(AxisType.Resources);
+export const selectTimeAxis = selectAxis(AxisType.Time);
