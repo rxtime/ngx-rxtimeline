@@ -3,7 +3,7 @@ import { selectOptions } from '../../store/state';
 import { flipOrientation, Orientation } from '../../core/orientation';
 import { Options } from '../options';
 import { AxisType } from '../../axis/axis';
-import { createEnumSelector } from '../../store-lib/selector/selector-utils';
+import { createOptionsBasedSelector } from '../../store-lib/selector/selector-utils';
 import { constSelector } from '../../store-lib/selector/selector';
 
 export const selectTimeOrientation = createSelector(
@@ -21,7 +21,7 @@ const selectResourceOrientation = createSelector(
 );
 
 export const selectAxisOrientation = (axisType: AxisType) =>
-  createEnumSelector<AxisType, Orientation>({
+  createOptionsBasedSelector<AxisType, Orientation>({
     Resources: selectResourceOrientation,
     Time: selectTimeOrientation
   })(constSelector(axisType));

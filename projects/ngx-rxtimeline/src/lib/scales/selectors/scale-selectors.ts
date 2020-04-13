@@ -1,7 +1,7 @@
 import { AxisType } from '../../axis/axis';
 import { Scale } from '../scale-types';
 import {
-  createEnumSelector,
+  createOptionsBasedSelector,
   createStructuredSelector
 } from '../../store-lib/selector/selector-utils';
 import { constSelector } from '../../store-lib/selector/selector';
@@ -11,7 +11,7 @@ import { selectBandScale } from './band-scale.selectors';
 import { selectTimeScale } from './time-scale.selectors';
 
 export const selectScale = (axisType: AxisType) =>
-  createEnumSelector<AxisType, Scale>({
+  createOptionsBasedSelector<AxisType, Scale>({
     Resources: selectBandScale,
     Time: selectTimeScale
   })(constSelector(axisType));

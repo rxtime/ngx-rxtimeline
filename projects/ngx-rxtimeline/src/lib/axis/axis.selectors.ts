@@ -25,7 +25,7 @@ import { Orientation, flipOrientation } from '../core/orientation';
 import { Point } from '../core/point';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
 import {
-  createEnumSelector,
+  createOptionsBasedSelector,
   createStructuredSelector
 } from '../store-lib/selector/selector-utils';
 
@@ -51,7 +51,7 @@ function getAxisEndPoint(
 }
 
 const selectGetMargin = (axisType: AxisType) =>
-  createEnumSelector<Orientation, number>({
+  createOptionsBasedSelector<Orientation, number>({
     Horizontal: selectMarginLeft,
     Vertical: selectVerticalMargin
   })(selectAxisOrientation(axisType));
