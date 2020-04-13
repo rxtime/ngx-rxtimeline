@@ -21,7 +21,7 @@ import { Orientation } from '../core/orientation';
 import {
   Point,
   pointToTransform,
-  translateOriginInOrienation
+  translateOriginInOrientation
 } from '../core/point';
 import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
@@ -30,11 +30,11 @@ import { AxisType, flipAxisType } from '../axis/axis';
 import { createEnumSelector } from '../store-lib/selector/selector-utils';
 import { constSelector } from '../store-lib/selector/selector';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
-import { bind1 } from '../core/bind';
+import { bind } from '../core/bind';
 
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
-  viewTopLeft => bind1(getTickPosition, viewTopLeft)
+  viewTopLeft => bind(getTickPosition, viewTopLeft)
 );
 
 function getTickPosition(
@@ -80,7 +80,7 @@ const selectTickLabelOffset = (axisType: AxisType) =>
   createSelector(
     selectTickLabelSpacing(axisType),
     selectAxisOrientation(flipAxisType(axisType)),
-    translateOriginInOrienation
+    translateOriginInOrientation
   );
 
 const selectOrientedTickLine = (axisType: AxisType) =>
