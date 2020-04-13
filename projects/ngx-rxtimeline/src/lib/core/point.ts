@@ -1,5 +1,5 @@
 import { Orientation } from './orientation';
-import { bind } from './bind';
+import { partial } from './partial';
 
 export interface Point {
   x: number;
@@ -15,7 +15,7 @@ export function translatePoint(point: Point, offset: Point): Point {
   return { x: point.x + offset.x, y: point.y + offset.y };
 }
 
-export const translateOriginInOrientation = bind(
+export const translateOriginInOrientation = partial(
   translatePointInOrientation,
   origin
 );
