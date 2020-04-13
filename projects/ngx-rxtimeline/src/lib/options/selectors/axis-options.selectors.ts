@@ -1,7 +1,7 @@
 import { selectOptions } from '../../store/state';
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { AxisOptions } from '../options';
-import { createEnumSelector } from '../../store-lib/selector/selector-utils';
+import { createOptionsBasedSelector } from '../../store-lib/selector/selector-utils';
 import { AxisType } from '../../axis/axis';
 import { Complete } from '../../core/types';
 import { constSelector } from '../../store-lib/selector/selector';
@@ -18,7 +18,7 @@ const selectTimeAxisOptions = createSelector(
 );
 
 const selectAxisOptions = (axisType: AxisType) =>
-  createEnumSelector<AxisType, Complete<AxisOptions>>({
+  createOptionsBasedSelector<AxisType, Complete<AxisOptions>>({
     Resources: selectResourceAxisOptions,
     Time: selectTimeAxisOptions
   })(constSelector(axisType));
