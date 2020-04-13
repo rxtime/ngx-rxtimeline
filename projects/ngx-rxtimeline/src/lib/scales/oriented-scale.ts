@@ -1,6 +1,7 @@
 import { Scale, TimeScale, BandScale } from './scale-types';
 import { Orientation } from '../core/orientation';
 
+// TODO this should be removed
 export interface OrientedScale<TScale extends Scale> {
   scale: TScale;
   orientation: Orientation;

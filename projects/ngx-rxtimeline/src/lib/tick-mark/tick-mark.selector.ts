@@ -30,7 +30,7 @@ import { constSelector } from '../store-lib/selector/selector';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
 import { partial } from '../core/partial';
 
-// TODO: remove
+// TODO: remove and replace with foo selector
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
   viewTopLeft => partial(getTickPosition, viewTopLeft)
@@ -46,7 +46,7 @@ function getTickPosition(
     : { ...viewTopLeft, x: range };
 }
 
-const selectGetTickPosition_ = (axisType: AxisType) =>
+const selectGetTickPositionFoo = (axisType: AxisType) =>
   createSelector(
     selectViewTopLeft,
     selectAxisOrientation(axisType),
@@ -96,7 +96,7 @@ const selectTickLine = (axisType: AxisType) =>
 // tick value (label and transform) from rest
 export const selectGetAxisTickMark = (axisType: AxisType) =>
   createSelector(
-    selectGetTickPosition_(AxisType.Time),
+    selectGetTickPositionFoo(AxisType.Time),
     selectGetTickLabel(axisType),
     selectTickLabelOffset(axisType),
     selectTickLine(axisType),
