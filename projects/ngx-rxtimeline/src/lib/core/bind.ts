@@ -1,19 +1,17 @@
-export function bind1<TBoundArg, TUnboundArgs extends any[], TOut>(
-  func: (boundArg: TBoundArg, ...unboundArgs: TUnboundArgs) => TOut,
-  boundVal: TBoundArg
-): (...unboundArgs: TUnboundArgs) => TOut {
-  return (...unboundArgs: TUnboundArgs) => func(boundVal, ...unboundArgs);
-}
+export function bind<T1, UnboundArgs extends any[], TOut>(
+  func: (x1: T1, ...unboundArgs: UnboundArgs) => TOut,
+  val1: T1
+): (...unboundArgs: UnboundArgs) => TOut;
 
-export function bind2<TBoundArg1, TBoundArg2, TUnboundArgs extends any[], TOut>(
-  func: (
-    boundArg1: TBoundArg1,
-    boundArg2: TBoundArg2,
-    ...unboundArgs: TUnboundArgs
-  ) => TOut,
-  boundVal1: TBoundArg1,
-  boundVal2: TBoundArg2
-): (...unboundArgs: TUnboundArgs) => TOut {
-  return (...unboundArgs: TUnboundArgs) =>
-    func(boundVal1, boundVal2, ...unboundArgs);
+export function bind<T1, T2, UnboundArgs extends any[], TOut>(
+  func: (x1: T1, x2: T2, ...unboundArgs: UnboundArgs) => TOut,
+  val1: T1,
+  val2: T2
+): (...unboundArgs: UnboundArgs) => TOut;
+
+export function bind(...args: any[]) {
+  const func = args[0];
+  const boundArgs = args.slice(1);
+
+  return (...unboundArgs: any[]) => func(...boundArgs, ...unboundArgs);
 }

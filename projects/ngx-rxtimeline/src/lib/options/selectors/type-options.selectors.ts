@@ -3,7 +3,7 @@ import { selectOptions } from '../../store/state';
 import { CompleteOptions, TypeOptions, defaultTypeOptions } from '../options';
 import { partialApply } from '../../core/function-utils';
 import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
-import { bind2 } from '../../core/bind';
+import { bind } from '../../core/bind';
 
 export const selectTypeOptions = createSelector(
   selectOptions,
@@ -17,12 +17,8 @@ function getTypeOptions(type: string, options: CompleteOptions): TypeOptions {
 const selectGetTypeOption = <TOption extends keyof TypeOptions>(
   key: TOption
 ): MemoizedSelector<(type: string) => TypeOptions[TOption]> =>
-  createSelector(
-    selectTypeOptions,
-    options =>
-      bind2(getTypeOption, options, key) as (
-        type: string
-      ) => TypeOptions[TOption]
+  createSelector(selectTypeOptions, options =>
+    bind(getTypeOption, options, key)
   );
 
 function getTypeOption<TOption extends keyof TypeOptions>(

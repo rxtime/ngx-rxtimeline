@@ -1,4 +1,4 @@
-import { bind1 } from './bind';
+import { bind } from './bind';
 
 export function partialApply<TInput, TAppliedArgs extends any[], TOut>(
   func: (input: TInput, ...appliedArgs: TAppliedArgs) => TOut
@@ -26,13 +26,13 @@ export function mult(x: number, y: number) {
   return x * y;
 }
 
-export const negate = bind1(mult, -1);
+export const negate = bind(mult, -1);
 
 export function add(x: number, y: number): number {
   return x + y;
 }
 
-export const double = bind1(mult, 2);
+export const double = bind(mult, 2);
 
 export function or<T>(x: T, y: T): T {
   return x || y;
