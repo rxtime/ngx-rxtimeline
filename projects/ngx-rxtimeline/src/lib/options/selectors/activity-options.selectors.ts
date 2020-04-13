@@ -3,7 +3,7 @@ import { selectOptions } from '../../store/state';
 import { selectTypeOptions } from './type-options.selectors';
 import { partialApply } from '../../core/function-utils';
 import { ActivityOptions, TypeOptions } from '../options';
-import { bind } from '../../core/bind';
+import { partial } from '../../core/partial';
 
 const selectActivityOptions = createSelector(
   selectOptions,
@@ -26,7 +26,7 @@ const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
   key: TOption
 ) =>
   createSelector(selectTypeActivityOptions, options =>
-    bind(getTypeActivityOption, options, key)
+    partial(getTypeActivityOption, options, key)
   );
 
 function getTypeActivityOption<TOption extends keyof ActivityOptions>(
