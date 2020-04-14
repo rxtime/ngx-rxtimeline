@@ -3,6 +3,8 @@ ngx-rxtimeline {
 }
 
 .ngx-rxtimeline {
+  vertical-align: top;
+
   .resources-axis .axis-group {
     &.Vertical {
       text-anchor: end;
