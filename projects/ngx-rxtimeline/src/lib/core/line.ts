@@ -1,5 +1,6 @@
 import { Orientation } from './orientation';
 import { Point, translatePointInOrientation, origin } from './point';
+import { partial } from './partial';
 
 export interface Line {
   x1: number;
@@ -8,12 +9,7 @@ export interface Line {
   y2: number;
 }
 
-export function createOrientedLineFromOrigin(
-  length: number,
-  orientation: Orientation
-) {
-  return createOrientedLine(origin, length, orientation);
-}
+export const createOrientedLineFromOrigin = partial(createOrientedLine, origin);
 
 export function createOrientedLine(
   point: Point,

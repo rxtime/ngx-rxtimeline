@@ -1,4 +1,5 @@
 import { Orientation } from './orientation';
+import { partial } from './partial';
 
 export interface Point {
   x: number;
@@ -14,21 +15,34 @@ export function translatePoint(point: Point, offset: Point): Point {
   return { x: point.x + offset.x, y: point.y + offset.y };
 }
 
-export function translateOriginInOrienation(
-  distance: number,
-  orientation: Orientation
-) {
-  return translatePointInOrientation(origin, distance, orientation);
-}
+export const translateOriginInOrientation = partial(
+  translatePointInOrientation,
+  origin
+);
+
+const orientationToAxis = {
+  [Orientation.Vertical]: 'y',
+  [Orientation.Horizontal]: 'x'
+};
 
 export function translatePointInOrientation(
   point: Point,
   distance: number,
   orientation: Orientation
 ): Point {
-  return orientation === Orientation.Vertical
-    ? { ...point, y: point.y + distance }
-    : { ...point, x: point.x + distance };
+  return {
+    ...point,
+    [orientationToAxis[orientation]]:
+      point[orientationToAxis[orientation]] + distance
+  };
+}
+
+export function movePointInOrientation(
+  moveTo: number,
+  point: Point,
+  orientation: Orientation
+): Point {
+  return { ...point, [orientationToAxis[orientation]]: moveTo };
 }
 
 export function pointToTransform(point: Point): string {

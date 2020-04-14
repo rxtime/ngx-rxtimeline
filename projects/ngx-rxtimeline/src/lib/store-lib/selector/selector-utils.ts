@@ -22,7 +22,10 @@ export function createStructuredSelector<T>(
 type EnumSelectors<TEnum extends string | number, TResult> = {
   [key in TEnum]: Selector<TResult>;
 };
-export function createEnumSelector<TEnum extends string | number, TResult>(
+export function createOptionsBasedSelector<
+  TEnum extends string | number,
+  TResult
+>(
   selectors: EnumSelectors<TEnum, TResult>
 ): (x: Selector<TEnum>) => MemoizedSelector<TResult> {
   const objectKeys = Object.keys(selectors);

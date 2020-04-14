@@ -2,12 +2,10 @@ import { createSelector } from '../store-lib/selector/create-selector';
 
 import { selectResources } from '../scales/selectors/band-scale.selectors';
 import {
-  selectOrientedScale,
-  selectScale
+  selectScale,
+  selectMapTickValueToPositionInScale
 } from '../scales/selectors/scale-selectors';
 import { selectTimeScale } from '../scales/selectors/time-scale.selectors';
-import { getTimeAxisTickMarkRenderer } from './time-axis-tick-mark-renderer';
-import { getResourceAxisTickMarkRenderer } from './resource-axis-tick-mark-renderer';
 import { mapValues } from '../core/transform-utils';
 import { selectViewTopLeft } from '../view/view.selectors';
 import {
@@ -21,19 +19,21 @@ import { Orientation } from '../core/orientation';
 import {
   Point,
   pointToTransform,
-  translateOriginInOrienation
+  translateOriginInOrientation,
+  movePointInOrientation
 } from '../core/point';
-import { TickMarkRenderer } from './tick-mark-renderer';
 import { TickMark } from './tick-mark';
 import { Line, createOrientedLineFromOrigin } from '../core/line';
 import { AxisType, flipAxisType } from '../axis/axis';
-import { createEnumSelector } from '../store-lib/selector/selector-utils';
+import { createOptionsBasedSelector } from '../store-lib/selector/selector-utils';
 import { constSelector } from '../store-lib/selector/selector';
 import { selectAxisOrientation } from '../options/selectors/options.selectors';
+import { partial } from '../core/partial';
 
+// TODO: remove and replace with foo selector
 export const selectGetTickPosition = createSelector(
   selectViewTopLeft,
-  viewTopLeft => getTickPosition.bind(null, viewTopLeft)
+  viewTopLeft => partial(getTickPosition, viewTopLeft)
 );
 
 function getTickPosition(
@@ -46,15 +46,12 @@ function getTickPosition(
     : { ...viewTopLeft, x: range };
 }
 
-const selectResourceAxisTickMarkRenderer = createSelector(
-  selectOrientedScale(AxisType.Resources),
-  getResourceAxisTickMarkRenderer
-);
-
-const selectTimeAxisTickMarkRenderer = createSelector(
-  selectOrientedScale(AxisType.Time),
-  getTimeAxisTickMarkRenderer
-);
+const selectGetTickPositionFoo = (axisType: AxisType) =>
+  createSelector(
+    selectViewTopLeft,
+    selectAxisOrientation(axisType),
+    partialApply(movePointInOrientation)
+  );
 
 const selectGetTimeAxisTickLabel = createSelector(
   selectScale(AxisType.Time),
@@ -66,7 +63,7 @@ function getTimeAxisTickLabel(scale: TimeScale) {
 }
 
 const selectGetTickLabel = (axisType: AxisType) =>
-  createEnumSelector<AxisType, (x: any) => string>({
+  createOptionsBasedSelector<AxisType, (x: any) => string>({
     Time: selectGetTimeAxisTickLabel,
     Resources: constSelector(identity)
   })(constSelector(axisType));
@@ -79,7 +76,7 @@ const selectTickLabelOffset = (axisType: AxisType) =>
   createSelector(
     selectTickLabelSpacing(axisType),
     selectAxisOrientation(flipAxisType(axisType)),
-    translateOriginInOrienation
+    translateOriginInOrientation
   );
 
 const selectOrientedTickLine = (axisType: AxisType) =>
@@ -90,50 +87,41 @@ const selectOrientedTickLine = (axisType: AxisType) =>
   );
 
 const selectTickLine = (axisType: AxisType) =>
-  createEnumSelector<Orientation, Line>({
+  createOptionsBasedSelector<Orientation, Line>({
     Horizontal: selectOrientedTickLine(axisType),
     Vertical: selectOrientedTickLine(axisType)
   })(selectAxisOrientation(flipAxisType(axisType)));
 
-const selectGetResourceAxisTickMark = createSelector(
-  selectGetTickPosition,
-  selectGetTickLabel(AxisType.Resources),
-  selectTickLabelOffset(AxisType.Resources),
-  selectTickLine(AxisType.Resources),
-  selectResourceAxisTickMarkRenderer,
-  selectAxisFontFace(AxisType.Resources),
-  selectAxisFontSize(AxisType.Resources),
-  partialApply(getTickMark)
-);
+// Not happy about this split what depends on
+// tick value (label and transform) from rest
+export const selectGetAxisTickMark = (axisType: AxisType) =>
+  createSelector(
+    selectGetTickPositionFoo(axisType),
+    selectGetTickLabel(axisType),
+    selectTickLabelOffset(axisType),
+    selectTickLine(axisType),
+    selectMapTickValueToPositionInScale(axisType),
+    selectAxisFontFace(axisType),
+    selectAxisFontSize(axisType),
+    partialApply(getTickMark)
+  );
 
-const selectGetTimeAxisTickMark = createSelector(
-  selectGetTickPosition,
-  selectGetTickLabel(AxisType.Time),
-  selectTickLabelOffset(AxisType.Time),
-  selectTickLine(AxisType.Time),
-  selectTimeAxisTickMarkRenderer,
-  selectAxisFontFace(AxisType.Time),
-  selectAxisFontSize(AxisType.Time),
-  partialApply(getTickMark)
-);
-
+// Not happy about this split what depends on
+// tick value (label and transform) from rest
 function getTickMark(
   tickValue: any,
-  tickPosition: (o: Orientation, range: number) => Point,
+  tickPosition: (range: number) => Point,
   label: (x: any) => string,
   labelOffset: Point,
   line: Line,
-  tickMarkRenderer: TickMarkRenderer,
+  mapTickValueToPositionInScale: (value: any) => number,
   fontFace: string,
   fontSize: number
 ): TickMark {
   return {
     label: label(tickValue),
     transform: pointToTransform(
-      tickPosition(
-        tickMarkRenderer.orientation,
-        tickMarkRenderer.mapTickValueToPositionInScale(tickValue)
-      )
+      tickPosition(mapTickValueToPositionInScale(tickValue))
     ),
     labelOffset,
     line,
@@ -152,19 +140,14 @@ function getTimeAxisTickValues(scale: TimeScale) {
 }
 
 export const selectAxisTickValues = (axisType: AxisType) =>
-  createEnumSelector<AxisType, any[]>({
+  createOptionsBasedSelector<AxisType, any[]>({
     Resources: selectResources,
     Time: selectTimeAxisTickValues
   })(constSelector(axisType));
 
-export const selectResourceAxisTickMarks = createSelector(
-  selectAxisTickValues(AxisType.Resources),
-  selectGetResourceAxisTickMark,
-  mapValues
-);
-
-export const selectTimeAxisTickMarks = createSelector(
-  selectAxisTickValues(AxisType.Time),
-  selectGetTimeAxisTickMark,
-  mapValues
-);
+export const selectAxisTickMarks = (axisType: AxisType) =>
+  createSelector(
+    selectAxisTickValues(axisType),
+    selectGetAxisTickMark(axisType),
+    mapValues
+  );

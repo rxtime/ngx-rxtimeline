@@ -1,6 +1,6 @@
 import { createSelector } from '../store-lib/selector/create-selector';
 import { selectZoomEvent } from '../store/state';
-import { createEnumSelector } from '../store-lib/selector/selector-utils';
+import { createOptionsBasedSelector } from '../store-lib/selector/selector-utils';
 import { Orientation } from '../core/orientation';
 import { selectTimeOrientation } from '../options/selectors/options.selectors';
 
@@ -14,7 +14,10 @@ const selectZoomEventRescaleY = createSelector(
   event => event && event.transform.rescaleY.bind(event.transform)
 );
 
-export const selectZoomEventRescale = createEnumSelector<Orientation, any>({
+export const selectZoomEventRescale = createOptionsBasedSelector<
+  Orientation,
+  any
+>({
   Horizontal: selectZoomEventRescaleX,
   Vertical: selectZoomEventRescaleY
 })(selectTimeOrientation);

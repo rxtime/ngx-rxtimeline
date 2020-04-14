@@ -1,9 +1,9 @@
 import { createSelector } from '../../store-lib/selector/create-selector';
 import { selectOptions } from '../../store/state';
-import { MemoizedSelector } from '../../store-lib/selector/memoized-selector';
 import { selectTypeOptions } from './type-options.selectors';
 import { partialApply } from '../../core/function-utils';
 import { ActivityOptions, TypeOptions } from '../options';
+import { partial } from '../../core/partial';
 
 const selectActivityOptions = createSelector(
   selectOptions,
@@ -24,13 +24,9 @@ function getTypeActivityOptions(
 
 const selectGetTypeActivityOption = <TOption extends keyof ActivityOptions>(
   key: TOption
-): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
-  createSelector(
-    selectTypeActivityOptions,
-    options =>
-      getTypeActivityOption.bind(null, options, key) as (
-        type: string
-      ) => ActivityOptions[TOption]
+) =>
+  createSelector(selectTypeActivityOptions, options =>
+    partial(getTypeActivityOption, options, key)
   );
 
 function getTypeActivityOption<TOption extends keyof ActivityOptions>(
@@ -43,12 +39,11 @@ function getTypeActivityOption<TOption extends keyof ActivityOptions>(
 
 const selectGetGlobalActivityOption = <TOption extends keyof ActivityOptions>(
   key: TOption
-): MemoizedSelector<ActivityOptions[TOption]> =>
-  createSelector(selectActivityOptions, options => options[key]);
+) => createSelector(selectActivityOptions, options => options[key]);
 
 const selectGetActivityOption = <TOption extends keyof ActivityOptions>(
   key: TOption
-): MemoizedSelector<(type: string) => ActivityOptions[TOption]> =>
+) =>
   createSelector(
     selectGetTypeActivityOption(key),
     selectGetGlobalActivityOption(key),

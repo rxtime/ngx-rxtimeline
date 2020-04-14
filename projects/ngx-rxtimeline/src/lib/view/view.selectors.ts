@@ -4,7 +4,7 @@ import { createSelector } from '../store-lib/selector/create-selector';
 import { Point } from '../core/point';
 import {
   createStructuredSelector,
-  createEnumSelector
+  createOptionsBasedSelector
 } from '../store-lib/selector/selector-utils';
 import { Rectangle } from '../core/rectangle';
 import { toArray, sum } from '../core/array-utils';
@@ -22,10 +22,12 @@ export const selectMarginRight = constSelector(50);
 const selectMarginLeftWhenHorizontal = constSelector(100);
 const selectMarginLeftWhenVertical = constSelector(50);
 
-export const selectMarginLeft = createEnumSelector<Orientation, number>({
-  Horizontal: selectMarginLeftWhenHorizontal,
-  Vertical: selectMarginLeftWhenVertical
-})(selectTimeOrientation);
+export const selectMarginLeft = createOptionsBasedSelector<Orientation, number>(
+  {
+    Horizontal: selectMarginLeftWhenHorizontal,
+    Vertical: selectMarginLeftWhenVertical
+  }
+)(selectTimeOrientation);
 
 const selectVerticalMarginTotal = createSelector(selectVerticalMargin, double);
 const selectHorizontalMarginTotal = createSelector(
@@ -101,7 +103,7 @@ export const selectViewHorizontalRange = createSelector(
 );
 
 export const selectViewRange = (axisType: AxisType) =>
-  createEnumSelector<Orientation, number[]>({
+  createOptionsBasedSelector<Orientation, number[]>({
     Vertical: selectViewVerticalRange,
     Horizontal: selectViewHorizontalRange
   })(selectAxisOrientation(axisType));
