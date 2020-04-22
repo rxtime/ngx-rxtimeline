@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
     `
       :host {
         display: grid;
-      }
+        grid-auto-columns: 100%;
     `
   ]
 })
