@@ -1,3 +1,5 @@
+$demarcations-color: #777;
+
 ngx-rxtimeline {
   display: block;
 }
@@ -25,7 +27,7 @@ ngx-rxtimeline {
   }
 
   .tick-mark-line {
-    stroke: #000;
+    stroke: $demarcations-color;
   }
 
   .axis-line {
@@ -33,7 +35,7 @@ ngx-rxtimeline {
   }
 
   .grid-line {
-    stroke: #c7cacc;
+    stroke: $demarcations-color;
     stroke-dasharray: 4 2;
   }
 
@@ -64,7 +66,7 @@ ngx-rxtimeline {
 
   .resource-rectangle rect {
     fill-opacity: 0;
-    stroke: #000;
+    stroke: $demarcations-color;
     stroke-width: 2;
   }
 
