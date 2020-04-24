@@ -32,8 +32,8 @@ export class TimelineComponent {
   selectedId = null;
   hoveredId = null;
 
-  width = '800px';
-  height = '600px';
+  width = '100%';
+  height = '100%';
 
   activities = deliveryData;
 
