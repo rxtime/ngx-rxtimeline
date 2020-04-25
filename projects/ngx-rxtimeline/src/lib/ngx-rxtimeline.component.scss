@@ -7,6 +7,10 @@ ngx-rxtimeline {
 .ngx-rxtimeline {
   vertical-align: top;
 
+  line {
+    shape-rendering: crispEdges;
+  }
+
   .resources-axis .axis-group {
     &.Vertical {
       text-anchor: end;

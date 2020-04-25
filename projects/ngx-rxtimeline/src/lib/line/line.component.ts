@@ -10,13 +10,6 @@ import { Line } from '../core/line';
       [attr.y2]="line.y2"
     ></svg:line>
   `,
-  styles: [
-    `
-      line {
-        shape-rendering: crispEdges;
-      }
-    `
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineComponent {
